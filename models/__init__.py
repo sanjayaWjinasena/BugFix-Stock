@@ -8,3 +8,8 @@ from . import stock_return_picking
 from . import stock_valuation_layer
 from . import x_consignment_header
 from . import x_consignment_line
+from . import x_journal_types
+from . import x_material_request
+from . import x_misc_charge_codes
+from . import x_sales_report_type
+from . import x_tariffmaster

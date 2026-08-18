@@ -11,7 +11,7 @@ class XConsignmentLine(models.Model):
     x_currency_id = fields.Many2one('res.currency', string='Currency', readonly=True)
     x_name = fields.Char(string='Name')
     x_studio_allocate_amount = fields.Float(string='Allocate Amount', readonly=True)
-    x_studio_amount = fields.Monetary(string='Amount', readonly=True)
+    x_studio_amount = fields.Float(string='Amount', readonly=True)  # was Monetary (no currency_field)
     x_studio_boolean_field_Gbd5Y = fields.Boolean(string='Valid Duty')
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_concessional_rate = fields.Boolean(string='Concessional Rate')

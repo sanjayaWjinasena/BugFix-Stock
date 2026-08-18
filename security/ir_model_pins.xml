@@ -2,4 +2,9 @@
 <odoo noupdate="1">
   <record id="model_x_consignment_header" model="ir.model"><field name="name">x_consignment_header</field><field name="model">x_consignment_header</field></record>
   <record id="model_x_consignment_line" model="ir.model"><field name="name">x_consignment_line</field><field name="model">x_consignment_line</field></record>
+  <record id="model_x_journal_types" model="ir.model"><field name="name">X Journal Types</field><field name="model">x_journal_types</field></record>
+  <record id="model_x_material_request" model="ir.model"><field name="name">X Material Request</field><field name="model">x_material_request</field></record>
+  <record id="model_x_misc_charge_codes" model="ir.model"><field name="name">X Misc Charge Codes</field><field name="model">x_misc_charge_codes</field></record>
+  <record id="model_x_sales_report_type" model="ir.model"><field name="name">X Sales Report Type</field><field name="model">x_sales_report_type</field></record>
+  <record id="model_x_tariffmaster" model="ir.model"><field name="name">X Tariffmaster</field><field name="model">x_tariffmaster</field></record>
 </odoo>
