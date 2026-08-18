@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- TODO: 34 server_actions records need hand-porting. -->
+  <!-- Clear-DB id=3647: Consignment Vendor Dispatch (BugFix-Purchase) -->
+  <!-- Clear-DB id=1318: IMP - Allocate Consignment Header Charges -->
+  <!-- Clear-DB id=1303: IMP - Clear PO Lines from Consignment -->
+  <!-- Clear-DB id=1365: IMP - Confirm Purchase Invoice -->
+  <!-- Clear-DB id=1321: IMP - Consignment Custom Duty -->
+  <!-- Clear-DB id=1258: IMP - Consignment Details Seq.No -->
+  <!-- Clear-DB id=1313: IMP - Consignment Port Receipt -->
+  <!-- Clear-DB id=1305: IMP - Consignment Vendor Despatch -->
+  <!-- Clear-DB id=1377: IMP - Copy Charges to TP Invoice -->
+  <!-- Clear-DB id=1263: IMP - Copy PO Lines to Consignment -->
+  <!-- Clear-DB id=1316: IMP - Create Consignment Header Charges -->
+  <!-- Clear-DB id=2098: IMP - Delivery Remainder in Consignment Lines -->
+  <!-- Clear-DB id=1304: IMP - Invoice Qty. Validation in Consignment -->
+  <!-- Clear-DB id=2199: IMP - Reset Header Charges - Consignment -->
+  <!-- Clear-DB id=1324: IMP - Restrict Delete in Consignment -->
+  <!-- Clear-DB id=1454: IMP - Update Cost Allocation Method in Consignment -->
+  <!-- Clear-DB id=2890: IMP - Update Supplier Currency in Consignment -->
+  <!-- Clear-DB id=1456: IMP - Validate Consolidation in Consignment -->
+  <!-- Clear-DB id=2607: JIN - Company Id in Consignment Header -->
+  <!-- Clear-DB id=2608: JIN - Company Id in Consignment Line -->
+  <!-- Clear-DB id=2118: Project - Update Month End Entries -->
+  <!-- Clear-DB id=1991: RR - Auto Select Product for RUG Repairs-3 -->
+  <!-- Clear-DB id=1997: RR - RUG Return from Help desk -->
+  <!-- Clear-DB id=1999: RR - Re_return Validation -->
+  <!-- Clear-DB id=2204: RR - Request Transfer Approval -->
+  <!-- Clear-DB id=2205: RR - Transfer Approval -->
+  <!-- Clear-DB id=2201: RR - Transfer Approval Request Sent -->
+  <!-- Clear-DB id=2207: RR - Transfer Rejection -->
+  <!-- Clear-DB id=2203: RR - Transfer Request Approval - Notify User -->
+  <!-- Clear-DB id=1996: RR - Update Operation Type in Help Desk Repairs -->
+  <!-- Clear-DB id=1665: TEST IMP -->
+  <!-- Clear-DB id=1438: SLS - Validate Payment in Shipment -->
+  <!-- Clear-DB id=2489: User Location Validation-TEST -->
+  <!-- Clear-DB id=2474: User Location Validation -->
+</odoo>

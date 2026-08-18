@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- TODO: 14 automations records need hand-porting. -->
+  <!-- Clear-DB id=28: Create Production BOM Material Cost -->
+  <!-- Clear-DB id=29: Update Production BOM Material Cost -->
+  <!-- Clear-DB id=56: JIN-Consignment Details Seq.No -->
+  <!-- Clear-DB id=59: IMP - Invoice Qty. Validation in Consignment -->
+  <!-- Clear-DB id=62: IMP - Restrict Delete in Consignment -->
+  <!-- Clear-DB id=86: IMP - Update Cost Allocation Method in Consignment -->
+  <!-- Clear-DB id=104: Supplier Invoice No Update in Import POs -->
+  <!-- Clear-DB id=124: SRM - Auto Populate Report Type in Product Moves -->
+  <!-- Clear-DB id=148: Update Source Document in Transfers -->
+  <!-- Clear-DB id=174: RR - Auto Select Product for RUG Repairs-3 -->
+  <!-- Clear-DB id=199: PROJ - Notify Transfer Completion -->
+  <!-- Clear-DB id=280: JIN - Company Id in Consignment Header -->
+  <!-- Clear-DB id=281: JIN - Company Id in Consignment Line -->
+  <!-- Clear-DB id=339: IMP - Update Supplier Currency in Consignment -->
+</odoo>

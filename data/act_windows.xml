@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- TODO: 43 act_windows records need hand-porting. -->
+  <!-- Clear-DB id=1661: CONSIGNMENT LINES -->
+  <!-- Clear-DB id=2852: Consignment Header (x_consignment_header) -->
+  <!-- Clear-DB id=2862: Consignment Header (x_consignment_header) -->
+  <!-- Clear-DB id=2863: Consignment Line (x_consignment_line) -->
+  <!-- Clear-DB id=2853: Consignment Line (x_consignment_line) -->
+  <!-- Clear-DB id=1664: Consignment Lines -->
+  <!-- Clear-DB id=2857: Consignment Lines -->
+  <!-- Clear-DB id=1323: Imports - 01 -->
+  <!-- Clear-DB id=1256: Purchase Invoice Header -->
+  <!-- Clear-DB id=1257: Purchase Invoice Line -->
+  <!-- Clear-DB id=1663: Purchase Invoice Line -->
+  <!-- Clear-DB id=1662: Purchase Invoice Lines -->
+  <!-- Clear-DB id=2886: Purchase Invoice Lines -->
+  <!-- Clear-DB id=2053: Purchase Invoice Lines -->
+  <!-- Clear-DB id=2052: Purchase Invoices -->
+  <!-- Clear-DB id=2887: Purchase Invoices -->
+  <!-- Clear-DB id=2800: x_consignment_header -->
+  <!-- Clear-DB id=2801: x_consignment_line -->
+  <!-- Clear-DB id=2488: Internal Locations -->
+  <!-- Clear-DB id=2225: Inventory Holding Days -->
+  <!-- Clear-DB id=2494: Inventory routes -->
+  <!-- Clear-DB id=2470: Location -->
+  <!-- Clear-DB id=1714: New Button -->
+  <!-- Clear-DB id=2008: Repair Trans. -->
+  <!-- Clear-DB id=2813: stock.landed.cos -->
+  <!-- Clear-DB id=2814: stock.landed.cost.line -->
+  <!-- Clear-DB id=2407: stock.location -->
+  <!-- Clear-DB id=2095: stock.location.route -->
+  <!-- Clear-DB id=2487: Stock Locations -->
+  <!-- Clear-DB id=1757: Stock.Move -->
+  <!-- Clear-DB id=1065: stock.move -->
+  <!-- Clear-DB id=1364: stock.move.line -->
+  <!-- Clear-DB id=2536: stock.picking -->
+  <!-- Clear-DB id=1978: stock.picking -->
+  <!-- Clear-DB id=2784: stock.picking.type -->
+  <!-- Clear-DB id=2837: stock.picking.type -->
+  <!-- Clear-DB id=2408: stock.picking.type -->
+  <!-- Clear-DB id=2187: stock.quant -->
+  <!-- Clear-DB id=2835: stock.rule -->
+  <!-- Clear-DB id=2809: stock.valuation.layer -->
+  <!-- Clear-DB id=2409: Transfers -->
+  <!-- Clear-DB id=2469: Warehouse -->
+  <!-- Clear-DB id=2468: WareHouse -->
+</odoo>
