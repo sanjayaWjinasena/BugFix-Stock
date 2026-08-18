@@ -1,38 +1,1712 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <!-- TODO: 34 server_actions records need hand-porting. -->
-  <!-- Clear-DB id=3647: Consignment Vendor Dispatch (BugFix-Purchase) -->
-  <!-- Clear-DB id=1318: IMP - Allocate Consignment Header Charges -->
-  <!-- Clear-DB id=1303: IMP - Clear PO Lines from Consignment -->
-  <!-- Clear-DB id=1365: IMP - Confirm Purchase Invoice -->
-  <!-- Clear-DB id=1321: IMP - Consignment Custom Duty -->
-  <!-- Clear-DB id=1258: IMP - Consignment Details Seq.No -->
-  <!-- Clear-DB id=1313: IMP - Consignment Port Receipt -->
-  <!-- Clear-DB id=1305: IMP - Consignment Vendor Despatch -->
-  <!-- Clear-DB id=1377: IMP - Copy Charges to TP Invoice -->
-  <!-- Clear-DB id=1263: IMP - Copy PO Lines to Consignment -->
-  <!-- Clear-DB id=1316: IMP - Create Consignment Header Charges -->
-  <!-- Clear-DB id=2098: IMP - Delivery Remainder in Consignment Lines -->
-  <!-- Clear-DB id=1304: IMP - Invoice Qty. Validation in Consignment -->
-  <!-- Clear-DB id=2199: IMP - Reset Header Charges - Consignment -->
-  <!-- Clear-DB id=1324: IMP - Restrict Delete in Consignment -->
-  <!-- Clear-DB id=1454: IMP - Update Cost Allocation Method in Consignment -->
-  <!-- Clear-DB id=2890: IMP - Update Supplier Currency in Consignment -->
-  <!-- Clear-DB id=1456: IMP - Validate Consolidation in Consignment -->
-  <!-- Clear-DB id=2607: JIN - Company Id in Consignment Header -->
-  <!-- Clear-DB id=2608: JIN - Company Id in Consignment Line -->
-  <!-- Clear-DB id=2118: Project - Update Month End Entries -->
-  <!-- Clear-DB id=1991: RR - Auto Select Product for RUG Repairs-3 -->
-  <!-- Clear-DB id=1997: RR - RUG Return from Help desk -->
-  <!-- Clear-DB id=1999: RR - Re_return Validation -->
-  <!-- Clear-DB id=2204: RR - Request Transfer Approval -->
-  <!-- Clear-DB id=2205: RR - Transfer Approval -->
-  <!-- Clear-DB id=2201: RR - Transfer Approval Request Sent -->
-  <!-- Clear-DB id=2207: RR - Transfer Rejection -->
-  <!-- Clear-DB id=2203: RR - Transfer Request Approval - Notify User -->
-  <!-- Clear-DB id=1996: RR - Update Operation Type in Help Desk Repairs -->
-  <!-- Clear-DB id=1665: TEST IMP -->
-  <!-- Clear-DB id=1438: SLS - Validate Payment in Shipment -->
-  <!-- Clear-DB id=2489: User Location Validation-TEST -->
-  <!-- Clear-DB id=2474: User Location Validation -->
+  <!-- 48 server_actions ports for BugFix-Stock (auto-generated from Clear-DB snapshot) -->
+  <record id="server_action_1412_con_consolidated_seq_no" model="ir.actions.server">
+    <field name="name">Con. Consolidated Seq.No</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+
+if record.x_name == 'New':
+ seq = env['ir.sequence'].next_by_code('con.consolidated.seq')
+ record.write({'x_name': seq})
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_3647_consignment_vendor_dispatch_bugfix_purchase" model="ir.actions.server">
+    <field name="name">Consignment Vendor Dispatch (BugFix-Purchase)</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[
+if record.id:
+
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+
+  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
+  if con_lines:
+    for val in con_lines:
+      if val.x_studio_invoice_qty == 0.00:
+        raise UserError('Invoice Qty. should be Specified in all Consignment Lines.')
+
+if record.x_studio_supplier_id.id == 0:
+  raise UserError("Vendor Account must be Specified!")
+
+if record.x_studio_supplier_document == False:
+  raise UserError("Purchase Invoice Document must be Uploaded!")
+
+if record.x_studio_bill_of_lading == False:
+    raise UserError("Bill of Lading Document must be Uploaded!")
+
+dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)
+if dev_term:
+  despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+  if despatch_account:
+    if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
+      raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
+    else:
+      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
+      if custom_currency:
+        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
+        if currency_rate:
+          despatch_lines = [
+            [0, 0, {
+              'account_id': despatch_account.x_studio_vendor_despatch_debit_account.id,
+              'partner_id': record.x_studio_supplier_id.id,
+              'name': 'Vendor Despatch',
+              'debit': record.x_studio_total_amount * currency_rate.x_studio_rate,
+            }],
+            [0, 0, {
+              'account_id': despatch_account.x_studio_vendor_despatch_credit_account.id,
+              'partner_id': record.x_studio_supplier_id.id,
+              'name': 'Vendor Despatch',
+              'credit': record.x_studio_total_amount * currency_rate.x_studio_rate,
+            }],
+          ]
+
+          journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1)
+          if not journal:
+             raise UserError('The required journal has not been setup. Process terminated.')
+
+          vendor_despatch = env['account.move'].create({'x_studio_created_from_consignment':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'journal_id':journal.id,'move_type':'entry','date':record.x_studio_voucher_date,'line_ids':despatch_lines})
+
+          update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
+          if update_vendor_despatch:
+            update_vendor_despatch.write({'state':'posted'})
+
+          record['x_studio_status'] = 'In Transit'
+          record['x_studio_status_bar'] = 'In Transit'
+
+          action = {
+            'name': 'Journal Entries',
+            'domain': [('id', '=', vendor_despatch.id)],
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move',
+            'view_mode': 'tree,form',
+            'view_id': False,
+            'context': {},
+          }
+          record['x_studio_vendor_dispatch'] = True
+          record['x_studio_vendor_dispatch_exchange_rate'] = currency_rate.x_studio_rate
+        else:
+          raise UserError('There is no Valid Exchange Rate for the Consignmet Header Currency.')
+      else:
+        raise UserError('There is no Active Custom Currency is Setup for the Selected Consignment Header.')
+  else:
+      raise UserError('Imports Ledger Accounts must be Specified.')
+else:
+  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
+  record['x_studio_vendor_dispatch'] = False
+
+  record['x_studio_status'] = 'In Transit'
+  record['x_studio_status_bar'] = 'In Transit'
+  record['x_studio_vend_dispatch_status'] = message
+        ]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1318_imp_allocate_consignment_header_charges" model="ir.actions.server">
+    <field name="name">IMP - Allocate Consignment Header Charges</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[av = 0
+c_f_i = 0
+
+##################
+ex_rate = 1
+company_currency = env['res.config.settings'].search([('currency_id', '=', record.x_studio_currency_id.id)],limit=1)
+if company_currency:
+  ex_rate = 1
+else:
+  custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
+  if custom_currency:
+    currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', record.x_studio_custom_cleared_date),('x_studio_end_date', '>=', record.x_studio_custom_cleared_date)],order='x_studio_start_date desc',limit=1)
+    if currency_rate:
+      ex_rate = currency_rate.x_studio_rate
+    else:
+      raise UserError('Please setup a valid currency rate in Custom Exchange Rates.')
+  else:
+    raise UserError('Please setup a valid currency rate in Custom Exchange Rates.')
+##################
+
+con_line = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
+if con_line:
+  for validate_unitprice in con_line:
+    if validate_unitprice.x_studio_unit_price == 0.0000:
+      raise UserError("Unit Price must be Specified in each Consignment Line!")
+      
+    if validate_unitprice.x_studio_cost_allocation_method == 'by_weight':
+      if validate_unitprice.x_studio_weight == 0.0000:  
+        raise UserError("Weight must be Specified in each Consignment Line!")
+        
+    if validate_unitprice.x_studio_cost_allocation_method == 'by_volume':
+      if validate_unitprice.x_studio_volume == 0.0000:  
+        raise UserError("Volume must be Specified in each Consignment Line!")
+        
+    validate_unitprice.write({'x_studio_exchange_rate':ex_rate}) 
+
+#############################################################-Indent Costing - Begin-#########################################################################
+delivery_term = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', record.x_studio_delivery_term.id), ('x_studio_tax_appicable', '=', True)]) 
+if delivery_term:
+  for valid_terms in delivery_term:
+    header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
+    if header_charges:
+      header_charges.write({'x_studio_tax_appicable': True}) 
+      c_f_i += header_charges.x_studio_amount
+      
+##########################################################modi-20.07.2022#####################################################################################
+delivery_term2 = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', record.x_studio_delivery_term.id), ('x_studio_tax_appicable2', '=', True)]) 
+if delivery_term2:
+  for valid_terms2 in delivery_term2:
+    header_charges2 = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms2.x_name)],limit=1)
+    if header_charges2:
+      header_charges2.write({'x_studio_tax_appicable2': True}) 
+##########################################################modi-20.07.2022#####################################################################################      
+
+#av = record.x_studio_total_allocate_amount + c_f_i #Original Code
+#av = record.x_studio_total_amount + c_f_i #Version - 01 #12.09.2022
+av = c_f_i #Version - 01 #12.09.2022
+
+purchase_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)]) 
+if purchase_lines:
+  for loop_lines in purchase_lines:
+    ##################################################-Structure Formula Variable Declaration - Begin-###########################################################
+    line_av = 0
+    CD = 0
+    CL = 0
+    ESC = 0
+    Excise = 0
+    PAL = 0
+    RIDL = 0
+    SRL = 0
+    Surcharge = 0
+    NBT = 0
+    NBT_N = 0
+    VAT = 0
+    VAT_NInv = 0
+    SSCL = 0
+    rt = 0
+    re = 0
+    ##################################################-Structure Formula Variable Declaration - End-###########################################################
+    tot_charge = 0
+    tot_duty = 0
+    tot_tax = 0
+    tot_charge_ex = 0
+    tot_duty_ex = 0
+    tot_tax_ex = 0
+    tot_charge_cd = 0
+    tot_duty_cd = 0
+    tot_tax_cd = 0
+    tot_charge_ex_cd = 0
+    tot_duty_ex_cd = 0
+    tot_tax_ex_cd = 0
+    valid_charge = False
+    valid_duty = False
+    valid_tax = False
+    valid_charge_ex = False
+    valid_duty_ex = False
+    valid_tax_ex = False
+    valid_charge_cd = False
+    valid_duty_cd = False
+    valid_tax_cd = False
+    valid_charge_ex_cd = False
+    valid_duty_ex_cd = False
+    valid_tax_ex_cd = False
+    ##
+    tot_charge_ids = []
+    tot_duty_ids = []
+    tot_tax_ids = []
+    tot_charge_ex_ids = []
+    tot_duty_ex_ids = []
+    tot_tax_ex_ids = []
+    tot_charge_cd_ids = []
+    tot_duty_cd_ids = []
+    tot_tax_cd_ids = []
+    tot_charge_ex_cd_ids = []
+    tot_duty_ex_cd_ids = []
+    tot_tax_ex_cd_ids = []
+    ##############################################################Variable Declaration - End ##################################################################
+    #if record.x_studio_total_allocate_amount > 0.00:
+    if record.x_studio_total_amount > 0.00:
+      #line_av = (av*loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount #12.09.2022
+      line_av = ((av*loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount) + ((loop_lines.x_studio_amount * loop_lines.x_studio_exchange_rate)) #12.09.2022
+    
+    ##########################################################-Calculate Structure Formulas-  Begin-###########################################################  
+    header_lines_formula = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id), ('x_studio_charge_group', '!=', 'Charges')],order='x_studio_structure_no asc') 
+    if header_lines_formula:
+      for allocate_lines_formula in header_lines_formula:
+        valid_tariff_dates = env['x_tariff_date'].search(['|',('x_studio_tarrif_to_date', '=', False),('x_studio_tarrif_to_date', '>=', record.x_studio_custom_cleared_date),'&',('x_studio_tariff_master_ids', '=', loop_lines.x_studio_tariff_code.id),('x_studio_tarrif_from_date', '<=', record.x_studio_custom_cleared_date)],limit=1)
+        if valid_tariff_dates:
+          rate = 0
+          valid_tariff_rates = env['x_tariff_rates'].search([('x_studio_tariff_date_ids', '=', valid_tariff_dates.id), ('x_studio_charge_name', '=', allocate_lines_formula.x_studio_charge_name)],limit=1)
+          if valid_tariff_rates:
+            if loop_lines.x_studio_concessional_rate == False:
+              rate = valid_tariff_rates.x_studio_normal_rate / 100
+            else:
+              rate = valid_tariff_rates.x_studio_concessional_rate / 100
+         
+            if allocate_lines_formula.x_studio_charge_name == 'CID':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                CD = line_av * rate
+              else:
+                CD = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'EIC':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                CL = line_av * rate
+              else:
+                CL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value 
+            elif allocate_lines_formula.x_studio_charge_name == 'ESC':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                ESC = 0 # To Be Removed
+              else:
+                ESC = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value 
+            elif allocate_lines_formula.x_studio_charge_name == 'Excise':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                Excise = (line_av+CD+CL+PAL) * rate 
+              else:
+                Excise = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'PAL':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                PAL = line_av * rate
+              else:
+                PAL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'RIDL':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                RIDL = 0 # To Be Removed
+              else:
+                RIDL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'SRL':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                SRL = 0 # To Be Removed
+              else:
+                SRL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'Surcharge':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                Surcharge = 0 # To Be Removed
+              else:
+                Surcharge = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'NBT':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                NBT = 0 # To Be Removed
+              else:
+                NBT = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'NBT-N':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                NBT_N = 0 # To Be Removed
+              else:
+                NBT_N = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'VAT-on-Item':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                VAT = 0 # To Be Removed
+              else:
+                VAT = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'VAT-on-GL':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                VAT_NInv = (line_av*110/100+CD+CL+PAL+Excise) * rate
+              else:
+                VAT_NInv = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            elif allocate_lines_formula.x_studio_charge_name == 'SSCL':
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                #SSCL = loop_lines.x_studio_allocate_amount * rate
+                SSCL = (line_av*110/100+CD+CL+PAL+Excise) * rate
+              else:
+                SSCL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+            else:
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+                rt = 0 # To Be Removed
+                re = 0 # To Be Removed
+              else:
+                rt = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+                re = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+        else:
+         raise UserError('There is No Valid Date Range for the Tariff Codes in Product Id: ' + loop_lines.x_studio_product_id.default_code)
+    ##########################################################-Calculate Structure Formulas- End-#############################################################  
+    
+    ##########################################################-Assign Structure Formulas- Begin-##############################################################
+    header_lines = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc') 
+    if header_lines:
+      for allocate_lines in header_lines:
+        line_charge_amt = 0
+        if allocate_lines.x_studio_charge_group == 'Charges':
+          #if allocate_lines.x_studio_tax_appicable == True: 
+          """if c_f_i > 0.00:
+            line_charge_amt = (allocate_lines.x_studio_amount * loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount
+            #line_charge_amt = ((line_av-loop_lines.x_studio_allocate_amount)*allocate_lines.x_studio_amount)/c_f_i"""
+          line_charge_amt = (allocate_lines.x_studio_amount * loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount
+          #line_charge_amt = ((line_av-loop_lines.x_studio_allocate_amount)*allocate_lines.x_studio_amount)/c_f_i
+        else:
+          if loop_lines.x_studio_product_id.x_studio_tariff_code.id == False:
+           raise UserError('Tariff Codes must be assigned to Product Id: ' + loop_lines.x_studio_product_id.default_code)
+           
+          if allocate_lines.x_studio_charge_name == 'CID':
+            line_charge_amt = CD
+          elif allocate_lines.x_studio_charge_name == 'EIC':
+            line_charge_amt = CL
+          elif allocate_lines.x_studio_charge_name == 'ESC':
+            line_charge_amt =  ESC
+          elif allocate_lines.x_studio_charge_name == 'Excise':
+            line_charge_amt = Excise
+          elif allocate_lines.x_studio_charge_name == 'PAL':
+            line_charge_amt = PAL
+          elif allocate_lines.x_studio_charge_name == 'RIDL':
+            line_charge_amt = RIDL
+          elif allocate_lines.x_studio_charge_name == 'SRL':
+            line_charge_amt = SRL
+          elif allocate_lines.x_studio_charge_name == 'Surcharge':
+            line_charge_amt = Surcharge
+          elif allocate_lines.x_studio_charge_name == 'NBT':
+            line_charge_amt = NBT
+          elif allocate_lines.x_studio_charge_name == 'NBT-N':
+            line_charge_amt = NBT_N
+          elif allocate_lines.x_studio_charge_name == 'VAT-on-Item':
+            line_charge_amt = VAT
+          elif allocate_lines.x_studio_charge_name == 'VAT-on-GL':
+            line_charge_amt = VAT_NInv
+          elif allocate_lines.x_studio_charge_name == 'SSCL':
+            line_charge_amt = SSCL
+          else:
+            line_charge_amt = rt
+            line_charge_amt = re
+    ##########################################################-Assign Structure Formulas- End-################################################################
+        
+        imp_header_charges = env['x_consignment_charge_l'].create({'x_studio_consignment_charge_header_id':allocate_lines.id,'x_studio_product':loop_lines.x_studio_product_id.id,'x_studio_consignment_id':allocate_lines.x_studio_consignment_id.id,'x_studio_structure_master_id':allocate_lines.x_studio_structure_master_id.id,'x_studio_structure_details_line_ids':allocate_lines.x_studio_structure_details_line_ids.id,
+        'x_studio_structure_no':allocate_lines.x_studio_structure_no,'x_studio_basis':allocate_lines.x_studio_basis,'x_studio_charge_group':allocate_lines.x_studio_charge_group,'x_studio_charge_name':allocate_lines.x_studio_charge_name,'x_studio_formula':allocate_lines.x_studio_formula,'x_studio_amount':line_charge_amt})  #line_charge_amt
+
+        if allocate_lines.x_studio_charge_group != 'Charges':
+          allocate_lines.write({'x_studio_amount': (allocate_lines.x_studio_amount + line_charge_amt)})
+          
+        allocate_lines.write({'x_studio_allocate_header_charges': True})
+        
+        if allocate_lines.x_studio_ledger_post == True:
+          cost_load = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name),('x_studio_debit_acc_type', '=', 'Item')],limit=1)
+          ####01/07/2023
+          list_lines = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name)]) 
+          ####01/07/2023
+          if allocate_lines.x_studio_tax_appicable2 == True:
+            if cost_load:
+              if allocate_lines.x_studio_charge_group == 'Charges':
+                tot_charge += line_charge_amt
+                tot_charge_ids.append(list_lines.id)
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+                tot_duty += line_charge_amt
+                tot_duty_ids.append(list_lines.id)
+              else:
+                tot_tax += line_charge_amt
+                tot_tax_ids.append(list_lines.id)
+            else:
+              if allocate_lines.x_studio_charge_group == 'Charges':
+                tot_charge_cd += line_charge_amt
+                tot_charge_cd_ids.append(list_lines.id)
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+                tot_duty_cd += line_charge_amt
+                tot_duty_cd_ids.append(list_lines.id)
+              else:
+                tot_tax_cd += line_charge_amt
+                tot_tax_cd_ids.append(list_lines.id)
+          else:
+            if cost_load:
+              if allocate_lines.x_studio_charge_group == 'Charges':
+                tot_charge_ex += line_charge_amt
+                tot_charge_ex_ids.append(list_lines.id)
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+                tot_duty_ex += line_charge_amt
+                tot_duty_ex_ids.append(list_lines.id)
+              else:
+                tot_tax_ex += line_charge_amt
+                tot_tax_ex_ids.append(list_lines.id)
+            else:
+              if allocate_lines.x_studio_charge_group == 'Charges':
+                tot_charge_ex_cd += line_charge_amt
+                tot_charge_ex_cd_ids.append(list_lines.id)
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+                tot_duty_ex_cd += line_charge_amt
+                tot_duty_ex_cd_ids.append(list_lines.id)
+              else:
+                tot_tax_ex_cd += line_charge_amt
+                tot_tax_ex_cd_ids.append(list_lines.id)
+            
+          if tot_charge > 0.000:
+            valid_charge = True
+          if tot_duty > 0.000:
+            valid_duty = True
+          if tot_tax > 0.000:
+            valid_tax = True
+            
+          if tot_charge_ex > 0.000:
+            valid_charge_ex = True
+          if tot_duty_ex > 0.000:
+            valid_duty_ex = True
+          if tot_tax_ex > 0.000:
+            valid_tax_ex = True
+            
+          if tot_charge_cd > 0.000:
+            valid_charge_cd = True
+          if tot_duty_cd > 0.000:
+            valid_duty_cd = True
+          if tot_tax_cd > 0.000:
+            valid_tax_cd = True
+            
+          if tot_charge_ex_cd > 0.000:
+            valid_charge_ex_cd = True
+          if tot_duty_ex_cd > 0.000:
+            valid_duty_ex_cd = True
+          if tot_tax_ex_cd > 0.000:
+            valid_tax_ex_cd = True
+    
+    loop_lines.write({'x_studio_tot_charge': tot_charge, 'x_studio_tot_duty': tot_duty, 'x_studio_tot_tax': tot_tax, 'x_studio_valid_charge': valid_charge, 'x_studio_valid_duty': valid_duty, 'x_studio_valid_tax': valid_tax, 'x_studio_tot_charge_ids': [(6, 0, tot_charge_ids)], 'x_studio_tot_duty_ids': [(6, 0, tot_duty_ids)], 'x_studio_tot_tax_ids': [(6, 0, tot_tax_ids)],
+                      'x_studio_tot_charge_cd': tot_charge_cd, 'x_studio_tot_duty_cd': tot_duty_cd, 'x_studio_tot_tax_cd': tot_tax_cd, 'x_studio_valid_charge_cd': valid_charge_cd, 'x_studio_valid_duty_cd': valid_duty_cd, 'x_studio_valid_tax_cd': valid_tax_cd,'x_studio_tot_charge_cd_ids': [(6, 0, tot_charge_cd_ids)], 'x_studio_tot_duty_cd_ids': [(6, 0, tot_duty_cd_ids)], 'x_studio_tot_tax_cd_ids': [(6, 0, tot_tax_cd_ids)],
+                      'x_studio_tot_charge_ex': tot_charge_ex, 'x_studio_tot_duty_ex': tot_duty_ex, 'x_studio_tot_tax_ex': tot_tax_ex, 'x_studio_valid_charge_ex': valid_charge_ex, 'x_studio_valid_duty_ex': valid_duty_ex, 'x_studio_valid_tax_ex': valid_tax_ex,'x_studio_tot_charge_ex_ids': [(6, 0, tot_charge_ex_ids)], 'x_studio_tot_duty_ex_ids': [(6, 0, tot_duty_ex_ids)], 'x_studio_tot_tax_ex_ids': [(6, 0, tot_tax_ex_ids)],
+                      'x_studio_tot_charge_ex_cd': tot_charge_ex_cd, 'x_studio_tot_duty_ex_cd': tot_duty_ex_cd, 'x_studio_tot_tax_ex_cd': tot_tax_ex_cd, 'x_studio_valid_charge_ex_cd': valid_charge_ex_cd, 'x_studio_valid_duty_ex_cd': valid_duty_ex_cd, 'x_studio_valid_tax_ex_cd': valid_tax_ex_cd, 'x_studio_tot_charge_ex_cd_ids': [(6, 0, tot_charge_ex_cd_ids)], 'x_studio_tot_duty_ex_cd_ids': [(6, 0, tot_duty_ex_cd_ids)], 'x_studio_tot_tax_ex_cd_ids': [(6, 0, tot_tax_ex_cd_ids)]})
+          
+record.write({'x_studio_allocate_header_charges': False, 'x_studio_header_charges_allocated': True}) 
+#############################################################-Indent Costing - End-######################################################################### 
+action = {
+          'name': 'Line Charges',
+          'domain': [('x_studio_consignment_id', '=', record.id)],
+          'type': 'ir.actions.act_window',
+          'res_model': 'x_consignment_charge_l',
+          'view_mode': 'tree,form',
+          'view_type': 'form',
+          'view_id': False,
+#          'search_view_id': 'Default search view for x_import_rfq_charge_li',
+          'context': {'group_by': 'x_studio_product'},
+#          'search_view_id': ref('Default search view for x_import_rfq_charge_li'),
+#          'context': {'search_default_x_studio_product': 0},
+          }
+    
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1302_imp_apply_selected_po_lines_to_consignment" model="ir.actions.server">
+    <field name="name">IMP - Apply Selected PO Lines to Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_temp_consignment_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[select = 0
+
+for valid_line in record.x_studio_temp_consignment_line_ids:
+  if (valid_line.x_studio_select == True):
+    select += 1
+    
+    if select == 1:
+      structure = valid_line.x_studio_structure_name.id
+    if select > 1:
+      if valid_line.x_studio_structure_name.id != structure:
+          raise UserError("PO Lines with Same Structure Should be Selected!")
+    
+    if valid_line.x_studio_payment_method.x_studio_lc == True:
+      search_lc = env['x_lc_header'].search([('x_studio_created_from_purchase_order', '=', valid_line.x_studio_purchase_id.id), ('x_studio_status', '=', ('Posted','Paid'))],limit=1)
+      if not search_lc:
+        raise UserError('The LC of all the Selected PO Line/ Lines Should be in Posted or Paid State.')
+    
+    create_con_lines = env['x_consignment_line'].create({'x_studio_consignment_header_id':record.x_studio_temp_consignment_header_id.id,'x_studio_purchase_id':valid_line.x_studio_purchase_id.id,'x_studio_product_id':valid_line.x_studio_product_id.id,'x_studio_description':valid_line.x_studio_description,'x_studio_payment_method':valid_line.x_studio_payment_method.id,
+      'x_studio_tariff_code':valid_line.x_studio_product_id.x_studio_tariff_code.id,'x_studio_unit_price':valid_line.x_studio_unit_price,'x_currency_id':valid_line.x_currency_id.id,'x_studio_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_original_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_purchase_line_id':valid_line.x_studio_purchase_line_id.id,'x_studio_concessional_rate':valid_line.x_studio_concessional_rate,
+      'x_studio_volume':valid_line.x_studio_volume,'x_studio_weight':valid_line.x_studio_weight})
+      
+if select == 0:
+ raise UserError("Atleast One Line Should be Selected to Proceed.")
+ 
+header_update = env['x_consignment_header'].search([('id', '=', record.x_studio_temp_consignment_header_id.id)],limit=1)
+if header_update:
+  header_update.write({'x_studio_lines_copied': True, 'x_studio_structure_name': structure}) 
+
+temp_rec = env['x_temp_consignment_hea'].search([('id', '=', record.id)],limit=1)
+if temp_rec:
+  temp_rec.unlink()
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1320_imp_check_consignment_assessable_value" model="ir.actions.server">
+    <field name="name">IMP - Check Consignment Assessable Value</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_charge_h&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[av = 0
+c_f_i = 0
+
+for header_lines in records:
+  con_header = env['x_consignment_header'].search([('id', '=', header_lines.x_studio_consignment_id.id)],limit=1)
+  if con_header:
+    delivery_term = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', con_header.x_studio_delivery_term.id), ('x_studio_tax_appicable', '=', True)]) 
+    if delivery_term:
+      for valid_terms in delivery_term:
+        header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', con_header.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
+        if header_charges:
+          c_f_i += header_charges.x_studio_amount
+          
+      av = con_header.x_studio_total_amount + c_f_i
+      title = "Calculate Assessable Value"
+      message = "Assessable Value: " + str(av)
+      
+      action = {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {'title': title,'message': message,'sticky': True,}
+                } 
+      break
+ ]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1301_imp_clear_all_in_copy_po_lines" model="ir.actions.server">
+    <field name="name">IMP - Clear All in Copy PO Lines</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_temp_consignment_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[# PATCHED IN-PLACE (Clear All): toggle x_studio_select=False on
+# every existing line and REOPEN the same wizard record so the popup
+# stays visible with the updated checkboxes.
+if record.id:
+  record.x_studio_temp_consignment_line_ids.write({'x_studio_select': False})
+  record.write({'x_studio_select_all': False})
+  action = {
+    'name': 'Copy PO Lines',
+    'type': 'ir.actions.act_window',
+    'res_model': 'x_temp_consignment_hea',
+    'view_mode': 'form',
+    'res_id': record.id,
+    'target': 'new',
+    'context': env.context,
+  }
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1414_imp_clear_consignment_lines_from_consolidation" model="ir.actions.server">
+    <field name="name">IMP - Clear Consignment Lines from Consolidation</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  temp_rec = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.id)])
+  if temp_rec:
+    for del_temp_rec in temp_rec:
+      con_update = env['x_consignment_header'].search([('id', '=', del_temp_rec.x_studio_consignment_id.id)],limit=1)
+      if con_update:
+        con_update.write({'x_studio_consolidated': False}) 
+      
+      del_temp_rec.unlink()   
+
+    record['x_studio_lines_copied'] = False]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1303_imp_clear_po_lines_from_consignment" model="ir.actions.server">
+    <field name="name">IMP - Clear PO Lines from Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  temp_rec = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
+  if temp_rec:
+    for del_temp_rec in temp_rec:
+      del_temp_rec.unlink()   
+
+record['x_studio_lines_copied'] = False]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1424_imp_con_lines_make_available_in_delete" model="ir.actions.server">
+    <field name="name">IMP - Con. Lines Make Available in Delete</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_lin&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  con_update = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_id.id)],limit=1)
+  if con_update:
+    con_update.write({'x_studio_consolidated': False}) 
+    
+  last_line = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.x_studio_consolidated_header_id.id), ('id', '!=', record.id)],limit=1)
+  if not last_line:
+    update_con = env['x_con_consolidated_hea'].search([('id', '=', record.x_studio_consolidated_header_id.id)],limit=1)
+    if update_con:
+        update_con.write({'x_studio_lines_copied': False}) 
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1421_imp_confirm_consolidation" model="ir.actions.server">
+    <field name="name">IMP - Confirm Consolidation</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  for val in record.x_studio_con_line_ids:
+    con_lines = env['x_consignment_header'].search([('id', '=', val.x_studio_consignment_id.id)],limit=1)
+    if con_lines:
+      con_lines.write({'x_studio_consolidation_confirmed': True})
+
+  record['x_studio_status'] = 'Confirmed'
+  record['x_studio_pipeline_status_bar'] = 'Confirmed'
+
+"""c = 0
+  con_lines = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.id)])
+  if con_lines:
+    for val in con_lines:
+      c += 1
+
+  if c < 2:
+    raise UserError("Atleast One PI Should be Consolidated.")"""
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1365_imp_confirm_purchase_invoice" model="ir.actions.server">
+    <field name="name">IMP - Confirm Purchase Invoice</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
+  if con_lines:
+    for val in con_lines:
+      if val.x_studio_invoice_qty == 0.00:
+        raise UserError('Invoice Qty. should be Specified in all Invoice Lines.')
+      if val.x_studio_volume == 0.00 and record.x_studio_cost_allocation_method == 'by_volume':
+        raise UserError('Volume should be Specified in all Invoice Lines.')
+      if val.x_studio_weight == 0.00 and record.x_studio_cost_allocation_method == 'by_weight':
+        raise UserError('Weight should be Specified in all Invoice Lines.')
+        
+      update_product_product = env['product.product'].search([('id', '=', val.x_studio_product_id.id)],limit=1)
+      if update_product_product:
+        update_product_product.write({'volume': val.x_studio_volume,'weight': val.x_studio_weight}) 
+        
+  if record.x_studio_supplier_id.id == 0:
+    raise UserError("Vendor Account must be Specified!")
+    
+  if record.x_studio_supplier_document == False:
+    raise UserError("Purchase Invoice Document must be Uploaded!")
+    
+  if record.x_studio_packing_list == False:
+    raise UserError("Packing List Document must be Uploaded!")
+
+  record['x_studio_confirm_invoice'] = True
+  record['x_studio_status'] = 'Consignment'
+  record['x_studio_status_bar'] = 'Consignment'
+
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1321_imp_consignment_custom_duty" model="ir.actions.server">
+    <field name="name">IMP - Consignment Custom Duty</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[# PATCHED IN-PLACE 2026-08-04 (interim workaround until
+# BugFix-Purchase v0.0.9 loads on next Odoo worker restart).
+# Dropped every env['account.analytic.default'] lookup and every
+# analytic_tag_ids write — both APIs removed in Odoo 17.
+# account.move.line._compute_analytic_distribution now applies
+# distribution via account.analytic.distribution.model automatically
+# on create, matching every other journal entry in the system.
+# Original code preserved at:
+#   BugFix-Purchase/docs/studio-actions-backup/1321-custom-duty-BEFORE-2026-08-04.py
+
+if record.id:
+  count_charge = 0
+  value_charge = 0
+  account_charge = 0
+  text_charge = ''
+  count_duty = 0
+  value_duty = 0
+  account_duty = 0
+  text_tax = ''
+  count_tax = 0
+  value_tax = 0
+  account_tax = 0
+  value_charge_c = 0
+  value_duty_c = 0
+  value_tax_c = 0
+  text_tax = ''
+
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+
+  header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_ledger_post', '=', True)],order='x_studio_charge_group asc')
+  if header_charges:
+    for post_charges in header_charges:
+      import_charges = env['x_import_charges'].search([('x_studio_charge_group', '=', post_charges.x_studio_charge_group), ('x_name', '=', post_charges.x_studio_charge_name), ('x_studio_post_to_ledger', '=', True), ('x_studio_company_id', '=', company.id)],limit=1)
+      if import_charges:
+        if import_charges.x_studio_ledger_account.id == 0:
+          raise UserError('Ledger Account is not specified for the selected Charge/Duty/Tax' + ' (' + post_charges.x_studio_charge_name + ') ' + 'in Import Charges Setup.')
+        else:
+          if post_charges.x_studio_charge_group == 'Charges':
+            count_charge += 1
+            if count_charge == 1:
+              account_charge = import_charges.x_studio_ledger_account.id
+              text_charge = str(import_charges.x_studio_posting_type)
+            value_charge += post_charges.x_studio_amount
+          elif post_charges.x_studio_charge_group == 'Duty':
+            count_duty += 1
+            if count_duty == 1:
+              account_duty = import_charges.x_studio_ledger_account.id
+              text_duty = str(import_charges.x_studio_posting_type)
+            value_duty += post_charges.x_studio_amount
+          else:
+            count_tax += 1
+            if count_tax == 1:
+              account_tax = import_charges.x_studio_ledger_account.id
+              text_tax = str(import_charges.x_studio_posting_type)
+            value_tax += post_charges.x_studio_amount
+      else:
+        raise UserError('Ledger Posting is Not Activated for the selected Charge/Duty/Tax' + ' (' + post_charges.x_studio_charge_name + ') ' + 'in Import Charges Setup.')
+
+  offset_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+  if offset_account:
+    if offset_account.x_studio_purch_packing_slip_offset_account.id == 0:
+      raise UserError('Packing Slip Offset Account must be Specified in Imports Ledger Setup')
+    else:
+      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
+      if custom_currency:
+        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
+        if currency_rate:
+          despatch_lines = []
+
+          if value_charge > 0.0000:
+            value_charge_c = value_charge
+            despatch_lines.append([0, 0, {
+              'account_id': account_charge,
+              'name': text_charge,
+              'debit': round(value_charge_c, 2),
+            }])
+
+          if value_duty > 0.0000:
+            value_duty_c = value_duty
+            despatch_lines.append([0, 0, {
+              'account_id': account_duty,
+              'name': text_duty,
+              'debit': round(value_duty_c, 2),
+            }])
+
+          if value_tax > 0.0000:
+            value_tax_c = value_tax
+            despatch_lines.append([0, 0, {
+              'account_id': account_tax,
+              'name': text_tax,
+              'debit': round(value_tax_c, 2),
+            }])
+
+          if (value_charge + value_duty + value_tax) > 0.0000:
+            despatch_lines.append([0, 0, {
+              'account_id': offset_account.x_studio_purch_packing_slip_offset_account.id,
+              'name': 'Purchase Packing Slip Offset',
+              'credit': (round(value_charge_c, 2) + round(value_duty_c, 2) + round(value_tax_c, 2)),
+            }])
+
+          journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1)
+          if not journal:
+             raise UserError('The required journal has not been setup. Process terminated.')
+
+          custom_clearance = env['account.move'].create({'x_studio_created_from_consignment_1':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'date':record.x_studio_custom_cleared_date,'journal_id':journal.id,'move_type':'entry','line_ids':despatch_lines})
+
+          update_custom_clearance = env['account.move'].search([('id', '=', custom_clearance.id)],limit=1)
+          if update_custom_clearance:
+            update_custom_clearance.write({'state':'posted'})
+
+          record['x_studio_custom_clearance_no'] = env['ir.sequence'].next_by_code('custom.clearance.seq')
+          record['x_studio_status'] = 'In Transit'
+          record['x_studio_status_bar'] = 'In Transit'
+          record['x_studio_custom_clearance'] = True
+          record['x_studio_custom_clearance_exchange_rate'] = currency_rate.x_studio_rate
+          record['x_studio_account_charge'] = account_charge
+          record['x_studio_account_duty'] = account_duty
+          record['x_studio_account_tax'] = account_tax
+          record['x_studio_offset_account'] = offset_account.x_studio_purch_packing_slip_offset_account.id
+
+
+          action = {
+                    'name': 'Journal Entries',
+                    'domain': [('id', '=', custom_clearance.id)],
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'account.move',
+                    'view_mode': 'tree,form',
+                    'view_type': 'form',
+                    'view_id': False,
+                    'context': False,
+                    }
+        else:
+          raise UserError('There is no Valid Exchange Rate for the Consignmet Header Currency.')
+      else:
+        raise UserError('There is no Active Custom Currency is Setup for the Selected Consignment Header.')
+  else:
+      raise UserError('Imports Ledger Accounts must be Specified.')
+
+  record['x_studio_status'] = 'Done'
+  record['x_studio_status_bar'] = 'Done'
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1258_imp_consignment_details_seq_no" model="ir.actions.server">
+    <field name="name">IMP - Consignment Details Seq.No</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+
+if record.x_name == 'New':
+ seq = env['ir.sequence'].next_by_code('consignment.det.seq')
+ record.write({'x_name': seq})
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1313_imp_consignment_port_receipt" model="ir.actions.server">
+    <field name="name">IMP - Consignment Port Receipt</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  if record.x_studio_cargo_arrival_notice == False:
+    raise UserError("Cargo Arrival Notice Document must be Uploaded!")
+    
+  record['x_studio_status'] = 'Under Custom Clearance'
+  record['x_studio_status_bar'] = 'Under Custom Clearance'
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1305_imp_consignment_vendor_despatch" model="ir.actions.server">
+    <field name="name">IMP - Consignment Vendor Despatch</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[# PATCHED IN-PLACE 2026-08-04 (interim workaround until
+# BugFix-Purchase v0.0.9 loads on next Odoo worker restart).
+# Dropped every env['account.analytic.default'] lookup and every
+# analytic_tag_ids write — both APIs removed in Odoo 17.
+# account.move.line._compute_analytic_distribution now applies
+# distribution via account.analytic.distribution.model automatically
+# on create, matching every other journal entry in the system.
+# Original code preserved at:
+#   BugFix-Purchase/docs/studio-actions-backup/1305-vendor-despatch-BEFORE-2026-08-04.py
+
+if record.id:
+
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+
+  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
+  if con_lines:
+    for val in con_lines:
+      if val.x_studio_invoice_qty == 0.00:
+        raise UserError('Invoice Qty. should be Specified in all Consignment Lines.')
+
+if record.x_studio_supplier_id.id == 0:
+  raise UserError("Vendor Account must be Specified!")
+
+if record.x_studio_supplier_document == False:
+  raise UserError("Purchase Invoice Document must be Uploaded!")
+
+if record.x_studio_bill_of_lading == False:
+    raise UserError("Bill of Lading Document must be Uploaded!")
+
+dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)
+if dev_term:
+  despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+  if despatch_account:
+    if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
+      raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
+    else:
+      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
+      if custom_currency:
+        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
+        if currency_rate:
+          despatch_lines = [
+            [0, 0, {
+              'account_id': despatch_account.x_studio_vendor_despatch_debit_account.id,
+              'partner_id': record.x_studio_supplier_id.id,
+              'name': 'Vendor Despatch',
+              'debit': record.x_studio_total_amount * currency_rate.x_studio_rate,
+            }],
+            [0, 0, {
+              'account_id': despatch_account.x_studio_vendor_despatch_credit_account.id,
+              'partner_id': record.x_studio_supplier_id.id,
+              'name': 'Vendor Despatch',
+              'credit': record.x_studio_total_amount * currency_rate.x_studio_rate,
+            }],
+          ]
+
+          journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1)
+          if not journal:
+             raise UserError('The required journal has not been setup. Process terminated.')
+
+          vendor_despatch = env['account.move'].create({'x_studio_created_from_consignment':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'journal_id':journal.id,'move_type':'entry','date':record.x_studio_voucher_date,'line_ids':despatch_lines})
+
+          update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
+          if update_vendor_despatch:
+            update_vendor_despatch.write({'state':'posted'})
+
+          record['x_studio_status'] = 'In Transit'
+          record['x_studio_status_bar'] = 'In Transit'
+
+          action = {
+                    'name': 'Journal Entries',
+                    'domain': [('id', '=', vendor_despatch.id)],
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'account.move',
+                    'view_mode': 'tree,form',
+                    'view_type': 'form',
+                    'view_id': False,
+                    'context': False,
+                    }
+          record['x_studio_vendor_dispatch'] = True
+          record['x_studio_vendor_dispatch_exchange_rate'] = currency_rate.x_studio_rate
+        else:
+          raise UserError('There is no Valid Exchange Rate for the Consignmet Header Currency.')
+      else:
+        raise UserError('There is no Active Custom Currency is Setup for the Selected Consignment Header.')
+  else:
+      raise UserError('Imports Ledger Accounts must be Specified.')
+else:
+  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
+  record['x_studio_vendor_dispatch'] = False
+
+  record['x_studio_status'] = 'In Transit'
+  record['x_studio_status_bar'] = 'In Transit'
+  record['x_studio_vend_dispatch_status'] = message
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1377_imp_copy_charges_to_tp_invoice" model="ir.actions.server">
+    <field name="name">IMP - Copy Charges to TP Invoice</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  count = 0
+  ##########################################################################################################################################################
+  for posted_lines in record.x_studio_consignment_line_ids:
+    bill_lines = env['account.move.line'].search([('purchase_order_id', '=', posted_lines.x_studio_purchase_id.id),('purchase_line_id', '=', posted_lines.x_studio_purchase_line_id.id),('product_id', '=', posted_lines.	x_studio_product_id.id),('quantity', '=', posted_lines.	x_studio_invoice_qty),('x_studio_status', '=', 'posted')])
+    if not bill_lines:
+      count += 1
+      
+  if count > 0:
+    raise UserError('There are Linked PO Lines yet to be Inviced. Please Invoice the Remaining Lines to Proceed.')
+  ##########################################################################################################################################################
+  charge_lines=[]
+  
+  charge_line = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id),('x_studio_tp_processed', '=', False),('x_studio_tax_appicable2', '=', False)])
+  if charge_line:
+    for validate_lines in charge_line:
+      charge_lines.append([0,0,{
+        'x_studio_consignment_charge_header_id':validate_lines.id,
+        'x_studio_consignment_id':record.id,
+        'x_studio_charge_group':validate_lines.x_studio_charge_group,
+        'x_studio_charge_name':validate_lines.x_studio_charge_name,
+        'x_studio_basis':validate_lines.x_studio_basis,
+        'x_studio_amount':validate_lines.x_studio_amount}])
+
+  ctx = env.context
+  ctx.update({'default_x_studio_consignment_header_id':record.id,'default_x_studio_charge_line':charge_lines})
+  action = {
+            'name': 'Copy Charge Lines',
+            'type': 'ir.actions.act_window',
+            'res_model': 'x_temp_tp_invoice_head',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'context': ctx,
+            }]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1413_imp_copy_consignment_lines_to_consolidation" model="ir.actions.server">
+    <field name="name">IMP - Copy Consignment Lines to Consolidation</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  con_lines=[]
+  
+  con_header = env['x_consignment_header'].search([('x_studio_status', '!=', 'Draft'), ('x_studio_consolidated', '=', False)])
+  if con_header:
+    for validate_lines in con_header:
+      con_lines.append([0,0,{
+        'x_studio_consignment_id':validate_lines.id,
+        'x_studio_container_no':validate_lines.x_studio_container_no,
+        'x_studio_currency_id':validate_lines.x_studio_currency_id.id,
+        'x_studio_custom_clearance_no':validate_lines.x_studio_custom_clearance_no,
+        'x_studio_delivery_term':validate_lines.x_studio_delivery_term.id,
+        'x_studio_invoice_date':validate_lines.x_studio_invoice_date,
+        'x_studio_shipment_start_date':validate_lines.x_studio_shipment_start_date,
+        'x_studio_shipping_mode':validate_lines.x_studio_shipping_mode,
+        'x_studio_supplier_invoice_no':validate_lines.x_studio_supplier_invoice_number,
+        'x_studio_supplier_id':validate_lines.x_studio_supplier_id.id,
+        'x_studio_status':validate_lines.x_studio_status}])
+
+  ctx = env.context
+  ctx.update({'default_x_studio_consolidated_header_id':record.id,'default_x_studio_con_lines':con_lines})
+  action = {
+            'name': 'Copy PIs',
+            'type': 'ir.actions.act_window',
+            'res_model': 'x_temp_con_consolidate',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'context': ctx,
+            }]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1263_imp_copy_po_lines_to_consignment" model="ir.actions.server">
+    <field name="name">IMP - Copy PO Lines to Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id: 
+  po_lines=[]
+  
+  purch_line = env['purchase.order.line'].search([('partner_id', '=', record.x_studio_supplier_id.id),('x_studio_pr_type', '=', 'Import'),('x_studio_delivery_term', '=', record.x_studio_delivery_term.id),('state', '=', 'purchase'),('x_Studio_Deliver_Remainder', '>', 0.00),('x_studio_billing_status', '!=', 'invoiced')])
+  if purch_line:
+    for validate_lines in purch_line:
+      con_remainder = 0
+      if validate_lines.product_qty != validate_lines.qty_received:
+        con_lines = env['x_consignment_line'].search([('x_studio_purchase_line_id', '=', validate_lines.id)])
+        if con_lines:
+          for sum_lines in con_lines:
+            con_remainder += sum_lines.x_studio_invoice_qty
+             
+        if con_remainder < validate_lines.product_qty:       
+          po_lines.append([0,0,{
+          'x_studio_purchase_line_id':validate_lines.id,
+          'x_studio_purchase_id':validate_lines.order_id.id,
+          'x_studio_supplier_id':validate_lines.partner_id.id,
+          'x_studio_indent_no':validate_lines.order_id.x_studio_indent,
+          'x_studio_product_id':validate_lines.product_id.id,
+          'x_studio_description':validate_lines.name or validate_lines.product_id.name,
+          'x_studio_quantity':validate_lines.product_qty,
+          'x_studio_weight':validate_lines.x_studio_weight,
+          'x_studio_volume':validate_lines.x_studio_volume,
+          'x_studio_delivery_remainder':validate_lines.product_qty - validate_lines.qty_received,
+          'x_studio_consignment_remainder':validate_lines.product_qty - con_remainder,
+          'x_studio_unit_price':validate_lines.price_unit,
+          'x_studio_concessional_rate':validate_lines.x_studio_concessional_rate,
+          'x_currency_id':validate_lines.currency_id.id,
+          'x_studio_subtotal':validate_lines.price_subtotal,
+          'x_studio_payment_method':validate_lines.x_studio_payment_method.id,
+          'x_studio_delivery_date':validate_lines.date_planned,
+          'x_studio_uom_id':validate_lines.product_id.uom_id.id}])
+
+  ctx = env.context
+  ctx.update({'default_x_studio_temp_consignment_header_id':record.id,'default_x_studio_temp_consignment_line_ids':po_lines})
+  action = {
+            'name': 'Copy PO Lines',
+            'type': 'ir.actions.act_window',
+            'res_model': 'x_temp_consignment_hea',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'context': ctx,
+            }]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1316_imp_create_consignment_header_charges" model="ir.actions.server">
+    <field name="name">IMP - Create Consignment Header Charges</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_custom_cleared_date == False:
+  raise UserError("Custom Cleared Date must be Specified!")
+  
+if record.x_studio_delivery_term.id == 0: 
+  raise UserError("Delivery Term must be Specified!")
+  
+if record.x_studio_structure_name.id == 0:
+  raise UserError("Structure Name must be Specified!")  
+
+header_charges = env['x_structure_details'].search([('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc')
+if header_charges:
+  for update_header_charges in header_charges:
+    imp_header_charges = env['x_consignment_charge_h'].create({'x_studio_consignment_id':record.id,'x_studio_structure_master_id':update_header_charges.x_studio_structure_master_id.id,'x_studio_structure_details_line_ids':update_header_charges.id,'x_studio_structure_no':update_header_charges.x_studio_structure_no,'x_studio_basis':update_header_charges.x_studio_basis,'x_studio_charge_group':update_header_charges.x_studio_charge_group,'x_studio_charge_name':update_header_charges.x_studio_charge_name,'x_studio_formula':update_header_charges.x_studio_formula})  
+
+record.write({'x_studio_create_header_charges': False}) 
+
+action = {
+          'name': 'Header Charges',
+          'domain': [('x_studio_consignment_id', '=', record.id)],
+          'type': 'ir.actions.act_window',
+          'res_model': 'x_consignment_charge_h',
+          'view_mode': 'tree,form',
+          'view_type': 'form',
+          'view_id': False,
+          'context': False,
+          'context': {'group_by': 'x_studio_charge_group'},
+          }
+
+
+
+
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_2098_imp_delivery_remainder_in_consignment_lines" model="ir.actions.server">
+    <field name="name">IMP - Delivery Remainder in Consignment Lines</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_line&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_invoice_qty:
+  record['x_studio_delivery_remainder'] = record.x_studio_original_delivery_remainder - record.x_studio_invoice_qty
+  
+  ]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1304_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Invoice Qty. Validation in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_line&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_invoice_qty:
+  
+  if record.x_studio_invoice_qty < 0.00:
+    raise UserError("Negative Quantities are not Allowed in Item No: " + record.x_studio_description)
+  
+  purch_line = env['purchase.order.line'].search([('id', '=', record.x_studio_purchase_line_id.id)],limit=1)
+  result = 0
+  if purch_line:
+    con_remainder = 0
+    if purch_line.product_qty != purch_line.qty_received:
+      con_lines = env['x_consignment_line'].search([('x_studio_purchase_line_id', '=', record.x_studio_purchase_line_id.id), ('id', '!=', record.id)])
+      if con_lines:
+        for sum_lines in con_lines:
+          con_remainder += sum_lines.x_studio_invoice_qty
+      
+    result = (purch_line.product_qty - con_remainder)
+ 
+  if record.x_studio_invoice_qty > result:
+    raise UserError("Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: " + record.x_studio_description)
+  ]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2199_imp_reset_header_charges_consignment" model="ir.actions.server">
+    <field name="name">IMP - Reset Header Charges - Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_header_charges_allocated == True:
+  header_lines_del = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc') 
+  if header_lines_del:
+      for del_lines in header_lines_del:
+        temp_rec_del = env['x_consignment_charge_l'].search([('x_studio_consignment_charge_header_id', '=', del_lines.id),('x_studio_consignment_id', '=', del_lines.x_studio_consignment_id.id)])
+        if temp_rec_del:
+          for temp_rec_del_loop in temp_rec_del:
+            temp_rec_del_loop.unlink()
+        
+        if del_lines.x_studio_charge_group != 'Charges':
+          del_lines.write({'x_studio_amount': 0.00})
+        
+        del_lines.write({'x_studio_allocate_header_charges': False,'x_studio_tax_appicable': False})
+        
+      record.write({'x_studio_allocate_header_charges': True, 'x_studio_header_charges_allocated': False}) 
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1324_imp_restrict_delete_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Restrict Delete in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_status != 'Draft':
+  raise UserError("You can only delete a consignment if the consignment is in draft state.")
+ 
+
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1423_imp_restrict_delete_in_consolidation" model="ir.actions.server">
+    <field name="name">IMP - Restrict Delete in Consolidation</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_status != 'Draft':
+  raise UserError("Only the consolidations in Draft status can be deleted.")
+ 
+
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1298_imp_select_all_in_copy_po_lines" model="ir.actions.server">
+    <field name="name">IMP - Select All in Copy PO Lines</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_temp_consignment_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[# PATCHED IN-PLACE (Select All): toggle x_studio_select=True on
+# every existing line and REOPEN the same wizard record so the popup
+# stays visible with the updated checkboxes. Returning no action was
+# closing the popup.
+if record.id:
+  record.x_studio_temp_consignment_line_ids.write({'x_studio_select': True})
+  record.write({'x_studio_select_all': True})
+  action = {
+    'name': 'Copy PO Lines',
+    'type': 'ir.actions.act_window',
+    'res_model': 'x_temp_consignment_hea',
+    'view_mode': 'form',
+    'res_id': record.id,
+    'target': 'new',
+    'context': env.context,
+  }
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1454_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Update Cost Allocation Method in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+if cost_allocation:
+  record['x_studio_cost_allocation_method'] = cost_allocation.x_studio_cost_allocation_method
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2890_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Update Supplier Currency in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+if record.x_studio_supplier_id.id:
+  if record.x_studio_supplier_id.property_purchase_currency_id.id:
+    record['x_studio_currency_id'] = record.x_studio_supplier_id.property_purchase_currency_id.id
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1456_imp_validate_consolidation_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Validate Consolidation in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_consolidation_confirmed == True:
+  record['x_studio_status'] = 'Consolidated'
+  record['x_studio_status_bar'] = 'Consolidated'
+else:
+  raise UserError('The Selected Consignment Should be Consolidated First to Proceed.')
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2617_jin_company_id_in_consignment_charge_header" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consignment Charge Header</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_charge_h&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2618_jin_company_id_in_consignment_charge_line" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consignment Charge Line</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_charge_l&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2607_jin_company_id_in_consignment_header" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consignment Header</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2608_jin_company_id_in_consignment_line" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consignment Line</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_line&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2609_jin_company_id_in_consolidated_header" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consolidated Header</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_hea&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2611_jin_company_id_in_consolidated_line" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consolidated Line</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_con_consolidated_lin&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2118_project_update_month_end_entries" model="ir.actions.server">
+    <field name="name">Project - Update Month End Entries</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
+  if con_lines:
+    for val in con_lines:
+      if val.x_studio_invoice_qty == 0.00:
+        raise UserError('Invoice Qty. should be Specified in all Consignment Lines.')
+        
+if record.x_studio_supplier_id.id == 0:
+  raise UserError("Vendor Account must be Specified!")
+  
+if record.x_studio_supplier_document == False:
+  raise UserError("Purchase Invoice Document must be Uploaded!")
+  
+if record.x_studio_bill_of_lading == False:
+    raise UserError("Bill of Lading Document must be Uploaded!")
+  
+dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)  
+if dev_term:
+  despatch_account = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+  if despatch_account:
+    if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
+      raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
+    else:
+      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
+      if custom_currency:
+        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
+        if currency_rate:
+          despatch_lines=[]
+          despatch_lines.append([0,0,{
+            'account_id':despatch_account.x_studio_vendor_despatch_debit_account.id,
+            'partner_id':record.x_studio_supplier_id.id,
+            'name':'Vendor Despatch',
+            'debit':record.x_studio_total_amount * currency_rate.x_studio_rate}])
+              
+          despatch_lines.append([0,0,{
+            'account_id':despatch_account.x_studio_vendor_despatch_credit_account.id,
+            'partner_id':record.x_studio_supplier_id.id,
+            'name':'Vendor Despatch',
+            'credit':record.x_studio_total_amount * currency_rate.x_studio_rate}])	
+            
+          vendor_despatch = env['account.move'].create({'x_studio_created_from_consignment':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'journal_id':15,'move_type':'entry','date':record.x_studio_voucher_date,'line_ids':despatch_lines})
+          
+          update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
+          if update_vendor_despatch:
+            update_vendor_despatch.write({'state':'posted'})
+            
+          record['x_studio_status'] = 'In Transit'
+          record['x_studio_status_bar'] = 'In Transit'
+            
+          action = {
+                    'name': 'Journal Entries',
+                    'domain': [('id', '=', vendor_despatch.id)],
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'account.move',
+                    'view_mode': 'tree,form',
+                    'view_type': 'form',
+                    'view_id': False,
+                    'context': False,
+                    }
+          record['x_studio_vendor_dispatch'] = True
+          record['x_studio_vendor_dispatch_exchange_rate'] = currency_rate.x_studio_rate
+        else:
+          raise UserError('There is no Valid Exchange Rate for the Consignmet Header Currency.')
+      else:
+        raise UserError('There is no Active Custom Currency is Setup for the Selected Consignment Header.')
+  else:
+      raise UserError('Imports Ledger Accounts must be Specified.')
+else:
+  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
+  record['x_studio_vendor_dispatch'] = False
+  
+  record['x_studio_status'] = 'In Transit'
+  record['x_studio_status_bar'] = 'In Transit'
+  record['x_studio_vend_dispatch_status'] = message
+  
+#  title = "Vendor Dispatch"
+#  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
+  
+#  action = {
+#            'type': 'ir.actions.client',
+#            'tag': 'display_notification',
+#            'params': {'title': title,'message': message,'sticky': False,}
+#            } 
+   ]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1991_rr_auto_select_product_for_rug_repairs_3" model="ir.actions.server">
+    <field name="name">RR - Auto Select Product for RUG Repairs-3</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.return.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.ticket_id:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  if (record.x_studio_repair_rug == True or record.x_studio_repair_normal_with_serial_no == True):
+    if company.id == 1:
+      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
+      if ticket:
+        if record.location_id.id != record.x_studio_suggested_location_id.id:
+          raise UserError("Return Location should be equal to Suggested Return Location.")
+    else:
+      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
+      if ticket:
+        if record.location_id.id != record.x_studio_suggested_location_id_1.id:
+          raise UserError('Return Location should be equal to Suggested Return Location.')
+      
+  
+      
+
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1997_rr_rug_return_from_help_desk" model="ir.actions.server">
+    <field name="name">RR - RUG Return from Help desk</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.return.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+
+  if company.id == 1:
+    if record.ticket_id.x_studio_virtual_location == False or record.ticket_id.x_studio_source_location == False:
+      raise UserError('Virtual & Source Locations must be setup for Current Logged in User.')
+    
+    if record.location_id.id != record.x_studio_suggested_location_id.id:
+      raise UserError('Return Location should be equal to Suggested Return Location.')
+  else:
+    if record.ticket_id.x_studio_virtual_location_1 == False or record.ticket_id.x_studio_source_location_1 == False:
+      raise UserError('Virtual & Source Locations must be setup for Current Logged in User.')
+    
+    if record.location_id.id != record.x_studio_suggested_location_id_1.id:
+      raise UserError('Return Location should be equal to Suggested Return Location.')
+  
+  for qtys in record.product_return_moves:
+    if qtys.quantity != 1:
+      raise UserError('Quantity should be 1 for all the return lines.' )
+    
+  source_loc = env['stock.location'].search([('usage', '=', 'customer')],limit=1)
+  if source_loc:
+    if company.id == 1:
+      opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.ticket_id.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Returns'),('company_id', '=', company.id)],limit=1)
+    else:
+      opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.ticket_id.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Receipts'),('company_id', '=', company.id)],limit=1)
+    
+    if opt_type:
+     #prod_move = env['stock.picking'].create({'x_studio_created_from_help_ticket':record.ticket_id.id,'picking_type_id':opt_type.id,'location_id':source_loc.id,'location_dest_id':record.location_id.id,'origin':('Return of '+ record.picking_id.name),'partner_id':record.partner_id.id})
+     prod_move = env['stock.picking'].create({'x_studio_helpdesk_ticket_id':record.ticket_id.id,'picking_type_id':opt_type.id,'location_id':source_loc.id,'location_dest_id':record.location_id.id,'origin':('Return of '+ record.picking_id.name),'partner_id':record.partner_id.id,'company_id':company.id})
+     
+     
+     update_prod_move = env['stock.picking'].search([('id', '=', prod_move.id),('company_id', '=', company.id)],limit=1)
+     if update_prod_move:
+      pro_group = env['procurement.group'].search([('sale_id', '=', record.sale_order_id.id)],limit=1)
+      stock_move = env['stock.move'].create({'picking_id':update_prod_move.id,'name':('New Move:'+record.ticket_id.product_id.name),'reference':update_prod_move.name,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':record.ticket_id.product_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'product_uom_qty':1.00,'product_uom':record.ticket_id.product_id.uom_id.id,'state':'assigned','group_id':pro_group.id,'company_id':company.id}) 
+      stock_move_line = env['stock.move.line'].create({'move_id':stock_move.id,'picking_id':update_prod_move.id,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':record.ticket_id.product_id.id,'product_uom_id':record.ticket_id.product_id.uom_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'lot_id':record.ticket_id.x_studio_serial_no.id,'qty_done':1.00,'company_id':company.id}) 
+      
+      update_ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
+      if update_ticket:
+        update_ticket.write({'picking_ids':[(4, update_prod_move.id)]})
+        
+      action = {
+              'name': 'Return',
+              'domain': [('id', '=', update_prod_move.id)],
+              'type': 'ir.actions.act_window',
+              'res_model': 'stock.picking',
+              'view_mode': 'tree,form',
+              'view_type': 'form',
+              'view_id': False,
+              'context': False,
+              }
+      
+    else:
+      raise UserError('The selected return receipt location is not correct.')
+     
+
+
+
+
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1999_rr_re_return_validation" model="ir.actions.server">
+    <field name="name">RR - Re_return Validation</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.id:
+  raise UserError('Perform "Mark As Done" in the linked Task to proceed.')
+     
+
+
+
+
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_2204_rr_request_transfer_approval" model="ir.actions.server">
+    <field name="name">RR - Request Transfer Approval</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">multi</field>
+    <field name="code"><![CDATA[# Available variables:
+#  - env: Odoo Environment on which the action is triggered
+#  - model: Odoo Model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: Odoo function to compare floats based on specific precisions
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - UserError: Warning Exception to use with raise
+#  - Command: x2Many commands namespace
+# To return an action, assign: action = {...}
+
+
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_2205_rr_transfer_approval" model="ir.actions.server">
+    <field name="name">RR - Transfer Approval</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">object_write</field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_2201_rr_transfer_approval_request_sent" model="ir.actions.server">
+    <field name="name">RR - Transfer Approval Request Sent</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">object_write</field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_2207_rr_transfer_rejection" model="ir.actions.server">
+    <field name="name">RR - Transfer Rejection</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[record.write({"state": 'cancel', "x_studio_transfer_rejected": 'Yes'})]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_2203_rr_transfer_request_approval_notify_user" model="ir.actions.server">
+    <field name="name">RR - Transfer Request Approval - Notify User</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">next_activity</field>
+    <field name="code"><![CDATA[# Available variables:
+#  - env: Odoo Environment on which the action is triggered
+#  - model: Odoo Model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: Odoo function to compare floats based on specific precisions
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - UserError: Warning Exception to use with raise
+#  - Command: x2Many commands namespace
+# To return an action, assign: action = {...}
+
+
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1996_rr_update_operation_type_in_help_desk_repairs" model="ir.actions.server">
+    <field name="name">RR - Update Operation Type in Help Desk Repairs</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.x_studio_repair_return_location == True:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  if company.id == 1:
+    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Returns')],limit=1)
+  else:
+    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Receipts')],limit=1)
+  
+  if opt_type:
+    record['picking_type_id'] = opt_type.id
+    
+  
+    seq = env['ir.sequence'].next_by_code('purchase.request.seq')
+    record['name'] = seq
+ ]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1665_test_imp" model="ir.actions.server">
+    <field name="name">TEST IMP</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_line&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[raise UserError(record.id)]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_1438_sls_validate_payment_in_shipment" model="ir.actions.server">
+    <field name="name">SLS - Validate Payment in Shipment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if record.state == 'done':
+  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
+  if so:
+      sum_total = 0
+      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      if payment:
+        for total in payment:
+          sum_total += total.amount
+              
+      if so.amount_total > sum_total:     
+        #raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
+        raise UserError('The Payment Against the Cash Sales Order must be Registered First.' + '\n'  + '\n' + 'This sale: ' + str(so.amount_total) + '\n' + 'Total payments: ' + str(sum_total) + '\n' + 'Payment due: ' + str(so.amount_total - sum_total))
+  
+
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2489_user_location_validation_test" model="ir.actions.server">
+    <field name="name">User Location Validation-TEST</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
+     
+
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
+  <record id="server_action_2474_user_location_validation" model="ir.actions.server">
+    <field name="name">User Location Validation</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[if user.id != 1:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  if record.x_studio_user_location_validation == True:
+    if record.x_studio_user_location_validation_2 == True:
+      warehouse = record.location_id.complete_name
+    else:
+      warehouse = record.location_dest_id.complete_name 
+    
+    if record.x_studio_type_of_operation == 'internal':
+      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
+      if loc:
+        locations = ""
+        for locs in loc:
+          locations += (locs.complete_name + "\n")
+        
+        if record.x_studio_user_location_validation_2 == True:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+      else:
+        if record.x_studio_user_location_validation_2 == True:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
+    else:
+      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+      if loc:
+        locations = ""
+        for locs in loc:
+          locations += (locs.complete_name + "\n")
+        
+        if record.x_studio_user_location_validation_2 == True:  
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+      else:
+        if record.x_studio_user_location_validation_2 == True: 
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+]]></field>
+    <field name="usage">base_automation</field>
+  </record>
 </odoo>

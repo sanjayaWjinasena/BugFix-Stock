@@ -1,47 +1,393 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <!-- TODO: 43 act_windows records need hand-porting. -->
-  <!-- Clear-DB id=1661: CONSIGNMENT LINES -->
-  <!-- Clear-DB id=2852: Consignment Header (x_consignment_header) -->
-  <!-- Clear-DB id=2862: Consignment Header (x_consignment_header) -->
-  <!-- Clear-DB id=2863: Consignment Line (x_consignment_line) -->
-  <!-- Clear-DB id=2853: Consignment Line (x_consignment_line) -->
-  <!-- Clear-DB id=1664: Consignment Lines -->
-  <!-- Clear-DB id=2857: Consignment Lines -->
-  <!-- Clear-DB id=1323: Imports - 01 -->
-  <!-- Clear-DB id=1256: Purchase Invoice Header -->
-  <!-- Clear-DB id=1257: Purchase Invoice Line -->
-  <!-- Clear-DB id=1663: Purchase Invoice Line -->
-  <!-- Clear-DB id=1662: Purchase Invoice Lines -->
-  <!-- Clear-DB id=2886: Purchase Invoice Lines -->
-  <!-- Clear-DB id=2053: Purchase Invoice Lines -->
-  <!-- Clear-DB id=2052: Purchase Invoices -->
-  <!-- Clear-DB id=2887: Purchase Invoices -->
-  <!-- Clear-DB id=2800: x_consignment_header -->
-  <!-- Clear-DB id=2801: x_consignment_line -->
-  <!-- Clear-DB id=2488: Internal Locations -->
-  <!-- Clear-DB id=2225: Inventory Holding Days -->
-  <!-- Clear-DB id=2494: Inventory routes -->
-  <!-- Clear-DB id=2470: Location -->
-  <!-- Clear-DB id=1714: New Button -->
-  <!-- Clear-DB id=2008: Repair Trans. -->
-  <!-- Clear-DB id=2813: stock.landed.cos -->
-  <!-- Clear-DB id=2814: stock.landed.cost.line -->
-  <!-- Clear-DB id=2407: stock.location -->
-  <!-- Clear-DB id=2095: stock.location.route -->
-  <!-- Clear-DB id=2487: Stock Locations -->
-  <!-- Clear-DB id=1757: Stock.Move -->
-  <!-- Clear-DB id=1065: stock.move -->
-  <!-- Clear-DB id=1364: stock.move.line -->
-  <!-- Clear-DB id=2536: stock.picking -->
-  <!-- Clear-DB id=1978: stock.picking -->
-  <!-- Clear-DB id=2784: stock.picking.type -->
-  <!-- Clear-DB id=2837: stock.picking.type -->
-  <!-- Clear-DB id=2408: stock.picking.type -->
-  <!-- Clear-DB id=2187: stock.quant -->
-  <!-- Clear-DB id=2835: stock.rule -->
-  <!-- Clear-DB id=2809: stock.valuation.layer -->
-  <!-- Clear-DB id=2409: Transfers -->
-  <!-- Clear-DB id=2469: Warehouse -->
-  <!-- Clear-DB id=2468: WareHouse -->
+  <!-- 75 act_windows ports for BugFix-Stock (auto-generated from Clear-DB snapshot) -->
+  <record id="action_1661_consignment_lines" model="ir.actions.act_window">
+    <field name="name">CONSIGNMENT LINES</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1410_con_consolidated_header" model="ir.actions.act_window">
+    <field name="name">Con. Consolidated Header</field>
+    <field name="res_model">x_con_consolidated_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1411_con_consolidated_line" model="ir.actions.act_window">
+    <field name="name">Con. Consolidated Line</field>
+    <field name="res_model">x_con_consolidated_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1314_consignment_charge_header" model="ir.actions.act_window">
+    <field name="name">Consignment Charge Header</field>
+    <field name="res_model">x_consignment_charge_h</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2848_consignment_charge_header" model="ir.actions.act_window">
+    <field name="name">Consignment Charge Header</field>
+    <field name="res_model">x_consignment_charge_h</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2858_consignment_charge_header" model="ir.actions.act_window">
+    <field name="name">Consignment Charge Header</field>
+    <field name="res_model">x_consignment_charge_h</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2859_consignment_charge_line" model="ir.actions.act_window">
+    <field name="name">Consignment Charge Line</field>
+    <field name="res_model">x_consignment_charge_l</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1315_consignment_charge_line" model="ir.actions.act_window">
+    <field name="name">Consignment Charge Line</field>
+    <field name="res_model">x_consignment_charge_l</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2849_consignment_charge_line" model="ir.actions.act_window">
+    <field name="name">Consignment Charge Line</field>
+    <field name="res_model">x_consignment_charge_l</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2852_consignment_header_x_consignment_header" model="ir.actions.act_window">
+    <field name="name">Consignment Header (x_consignment_header)</field>
+    <field name="res_model">x_consignment_header</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2862_consignment_header_x_consignment_header" model="ir.actions.act_window">
+    <field name="name">Consignment Header (x_consignment_header)</field>
+    <field name="res_model">x_consignment_header</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2863_consignment_line_x_consignment_line" model="ir.actions.act_window">
+    <field name="name">Consignment Line (x_consignment_line)</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2853_consignment_line_x_consignment_line" model="ir.actions.act_window">
+    <field name="name">Consignment Line (x_consignment_line)</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1664_consignment_lines" model="ir.actions.act_window">
+    <field name="name">Consignment Lines</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2857_consignment_lines" model="ir.actions.act_window">
+    <field name="name">Consignment Lines</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2847_consignment_lines" model="ir.actions.act_window">
+    <field name="name">Consignment Lines</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2054_consolidated_consignments" model="ir.actions.act_window">
+    <field name="name">Consolidated Consignments</field>
+    <field name="res_model">x_con_consolidated_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2888_consolidated_consignments" model="ir.actions.act_window">
+    <field name="name">Consolidated Consignments</field>
+    <field name="res_model">x_con_consolidated_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2231_custom_duty" model="ir.actions.act_window">
+    <field name="name">Custom Duty</field>
+    <field name="res_model">x_consignment_charge_l</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1317_header_charges" model="ir.actions.act_window">
+    <field name="name">Header Charges</field>
+    <field name="res_model">x_consignment_charge_h</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_consignment_id', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_consignment_id': active_id,'default_x_studio_consignment_id': active_id,'group_by': 'x_studio_charge_group'}</field>
+  </record>
+  <record id="action_1323_imports_01" model="ir.actions.act_window">
+    <field name="name">Imports - 01</field>
+    <field name="res_model">x_consignment_header</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1319_line_charges" model="ir.actions.act_window">
+    <field name="name">Line Charges</field>
+    <field name="res_model">x_consignment_charge_l</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_consignment_id', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_consignment_id': active_id,'default_x_studio_consignment_id': active_id,'group_by': 'x_studio_product'}</field>
+  </record>
+  <record id="action_1256_purchase_invoice_header" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Header</field>
+    <field name="res_model">x_consignment_header</field>
+    <field name="view_mode">tree,form,kanban</field>
+  </record>
+  <record id="action_1257_purchase_invoice_line" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Line</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1663_purchase_invoice_line" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Line</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1662_purchase_invoice_lines" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Lines</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2886_purchase_invoice_lines" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Lines</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2053_purchase_invoice_lines" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Lines</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2052_purchase_invoices" model="ir.actions.act_window">
+    <field name="name">Purchase Invoices</field>
+    <field name="res_model">x_consignment_header</field>
+    <field name="view_mode">tree,kanban,form</field>
+  </record>
+  <record id="action_2885_purchase_invoices" model="ir.actions.act_window">
+    <field name="name">Purchase Invoices</field>
+    <field name="res_model">x_consignment_charge_h</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2887_purchase_invoices" model="ir.actions.act_window">
+    <field name="name">Purchase Invoices</field>
+    <field name="res_model">x_consignment_header</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_1656_temp_conn_line" model="ir.actions.act_window">
+    <field name="name">TEMP CONN LINE</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1657_temp123" model="ir.actions.act_window">
+    <field name="name">TEMP123</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1658_test66" model="ir.actions.act_window">
+    <field name="name">TEST66</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1259_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2851_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_1299_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_1260_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1357_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_2861_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_1261_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1262_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1300_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1356_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2850_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2860_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1295_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_2610_x_con_consolidated_lin" model="ir.actions.act_window">
+    <field name="name">x_con_consolidated_lin</field>
+    <field name="res_model">x_con_consolidated_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2800_x_consignment_header" model="ir.actions.act_window">
+    <field name="name">x_consignment_header</field>
+    <field name="res_model">x_consignment_header</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2801_x_consignment_line" model="ir.actions.act_window">
+    <field name="name">x_consignment_line</field>
+    <field name="res_model">x_consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2488_internal_locations" model="ir.actions.act_window">
+    <field name="name">Internal Locations</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_users_internal_transfer', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_users_internal_transfer': active_id,'default_x_studio_users_internal_transfer': [active_id]}</field>
+  </record>
+  <record id="action_2225_inventory_holding_days" model="ir.actions.act_window">
+    <field name="name">Inventory Holding Days</field>
+    <field name="res_model">stock.lot</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2494_inventory_routes" model="ir.actions.act_window">
+    <field name="name">Inventory routes</field>
+    <field name="res_model">stock.route</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2470_location" model="ir.actions.act_window">
+    <field name="name">Location</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1714_new_button" model="ir.actions.act_window">
+    <field name="name">New Button</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_maintenance_request_', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_maintenance_request_': active_id,'default_x_studio_maintenance_request_': active_id}</field>
+  </record>
+  <record id="action_2008_repair_trans" model="ir.actions.act_window">
+    <field name="name">Repair Trans.</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_created_from_help_ticket', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_created_from_help_ticket': active_id,'default_x_studio_created_from_help_ticket': active_id}</field>
+  </record>
+  <record id="action_2813_stock_landed_cos" model="ir.actions.act_window">
+    <field name="name">stock.landed.cos</field>
+    <field name="res_model">stock.landed.cost</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2814_stock_landed_cost_line" model="ir.actions.act_window">
+    <field name="name">stock.landed.cost.line</field>
+    <field name="res_model">stock.landed.cost.lines</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2407_stock_location" model="ir.actions.act_window">
+    <field name="name">stock.location</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2095_stock_location_route" model="ir.actions.act_window">
+    <field name="name">stock.location.route</field>
+    <field name="res_model">stock.route</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2487_stock_locations" model="ir.actions.act_window">
+    <field name="name">Stock Locations</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_users_stock_location', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_users_stock_location': active_id,'default_x_studio_users_stock_location': [active_id]}</field>
+  </record>
+  <record id="action_1757_stock_move" model="ir.actions.act_window">
+    <field name="name">Stock.Move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+  <record id="action_1065_stock_move" model="ir.actions.act_window">
+    <field name="name">stock.move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+  <record id="action_1364_stock_move_line" model="ir.actions.act_window">
+    <field name="name">stock.move.line</field>
+    <field name="res_model">stock.move.line</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2536_stock_picking" model="ir.actions.act_window">
+    <field name="name">stock.picking</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">kanban,tree,form,calendar,map</field>
+  </record>
+  <record id="action_1978_stock_picking" model="ir.actions.act_window">
+    <field name="name">stock.picking</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">kanban,tree,form,calendar,map</field>
+  </record>
+  <record id="action_2784_stock_picking_type" model="ir.actions.act_window">
+    <field name="name">stock.picking.type</field>
+    <field name="res_model">stock.picking.type</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2837_stock_picking_type" model="ir.actions.act_window">
+    <field name="name">stock.picking.type</field>
+    <field name="res_model">stock.picking.type</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2408_stock_picking_type" model="ir.actions.act_window">
+    <field name="name">stock.picking.type</field>
+    <field name="res_model">stock.picking.type</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+  <record id="action_2187_stock_quant" model="ir.actions.act_window">
+    <field name="name">stock.quant</field>
+    <field name="res_model">stock.quant</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+  <record id="action_2835_stock_rule" model="ir.actions.act_window">
+    <field name="name">stock.rule</field>
+    <field name="res_model">stock.rule</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2809_stock_valuation_layer" model="ir.actions.act_window">
+    <field name="name">stock.valuation.layer</field>
+    <field name="res_model">stock.valuation.layer</field>
+    <field name="view_mode">tree,form,pivot</field>
+  </record>
+  <record id="action_2409_transfers" model="ir.actions.act_window">
+    <field name="name">Transfers</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_created_from_material_request_no', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_created_from_material_request_no': active_id,'default_x_studio_created_from_material_request_no': active_id}</field>
+  </record>
+  <record id="action_2469_warehouse" model="ir.actions.act_window">
+    <field name="name">Warehouse</field>
+    <field name="res_model">stock.warehouse</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2468_warehouse" model="ir.actions.act_window">
+    <field name="name">WareHouse</field>
+    <field name="res_model">stock.warehouse</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 </odoo>

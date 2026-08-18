@@ -1,18 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <!-- TODO: 14 automations records need hand-porting. -->
-  <!-- Clear-DB id=28: Create Production BOM Material Cost -->
-  <!-- Clear-DB id=29: Update Production BOM Material Cost -->
-  <!-- Clear-DB id=56: JIN-Consignment Details Seq.No -->
-  <!-- Clear-DB id=59: IMP - Invoice Qty. Validation in Consignment -->
-  <!-- Clear-DB id=62: IMP - Restrict Delete in Consignment -->
-  <!-- Clear-DB id=86: IMP - Update Cost Allocation Method in Consignment -->
-  <!-- Clear-DB id=104: Supplier Invoice No Update in Import POs -->
-  <!-- Clear-DB id=124: SRM - Auto Populate Report Type in Product Moves -->
-  <!-- Clear-DB id=148: Update Source Document in Transfers -->
-  <!-- Clear-DB id=174: RR - Auto Select Product for RUG Repairs-3 -->
-  <!-- Clear-DB id=199: PROJ - Notify Transfer Completion -->
-  <!-- Clear-DB id=280: JIN - Company Id in Consignment Header -->
-  <!-- Clear-DB id=281: JIN - Company Id in Consignment Line -->
-  <!-- Clear-DB id=339: IMP - Update Supplier Currency in Consignment -->
+  <!-- 21 automations ports for BugFix-Stock (auto-generated from Clear-DB snapshot) -->
+  <record id="automation_28_create_production_bom_material_cost" model="base.automation">
+    <field name="name">Create Production BOM Material Cost</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Stock Move&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1066] -->
+  </record>
+  <record id="automation_29_update_production_bom_material_cost" model="base.automation">
+    <field name="name">Update Production BOM Material Cost</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Stock Move&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1073] -->
+  </record>
+  <record id="automation_56_jin_consignment_details_seq_no" model="base.automation">
+    <field name="name">JIN-Consignment Details Seq.No</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Header&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1258] -->
+  </record>
+  <record id="automation_59_imp_invoice_qty_validation_in_consignment" model="base.automation">
+    <field name="name">IMP - Invoice Qty. Validation in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Line&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1304] -->
+  </record>
+  <record id="automation_62_imp_restrict_delete_in_consignment" model="base.automation">
+    <field name="name">IMP - Restrict Delete in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Header&apos;)]"/>
+    <field name="trigger">on_unlink</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1324] -->
+  </record>
+  <record id="automation_74_jin_consignment_consolidated_seq_no" model="base.automation">
+    <field name="name">JIN-Consignment Consolidated Seq.No</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Con. Consolidated Header&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1412] -->
+  </record>
+  <record id="automation_75_imp_restrict_delete_in_consolidation" model="base.automation">
+    <field name="name">IMP - Restrict Delete in Consolidation</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Con. Consolidated Header&apos;)]"/>
+    <field name="trigger">on_unlink</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1423] -->
+  </record>
+  <record id="automation_76_imp_con_lines_make_available_in_delete" model="base.automation">
+    <field name="name">IMP - Con. Lines Make Available in Delete</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Con. Consolidated Line&apos;)]"/>
+    <field name="trigger">on_unlink</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1424] -->
+  </record>
+  <record id="automation_86_imp_update_cost_allocation_method_in_consignment" model="base.automation">
+    <field name="name">IMP - Update Cost Allocation Method in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Header&apos;)]"/>
+    <field name="trigger">on_change</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1454] -->
+  </record>
+  <record id="automation_104_supplier_invoice_no_update_in_import_pos" model="base.automation">
+    <field name="name">Supplier Invoice No Update in Import POs</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Transfer&apos;)]"/>
+    <field name="trigger">on_change</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1697] -->
+  </record>
+  <record id="automation_124_srm_auto_populate_report_type_in_product_moves" model="base.automation">
+    <field name="name">SRM - Auto Populate Report Type in Product Moves</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Product Moves (Stock Move Line)&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1742] -->
+  </record>
+  <record id="automation_148_update_source_document_in_transfers" model="base.automation">
+    <field name="name">Update Source Document in Transfers</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Transfer&apos;)]"/>
+    <field name="trigger">on_change</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1813] -->
+  </record>
+  <record id="automation_174_rr_auto_select_product_for_rug_repairs_3" model="base.automation">
+    <field name="name">RR - Auto Select Product for RUG Repairs-3</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Return Picking&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1991] -->
+  </record>
+  <record id="automation_199_proj_notify_transfer_completion" model="base.automation">
+    <field name="name">PROJ - Notify Transfer Completion</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Transfer&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[('sale_id.x_studio_quotation_type', '=', 'Project'), ('state', '=', 'done')]</field>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2185] -->
+  </record>
+  <record id="automation_280_jin_company_id_in_consignment_header" model="base.automation">
+    <field name="name">JIN - Company Id in Consignment Header</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Header&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2607] -->
+  </record>
+  <record id="automation_281_jin_company_id_in_consignment_line" model="base.automation">
+    <field name="name">JIN - Company Id in Consignment Line</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Line&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2608] -->
+  </record>
+  <record id="automation_282_jin_company_id_in_consolidated_header" model="base.automation">
+    <field name="name">JIN - Company Id in Consolidated Header</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Con. Consolidated Header&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2609] -->
+  </record>
+  <record id="automation_283_jin_company_id_in_consolidated_line" model="base.automation">
+    <field name="name">JIN - Company Id in Consolidated Line</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Con. Consolidated Line&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2611] -->
+  </record>
+  <record id="automation_289_jin_company_id_in_consignment_charge_header" model="base.automation">
+    <field name="name">JIN - Company Id in Consignment Charge Header</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Charge Header&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2617] -->
+  </record>
+  <record id="automation_290_jin_company_id_in_consignment_charge_line" model="base.automation">
+    <field name="name">JIN - Company Id in Consignment Charge Line</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Charge Line&apos;)]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2618] -->
+  </record>
+  <record id="automation_339_imp_update_supplier_currency_in_consignment" model="base.automation">
+    <field name="name">IMP - Update Supplier Currency in Consignment</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Consignment Header&apos;)]"/>
+    <field name="trigger">on_change</field>
+    <field name="active" eval="True"/>
+    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2890] -->
+  </record>
 </odoo>
