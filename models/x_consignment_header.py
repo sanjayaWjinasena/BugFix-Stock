@@ -21,7 +21,7 @@ class XConsignmentHeader(models.Model):
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_con_validated = fields.Boolean(string='Con. Validated')
     x_studio_confirm_invoice = fields.Boolean(string='Confirm Invoice')
-    x_studio_consignment_line_ids = fields.One2many('x_consignment_line', 'TODO_inverse', string='Consignment Line Ids')
+    # TODO: x_studio_consignment_line_ids = fields.One2many(...) -- Studio inverse name unknown; port from Clear-DB manually.
     x_studio_consolidated = fields.Boolean(string='Consolidated')
     x_studio_consolidation_confirmed = fields.Boolean(string='Consolidation Confirmed')
     x_studio_container_no = fields.Char(string='Container No')
