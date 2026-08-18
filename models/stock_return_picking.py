@@ -2,7 +2,7 @@
 from odoo import fields, models
 
 
-class StockReturnPicking(models.Model):
+class StockReturnPicking(models.TransientModel):
     _inherit = 'stock.return.picking'
 
     x_studio_repair_normal_with_serial_no = fields.Boolean(string='Repair Normal With Serial No', readonly=True, store=False)
