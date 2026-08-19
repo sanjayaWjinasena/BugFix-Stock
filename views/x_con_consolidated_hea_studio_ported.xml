@@ -57,25 +57,7 @@
         </xpath>
         <xpath expr="//group[@name='studio_group_bc4ef6']" position="after">
           <notebook name="studio_notebook_8O2sf">
-            <page string="Lines" name="studio_page_8O2sf">
-              <field name="x_studio_con_line_ids" string="Con. Line Ids" readonly="x_studio_status != 'Draft'">
-                <tree create="false" edit="false">
-                  <field name="x_studio_sequence" widget="handle" column_invisible="1"/>
-                  <field name="x_studio_consignment_id" string="Consignment No" force_save="True" readonly="1"/>
-                  <field name="x_studio_supplier_id" force_save="True" readonly="1"/>
-                  <field name="x_studio_currency_id" force_save="True" readonly="1"/>
-                  <field name="x_studio_delivery_term" force_save="True" readonly="1"/>
-                  <field name="x_studio_supplier_invoice_no" force_save="True" readonly="1"/>
-                  <field name="x_studio_container_no" force_save="True" readonly="1"/>
-                  <field name="x_studio_custom_clearance_no" force_save="True" readonly="1"/>
-                  <field name="x_studio_shipment_start_date" force_save="True" readonly="1" optional="hide"/>
-                  <field name="x_studio_invoice_date" force_save="True" readonly="1" optional="hide"/>
-                  <field name="x_studio_status" force_save="True" readonly="1" optional="hide"/>
-                  <field name="x_studio_shipping_mode_1" force_save="True" readonly="1" optional="hide"/>
-                  <field name="x_name" column_invisible="1"/>
-                </tree>
-              </field>
-            </page>
+            
           </notebook>
         </xpath>
       </data>
