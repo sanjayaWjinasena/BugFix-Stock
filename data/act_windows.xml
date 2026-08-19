@@ -267,11 +267,6 @@
     <field name="res_model">stock.lot</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2494_inventory_routes" model="ir.actions.act_window">
-    <field name="name">Inventory routes</field>
-    <field name="res_model">stock.route</field>
-    <field name="view_mode">tree,form</field>
-  </record>
   <record id="action_2470_location" model="ir.actions.act_window">
     <field name="name">Location</field>
     <field name="res_model">stock.location</field>
@@ -291,24 +286,9 @@
     <field name="domain">[('x_studio_created_from_help_ticket', '=', active_id)]</field>
     <field name="context">{'search_default_x_studio_created_from_help_ticket': active_id,'default_x_studio_created_from_help_ticket': active_id}</field>
   </record>
-  <record id="action_2813_stock_landed_cos" model="ir.actions.act_window">
-    <field name="name">stock.landed.cos</field>
-    <field name="res_model">stock.landed.cost</field>
-    <field name="view_mode">kanban,tree,form</field>
-  </record>
-  <record id="action_2814_stock_landed_cost_line" model="ir.actions.act_window">
-    <field name="name">stock.landed.cost.line</field>
-    <field name="res_model">stock.landed.cost.lines</field>
-    <field name="view_mode">tree,form</field>
-  </record>
   <record id="action_2407_stock_location" model="ir.actions.act_window">
     <field name="name">stock.location</field>
     <field name="res_model">stock.location</field>
-    <field name="view_mode">tree,form</field>
-  </record>
-  <record id="action_2095_stock_location_route" model="ir.actions.act_window">
-    <field name="name">stock.location.route</field>
-    <field name="res_model">stock.route</field>
     <field name="view_mode">tree,form</field>
   </record>
   <record id="action_2487_stock_locations" model="ir.actions.act_window">
@@ -362,11 +342,6 @@
     <field name="name">stock.quant</field>
     <field name="res_model">stock.quant</field>
     <field name="view_mode">kanban,tree,form,pivot,graph</field>
-  </record>
-  <record id="action_2835_stock_rule" model="ir.actions.act_window">
-    <field name="name">stock.rule</field>
-    <field name="res_model">stock.rule</field>
-    <field name="view_mode">tree,form</field>
   </record>
   <record id="action_2809_stock_valuation_layer" model="ir.actions.act_window">
     <field name="name">stock.valuation.layer</field>
