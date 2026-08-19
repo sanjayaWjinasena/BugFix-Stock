@@ -44,9 +44,7 @@
     <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_6a77a64b_caff_42fe_97b4_e1d153c18e1b"/>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//button[@name='2400']" position="after">
-          <field widget="statusbar" name="x_studio_selection_field_BupKG" string="State" force_save="True" readonly="1"/>
-        </xpath>
+        
         <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
           <div name="button_box" class="oe_button_box">
             

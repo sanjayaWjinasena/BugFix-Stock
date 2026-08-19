@@ -57,16 +57,8 @@
                        doesn't inject them all. My inherit forces strict
                        re-validation, which trips over the missing fields.
                        Inject them all as invisible sentinels here. -->
-                  <xpath expr="//button[@name='1305']" position="before">
-                      <field name="x_studio_status" invisible="1"/>
-                      <field name="x_studio_lines_copied" invisible="1"/>
-                      <field name="x_studio_allocate_header_charges" invisible="1"/>
-                      <field name="x_studio_create_header_charges" invisible="1"/>
-                      <field name="x_studio_header_charges_allocated" invisible="1"/>
-                  </xpath>
-                  <xpath expr="//button[@name='1305']" position="replace">
-                      
-                  </xpath>
+                  
+                  
               </data>
     </field>
   </record>
@@ -79,9 +71,7 @@
     <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_e078bfe8_0fab_409c_a40d_52b839c1b790"/>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//button[@name='1303']" position="after">
-          <field widget="statusbar" name="x_studio_status_bar" string="Status Bar" force_save="True" readonly="1"/>
-        </xpath>
+        
         <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
           <div name="button_box" class="oe_button_box">
             

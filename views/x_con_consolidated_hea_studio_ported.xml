@@ -41,9 +41,7 @@
     <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_3e7b8355_c2a7_4eb8_a5b4_b080ccdddf7b"/>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//button[@name='1414']" position="after">
-          <field widget="statusbar" name="x_studio_pipeline_status_bar" string="Pipeline Status Bar"/>
-        </xpath>
+        
         <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']" position="attributes">
           <attribute name="force_save">True</attribute>
           <attribute name="readonly">1</attribute></xpath>

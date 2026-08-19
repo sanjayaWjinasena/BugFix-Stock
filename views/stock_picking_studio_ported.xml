@@ -33,23 +33,13 @@
         <xpath expr="//button[@name='action_open_label_type']" position="attributes">
           <attribute name="studio_approval">True</attribute>
         </xpath>
-        <xpath expr="//button[@name='175']" position="attributes">
-          <attribute name="groups">stock.group_stock_user</attribute>
-        </xpath>
-        <xpath expr="//button[@name='175']" position="after">
-          
-          
-        </xpath>
-        <xpath expr="//form[1]/header[1]/button[@name='195'][2]" position="attributes">
-          <attribute name="invisible">(state != 'done') or (((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or (x_studio_helpdesk_ticket_id != False)))</attribute>
-        </xpath>
+        
+        
+        
         <xpath expr="//button[@name='action_cancel']" position="attributes">
           <attribute name="studio_approval">True</attribute>
         </xpath>
-        <xpath expr="//button[@name='168']" position="after">
-          
-          
-        </xpath>
+        
         <xpath expr="//button[@name='action_view_stock_valuation_layers']" position="attributes">
           <attribute name="groups"/>
         </xpath>
@@ -160,41 +150,25 @@
     <field name="arch" type="xml">
       <data>
           
-          <xpath expr="//header/button[@name='195']" position="attributes">
-            <attribute name="invisible">((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or (x_studio_helpdesk_ticket_id != False))</attribute></xpath>
+          
           
           <xpath expr="//header/button[@name='action_assign']" position="after">
             
           </xpath>
           
-          <xpath expr="//header/button[@name='195']" position="before">
-            
-          </xpath>
           
-          <xpath expr="//header/button[@name='195'][2]" position="before">
-            
-          </xpath>
+          
+          
           
           <!--xpath expr="//header/button[@name='button_validate']" position="before">
             
           </xpath>
           
-          <xpath expr="//header/button[@name='2204']" position="after">
-            
-          </xpath>
           
-          <xpath expr="//header/button[@name='2205']" position="after">
-            
-          </xpath-->
           
-          <!--xpath expr="//header/button[@name='2207']" position="after"-->
-          <xpath expr="//header/button[@name='button_validate']" position="after">
-            
-          </xpath>
           
-          <xpath expr="//header/button[@name='2448']" position="after">
-            
-          </xpath>
+          
+          
           
           <xpath expr="//header/button[@name='button_validate']" position="attributes">
             <!--attribute name="attrs">{'invisible': ['|','|','|','|','|','|','|','|',('x_studio_cancelled', '=', True),('x_studio_valid_transfer_lines', '=', False),('x_studio_transfer_rejected', '=', True),('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False),'&amp;',('x_studio_quotation_type_2', '=', 'Repair'),('x_studio_repair_payment_made', '=', False),'&amp;',('x_studio_pr_type', '=', 'Import'),('x_studio_update_consignment', '=', False),'&amp;',('x_studio_quotation_type_2', '=', 'Project'),('x_studio_budget_created', '=', False),'&amp;',('x_studio_need_approval', '=', True),('x_studio_transfer_approved', '=', False)]}</attribute-->
