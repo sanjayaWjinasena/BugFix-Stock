@@ -126,7 +126,13 @@
         </xpath>
         <xpath expr="//group[@name='studio_group_01a9e3']" position="after">
           <notebook name="studio_notebook_TKzcl">
-            
+            <page string="Lines" name="studio_page_TKzcl">
+              
+              <group class="oe_subtotal_footer oe_right">
+                <field name="x_studio_total_amount" string="Total Amount"/>
+                <field name="x_studio_total_allocate_amount" string="Total Allocate Amount" force_save="True" readonly="1" invisible="1"/>
+              </group>
+            </page>
             <page string="Import Details" name="studio_page_EFr4K">
               <group name="studio_group_EFr4K">
                 <group name="studio_group_EFr4K_left" string="Import Details">

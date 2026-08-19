@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="ported_odoo_studio_stock_pi_2683a467_e3de_4a5a_8dd6_ed592210519b" model="ir.ui.view">
+    <field name="name">Odoo Studio: stock.picking.form customization</field>
+    <field name="model">stock.picking</field>
+    <field name="type">form</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+      <data>
+        <!-- Kapila -->
+        <xpath expr="//button[@name='action_assign']" position="attributes">
+          <attribute name="help">'Verify if the required products are available in stock. '</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_assign']" position="after">
+          
+        </xpath>
+        <!-- Kapila -->
+        <xpath expr="//form[1]/header[1]/button[@name='action_confirm']" position="attributes">
+          <attribute name="help">The transfer order is ready to be processed, but the actual transfer has not been executed yet.
+          </attribute>
+        </xpath>
+       <!-- Kapila -->
+        <xpath expr="//form[1]/header[1]/button[@name='button_validate']" position="attributes">
+          <attribute name="groups"/>
+          <attribute name="help">Confirm or finalize the transaction</attribute>
+        </xpath>
+        <xpath expr="//form[1]/header[1]/button[@name='button_validate'][2]" position="attributes">
+          <attribute name="help">Confirm or finalize the transaction</attribute>
+        </xpath>
+        <!-- Kapila -->
+        <xpath expr="//button[@name='action_open_label_type']" position="attributes">
+          <attribute name="studio_approval">True</attribute>
+        </xpath>
+        
+        
+        
+        <xpath expr="//button[@name='action_cancel']" position="attributes">
+          <attribute name="studio_approval">True</attribute>
+        </xpath>
+        
+        <xpath expr="//button[@name='action_view_stock_valuation_layers']" position="attributes">
+          <attribute name="groups"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='partner_id']" position="attributes">
+          <attribute name="force_save">True</attribute>
+          <attribute name="readonly">(state in ['cancel', 'done']) or ((x_studio_pr_type == 'Import') or (state in ['done', 'cancel']))</attribute>
+          <attribute name="required">(carrier_id and carrier_id.integration_level == 'rate_and_ship') or ((delivery_type not in ['fixed', 'base_on_rule']) and (delivery_type != False))</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='picking_type_id']" position="attributes">
+          <attribute name="domain">[["code","=",picking_type_code]]</attribute>
+          <attribute name="help">Warehouse and the operation type.</attribute>
+          <attribute name="invisible">(hide_picking_type) or (hide_picking_type == True)</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_id']" position="attributes">
+          <attribute name="domain">[]</attribute>
+          <attribute name="invisible">picking_type_code == 'incoming'</attribute>
+          <attribute name="readonly">(x_studio_type_of_operation != 'internal') or ((picking_type_code == 'internal') or (state not in ['draft']))</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_dest_id']" position="attributes">
+          <attribute name="help">Destination Location.</attribute>
+          <attribute name="invisible">picking_type_code == 'outgoing'</attribute>
+          <attribute name="readonly">state not in ['draft']</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_dest_id']" position="after">
+          <field name="x_studio_need_approval" string="Need Approval" invisible="1"/>
+          <field name="x_studio_helpdesk_ticket_id" string="Helpdesk Ticket Id" invisible="x_studio_helpdesk_ticket_id == False"/>
+          <field name="x_studio_created_from_help_ticket" string="Created from Help Ticket" force_save="True" readonly="1" invisible="x_studio_created_from_help_ticket == False"/>
+          <field name="x_studio_created_from_material_request_no" string="Created from Material Request No" force_save="True" readonly="1" invisible="x_studio_created_from_material_request_no == False"/>
+          <field name="x_studio_cancelled" string="Cancelled" invisible="1"/>
+          <field name="x_studio_task_status" string="Task Status" invisible="1"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/label[1]" position="before">
+          <field name="x_studio_sales_order" string="Sales Order" domain="[('partner_id', '=', partner_id)]" readonly="(partner_id == False) or (state != 'draft')"/>
+        </xpath>
+        <xpath expr="//field[@name='date_done']" position="after">
+          <field name="purchase_id" help="Purchase Order Number which goods are to be received from." invisible="purchase_id == False"/>
+          <field name="x_studio_supplier_invoice_number" force_save="1" help="Invoice number of the supplier's invoice." invisible="purchase_id == False" readonly="(x_studio_pr_type == 'Import') or (state == 'done')" required="purchase_id != False"/>
+          <field name="x_studio_supplier_invoice_number_1" string="Supplier Invoice Number" invisible="1" required="purchase_id != False"/>
+          <field name="x_studio_pr_type" string="PR Type" help="Whether the purchase is import or a local." invisible="(x_studio_pr_type == False) or (x_studio_pr_type == 'Local')"/>
+          <field name="x_studio_consignment_no" string="Consignment No" domain="[('x_studio_status', '=', 'Done')]" help="Consignment number." invisible="(x_studio_pr_type == False) or (x_studio_pr_type == 'Local')" readonly="x_studio_update_consignment == True" required="x_studio_pr_type == 'Import'"/>
+          <field name="x_studio_custom_clearance_no" string="Custom Clearance No" help="Custom Clearance Number." invisible="(x_studio_pr_type == False) or (x_studio_pr_type == 'Local')"/>
+          <field name="x_studio_update_consignment" string="Update Consignment" invisible="1"/>
+        </xpath>
+        <xpath expr="//field[@name='origin']" position="attributes">
+          <attribute name="invisible">purchase_id != False</attribute>
+          <attribute name="readonly">(state in ['cancel', 'done']) or ((x_studio_sales_order != False) or (state in ['done', 'cancel']))</attribute>
+        </xpath>
+        <xpath expr="//field[@name='origin']" position="after">
+          <field name="x_studio_journal_type" string="Journal Type" options="{&quot;no_create&quot;:true}" invisible="x_studio_movement_journal == False" readonly="False" required="x_studio_movement_journal == True" force_save="0"/>
+          <field name="x_studio_gl_account_status" string="G/L Account Status" force_save="True" readonly="1" invisible="x_studio_movement_journal == False"/>
+          <field name="x_studio_offset_account_updated" string="Offset Account Updated" force_save="True" readonly="1" invisible="1"/>
+          <field name="sale_id" force_save="True" readonly="1" invisible="sale_id == False"/>
+          <field name="x_studio_ticket_sales_order" string="Ticket Sales Order" invisible="x_studio_ticket_sales_order == False"/>
+          <field name="x_studio_repair_payment_made" string="Repair Payment Made" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_cash_full_payment_made" string="Cash Full Payment Made" invisible="1"/>
+          <field name="x_studio_quotation_type" string="Quotation Type" required="False" force_save="1" readonly="True"/>
+          <field name="x_studio_type_of_operation" string="Type of Operation"/>
+          <field name="x_studio_sequence_code" string="Sequence Code" invisible="1"/>
+          <field name="x_studio_movement_journal" string="Movement Journal" invisible="1"/>
+          <field name="x_studio_mj_in" string="MJ IN" invisible="1"/>
+          <field name="x_studio_mj_out" string="MJ OUT" invisible="1"/>
+          <field name="x_studio_valid_factory_repair" string="Valid Factory Repair" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_quotation_type_2" string="Quotation Type-2" invisible="1"/>
+          <field name="x_studio_analytic_account" string="Analytic Account" invisible="x_studio_quotation_type != 'Project'"/>
+          <field name="x_studio_budget_created" string="Budget Created" invisible="1"/>
+          <field name="x_studio_repair_return_location" string="Repair Return Location" invisible="1"/>
+          <field name="x_studio_return_receipt_location" string="Return Receipt Location" invisible="1"/>
+          <field name="x_studio_return_sequence" string="Return Sequence" invisible="1"/>
+          <field name="x_studio_maintenance_request_" string="Maintenance Request #" invisible="1"/>
+          <field name="x_studio_transfer_approval" string="Transfer Approval" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_transfer_request_sent" string="Transfer Request Sent" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_transfer_approved" string="Transfer Approved" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_transfer_rejected" string="Transfer Rejected" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_valid_transfer_lines" string="Valid Transfer Lines" force_save="True" readonly="1" invisible="1"/>
+        </xpath>
+        <xpath expr="//field[@name='owner_id']" position="after">
+          <field name="x_studio_user_location_validation" string="User Location Validation" invisible="1"/>
+          <field name="x_studio_user_location_validation_2" string="User Location Validation 2" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_picking_count" string="Picking Count" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_fsm_task_done" string="FSM Task Done" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_fully_paid_so" string="Fully Paid SO" invisible="1"/>
+          <field name="x_studio_factory_repair" string="Factory Repair" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_received_at_centre" string="Received at Centre" invisible="1" force_save="True" readonly="1"/>
+          <field name="x_studio_validation" string="Validation" force_save="True" readonly="1" invisible="((x_studio_received_at_centre == True) and (x_studio_factory_repair == True)) or (x_studio_factory_repair != True)"/>
+        </xpath>
+        <xpath expr="//field[@name='move_ids_without_package']" position="attributes">
+          <attribute name="readonly">(state == 'done' and is_locked) or (((x_studio_update_consignment == True) and (x_studio_pr_type == 'Import')) or ((is_locked == True) and (state == 'done')))</attribute>
+        </xpath>
+        <xpath expr="//field[@name='description_picking']" position="after">
+          <field name="x_studio_update_consignment" string="Update Consignment" column_invisible="1"/>
+          <field name="x_studio_pr_type" string="PR Type" column_invisible="1"/>
+        </xpath>
+        <xpath expr="//button[@name='action_put_in_pack']" position="attributes">
+          <attribute name="groups">stock.group_tracking_lot,base.group_erp_manager</attribute>
+          <attribute name="studio_approval">True</attribute>
+        </xpath>
+      </data>
+    </field>
+  </record>
+</odoo>

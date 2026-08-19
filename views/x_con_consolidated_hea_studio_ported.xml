@@ -57,7 +57,9 @@
         </xpath>
         <xpath expr="//group[@name='studio_group_bc4ef6']" position="after">
           <notebook name="studio_notebook_8O2sf">
-            
+            <page string="Lines" name="studio_page_8O2sf">
+              
+            </page>
           </notebook>
         </xpath>
       </data>
