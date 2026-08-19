@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="ported_default_dashboard_vi_7c1f5982_aa4b_423f_8904_dad563f16752" model="ir.ui.view">
-    <field name="name">Default dashboard view for ir.model(905,)</field>
-    <field name="model">x_consignment_header</field>
-    <field name="key">studio_customization.default_dashboard_vi_7c1f5982-aa4b-423f-8904-dad563f16752</field>
-    <field name="type">dashboard</field>
-    <field name="priority">16</field>
-    <field name="mode">primary</field>
-    <field name="arch" type="xml">
-      <dashboard><view type="graph"/></dashboard>
-    </field>
-  </record>
+  
   <record id="ported_default_form_view_fo_e078bfe8_0fab_409c_a40d_52b839c1b790" model="ir.ui.view">
     <field name="name">Default form view for x_consignment_header</field>
     <field name="model">x_consignment_header</field>
