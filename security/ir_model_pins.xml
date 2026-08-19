@@ -7,4 +7,10 @@
   <record id="model_x_misc_charge_codes" model="ir.model"><field name="name">X Misc Charge Codes</field><field name="model">x_misc_charge_codes</field></record>
   <record id="model_x_sales_report_type" model="ir.model"><field name="name">X Sales Report Type</field><field name="model">x_sales_report_type</field></record>
   <record id="model_x_tariffmaster" model="ir.model"><field name="name">X Tariffmaster</field><field name="model">x_tariffmaster</field></record>
+  <record id="model_x_con_consolidated_hea" model="ir.model"><field name="name">X Con Consolidated Hea</field><field name="model">x_con_consolidated_hea</field></record>
+  <record id="model_x_con_consolidated_lin" model="ir.model"><field name="name">X Con Consolidated Lin</field><field name="model">x_con_consolidated_lin</field></record>
+  <record id="model_x_consignment_charge_h" model="ir.model"><field name="name">X Consignment Charge H</field><field name="model">x_consignment_charge_h</field></record>
+  <record id="model_x_consignment_charge_l" model="ir.model"><field name="name">X Consignment Charge L</field><field name="model">x_consignment_charge_l</field></record>
+  <record id="model_x_temp_consignment_hea" model="ir.model"><field name="name">X Temp Consignment Hea</field><field name="model">x_temp_consignment_hea</field></record>
+  <record id="model_x_temp_consignment_lin" model="ir.model"><field name="name">X Temp Consignment Lin</field><field name="model">x_temp_consignment_lin</field></record>
 </odoo>
