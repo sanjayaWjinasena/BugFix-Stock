@@ -36,4 +36,54 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_7a3d5f50_6dd4_4fec_bce6_e64468891954" model="ir.ui.view">
+    <field name="name">Default list view for x_material_request</field>
+    <field name="model">x_material_request</field>
+    <field name="key">studio_customization.default_list_view_fo_7a3d5f50-6dd4-4fec-bce6-e64468891954</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__8772dded_80e5_4d0d_abe1_c5254d7684be" model="ir.ui.view">
+    <field name="name">Default search view for x_material_request</field>
+    <field name="model">x_material_request</field>
+    <field name="key">studio_customization.default_search_view__8772dded-80e5-4d0d-abe1-c5254d7684be</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_material_request" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__edb64916_066f_42b4_b629_9c1d6480a953" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_material_request customization</field>
+    <field name="model">x_material_request</field>
+    <field name="key">studio_customization.odoo_studio_default__edb64916-066f-42b4-b629-9c1d6480a953</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_list_view_fo_7a3d5f50_6dd4_4fec_bce6_e64468891954"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="create">true</attribute>
+          <attribute name="delete">true</attribute>
+          <attribute name="edit">true</attribute>
+        </xpath>
+        
+        
+      </data>
+    </field>
+  </record>
 </odoo>

@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <record id="ported_odoo_studio_stock_pi_273c0b07_d2e8_46d4_9c73_a6cd4952aa8d" model="ir.ui.view">
+    <field name="name">Odoo Studio: stock.picking.tree customization</field>
+    <field name="model">stock.picking</field>
+    <field name="key">studio_customization.odoo_studio_stock_pi_273c0b07-d2e8-46d4-9c73-a6cd4952aa8d</field>
+    <field name="type">tree</field>
+    <field name="priority">160</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="stock.vpicktree"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="create">true</attribute>
+        </xpath>
+        
+      </data>
+    </field>
+  </record>
 </odoo>

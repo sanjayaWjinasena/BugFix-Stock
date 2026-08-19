@@ -33,4 +33,53 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_cc6eb91b_64fa_4eb6_80b5_7fa5971f76b2" model="ir.ui.view">
+    <field name="name">Default list view for x_con_consolidated_hea</field>
+    <field name="model">x_con_consolidated_hea</field>
+    <field name="key">studio_customization.default_list_view_fo_cc6eb91b-64fa-4eb6-80b5-7fa5971f76b2</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__832abe7c_d6a6_400c_98a8_512047c122f6" model="ir.ui.view">
+    <field name="name">Default search view for x_con_consolidated_hea</field>
+    <field name="model">x_con_consolidated_hea</field>
+    <field name="key">studio_customization.default_search_view__832abe7c-d6a6-400c-98a8-512047c122f6</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_con_consolidated_hea" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__aa8a6866_bc62_4bd1_882c_a807b8a4df10" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_con_consolidated_hea customization</field>
+    <field name="model">x_con_consolidated_hea</field>
+    <field name="key">studio_customization.odoo_studio_default__aa8a6866-bc62-4bd1-882c-a807b8a4df10</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_list_view_fo_cc6eb91b_64fa_4eb6_80b5_7fa5971f76b2"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="default_order">x_name desc</attribute>
+        </xpath>
+        
+        
+        
+      </data>
+    </field>
+  </record>
 </odoo>

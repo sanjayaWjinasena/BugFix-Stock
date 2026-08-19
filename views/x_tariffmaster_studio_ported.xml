@@ -27,4 +27,34 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_91b43859_a00d_41f4_a2fc_aac111ebea1f" model="ir.ui.view">
+    <field name="name">Default list view for x_tariffmaster</field>
+    <field name="model">x_tariffmaster</field>
+    <field name="key">studio_customization.default_list_view_fo_91b43859-a00d-41f4-a2fc-aac111ebea1f</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__d7e5ae27_22c5_489a_8c95_7ffc7a9d00bb" model="ir.ui.view">
+    <field name="name">Default search view for x_tariffmaster</field>
+    <field name="model">x_tariffmaster</field>
+    <field name="key">studio_customization.default_search_view__d7e5ae27-22c5-489a-8c95-7ffc7a9d00bb</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_tariffmaster" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
 </odoo>

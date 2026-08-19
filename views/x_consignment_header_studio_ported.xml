@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <record id="ported_default_dashboard_vi_7c1f5982_aa4b_423f_8904_dad563f16752" model="ir.ui.view">
+    <field name="name">Default dashboard view for ir.model(905,)</field>
+    <field name="model">x_consignment_header</field>
+    <field name="key">studio_customization.default_dashboard_vi_7c1f5982-aa4b-423f-8904-dad563f16752</field>
+    <field name="type">dashboard</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <dashboard><view type="graph"/></dashboard>
+    </field>
+  </record>
   <record id="ported_default_form_view_fo_e078bfe8_0fab_409c_a40d_52b839c1b790" model="ir.ui.view">
     <field name="name">Default form view for x_consignment_header</field>
     <field name="model">x_consignment_header</field>
@@ -39,6 +50,87 @@
         </sheet>
         
       </form>
+    </field>
+  </record>
+  <record id="ported_default_kanban_view__b1bf683b_a1dc_467f_8223_29e051048c34" model="ir.ui.view">
+    <field name="name">Default kanban view for ir.model(905,)</field>
+    <field name="model">x_consignment_header</field>
+    <field name="key">studio_customization.default_kanban_view__b1bf683b-a1dc-467f-8223-29e051048c34</field>
+    <field name="type">kanban</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <kanban string="Consignment Header">
+        <templates>
+          <t t-name="kanban-box">
+            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+              <div class="o_kanban_record_top mb16">
+                <div class="o_kanban_record_headings ml-1">
+                  <strong class="o_kanban_record_title"><span><field name="x_studio_supplier_id" modifiers="{}"/></span></strong>
+                </div>
+                <strong><field name="x_studio_total_amount" widget="monetary"/></strong>
+              </div>
+              <div class="o_kanban_record_bottom">
+                <div class="oe_kanban_bottom_left">
+                  <field name="x_name" modifiers="{}"/>  
+                </div>
+                <div class="oe_kanban_bottom_right">
+                  <field name="x_studio_status" widget="label_selection"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <record id="ported_default_list_view_fo_45260e84_51bc_40b5_8b63_cd3447e8781c" model="ir.ui.view">
+    <field name="name">Default list view for x_consignment_header</field>
+    <field name="model">x_consignment_header</field>
+    <field name="key">studio_customization.default_list_view_fo_45260e84-51bc-40b5-8b63-cd3447e8781c</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__968f4f13_8318_4399_a3db_bbd3897d5521" model="ir.ui.view">
+    <field name="name">Default search view for x_consignment_header</field>
+    <field name="model">x_consignment_header</field>
+    <field name="key">studio_customization.default_search_view__968f4f13-8318-4399-a3db-bbd3897d5521</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_consignment_header" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__27ee0f58_6b76_45dd_9777_089f876a63e8" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_consignment_header customization</field>
+    <field name="model">x_consignment_header</field>
+    <field name="key">studio_customization.odoo_studio_default__27ee0f58-6b76-45dd-9777-089f876a63e8</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_list_view_fo_45260e84_51bc_40b5_8b63_cd3447e8781c"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="default_order">x_name desc</attribute>
+        </xpath>
+        
+        
+        
+      </data>
     </field>
   </record>
 </odoo>

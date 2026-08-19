@@ -27,4 +27,34 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_a04e818a_84c4_4a78_9d02_6e0901e49ffd" model="ir.ui.view">
+    <field name="name">Default list view for x_con_consolidated_lin</field>
+    <field name="model">x_con_consolidated_lin</field>
+    <field name="key">studio_customization.default_list_view_fo_a04e818a-84c4-4a78-9d02-6e0901e49ffd</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__21ebb591_905d_4b8f_b65f_3f73a3bc9f21" model="ir.ui.view">
+    <field name="name">Default search view for x_con_consolidated_lin</field>
+    <field name="model">x_con_consolidated_lin</field>
+    <field name="key">studio_customization.default_search_view__21ebb591-905d-4b8f-b65f-3f73a3bc9f21</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_con_consolidated_lin" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
 </odoo>

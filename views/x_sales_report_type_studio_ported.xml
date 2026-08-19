@@ -27,4 +27,53 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_097c53a2_58b7_4922_9d81_9eb5887b31fd" model="ir.ui.view">
+    <field name="name">Default list view for x_sales_report_type</field>
+    <field name="model">x_sales_report_type</field>
+    <field name="key">studio_customization.default_list_view_fo_097c53a2-58b7-4922-9d81-9eb5887b31fd</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__002b6e85_950e_4cfb_91eb_cfa5150f8b3a" model="ir.ui.view">
+    <field name="name">Default search view for x_sales_report_type</field>
+    <field name="model">x_sales_report_type</field>
+    <field name="key">studio_customization.default_search_view__002b6e85-950e-4cfb-91eb-cfa5150f8b3a</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_sales_report_type" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__580edcb5_cd6d_4864_84a8_400ec50c07b5" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_sales_report_type customization</field>
+    <field name="model">x_sales_report_type</field>
+    <field name="key">studio_customization.odoo_studio_default__580edcb5-cd6d-4864-84a8-400ec50c07b5</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_list_view_fo_097c53a2_58b7_4922_9d81_9eb5887b31fd"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="editable">bottom</attribute>
+        </xpath>
+        
+        
+        
+      </data>
+    </field>
+  </record>
 </odoo>

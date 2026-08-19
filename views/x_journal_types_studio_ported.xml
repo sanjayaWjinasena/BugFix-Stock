@@ -27,4 +27,52 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_02152264_7fd7_4b5e_8a84_ca3714db9fad" model="ir.ui.view">
+    <field name="name">Default list view for x_journal_types</field>
+    <field name="model">x_journal_types</field>
+    <field name="key">studio_customization.default_list_view_fo_02152264-7fd7-4b5e-8a84-ca3714db9fad</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__d3c181ad_9bc3_4cfc_9d60_2500bd38fe9f" model="ir.ui.view">
+    <field name="name">Default search view for x_journal_types</field>
+    <field name="model">x_journal_types</field>
+    <field name="key">studio_customization.default_search_view__d3c181ad-9bc3-4cfc-9d60-2500bd38fe9f</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_journal_types" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__7879380a_9ecc_4ca6_bfd3_fa82b991c3ce" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_journal_types customization</field>
+    <field name="model">x_journal_types</field>
+    <field name="key">studio_customization.odoo_studio_default__7879380a-9ecc-4ca6-bfd3-fa82b991c3ce</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_list_view_fo_02152264_7fd7_4b5e_8a84_ca3714db9fad"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="editable">bottom</attribute>
+        </xpath>
+        
+        
+      </data>
+    </field>
+  </record>
 </odoo>

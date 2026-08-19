@@ -27,4 +27,56 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_a303ef57_12a5_40c7_a831_03b4ff0379e7" model="ir.ui.view">
+    <field name="name">Default list view for x_consignment_charge_l</field>
+    <field name="model">x_consignment_charge_l</field>
+    <field name="key">studio_customization.default_list_view_fo_a303ef57-12a5-40c7-a831-03b4ff0379e7</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__8a861d53_79d0_474f_b0ba_f176eff2ced6" model="ir.ui.view">
+    <field name="name">Default search view for x_consignment_charge_l</field>
+    <field name="model">x_consignment_charge_l</field>
+    <field name="key">studio_customization.default_search_view__8a861d53-79d0-474f-b0ba-f176eff2ced6</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_consignment_charge_l" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__c25803e2_05ec_40dd_8600_c9c19ed6d1c9" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_consignment_charge_l customization</field>
+    <field name="model">x_consignment_charge_l</field>
+    <field name="key">studio_customization.odoo_studio_default__c25803e2-05ec-40dd-8600-c9c19ed6d1c9</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_list_view_fo_a303ef57_12a5_40c7_a831_03b4ff0379e7"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="create">false</attribute>
+          <attribute name="delete">false</attribute>
+          <attribute name="edit">false</attribute>
+          <attribute name="editable">bottom</attribute>
+        </xpath>
+        
+        
+        
+      </data>
+    </field>
+  </record>
 </odoo>

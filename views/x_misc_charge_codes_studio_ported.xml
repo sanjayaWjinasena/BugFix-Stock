@@ -27,6 +27,36 @@
       </form>
     </field>
   </record>
+  <record id="ported_default_list_view_fo_d3bfc8f6_5ce5_4404_9e14_e4e077d23300" model="ir.ui.view">
+    <field name="name">Default list view for x_misc_charge_codes</field>
+    <field name="model">x_misc_charge_codes</field>
+    <field name="key">studio_customization.default_list_view_fo_d3bfc8f6-5ce5-4404-9e14-e4e077d23300</field>
+    <field name="type">tree</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_default_search_view__26c03071_07d8_4292_934f_fd75e2f5f6db" model="ir.ui.view">
+    <field name="name">Default search view for x_misc_charge_codes</field>
+    <field name="model">x_misc_charge_codes</field>
+    <field name="key">studio_customization.default_search_view__26c03071-07d8-4292-934f-fd75e2f5f6db</field>
+    <field name="type">search</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="x_name"/>
+        <separator/>
+        <filter string="Archived" name="archived_x_misc_charge_codes" domain="[['x_active', '=', False]]"/>
+        <separator/>
+      </search>
+    </field>
+  </record>
   <record id="ported_odoo_studio_default__2389c30f_1a37_4097_87d2_180fcdcddcb0" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for x_misc_charge_codes customization</field>
     <field name="model">x_misc_charge_codes</field>
@@ -42,6 +72,26 @@
           <attribute name="delete">false</attribute>
           <attribute name="edit">false</attribute>
         </xpath>
+        
+        
+      </data>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__f4328649_f0ce_4d1a_9a3b_45e7f1c2e802" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_misc_charge_codes customization</field>
+    <field name="model">x_misc_charge_codes</field>
+    <field name="key">studio_customization.odoo_studio_default__f4328649-f0ce-4d1a-9a3b-45e7f1c2e802</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_list_view_fo_d3bfc8f6_5ce5_4404_9e14_e4e077d23300"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="default_order">x_studio_charge_group,x_name asc</attribute>
+          <attribute name="editable">bottom</attribute>
+        </xpath>
+        
         
         
       </data>

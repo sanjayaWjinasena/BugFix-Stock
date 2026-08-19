@@ -18,4 +18,21 @@
       </data>
     </field>
   </record>
+  <record id="ported_odoo_studio_stock_pi_34aab60c_096e_45e5_8b8b_91df5512fb67" model="ir.ui.view">
+    <field name="name">Odoo Studio: stock.picking.type.kanban customization</field>
+    <field name="model">stock.picking.type</field>
+    <field name="key">studio_customization.odoo_studio_stock_pi_34aab60c-096e-45e5-8b8b-91df5512fb67</field>
+    <field name="type">kanban</field>
+    <field name="priority">160</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//kanban[1]" position="attributes">
+          <attribute name="create">true</attribute>
+          <attribute name="quick_create">true</attribute>
+        </xpath>
+      </data>
+    </field>
+  </record>
 </odoo>

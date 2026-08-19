@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <record id="ported_odoo_studio_stock_wa_45818578_01e3_47c5_a04c_319a0837d1cf" model="ir.ui.view">
+    <field name="name">Odoo Studio: stock.warehouse.tree customization</field>
+    <field name="model">stock.warehouse</field>
+    <field name="key">studio_customization.odoo_studio_stock_wa_45818578-01e3-47c5-a04c-319a0837d1cf</field>
+    <field name="type">tree</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="stock.view_warehouse_tree"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="edit">false</attribute>
+        </xpath>
+        
+      </data>
+    </field>
+  </record>
 </odoo>
