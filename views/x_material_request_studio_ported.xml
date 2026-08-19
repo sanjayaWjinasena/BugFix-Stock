@@ -70,54 +70,7 @@
         </xpath>
         <xpath expr="//group[@name='studio_group_8ed6cf']" position="after">
           <notebook name="studio_notebook_PIcxd">
-            <page string="Products" name="studio_page_PIcxd">
-              <field name="x_studio_request_lines" force_save="True" readonly="(x_studio_selection_field_BupKG == 'Rejected') or (x_studio_selection_field_BupKG == 'Done')">
-                <tree editable="bottom">
-                  <field name="x_studio_sequence" widget="handle"/>
-                  <field name="x_studio_product" optional="show" required="1" readonly="x_studio_status != 'Draft'"/>
-                  <field name="x_studio_description_1" optional="show"/>
-                  <field name="x_studio_warehouse" optional="show"/>
-                  <field name="x_studio_uom_2" optional="show"/>
-                  <field optional="show" name="x_studio_requested_by" string="Requested by" widget="many2one_avatar_user" required="1" readonly="x_studio_status != 'Draft'"/>
-                  <field name="x_studio_quantity" optional="show" required="1" readonly="x_studio_status != 'Draft'"/>
-                  <field optional="show" name="x_studio_qty_to_transfer" string="Qty. to Transfer"/>
-                  <field name="x_studio_text_1" optional="hide" readonly="x_studio_status != 'Draft'"/>
-                  <field optional="hide" name="x_studio_available_qty_to_transfer" string="Available Qty. to Transfer" force_save="True" readonly="1"/>
-                  <field optional="hide" name="x_studio_qty_transfered" string="Qty. Transferred" force_save="True" readonly="1"/>
-                  <field optional="hide" name="x_studio_transfer_remainder" string="Transfer Remainder" force_save="True" readonly="1"/>
-                  <field optional="show" name="x_studio_status" string="Status" column_invisible="1"/>
-                  <field optional="hide" name="x_studio_on_hand_qty_2" string="On Hand Qty"/>
-                </tree>
-                <form>
-                  <header/>
-                  <sheet string="MR config" name="studio_sheet_e06e4d">
-                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-                    <field name="x_active" invisible="1"/>
-                    <div class="oe_title" name="studio_div_e096c6">
-                      <h1>
-                        <field name="x_name" required="1" placeholder="Name..." invisible="1"/>
-                      </h1>
-                    </div>
-                    <group name="studio_group_e19aa9">
-                      <group name="studio_group_e19aa9_left" string="General Information">
-                        <field name="x_studio_product" required="1" readonly="x_studio_status != 'Draft'"/>
-                        <field name="x_studio_description_1"/>
-                        <field name="x_studio_warehouse"/>
-                        <field name="x_studio_uom_2"/>
-                        <field name="x_studio_quantity" required="1" readonly="x_studio_status != 'Draft'"/>
-                        <field name="x_studio_many2one_field_6yqbk" invisible="1"/>
-                      </group>
-                      <group name="studio_group_e19aa9_right" string="Other Information">
-                        <field name="x_studio_requested_by" required="1" widget="many2one_avatar_user" readonly="x_studio_status != 'Draft'"/>
-                        <field name="x_studio_text_1" string="Notes" readonly="x_studio_status != 'Draft'"/>
-                        <field name="x_studio_status"/>
-                        <field name="x_studio_on_hand_qty_2"/>
-                      </group>
-                    </group>
-                  </sheet>
-                </form>
-              </field>
-            </page>
+            
           </notebook>
         </xpath>
       </data>

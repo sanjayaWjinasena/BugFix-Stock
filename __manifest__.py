@@ -30,7 +30,6 @@
         'views/stock_return_picking_studio_ported.xml',
         'views/stock_landed_cost_studio_ported.xml',
         'views/stock_location_studio_ported.xml',
-        'views/stock_picking_studio_ported.xml',
         'views/stock_picking_type_studio_ported.xml',
         'views/stock_warehouse_studio_ported.xml',
     ],
