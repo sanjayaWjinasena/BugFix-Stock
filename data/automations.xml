@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <!-- 21 automations ports for BugFix-Stock (auto-generated from Clear-DB snapshot) -->
-  <!-- SKIPPED unresolved model ref: <record id="automation_28_create_production_bom_material_cost" model="base.automation">     <field name="name">Create Production BOM Material Cost</fi... -->
-  <!-- SKIPPED unresolved model ref: <record id="automation_29_update_production_bom_material_cost" model="base.automation">     <field name="name">Update Production BOM Material Cost</fi... -->
+  
+  
   <record id="automation_56_jin_consignment_details_seq_no" model="base.automation">
     <field name="name">JIN-Consignment Details Seq.No</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
@@ -52,9 +52,9 @@
     <field name="active" eval="True"/>
     <!-- TODO: wire action_server_ids to actual server_action xmlids: [1454] -->
   </record>
-  <!-- SKIPPED unknown model Transfer: <record id="automation_104_supplier_invoice_no_update_in_import_pos" model="base.automation">     <field name="name">Supplier Invoice No Update in Imp... -->
-  <!-- SKIPPED unresolved model ref: <!-- SKIPPED unknown model Transfer: <record id="automation_124_srm_auto_populate_report_type_in_product_moves" model="base.automation">     <field name="name">SRM - Auto Populate Report ... -->
-  <!-- SKIPPED unresolved model ref: <!-- SKIPPED unknown model Transfer: <record id="automation_174_rr_auto_select_product_for_rug_repairs_3" model="base.automation">     <field name="name">RR - Auto Select Product for RUG ... -->
+  
+  
+  
   <record id="automation_280_jin_company_id_in_consignment_header" model="base.automation">
     <field name="name">JIN - Company Id in Consignment Header</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>

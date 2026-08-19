@@ -1862,8 +1862,8 @@ else:
    ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <!-- SKIPPED unknown model stock.return.picking: <record id="server_action_1991_rr_auto_select_product_for_rug_repairs_3" model="ir.actions.server">     <field name="name">RR - Auto Select Product fo... -->
-  <!-- SKIPPED unknown model stock.return.picking: <record id="server_action_1997_rr_rug_return_from_help_desk" model="ir.actions.server">     <field name="name">RR - RUG Return from Help desk</field> ... -->
+  
+  
   <record id="server_action_1999_rr_re_return_validation" model="ir.actions.server">
     <field name="name">RR - Re_return Validation</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
