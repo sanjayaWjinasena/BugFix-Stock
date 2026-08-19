@@ -3,6 +3,7 @@
   <record id="ported_odoo_studio_stock_wa_09a9b693_c813_4775_aa81_d5ae66074cc3" model="ir.ui.view">
     <field name="name">Odoo Studio: stock.warehouse customization</field>
     <field name="model">stock.warehouse</field>
+    <field name="key">studio_customization.odoo_studio_stock_wa_09a9b693-c813-4775-aa81-d5ae66074cc3</field>
     <field name="type">form</field>
     <field name="priority">160</field>
     <field name="mode">extension</field>

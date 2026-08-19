@@ -3,6 +3,7 @@
   <record id="ported_default_form_view_fo_f9b27db6_1eab_4eda_b8d3_cb9c6a750b20" model="ir.ui.view">
     <field name="name">Default form view for x_consignment_line</field>
     <field name="model">x_consignment_line</field>
+    <field name="key">studio_customization.default_form_view_fo_f9b27db6-1eab-4eda-b8d3-cb9c6a750b20</field>
     <field name="type">form</field>
     <field name="priority">16</field>
     <field name="mode">primary</field>
@@ -29,6 +30,7 @@
   <record id="ported_odoo_studio_default__907ca172_9607_4a80_aef8_49d8abae4e7c" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for x_consignment_line customization</field>
     <field name="model">x_consignment_line</field>
+    <field name="key">studio_customization.odoo_studio_default__907ca172-9607-4a80-aef8-49d8abae4e7c</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>
@@ -37,22 +39,8 @@
       <data>
         <xpath expr="//field[@name='x_name']" position="attributes">
           <attribute name="invisible">1</attribute></xpath>
-        <xpath expr="//group[@name='studio_group_0644e6_left']" position="inside">
-          <field name="x_studio_purchase_id"/>
-          <field name="x_studio_product_id"/>
-          <field name="x_studio_description" string="Description"/>
-          <field name="x_studio_warehouse" string="Warehouse"/>
-          <field name="x_studio_tariff_code" string="Tariff Code"/>
-          <field name="x_studio_consignment_header_id" string="Consignment Header Id" invisible="1"/>
-        </xpath>
-        <xpath expr="//group[@name='studio_group_0644e6_right']" position="inside">
-          <field name="x_currency_id"/>
-          <field name="x_studio_invoice_qty" string="Invoice Qty."/>
-          <field name="x_studio_unit_price" string="Unit Price"/>
-          <field name="x_studio_amount" string="Amount"/>
-          <field name="x_studio_received_qty" string="Received Qty."/>
-          <field name="x_studio_status" string="Status"/>
-        </xpath>
+        
+        
       </data>
     </field>
   </record>

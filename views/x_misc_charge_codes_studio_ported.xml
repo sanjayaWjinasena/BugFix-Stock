@@ -3,6 +3,7 @@
   <record id="ported_default_form_view_fo_79d2000d_8484_4cdb_befd_2dbcf0fb6a69" model="ir.ui.view">
     <field name="name">Default form view for x_misc_charge_codes</field>
     <field name="model">x_misc_charge_codes</field>
+    <field name="key">studio_customization.default_form_view_fo_79d2000d-8484-4cdb-befd-2dbcf0fb6a69</field>
     <field name="type">form</field>
     <field name="priority">16</field>
     <field name="mode">primary</field>
@@ -29,6 +30,7 @@
   <record id="ported_odoo_studio_default__2389c30f_1a37_4097_87d2_180fcdcddcb0" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for x_misc_charge_codes customization</field>
     <field name="model">x_misc_charge_codes</field>
+    <field name="key">studio_customization.odoo_studio_default__2389c30f-1a37-4097-87d2-180fcdcddcb0</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>
@@ -43,14 +45,7 @@
         <xpath expr="//field[@name='x_name']" position="attributes">
           <attribute name="string">Misc. Charge Code</attribute>
         </xpath>
-        <xpath expr="//group[@name='studio_group_d67062_left']" position="inside">
-          <field name="x_studio_description" string="Description"/>
-          <field name="x_studio_charge_group" string="Charge Group" help="The grouping which determines whether the line is of a Charge, Duty or Tax."/>
-          <field name="x_studio_debit_acc_type" help="Whether the cost of the Charge/Duty/Tax to be loaded to the item or ledger."/>
-          <field name="x_studio_charges_line_id" string="Charges Line Id" invisible="1"/>
-          <field name="x_studio_duties_line_id" string="Duties Line Id" invisible="1"/>
-          <field name="x_studio_taxes_line_id" string="Taxes Line Id" invisible="1"/>
-        </xpath>
+        
       </data>
     </field>
   </record>

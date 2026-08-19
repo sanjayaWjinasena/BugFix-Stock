@@ -3,6 +3,7 @@
   <record id="ported_default_form_view_fo_dbddc8a1_ea9d_47ba_8335_c08e4a53fc5c" model="ir.ui.view">
     <field name="name">Default form view for x_journal_types</field>
     <field name="model">x_journal_types</field>
+    <field name="key">studio_customization.default_form_view_fo_dbddc8a1-ea9d-47ba-8335-c08e4a53fc5c</field>
     <field name="type">form</field>
     <field name="priority">16</field>
     <field name="mode">primary</field>

@@ -3,6 +3,7 @@
   <record id="ported_odoo_studio_stock_la_6f6f982e_c1cf_4779_a791_339c002b1c2e" model="ir.ui.view">
     <field name="name">Odoo Studio: stock.landed.cost.form customization</field>
     <field name="model">stock.landed.cost</field>
+    <field name="key">studio_customization.odoo_studio_stock_la_6f6f982e-c1cf-4779-a791-339c002b1c2e</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>

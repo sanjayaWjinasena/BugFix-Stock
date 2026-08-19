@@ -3,6 +3,7 @@
   <record id="ported_default_form_view_fo_6b5f65f9_e9e6_48d2_a1cf_f0ede8a5353b" model="ir.ui.view">
     <field name="name">Default form view for x_consignment_charge_h</field>
     <field name="model">x_consignment_charge_h</field>
+    <field name="key">studio_customization.default_form_view_fo_6b5f65f9-e9e6-48d2-a1cf-f0ede8a5353b</field>
     <field name="type">form</field>
     <field name="priority">16</field>
     <field name="mode">primary</field>
@@ -29,27 +30,15 @@
   <record id="ported_odoo_studio_default__f7a79ca0_c28b_426a_9cee_c3ad87d51662" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for x_consignment_charge_h customization</field>
     <field name="model">x_consignment_charge_h</field>
+    <field name="key">studio_customization.odoo_studio_default__f7a79ca0-c28b-426a-9cee-c3ad87d51662</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>
     <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_6b5f65f9_e9e6_48d2_a1cf_f0ede8a5353b"/>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//group[@name='studio_group_99a601_left']" position="inside">
-          <field name="x_studio_charge_group" string="Charge Group"/>
-          <field name="x_studio_charge_name" string="Charge Name"/>
-          <field name="x_studio_basis" string="Basis" invisible="1"/>
-          <field name="x_studio_formula" string="Formula" invisible="1"/>
-          <field name="x_studio_amount" string="Amount"/>
-          <field name="x_studio_ledger_post" string="Ledger Post"/>
-        </xpath>
-        <xpath expr="//group[@name='studio_group_99a601_right']" position="inside">
-          <field name="x_studio_consignment_id" string="Consignment Id" invisible="1"/>
-          <field name="x_studio_structure_details_line_ids" string="Structure Details Line Ids" invisible="1"/>
-          <field name="x_studio_structure_master_id" string="Structure Master Id" invisible="1"/>
-          <field name="x_studio_structure_no" string="Structure No" invisible="1"/>
-          <field name="x_studio_tax_appicable" string="Tax Appicable" invisible="1"/>
-        </xpath>
+        
+        
       </data>
     </field>
   </record>

@@ -3,6 +3,7 @@
   <record id="ported_odoo_studio_stock_lo_2c5464db_5660_451b_8321_6ae0330d6d58" model="ir.ui.view">
     <field name="name">Odoo Studio: stock.location.form customization</field>
     <field name="model">stock.location</field>
+    <field name="key">studio_customization.odoo_studio_stock_lo_2c5464db-5660-451b-8321-6ae0330d6d58</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>

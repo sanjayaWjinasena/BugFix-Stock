@@ -3,6 +3,7 @@
   <record id="ported_odoo_studio_operatio_0ecc5485_edf3_4700_a515_af56d28994ad" model="ir.ui.view">
     <field name="name">Odoo Studio: Operation Types customization</field>
     <field name="model">stock.picking.type</field>
+    <field name="key">studio_customization.odoo_studio_operatio_0ecc5485-edf3-4700-a515-af56d28994ad</field>
     <field name="type">form</field>
     <field name="priority">160</field>
     <field name="mode">extension</field>

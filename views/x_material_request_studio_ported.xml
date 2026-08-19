@@ -3,6 +3,7 @@
   <record id="ported_default_form_view_fo_6a77a64b_caff_42fe_97b4_e1d153c18e1b" model="ir.ui.view">
     <field name="name">Default form view for x_material_request</field>
     <field name="model">x_material_request</field>
+    <field name="key">studio_customization.default_form_view_fo_6a77a64b-caff-42fe-97b4-e1d153c18e1b</field>
     <field name="type">form</field>
     <field name="priority">16</field>
     <field name="mode">primary</field>
@@ -38,6 +39,7 @@
   <record id="ported_odoo_studio_default__0da12c6e_f1ad_42c4_948e_050e0634075f" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for x_material_request customization</field>
     <field name="model">x_material_request</field>
+    <field name="key">studio_customization.odoo_studio_default__0da12c6e-f1ad-42c4-948e-050e0634075f</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>
@@ -45,36 +47,13 @@
     <field name="arch" type="xml">
       <data>
         
-        <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
-          <div name="button_box" class="oe_button_box">
-            
-          </div>
-        </xpath>
+        
         <xpath expr="//field[@name='x_name']" position="attributes">
           <attribute name="force_save">True</attribute>
           <attribute name="readonly">1</attribute><attribute name="required"/></xpath>
-        <xpath expr="//group[@name='studio_group_8ed6cf_left']" position="inside">
-          <field name="x_studio_warehouse" string="Warehouse" required="1" readonly="x_studio_selection_field_BupKG != 'Draft'"/>
-          <field name="x_studio_many2one_field_6f0Gc" readonly="x_studio_selection_field_BupKG != 'Draft'"/>
-          <field name="x_studio_notes" string="Notes" readonly="x_studio_selection_field_BupKG != 'Draft'"/>
-          <field name="x_studio_requested_date" string="Requested Date" required="1" readonly="x_studio_selection_field_BupKG != 'Draft'"/>
-        </xpath>
-        <xpath expr="//group[@name='studio_group_8ed6cf_right']" position="inside">
-          <field name="x_studio_many2one_field_THFu6" invisible="0" string="Maintenance Request No" force_save="True" readonly="1"/>
-          <field name="x_studio_journal_type" string="Journal Type" force_save="True" readonly="1"/>
-          <field name="create_uid" string="Created by" widget="many2one_avatar_user"/>
-          <field name="create_date" string="Created on"/>
-          <field name="x_studio_requested_by" string="Requested By" widget="many2one_avatar_user" required="1" readonly="x_studio_selection_field_BupKG != 'Draft'"/>
-          <field name="x_studio_done_stage_updated" string="Done Stage Updated" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_done" string="Done" force_save="True" readonly="1" invisible="1"/>
-        </xpath>
-        <xpath expr="//group[@name='studio_group_8ed6cf']" position="after">
-          <notebook name="studio_notebook_PIcxd">
-            <page string="Products" name="studio_page_PIcxd">
-              
-            </page>
-          </notebook>
-        </xpath>
+        
+        
+        
       </data>
     </field>
   </record>

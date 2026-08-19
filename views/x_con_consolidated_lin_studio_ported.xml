@@ -3,6 +3,7 @@
   <record id="ported_default_form_view_fo_7c80a452_820d_4f3c_a52a_11d79869f9bb" model="ir.ui.view">
     <field name="name">Default form view for x_con_consolidated_lin</field>
     <field name="model">x_con_consolidated_lin</field>
+    <field name="key">studio_customization.default_form_view_fo_7c80a452-820d-4f3c-a52a-11d79869f9bb</field>
     <field name="type">form</field>
     <field name="priority">16</field>
     <field name="mode">primary</field>
@@ -29,6 +30,7 @@
   <record id="ported_odoo_studio_default__16c2359b_cd02_4c51_aac4_f29bb2cc1269" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for x_con_consolidated_lin customization</field>
     <field name="model">x_con_consolidated_lin</field>
+    <field name="key">studio_customization.odoo_studio_default__16c2359b-cd02-4c51-aac4-f29bb2cc1269</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>
@@ -37,22 +39,8 @@
       <data>
         <xpath expr="//field[@name='x_name']" position="attributes">
           <attribute name="invisible">1</attribute><attribute name="required"/></xpath>
-        <xpath expr="//group[@name='studio_group_759e62_left']" position="inside">
-          <field name="x_studio_supplier_id" string="Vendor" force_save="True" readonly="1"/>
-          <field name="x_studio_currency_id" string="Currency" force_save="True" readonly="1"/>
-          <field name="x_studio_delivery_term" string="Delivery Term" force_save="True" readonly="1"/>
-          <field name="x_studio_shipment_start_date" string="Shipment Start Date" force_save="True" readonly="1"/>
-          <field name="x_studio_invoice_date" string="Invoice Date" force_save="True" readonly="1"/>
-          <field name="x_studio_supplier_invoice_no" string="Supplier Invoice No" force_save="True" readonly="1"/>
-          <field name="x_studio_consignment_id" string="Consignment Id" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_consolidated_header_id" string="Consolidated Header Id" force_save="True" readonly="1" invisible="1"/>
-        </xpath>
-        <xpath expr="//group[@name='studio_group_759e62_right']" position="inside">
-          <field name="x_studio_container_no" string="Container No" force_save="True" readonly="1"/>
-          <field name="x_studio_shipping_mode_1" string="Shipping Mode" force_save="True" readonly="1"/>
-          <field name="x_studio_custom_clearance_no" string="Custom Clearance No" force_save="True" readonly="1"/>
-          <field name="x_studio_status" string="Status" force_save="True" readonly="1"/>
-        </xpath>
+        
+        
       </data>
     </field>
   </record>

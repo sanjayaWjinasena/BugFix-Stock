@@ -3,6 +3,7 @@
   <record id="ported_default_form_view_fo_3e7b8355_c2a7_4eb8_a5b4_b080ccdddf7b" model="ir.ui.view">
     <field name="name">Default form view for x_con_consolidated_hea</field>
     <field name="model">x_con_consolidated_hea</field>
+    <field name="key">studio_customization.default_form_view_fo_3e7b8355-c2a7-4eb8-a5b4-b080ccdddf7b</field>
     <field name="type">form</field>
     <field name="priority">16</field>
     <field name="mode">primary</field>
@@ -35,6 +36,7 @@
   <record id="ported_odoo_studio_default__28be99a2_ccc7_4f0e_b80f_663aaf08af7f" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for x_con_consolidated_hea customization</field>
     <field name="model">x_con_consolidated_hea</field>
+    <field name="key">studio_customization.odoo_studio_default__28be99a2-ccc7-4f0e-b80f-663aaf08af7f</field>
     <field name="type">form</field>
     <field name="priority">99</field>
     <field name="mode">extension</field>
@@ -42,26 +44,10 @@
     <field name="arch" type="xml">
       <data>
         
-        <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']" position="attributes">
-          <attribute name="force_save">True</attribute>
-          <attribute name="readonly">1</attribute></xpath>
-        <xpath expr="//group[@name='studio_group_bc4ef6_left']" position="inside">
-          <field name="x_studio_description" string="Description" readonly="x_studio_status == 'Confirmed'"/>
-        </xpath>
-        <xpath expr="//group[@name='studio_group_bc4ef6_right']" position="inside">
-          <field name="create_uid"/>
-          <field name="create_date"/>
-          <field name="x_studio_status" string="Status" force_save="True" readonly="1"/>
-          <field name="x_studio_company_id" string="Company" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_lines_copied" string="Lines Copied" force_save="True" readonly="1" invisible="1"/>
-        </xpath>
-        <xpath expr="//group[@name='studio_group_bc4ef6']" position="after">
-          <notebook name="studio_notebook_8O2sf">
-            <page string="Lines" name="studio_page_8O2sf">
-              
-            </page>
-          </notebook>
-        </xpath>
+        
+        
+        
+        
       </data>
     </field>
   </record>
