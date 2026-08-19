@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="ported_default_form_view_fo_f9b27db6_1eab_4eda_b8d3_cb9c6a750b20" model="ir.ui.view">
+    <field name="name">Default form view for x_consignment_line</field>
+    <field name="model">x_consignment_line</field>
+    <field name="type">form</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <form>
+        <header/>
+        <sheet string="Consignment Line">
+          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
+          <field name="x_active" invisible="1"/>
+          <div class="oe_title">
+                      <h1>
+                          <field name="x_name" required="1" placeholder="Name..."/>
+                      </h1>
+                  </div>
+          <group name="studio_group_0644e6">
+            <group name="studio_group_0644e6_left"/>
+            <group name="studio_group_0644e6_right"/>
+          </group>
+        </sheet>
+        <div class="oe_chatter" name="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+          <field name="activity_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_default__907ca172_9607_4a80_aef8_49d8abae4e7c" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default form view for x_consignment_line customization</field>
+    <field name="model">x_consignment_line</field>
+    <field name="type">form</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_f9b27db6_1eab_4eda_b8d3_cb9c6a750b20"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='x_name']" position="attributes">
+          <attribute name="invisible">1</attribute></xpath>
+        <xpath expr="//group[@name='studio_group_0644e6_left']" position="inside">
+          <field name="x_studio_purchase_id"/>
+          <field name="x_studio_product_id"/>
+          <field name="x_studio_description" string="Description"/>
+          <field name="x_studio_warehouse" string="Warehouse"/>
+          <field name="x_studio_tariff_code" string="Tariff Code"/>
+          <field name="x_studio_consignment_header_id" string="Consignment Header Id" invisible="1"/>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_0644e6_right']" position="inside">
+          <field name="x_currency_id"/>
+          <field name="x_studio_invoice_qty" string="Invoice Qty."/>
+          <field name="x_studio_unit_price" string="Unit Price"/>
+          <field name="x_studio_amount" string="Amount"/>
+          <field name="x_studio_received_qty" string="Received Qty."/>
+          <field name="x_studio_status" string="Status"/>
+        </xpath>
+      </data>
+    </field>
+  </record>
+</odoo>

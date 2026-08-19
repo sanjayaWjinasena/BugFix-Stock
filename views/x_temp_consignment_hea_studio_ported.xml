@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="ported_imp_copy_po_line_to__1869b282_1671_41a2_b0c5_52517a4390f3" model="ir.ui.view">
+    <field name="name">IMP Copy PO Line to Consignment</field>
+    <field name="model">x_temp_consignment_hea</field>
+    <field name="type">form</field>
+    <field name="priority">16</field>
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <form string="Copy Import Order Lines">
+        <separator string="Applicable Line:"/>
+          <newline/>
+          <group>
+            <field name="x_name" options="{'no_open': true}" invisible="1" readonly="True"/>
+            <field name="x_studio_temp_consignment_header_id" options="{'no_open': true}" invisible="1" readonly="True"/>
+            <field name="x_studio_select_all" options="{'no_open': true}" invisible="1" readonly="True"/>
+          </group> 
+          <newline/>
+           
+          
+          <group>
+            <field name="x_studio_temp_consignment_line_ids" nolabel="1" colspan="2">
+              <tree string="Details" create="false" editable="bottom" delete="false"> 
+                <field name="x_studio_select"/>
+                <field name="x_studio_purchase_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_supplier_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_indent_no" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_product_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_description" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_uom_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_quantity" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_weight" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_volume" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_delivery_remainder" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_consignment_remainder" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_unit_price" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_subtotal" options="{'no_open': true}" force_save="1" readonly="True"/>	
+                <field name="x_studio_payment_method" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_structure_name" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_delivery_date" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_purchase_line_id" options="{'no_open': true}" force_save="1" column_invisible="1" readonly="True"/>
+                <field name="x_studio_concessional_rate" options="{'no_open': true}" force_save="1" column_invisible="1" readonly="True"/>
+              </tree>
+            </field>
+          </group>
+          <newline/>
+          <footer>
+            
+            <button special="cancel" string="Cancel" class="oe_link"/>
+          </footer>
+      </form>
+    </field>
+  </record>
+  <record id="ported_odoo_studio_imp_copy_3c84c228_a129_41d2_b514_02ecd5397352" model="ir.ui.view">
+    <field name="name">Odoo Studio: IMP Copy PO Line to Consignment customization</field>
+    <field name="model">x_temp_consignment_hea</field>
+    <field name="type">form</field>
+    <field name="priority">99</field>
+    <field name="mode">extension</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_imp_copy_po_line_to__1869b282_1671_41a2_b0c5_52517a4390f3"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='x_studio_payment_method']" position="attributes">
+          <attribute name="force_save"/>
+          <attribute name="options"/>
+        <attribute name="readonly"/></xpath>
+      </data>
+    </field>
+  </record>
+</odoo>
