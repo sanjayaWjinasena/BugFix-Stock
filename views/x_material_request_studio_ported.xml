@@ -36,23 +36,4 @@
       </form>
     </field>
   </record>
-  <record id="ported_odoo_studio_default__0da12c6e_f1ad_42c4_948e_050e0634075f" model="ir.ui.view">
-    <field name="name">Odoo Studio: Default form view for x_material_request customization</field>
-    <field name="model">x_material_request</field>
-    <field name="key">studio_customization.odoo_studio_default__0da12c6e-f1ad-42c4-948e-050e0634075f</field>
-    <field name="type">form</field>
-    <field name="priority">99</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_6a77a64b_caff_42fe_97b4_e1d153c18e1b"/>
-    <field name="arch" type="xml">
-      <data>
-        
-        
-        
-        
-        
-        
-      </data>
-    </field>
-  </record>
 </odoo>

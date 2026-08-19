@@ -27,19 +27,4 @@
       </form>
     </field>
   </record>
-  <record id="ported_odoo_studio_default__88b50a43_20bf_4dc4_9dca_97b90bb0be4f" model="ir.ui.view">
-    <field name="name">Odoo Studio: Default form view for x_sales_report_type customization</field>
-    <field name="model">x_sales_report_type</field>
-    <field name="key">studio_customization.odoo_studio_default__88b50a43-20bf-4dc4-9dca-97b90bb0be4f</field>
-    <field name="type">form</field>
-    <field name="priority">99</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_4e292064_7f8d_4862_a87b_be052bafea00"/>
-    <field name="arch" type="xml">
-      <data>
-        
-        
-      </data>
-    </field>
-  </record>
 </odoo>

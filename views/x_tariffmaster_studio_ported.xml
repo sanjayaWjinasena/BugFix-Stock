@@ -27,20 +27,4 @@
       </form>
     </field>
   </record>
-  <record id="ported_odoo_studio_default__3291b05a_625c_4e34_8983_ad657ffc8e41" model="ir.ui.view">
-    <field name="name">Odoo Studio: Default form view for x_tariffmaster customization</field>
-    <field name="model">x_tariffmaster</field>
-    <field name="key">studio_customization.odoo_studio_default__3291b05a-625c-4e34-8983-ad657ffc8e41</field>
-    <field name="type">form</field>
-    <field name="priority">99</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_2f8f86c0_4bf7_46a6_8629_ecbf71a8eb0c"/>
-    <field name="arch" type="xml">
-      <data>
-        
-        
-        
-      </data>
-    </field>
-  </record>
 </odoo>

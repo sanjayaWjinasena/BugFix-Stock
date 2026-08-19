@@ -27,20 +27,4 @@
       </form>
     </field>
   </record>
-  <record id="ported_odoo_studio_default__907ca172_9607_4a80_aef8_49d8abae4e7c" model="ir.ui.view">
-    <field name="name">Odoo Studio: Default form view for x_consignment_line customization</field>
-    <field name="model">x_consignment_line</field>
-    <field name="key">studio_customization.odoo_studio_default__907ca172-9607-4a80-aef8-49d8abae4e7c</field>
-    <field name="type">form</field>
-    <field name="priority">99</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_f9b27db6_1eab_4eda_b8d3_cb9c6a750b20"/>
-    <field name="arch" type="xml">
-      <data>
-        
-        
-        
-      </data>
-    </field>
-  </record>
 </odoo>

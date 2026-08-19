@@ -41,46 +41,4 @@
       </form>
     </field>
   </record>
-  <record id="ported_view_x_consignment_hea_form_rewire_vendor_dispatch" model="ir.ui.view">
-    <field name="name">bugfix_purchase.x_consignment_header.form.rewire.vendor.dispatch</field>
-    <field name="model">x_consignment_header</field>
-    <field name="key">BugFix-Purchase.view_x_consignment_hea_form_rewire_vendor_dispatch</field>
-    <field name="type">form</field>
-    <field name="priority">16</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_e078bfe8_0fab_409c_a40d_52b839c1b790"/>
-    <field name="arch" type="xml">
-      <data><!-- Odoo 17 strict arch validation requires every field used
-                       in an `invisible` / `readonly` / `required` modifier to
-                       be present as a <field> element in the view. The base
-                       form (2811) uses several x_studio_* status/flag fields
-                       in button modifiers (1263, 1303, 1365, 1456, 2199,
-                       1316, 1318, 1321, 1377) but Studio's own inherit
-                       doesn't inject them all. My inherit forces strict
-                       re-validation, which trips over the missing fields.
-                       Inject them all as invisible sentinels here. -->
-                  
-                  
-              </data>
-    </field>
-  </record>
-  <record id="ported_odoo_studio_default__40d235a7_af5d_443a_93cb_b3e95d5cfeca" model="ir.ui.view">
-    <field name="name">Odoo Studio: Default form view for x_consignment_header customization</field>
-    <field name="model">x_consignment_header</field>
-    <field name="key">studio_customization.odoo_studio_default__40d235a7-af5d-443a-93cb-b3e95d5cfeca</field>
-    <field name="type">form</field>
-    <field name="priority">99</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_e078bfe8_0fab_409c_a40d_52b839c1b790"/>
-    <field name="arch" type="xml">
-      <data>
-        
-        
-        
-        
-        
-        
-      </data>
-    </field>
-  </record>
 </odoo>

@@ -27,20 +27,4 @@
       </form>
     </field>
   </record>
-  <record id="ported_odoo_studio_default__16c2359b_cd02_4c51_aac4_f29bb2cc1269" model="ir.ui.view">
-    <field name="name">Odoo Studio: Default form view for x_con_consolidated_lin customization</field>
-    <field name="model">x_con_consolidated_lin</field>
-    <field name="key">studio_customization.odoo_studio_default__16c2359b-cd02-4c51-aac4-f29bb2cc1269</field>
-    <field name="type">form</field>
-    <field name="priority">99</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_7c80a452_820d_4f3c_a52a_11d79869f9bb"/>
-    <field name="arch" type="xml">
-      <data>
-        
-        
-        
-      </data>
-    </field>
-  </record>
 </odoo>

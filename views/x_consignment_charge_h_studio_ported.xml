@@ -27,19 +27,4 @@
       </form>
     </field>
   </record>
-  <record id="ported_odoo_studio_default__f7a79ca0_c28b_426a_9cee_c3ad87d51662" model="ir.ui.view">
-    <field name="name">Odoo Studio: Default form view for x_consignment_charge_h customization</field>
-    <field name="model">x_consignment_charge_h</field>
-    <field name="key">studio_customization.odoo_studio_default__f7a79ca0-c28b-426a-9cee-c3ad87d51662</field>
-    <field name="type">form</field>
-    <field name="priority">99</field>
-    <field name="mode">extension</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_6b5f65f9_e9e6_48d2_a1cf_f0ede8a5353b"/>
-    <field name="arch" type="xml">
-      <data>
-        
-        
-      </data>
-    </field>
-  </record>
 </odoo>
