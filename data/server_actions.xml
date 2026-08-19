@@ -111,371 +111,736 @@ else:
     <field name="name">IMP - Allocate Consignment Header Charges</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[av = 0
-c_f_i = 0
-
-##################
-ex_rate = 1
-company_currency = env['res.config.settings'].search([('currency_id', '=', record.x_studio_currency_id.id)],limit=1)
-if company_currency:
-  ex_rate = 1
-else:
-  custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
-  if custom_currency:
-    currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', record.x_studio_custom_cleared_date),('x_studio_end_date', '>=', record.x_studio_custom_cleared_date)],order='x_studio_start_date desc',limit=1)
-    if currency_rate:
-      ex_rate = currency_rate.x_studio_rate
-    else:
-      raise UserError('Please setup a valid currency rate in Custom Exchange Rates.')
-  else:
-    raise UserError('Please setup a valid currency rate in Custom Exchange Rates.')
-##################
-
-con_line = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
-if con_line:
-  for validate_unitprice in con_line:
-    if validate_unitprice.x_studio_unit_price == 0.0000:
-      raise UserError("Unit Price must be Specified in each Consignment Line!")
-      
-    if validate_unitprice.x_studio_cost_allocation_method == 'by_weight':
-      if validate_unitprice.x_studio_weight == 0.0000:  
-        raise UserError("Weight must be Specified in each Consignment Line!")
-        
-    if validate_unitprice.x_studio_cost_allocation_method == 'by_volume':
-      if validate_unitprice.x_studio_volume == 0.0000:  
-        raise UserError("Volume must be Specified in each Consignment Line!")
-        
-    validate_unitprice.write({'x_studio_exchange_rate':ex_rate}) 
-
-#############################################################-Indent Costing - Begin-#########################################################################
-delivery_term = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', record.x_studio_delivery_term.id), ('x_studio_tax_appicable', '=', True)]) 
-if delivery_term:
-  for valid_terms in delivery_term:
-    header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
-    if header_charges:
-      header_charges.write({'x_studio_tax_appicable': True}) 
-      c_f_i += header_charges.x_studio_amount
-      
-##########################################################modi-20.07.2022#####################################################################################
-delivery_term2 = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', record.x_studio_delivery_term.id), ('x_studio_tax_appicable2', '=', True)]) 
-if delivery_term2:
-  for valid_terms2 in delivery_term2:
-    header_charges2 = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms2.x_name)],limit=1)
-    if header_charges2:
-      header_charges2.write({'x_studio_tax_appicable2': True}) 
-##########################################################modi-20.07.2022#####################################################################################      
-
-#av = record.x_studio_total_allocate_amount + c_f_i #Original Code
-#av = record.x_studio_total_amount + c_f_i #Version - 01 #12.09.2022
-av = c_f_i #Version - 01 #12.09.2022
-
-purchase_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)]) 
-if purchase_lines:
-  for loop_lines in purchase_lines:
-    ##################################################-Structure Formula Variable Declaration - Begin-###########################################################
-    line_av = 0
-    CD = 0
-    CL = 0
-    ESC = 0
-    Excise = 0
-    PAL = 0
-    RIDL = 0
-    SRL = 0
-    Surcharge = 0
-    NBT = 0
-    NBT_N = 0
-    VAT = 0
-    VAT_NInv = 0
-    SSCL = 0
-    rt = 0
-    re = 0
-    ##################################################-Structure Formula Variable Declaration - End-###########################################################
-    tot_charge = 0
-    tot_duty = 0
-    tot_tax = 0
-    tot_charge_ex = 0
-    tot_duty_ex = 0
-    tot_tax_ex = 0
-    tot_charge_cd = 0
-    tot_duty_cd = 0
-    tot_tax_cd = 0
-    tot_charge_ex_cd = 0
-    tot_duty_ex_cd = 0
-    tot_tax_ex_cd = 0
-    valid_charge = False
-    valid_duty = False
-    valid_tax = False
-    valid_charge_ex = False
-    valid_duty_ex = False
-    valid_tax_ex = False
-    valid_charge_cd = False
-    valid_duty_cd = False
-    valid_tax_cd = False
-    valid_charge_ex_cd = False
-    valid_duty_ex_cd = False
-    valid_tax_ex_cd = False
-    ##
-    tot_charge_ids = []
-    tot_duty_ids = []
-    tot_tax_ids = []
-    tot_charge_ex_ids = []
-    tot_duty_ex_ids = []
-    tot_tax_ex_ids = []
-    tot_charge_cd_ids = []
-    tot_duty_cd_ids = []
-    tot_tax_cd_ids = []
-    tot_charge_ex_cd_ids = []
-    tot_duty_ex_cd_ids = []
-    tot_tax_ex_cd_ids = []
-    ##############################################################Variable Declaration - End ##################################################################
-    #if record.x_studio_total_allocate_amount > 0.00:
-    if record.x_studio_total_amount > 0.00:
-      #line_av = (av*loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount #12.09.2022
-      line_av = ((av*loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount) + ((loop_lines.x_studio_amount * loop_lines.x_studio_exchange_rate)) #12.09.2022
-    
-    ##########################################################-Calculate Structure Formulas-  Begin-###########################################################  
-    header_lines_formula = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id), ('x_studio_charge_group', '!=', 'Charges')],order='x_studio_structure_no asc') 
-    if header_lines_formula:
-      for allocate_lines_formula in header_lines_formula:
-        valid_tariff_dates = env['x_tariff_date'].search(['|',('x_studio_tarrif_to_date', '=', False),('x_studio_tarrif_to_date', '>=', record.x_studio_custom_cleared_date),'&',('x_studio_tariff_master_ids', '=', loop_lines.x_studio_tariff_code.id),('x_studio_tarrif_from_date', '<=', record.x_studio_custom_cleared_date)],limit=1)
-        if valid_tariff_dates:
-          rate = 0
-          valid_tariff_rates = env['x_tariff_rates'].search([('x_studio_tariff_date_ids', '=', valid_tariff_dates.id), ('x_studio_charge_name', '=', allocate_lines_formula.x_studio_charge_name)],limit=1)
-          if valid_tariff_rates:
-            if loop_lines.x_studio_concessional_rate == False:
-              rate = valid_tariff_rates.x_studio_normal_rate / 100
-            else:
-              rate = valid_tariff_rates.x_studio_concessional_rate / 100
-         
-            if allocate_lines_formula.x_studio_charge_name == 'CID':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                CD = line_av * rate
-              else:
-                CD = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'EIC':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                CL = line_av * rate
-              else:
-                CL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value 
-            elif allocate_lines_formula.x_studio_charge_name == 'ESC':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                ESC = 0 # To Be Removed
-              else:
-                ESC = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value 
-            elif allocate_lines_formula.x_studio_charge_name == 'Excise':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                Excise = (line_av+CD+CL+PAL) * rate 
-              else:
-                Excise = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'PAL':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                PAL = line_av * rate
-              else:
-                PAL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'RIDL':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                RIDL = 0 # To Be Removed
-              else:
-                RIDL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'SRL':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                SRL = 0 # To Be Removed
-              else:
-                SRL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'Surcharge':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                Surcharge = 0 # To Be Removed
-              else:
-                Surcharge = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'NBT':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                NBT = 0 # To Be Removed
-              else:
-                NBT = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'NBT-N':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                NBT_N = 0 # To Be Removed
-              else:
-                NBT_N = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'VAT-on-Item':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                VAT = 0 # To Be Removed
-              else:
-                VAT = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'VAT-on-GL':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                VAT_NInv = (line_av*110/100+CD+CL+PAL+Excise) * rate
-              else:
-                VAT_NInv = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            elif allocate_lines_formula.x_studio_charge_name == 'SSCL':
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                #SSCL = loop_lines.x_studio_allocate_amount * rate
-                SSCL = (line_av*110/100+CD+CL+PAL+Excise) * rate
-              else:
-                SSCL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-            else:
-              if allocate_lines_formula.x_studio_basis == 'Percentage':
-                rt = 0 # To Be Removed
-                re = 0 # To Be Removed
-              else:
-                rt = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-                re = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
-        else:
-         raise UserError('There is No Valid Date Range for the Tariff Codes in Product Id: ' + loop_lines.x_studio_product_id.default_code)
-    ##########################################################-Calculate Structure Formulas- End-#############################################################  
-    
-    ##########################################################-Assign Structure Formulas- Begin-##############################################################
-    header_lines = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc') 
-    if header_lines:
-      for allocate_lines in header_lines:
-        line_charge_amt = 0
-        if allocate_lines.x_studio_charge_group == 'Charges':
-          #if allocate_lines.x_studio_tax_appicable == True: 
-          """if c_f_i > 0.00:
-            line_charge_amt = (allocate_lines.x_studio_amount * loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount
-            #line_charge_amt = ((line_av-loop_lines.x_studio_allocate_amount)*allocate_lines.x_studio_amount)/c_f_i"""
-          line_charge_amt = (allocate_lines.x_studio_amount * loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount
-          #line_charge_amt = ((line_av-loop_lines.x_studio_allocate_amount)*allocate_lines.x_studio_amount)/c_f_i
-        else:
-          if loop_lines.x_studio_product_id.x_studio_tariff_code.id == False:
-           raise UserError('Tariff Codes must be assigned to Product Id: ' + loop_lines.x_studio_product_id.default_code)
-           
-          if allocate_lines.x_studio_charge_name == 'CID':
-            line_charge_amt = CD
-          elif allocate_lines.x_studio_charge_name == 'EIC':
-            line_charge_amt = CL
-          elif allocate_lines.x_studio_charge_name == 'ESC':
-            line_charge_amt =  ESC
-          elif allocate_lines.x_studio_charge_name == 'Excise':
-            line_charge_amt = Excise
-          elif allocate_lines.x_studio_charge_name == 'PAL':
-            line_charge_amt = PAL
-          elif allocate_lines.x_studio_charge_name == 'RIDL':
-            line_charge_amt = RIDL
-          elif allocate_lines.x_studio_charge_name == 'SRL':
-            line_charge_amt = SRL
-          elif allocate_lines.x_studio_charge_name == 'Surcharge':
-            line_charge_amt = Surcharge
-          elif allocate_lines.x_studio_charge_name == 'NBT':
-            line_charge_amt = NBT
-          elif allocate_lines.x_studio_charge_name == 'NBT-N':
-            line_charge_amt = NBT_N
-          elif allocate_lines.x_studio_charge_name == 'VAT-on-Item':
-            line_charge_amt = VAT
-          elif allocate_lines.x_studio_charge_name == 'VAT-on-GL':
-            line_charge_amt = VAT_NInv
-          elif allocate_lines.x_studio_charge_name == 'SSCL':
-            line_charge_amt = SSCL
-          else:
-            line_charge_amt = rt
-            line_charge_amt = re
-    ##########################################################-Assign Structure Formulas- End-################################################################
-        
-        imp_header_charges = env['x_consignment_charge_l'].create({'x_studio_consignment_charge_header_id':allocate_lines.id,'x_studio_product':loop_lines.x_studio_product_id.id,'x_studio_consignment_id':allocate_lines.x_studio_consignment_id.id,'x_studio_structure_master_id':allocate_lines.x_studio_structure_master_id.id,'x_studio_structure_details_line_ids':allocate_lines.x_studio_structure_details_line_ids.id,
-        'x_studio_structure_no':allocate_lines.x_studio_structure_no,'x_studio_basis':allocate_lines.x_studio_basis,'x_studio_charge_group':allocate_lines.x_studio_charge_group,'x_studio_charge_name':allocate_lines.x_studio_charge_name,'x_studio_formula':allocate_lines.x_studio_formula,'x_studio_amount':line_charge_amt})  #line_charge_amt
-
-        if allocate_lines.x_studio_charge_group != 'Charges':
-          allocate_lines.write({'x_studio_amount': (allocate_lines.x_studio_amount + line_charge_amt)})
-          
-        allocate_lines.write({'x_studio_allocate_header_charges': True})
-        
-        if allocate_lines.x_studio_ledger_post == True:
-          cost_load = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name),('x_studio_debit_acc_type', '=', 'Item')],limit=1)
-          ####01/07/2023
-          list_lines = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name)]) 
-          ####01/07/2023
-          if allocate_lines.x_studio_tax_appicable2 == True:
-            if cost_load:
-              if allocate_lines.x_studio_charge_group == 'Charges':
-                tot_charge += line_charge_amt
-                tot_charge_ids.append(list_lines.id)
-              elif allocate_lines.x_studio_charge_group == 'Duty':
-                tot_duty += line_charge_amt
-                tot_duty_ids.append(list_lines.id)
-              else:
-                tot_tax += line_charge_amt
-                tot_tax_ids.append(list_lines.id)
-            else:
-              if allocate_lines.x_studio_charge_group == 'Charges':
-                tot_charge_cd += line_charge_amt
-                tot_charge_cd_ids.append(list_lines.id)
-              elif allocate_lines.x_studio_charge_group == 'Duty':
-                tot_duty_cd += line_charge_amt
-                tot_duty_cd_ids.append(list_lines.id)
-              else:
-                tot_tax_cd += line_charge_amt
-                tot_tax_cd_ids.append(list_lines.id)
-          else:
-            if cost_load:
-              if allocate_lines.x_studio_charge_group == 'Charges':
-                tot_charge_ex += line_charge_amt
-                tot_charge_ex_ids.append(list_lines.id)
-              elif allocate_lines.x_studio_charge_group == 'Duty':
-                tot_duty_ex += line_charge_amt
-                tot_duty_ex_ids.append(list_lines.id)
-              else:
-                tot_tax_ex += line_charge_amt
-                tot_tax_ex_ids.append(list_lines.id)
-            else:
-              if allocate_lines.x_studio_charge_group == 'Charges':
-                tot_charge_ex_cd += line_charge_amt
-                tot_charge_ex_cd_ids.append(list_lines.id)
-              elif allocate_lines.x_studio_charge_group == 'Duty':
-                tot_duty_ex_cd += line_charge_amt
-                tot_duty_ex_cd_ids.append(list_lines.id)
-              else:
-                tot_tax_ex_cd += line_charge_amt
-                tot_tax_ex_cd_ids.append(list_lines.id)
-            
-          if tot_charge > 0.000:
-            valid_charge = True
-          if tot_duty > 0.000:
-            valid_duty = True
-          if tot_tax > 0.000:
-            valid_tax = True
-            
-          if tot_charge_ex > 0.000:
-            valid_charge_ex = True
-          if tot_duty_ex > 0.000:
-            valid_duty_ex = True
-          if tot_tax_ex > 0.000:
-            valid_tax_ex = True
-            
-          if tot_charge_cd > 0.000:
-            valid_charge_cd = True
-          if tot_duty_cd > 0.000:
-            valid_duty_cd = True
-          if tot_tax_cd > 0.000:
-            valid_tax_cd = True
-            
-          if tot_charge_ex_cd > 0.000:
-            valid_charge_ex_cd = True
-          if tot_duty_ex_cd > 0.000:
-            valid_duty_ex_cd = True
-          if tot_tax_ex_cd > 0.000:
-            valid_tax_ex_cd = True
-    
-    loop_lines.write({'x_studio_tot_charge': tot_charge, 'x_studio_tot_duty': tot_duty, 'x_studio_tot_tax': tot_tax, 'x_studio_valid_charge': valid_charge, 'x_studio_valid_duty': valid_duty, 'x_studio_valid_tax': valid_tax, 'x_studio_tot_charge_ids': [(6, 0, tot_charge_ids)], 'x_studio_tot_duty_ids': [(6, 0, tot_duty_ids)], 'x_studio_tot_tax_ids': [(6, 0, tot_tax_ids)],
-                      'x_studio_tot_charge_cd': tot_charge_cd, 'x_studio_tot_duty_cd': tot_duty_cd, 'x_studio_tot_tax_cd': tot_tax_cd, 'x_studio_valid_charge_cd': valid_charge_cd, 'x_studio_valid_duty_cd': valid_duty_cd, 'x_studio_valid_tax_cd': valid_tax_cd,'x_studio_tot_charge_cd_ids': [(6, 0, tot_charge_cd_ids)], 'x_studio_tot_duty_cd_ids': [(6, 0, tot_duty_cd_ids)], 'x_studio_tot_tax_cd_ids': [(6, 0, tot_tax_cd_ids)],
-                      'x_studio_tot_charge_ex': tot_charge_ex, 'x_studio_tot_duty_ex': tot_duty_ex, 'x_studio_tot_tax_ex': tot_tax_ex, 'x_studio_valid_charge_ex': valid_charge_ex, 'x_studio_valid_duty_ex': valid_duty_ex, 'x_studio_valid_tax_ex': valid_tax_ex,'x_studio_tot_charge_ex_ids': [(6, 0, tot_charge_ex_ids)], 'x_studio_tot_duty_ex_ids': [(6, 0, tot_duty_ex_ids)], 'x_studio_tot_tax_ex_ids': [(6, 0, tot_tax_ex_ids)],
-                      'x_studio_tot_charge_ex_cd': tot_charge_ex_cd, 'x_studio_tot_duty_ex_cd': tot_duty_ex_cd, 'x_studio_tot_tax_ex_cd': tot_tax_ex_cd, 'x_studio_valid_charge_ex_cd': valid_charge_ex_cd, 'x_studio_valid_duty_ex_cd': valid_duty_ex_cd, 'x_studio_valid_tax_ex_cd': valid_tax_ex_cd, 'x_studio_tot_charge_ex_cd_ids': [(6, 0, tot_charge_ex_cd_ids)], 'x_studio_tot_duty_ex_cd_ids': [(6, 0, tot_duty_ex_cd_ids)], 'x_studio_tot_tax_ex_cd_ids': [(6, 0, tot_tax_ex_cd_ids)]})
-          
-record.write({'x_studio_allocate_header_charges': False, 'x_studio_header_charges_allocated': True}) 
-#############################################################-Indent Costing - End-######################################################################### 
-action = {
-          'name': 'Line Charges',
-          'domain': [('x_studio_consignment_id', '=', record.id)],
-          'type': 'ir.actions.act_window',
-          'res_model': 'x_consignment_charge_l',
-          'view_mode': 'tree,form',
-          'view_type': 'form',
-          'view_id': False,
-#          'search_view_id': 'Default search view for x_import_rfq_charge_li',
-          'context': {'group_by': 'x_studio_product'},
-#          'search_view_id': ref('Default search view for x_import_rfq_charge_li'),
-#          'context': {'search_default_x_studio_product': 0},
-          }
-    
+    <field name="code"><![CDATA[av = 0
+
+c_f_i = 0
+
+
+
+##################
+
+ex_rate = 1
+
+company_currency = env['res.config.settings'].search([('currency_id', '=', record.x_studio_currency_id.id)],limit=1)
+
+if company_currency:
+
+  ex_rate = 1
+
+else:
+
+  custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
+
+  if custom_currency:
+
+    currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', record.x_studio_custom_cleared_date),('x_studio_end_date', '>=', record.x_studio_custom_cleared_date)],order='x_studio_start_date desc',limit=1)
+
+    if currency_rate:
+
+      ex_rate = currency_rate.x_studio_rate
+
+    else:
+
+      raise UserError('Please setup a valid currency rate in Custom Exchange Rates.')
+
+  else:
+
+    raise UserError('Please setup a valid currency rate in Custom Exchange Rates.')
+
+##################
+
+
+
+con_line = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
+
+if con_line:
+
+  for validate_unitprice in con_line:
+
+    if validate_unitprice.x_studio_unit_price == 0.0000:
+
+      raise UserError("Unit Price must be Specified in each Consignment Line!")
+
+      
+
+    if validate_unitprice.x_studio_cost_allocation_method == 'by_weight':
+
+      if validate_unitprice.x_studio_weight == 0.0000:  
+
+        raise UserError("Weight must be Specified in each Consignment Line!")
+
+        
+
+    if validate_unitprice.x_studio_cost_allocation_method == 'by_volume':
+
+      if validate_unitprice.x_studio_volume == 0.0000:  
+
+        raise UserError("Volume must be Specified in each Consignment Line!")
+
+        
+
+    validate_unitprice.write({'x_studio_exchange_rate':ex_rate}) 
+
+
+
+#############################################################-Indent Costing - Begin-#########################################################################
+
+delivery_term = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', record.x_studio_delivery_term.id), ('x_studio_tax_appicable', '=', True)]) 
+
+if delivery_term:
+
+  for valid_terms in delivery_term:
+
+    header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
+
+    if header_charges:
+
+      header_charges.write({'x_studio_tax_appicable': True}) 
+
+      c_f_i += header_charges.x_studio_amount
+
+      
+
+##########################################################modi-20.07.2022#####################################################################################
+
+delivery_term2 = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', record.x_studio_delivery_term.id), ('x_studio_tax_appicable2', '=', True)]) 
+
+if delivery_term2:
+
+  for valid_terms2 in delivery_term2:
+
+    header_charges2 = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms2.x_name)],limit=1)
+
+    if header_charges2:
+
+      header_charges2.write({'x_studio_tax_appicable2': True}) 
+
+##########################################################modi-20.07.2022#####################################################################################      
+
+
+
+#av = record.x_studio_total_allocate_amount + c_f_i #Original Code
+
+#av = record.x_studio_total_amount + c_f_i #Version - 01 #12.09.2022
+
+av = c_f_i #Version - 01 #12.09.2022
+
+
+
+purchase_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)]) 
+
+if purchase_lines:
+
+  for loop_lines in purchase_lines:
+
+    ##################################################-Structure Formula Variable Declaration - Begin-###########################################################
+
+    line_av = 0
+
+    CD = 0
+
+    CL = 0
+
+    ESC = 0
+
+    Excise = 0
+
+    PAL = 0
+
+    RIDL = 0
+
+    SRL = 0
+
+    Surcharge = 0
+
+    NBT = 0
+
+    NBT_N = 0
+
+    VAT = 0
+
+    VAT_NInv = 0
+
+    SSCL = 0
+
+    rt = 0
+
+    re = 0
+
+    ##################################################-Structure Formula Variable Declaration - End-###########################################################
+
+    tot_charge = 0
+
+    tot_duty = 0
+
+    tot_tax = 0
+
+    tot_charge_ex = 0
+
+    tot_duty_ex = 0
+
+    tot_tax_ex = 0
+
+    tot_charge_cd = 0
+
+    tot_duty_cd = 0
+
+    tot_tax_cd = 0
+
+    tot_charge_ex_cd = 0
+
+    tot_duty_ex_cd = 0
+
+    tot_tax_ex_cd = 0
+
+    valid_charge = False
+
+    valid_duty = False
+
+    valid_tax = False
+
+    valid_charge_ex = False
+
+    valid_duty_ex = False
+
+    valid_tax_ex = False
+
+    valid_charge_cd = False
+
+    valid_duty_cd = False
+
+    valid_tax_cd = False
+
+    valid_charge_ex_cd = False
+
+    valid_duty_ex_cd = False
+
+    valid_tax_ex_cd = False
+
+    ##
+
+    tot_charge_ids = []
+
+    tot_duty_ids = []
+
+    tot_tax_ids = []
+
+    tot_charge_ex_ids = []
+
+    tot_duty_ex_ids = []
+
+    tot_tax_ex_ids = []
+
+    tot_charge_cd_ids = []
+
+    tot_duty_cd_ids = []
+
+    tot_tax_cd_ids = []
+
+    tot_charge_ex_cd_ids = []
+
+    tot_duty_ex_cd_ids = []
+
+    tot_tax_ex_cd_ids = []
+
+    ##############################################################Variable Declaration - End ##################################################################
+
+    #if record.x_studio_total_allocate_amount > 0.00:
+
+    if record.x_studio_total_amount > 0.00:
+
+      #line_av = (av*loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount #12.09.2022
+
+      line_av = ((av*loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount) + ((loop_lines.x_studio_amount * loop_lines.x_studio_exchange_rate)) #12.09.2022
+
+    
+
+    ##########################################################-Calculate Structure Formulas-  Begin-###########################################################  
+
+    header_lines_formula = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id), ('x_studio_charge_group', '!=', 'Charges')],order='x_studio_structure_no asc') 
+
+    if header_lines_formula:
+
+      for allocate_lines_formula in header_lines_formula:
+
+        valid_tariff_dates = env['x_tariff_date'].search(['|',('x_studio_tarrif_to_date', '=', False),('x_studio_tarrif_to_date', '>=', record.x_studio_custom_cleared_date),'&',('x_studio_tariff_master_ids', '=', loop_lines.x_studio_tariff_code.id),('x_studio_tarrif_from_date', '<=', record.x_studio_custom_cleared_date)],limit=1)
+
+        if valid_tariff_dates:
+
+          rate = 0
+
+          valid_tariff_rates = env['x_tariff_rates'].search([('x_studio_tariff_date_ids', '=', valid_tariff_dates.id), ('x_studio_charge_name', '=', allocate_lines_formula.x_studio_charge_name)],limit=1)
+
+          if valid_tariff_rates:
+
+            if loop_lines.x_studio_concessional_rate == False:
+
+              rate = valid_tariff_rates.x_studio_normal_rate / 100
+
+            else:
+
+              rate = valid_tariff_rates.x_studio_concessional_rate / 100
+
+         
+
+            if allocate_lines_formula.x_studio_charge_name == 'CID':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                CD = line_av * rate
+
+              else:
+
+                CD = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'EIC':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                CL = line_av * rate
+
+              else:
+
+                CL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value 
+
+            elif allocate_lines_formula.x_studio_charge_name == 'ESC':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                ESC = 0 # To Be Removed
+
+              else:
+
+                ESC = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value 
+
+            elif allocate_lines_formula.x_studio_charge_name == 'Excise':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                Excise = (line_av+CD+CL+PAL) * rate 
+
+              else:
+
+                Excise = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'PAL':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                PAL = line_av * rate
+
+              else:
+
+                PAL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'RIDL':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                RIDL = 0 # To Be Removed
+
+              else:
+
+                RIDL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'SRL':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                SRL = 0 # To Be Removed
+
+              else:
+
+                SRL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'Surcharge':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                Surcharge = 0 # To Be Removed
+
+              else:
+
+                Surcharge = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'NBT':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                NBT = 0 # To Be Removed
+
+              else:
+
+                NBT = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'NBT-N':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                NBT_N = 0 # To Be Removed
+
+              else:
+
+                NBT_N = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'VAT-on-Item':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                VAT = 0 # To Be Removed
+
+              else:
+
+                VAT = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'VAT-on-GL':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                VAT_NInv = (line_av*110/100+CD+CL+PAL+Excise) * rate
+
+              else:
+
+                VAT_NInv = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            elif allocate_lines_formula.x_studio_charge_name == 'SSCL':
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                #SSCL = loop_lines.x_studio_allocate_amount * rate
+
+                SSCL = (line_av*110/100+CD+CL+PAL+Excise) * rate
+
+              else:
+
+                SSCL = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+            else:
+
+              if allocate_lines_formula.x_studio_basis == 'Percentage':
+
+                rt = 0 # To Be Removed
+
+                re = 0 # To Be Removed
+
+              else:
+
+                rt = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+                re = loop_lines.product_qty * valid_tariff_rates.x_studio_charge_value
+
+        else:
+
+         raise UserError('There is No Valid Date Range for the Tariff Codes in Product Id: ' + loop_lines.x_studio_product_id.default_code)
+
+    ##########################################################-Calculate Structure Formulas- End-#############################################################  
+
+    
+
+    ##########################################################-Assign Structure Formulas- Begin-##############################################################
+
+    header_lines = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc') 
+
+    if header_lines:
+
+      for allocate_lines in header_lines:
+
+        line_charge_amt = 0
+
+        if allocate_lines.x_studio_charge_group == 'Charges':
+
+          #if allocate_lines.x_studio_tax_appicable == True: 
+
+          """if c_f_i > 0.00:
+
+            line_charge_amt = (allocate_lines.x_studio_amount * loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount
+
+            #line_charge_amt = ((line_av-loop_lines.x_studio_allocate_amount)*allocate_lines.x_studio_amount)/c_f_i"""
+
+          line_charge_amt = (allocate_lines.x_studio_amount * loop_lines.x_studio_allocate_amount)/record.x_studio_total_allocate_amount
+
+          #line_charge_amt = ((line_av-loop_lines.x_studio_allocate_amount)*allocate_lines.x_studio_amount)/c_f_i
+
+        else:
+
+          if loop_lines.x_studio_product_id.x_studio_tariff_code.id == False:
+
+           raise UserError('Tariff Codes must be assigned to Product Id: ' + loop_lines.x_studio_product_id.default_code)
+
+           
+
+          if allocate_lines.x_studio_charge_name == 'CID':
+
+            line_charge_amt = CD
+
+          elif allocate_lines.x_studio_charge_name == 'EIC':
+
+            line_charge_amt = CL
+
+          elif allocate_lines.x_studio_charge_name == 'ESC':
+
+            line_charge_amt =  ESC
+
+          elif allocate_lines.x_studio_charge_name == 'Excise':
+
+            line_charge_amt = Excise
+
+          elif allocate_lines.x_studio_charge_name == 'PAL':
+
+            line_charge_amt = PAL
+
+          elif allocate_lines.x_studio_charge_name == 'RIDL':
+
+            line_charge_amt = RIDL
+
+          elif allocate_lines.x_studio_charge_name == 'SRL':
+
+            line_charge_amt = SRL
+
+          elif allocate_lines.x_studio_charge_name == 'Surcharge':
+
+            line_charge_amt = Surcharge
+
+          elif allocate_lines.x_studio_charge_name == 'NBT':
+
+            line_charge_amt = NBT
+
+          elif allocate_lines.x_studio_charge_name == 'NBT-N':
+
+            line_charge_amt = NBT_N
+
+          elif allocate_lines.x_studio_charge_name == 'VAT-on-Item':
+
+            line_charge_amt = VAT
+
+          elif allocate_lines.x_studio_charge_name == 'VAT-on-GL':
+
+            line_charge_amt = VAT_NInv
+
+          elif allocate_lines.x_studio_charge_name == 'SSCL':
+
+            line_charge_amt = SSCL
+
+          else:
+
+            line_charge_amt = rt
+
+            line_charge_amt = re
+
+    ##########################################################-Assign Structure Formulas- End-################################################################
+
+        
+
+        imp_header_charges = env['x_consignment_charge_l'].create({'x_studio_consignment_charge_header_id':allocate_lines.id,'x_studio_product':loop_lines.x_studio_product_id.id,'x_studio_consignment_id':allocate_lines.x_studio_consignment_id.id,'x_studio_structure_master_id':allocate_lines.x_studio_structure_master_id.id,'x_studio_structure_details_line_ids':allocate_lines.x_studio_structure_details_line_ids.id,
+
+        'x_studio_structure_no':allocate_lines.x_studio_structure_no,'x_studio_basis':allocate_lines.x_studio_basis,'x_studio_charge_group':allocate_lines.x_studio_charge_group,'x_studio_charge_name':allocate_lines.x_studio_charge_name,'x_studio_formula':allocate_lines.x_studio_formula,'x_studio_amount':line_charge_amt})  #line_charge_amt
+
+
+
+        if allocate_lines.x_studio_charge_group != 'Charges':
+
+          allocate_lines.write({'x_studio_amount': (allocate_lines.x_studio_amount + line_charge_amt)})
+
+          
+
+        allocate_lines.write({'x_studio_allocate_header_charges': True})
+
+        
+
+        if allocate_lines.x_studio_ledger_post == True:
+
+          cost_load = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name),('x_studio_debit_acc_type', '=', 'Item')],limit=1)
+
+          ####01/07/2023
+
+          list_lines = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name)]) 
+
+          ####01/07/2023
+
+          if allocate_lines.x_studio_tax_appicable2 == True:
+
+            if cost_load:
+
+              if allocate_lines.x_studio_charge_group == 'Charges':
+
+                tot_charge += line_charge_amt
+
+                tot_charge_ids.append(list_lines.id)
+
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+
+                tot_duty += line_charge_amt
+
+                tot_duty_ids.append(list_lines.id)
+
+              else:
+
+                tot_tax += line_charge_amt
+
+                tot_tax_ids.append(list_lines.id)
+
+            else:
+
+              if allocate_lines.x_studio_charge_group == 'Charges':
+
+                tot_charge_cd += line_charge_amt
+
+                tot_charge_cd_ids.append(list_lines.id)
+
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+
+                tot_duty_cd += line_charge_amt
+
+                tot_duty_cd_ids.append(list_lines.id)
+
+              else:
+
+                tot_tax_cd += line_charge_amt
+
+                tot_tax_cd_ids.append(list_lines.id)
+
+          else:
+
+            if cost_load:
+
+              if allocate_lines.x_studio_charge_group == 'Charges':
+
+                tot_charge_ex += line_charge_amt
+
+                tot_charge_ex_ids.append(list_lines.id)
+
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+
+                tot_duty_ex += line_charge_amt
+
+                tot_duty_ex_ids.append(list_lines.id)
+
+              else:
+
+                tot_tax_ex += line_charge_amt
+
+                tot_tax_ex_ids.append(list_lines.id)
+
+            else:
+
+              if allocate_lines.x_studio_charge_group == 'Charges':
+
+                tot_charge_ex_cd += line_charge_amt
+
+                tot_charge_ex_cd_ids.append(list_lines.id)
+
+              elif allocate_lines.x_studio_charge_group == 'Duty':
+
+                tot_duty_ex_cd += line_charge_amt
+
+                tot_duty_ex_cd_ids.append(list_lines.id)
+
+              else:
+
+                tot_tax_ex_cd += line_charge_amt
+
+                tot_tax_ex_cd_ids.append(list_lines.id)
+
+            
+
+          if tot_charge > 0.000:
+
+            valid_charge = True
+
+          if tot_duty > 0.000:
+
+            valid_duty = True
+
+          if tot_tax > 0.000:
+
+            valid_tax = True
+
+            
+
+          if tot_charge_ex > 0.000:
+
+            valid_charge_ex = True
+
+          if tot_duty_ex > 0.000:
+
+            valid_duty_ex = True
+
+          if tot_tax_ex > 0.000:
+
+            valid_tax_ex = True
+
+            
+
+          if tot_charge_cd > 0.000:
+
+            valid_charge_cd = True
+
+          if tot_duty_cd > 0.000:
+
+            valid_duty_cd = True
+
+          if tot_tax_cd > 0.000:
+
+            valid_tax_cd = True
+
+            
+
+          if tot_charge_ex_cd > 0.000:
+
+            valid_charge_ex_cd = True
+
+          if tot_duty_ex_cd > 0.000:
+
+            valid_duty_ex_cd = True
+
+          if tot_tax_ex_cd > 0.000:
+
+            valid_tax_ex_cd = True
+
+    
+
+    loop_lines.write({'x_studio_tot_charge': tot_charge, 'x_studio_tot_duty': tot_duty, 'x_studio_tot_tax': tot_tax, 'x_studio_valid_charge': valid_charge, 'x_studio_valid_duty': valid_duty, 'x_studio_valid_tax': valid_tax, 'x_studio_tot_charge_ids': [(6, 0, tot_charge_ids)], 'x_studio_tot_duty_ids': [(6, 0, tot_duty_ids)], 'x_studio_tot_tax_ids': [(6, 0, tot_tax_ids)],
+
+                      'x_studio_tot_charge_cd': tot_charge_cd, 'x_studio_tot_duty_cd': tot_duty_cd, 'x_studio_tot_tax_cd': tot_tax_cd, 'x_studio_valid_charge_cd': valid_charge_cd, 'x_studio_valid_duty_cd': valid_duty_cd, 'x_studio_valid_tax_cd': valid_tax_cd,'x_studio_tot_charge_cd_ids': [(6, 0, tot_charge_cd_ids)], 'x_studio_tot_duty_cd_ids': [(6, 0, tot_duty_cd_ids)], 'x_studio_tot_tax_cd_ids': [(6, 0, tot_tax_cd_ids)],
+
+                      'x_studio_tot_charge_ex': tot_charge_ex, 'x_studio_tot_duty_ex': tot_duty_ex, 'x_studio_tot_tax_ex': tot_tax_ex, 'x_studio_valid_charge_ex': valid_charge_ex, 'x_studio_valid_duty_ex': valid_duty_ex, 'x_studio_valid_tax_ex': valid_tax_ex,'x_studio_tot_charge_ex_ids': [(6, 0, tot_charge_ex_ids)], 'x_studio_tot_duty_ex_ids': [(6, 0, tot_duty_ex_ids)], 'x_studio_tot_tax_ex_ids': [(6, 0, tot_tax_ex_ids)],
+
+                      'x_studio_tot_charge_ex_cd': tot_charge_ex_cd, 'x_studio_tot_duty_ex_cd': tot_duty_ex_cd, 'x_studio_tot_tax_ex_cd': tot_tax_ex_cd, 'x_studio_valid_charge_ex_cd': valid_charge_ex_cd, 'x_studio_valid_duty_ex_cd': valid_duty_ex_cd, 'x_studio_valid_tax_ex_cd': valid_tax_ex_cd, 'x_studio_tot_charge_ex_cd_ids': [(6, 0, tot_charge_ex_cd_ids)], 'x_studio_tot_duty_ex_cd_ids': [(6, 0, tot_duty_ex_cd_ids)], 'x_studio_tot_tax_ex_cd_ids': [(6, 0, tot_tax_ex_cd_ids)]})
+
+          
+
+record.write({'x_studio_allocate_header_charges': False, 'x_studio_header_charges_allocated': True}) 
+
+#############################################################-Indent Costing - End-######################################################################### 
+
+action = {
+
+          'name': 'Line Charges',
+
+          'domain': [('x_studio_consignment_id', '=', record.id)],
+
+          'type': 'ir.actions.act_window',
+
+          'res_model': 'x_consignment_charge_l',
+
+          'view_mode': 'tree,form',
+
+          'view_type': 'form',
+
+          'view_id': False,
+
+#          'search_view_id': 'Default search view for x_import_rfq_charge_li',
+
+          'context': {'group_by': 'x_studio_product'},
+
+#          'search_view_id': ref('Default search view for x_import_rfq_charge_li'),
+
+#          'context': {'search_default_x_studio_product': 0},
+
+          }
+
+    
+
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
@@ -483,38 +848,70 @@ action = {
     <field name="name">IMP - Apply Selected PO Lines to Consignment</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_temp_consignment_hea&apos;)]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[select = 0
-
-for valid_line in record.x_studio_temp_consignment_line_ids:
-  if (valid_line.x_studio_select == True):
-    select += 1
-    
-    if select == 1:
-      structure = valid_line.x_studio_structure_name.id
-    if select > 1:
-      if valid_line.x_studio_structure_name.id != structure:
-          raise UserError("PO Lines with Same Structure Should be Selected!")
-    
-    if valid_line.x_studio_payment_method.x_studio_lc == True:
-      search_lc = env['x_lc_header'].search([('x_studio_created_from_purchase_order', '=', valid_line.x_studio_purchase_id.id), ('x_studio_status', '=', ('Posted','Paid'))],limit=1)
-      if not search_lc:
-        raise UserError('The LC of all the Selected PO Line/ Lines Should be in Posted or Paid State.')
-    
-    create_con_lines = env['x_consignment_line'].create({'x_studio_consignment_header_id':record.x_studio_temp_consignment_header_id.id,'x_studio_purchase_id':valid_line.x_studio_purchase_id.id,'x_studio_product_id':valid_line.x_studio_product_id.id,'x_studio_description':valid_line.x_studio_description,'x_studio_payment_method':valid_line.x_studio_payment_method.id,
-      'x_studio_tariff_code':valid_line.x_studio_product_id.x_studio_tariff_code.id,'x_studio_unit_price':valid_line.x_studio_unit_price,'x_currency_id':valid_line.x_currency_id.id,'x_studio_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_original_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_purchase_line_id':valid_line.x_studio_purchase_line_id.id,'x_studio_concessional_rate':valid_line.x_studio_concessional_rate,
-      'x_studio_volume':valid_line.x_studio_volume,'x_studio_weight':valid_line.x_studio_weight})
-      
-if select == 0:
- raise UserError("Atleast One Line Should be Selected to Proceed.")
- 
-header_update = env['x_consignment_header'].search([('id', '=', record.x_studio_temp_consignment_header_id.id)],limit=1)
-if header_update:
-  header_update.write({'x_studio_lines_copied': True, 'x_studio_structure_name': structure}) 
-
-temp_rec = env['x_temp_consignment_hea'].search([('id', '=', record.id)],limit=1)
-if temp_rec:
-  temp_rec.unlink()
-
+    <field name="code"><![CDATA[select = 0
+
+
+
+for valid_line in record.x_studio_temp_consignment_line_ids:
+
+  if (valid_line.x_studio_select == True):
+
+    select += 1
+
+    
+
+    if select == 1:
+
+      structure = valid_line.x_studio_structure_name.id
+
+    if select > 1:
+
+      if valid_line.x_studio_structure_name.id != structure:
+
+          raise UserError("PO Lines with Same Structure Should be Selected!")
+
+    
+
+    if valid_line.x_studio_payment_method.x_studio_lc == True:
+
+      search_lc = env['x_lc_header'].search([('x_studio_created_from_purchase_order', '=', valid_line.x_studio_purchase_id.id), ('x_studio_status', '=', ('Posted','Paid'))],limit=1)
+
+      if not search_lc:
+
+        raise UserError('The LC of all the Selected PO Line/ Lines Should be in Posted or Paid State.')
+
+    
+
+    create_con_lines = env['x_consignment_line'].create({'x_studio_consignment_header_id':record.x_studio_temp_consignment_header_id.id,'x_studio_purchase_id':valid_line.x_studio_purchase_id.id,'x_studio_product_id':valid_line.x_studio_product_id.id,'x_studio_description':valid_line.x_studio_description,'x_studio_payment_method':valid_line.x_studio_payment_method.id,
+
+      'x_studio_tariff_code':valid_line.x_studio_product_id.x_studio_tariff_code.id,'x_studio_unit_price':valid_line.x_studio_unit_price,'x_currency_id':valid_line.x_currency_id.id,'x_studio_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_original_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_purchase_line_id':valid_line.x_studio_purchase_line_id.id,'x_studio_concessional_rate':valid_line.x_studio_concessional_rate,
+
+      'x_studio_volume':valid_line.x_studio_volume,'x_studio_weight':valid_line.x_studio_weight})
+
+      
+
+if select == 0:
+
+ raise UserError("Atleast One Line Should be Selected to Proceed.")
+
+ 
+
+header_update = env['x_consignment_header'].search([('id', '=', record.x_studio_temp_consignment_header_id.id)],limit=1)
+
+if header_update:
+
+  header_update.write({'x_studio_lines_copied': True, 'x_studio_structure_name': structure}) 
+
+
+
+temp_rec = env['x_temp_consignment_hea'].search([('id', '=', record.id)],limit=1)
+
+if temp_rec:
+
+  temp_rec.unlink()
+
+
+
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
@@ -522,29 +919,52 @@ if temp_rec:
     <field name="name">IMP - Check Consignment Assessable Value</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_charge_h&apos;)]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[av = 0
-c_f_i = 0
-
-for header_lines in records:
-  con_header = env['x_consignment_header'].search([('id', '=', header_lines.x_studio_consignment_id.id)],limit=1)
-  if con_header:
-    delivery_term = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', con_header.x_studio_delivery_term.id), ('x_studio_tax_appicable', '=', True)]) 
-    if delivery_term:
-      for valid_terms in delivery_term:
-        header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', con_header.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
-        if header_charges:
-          c_f_i += header_charges.x_studio_amount
-          
-      av = con_header.x_studio_total_amount + c_f_i
-      title = "Calculate Assessable Value"
-      message = "Assessable Value: " + str(av)
-      
-      action = {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {'title': title,'message': message,'sticky': True,}
-                } 
-      break
+    <field name="code"><![CDATA[av = 0
+
+c_f_i = 0
+
+
+
+for header_lines in records:
+
+  con_header = env['x_consignment_header'].search([('id', '=', header_lines.x_studio_consignment_id.id)],limit=1)
+
+  if con_header:
+
+    delivery_term = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', con_header.x_studio_delivery_term.id), ('x_studio_tax_appicable', '=', True)]) 
+
+    if delivery_term:
+
+      for valid_terms in delivery_term:
+
+        header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', con_header.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
+
+        if header_charges:
+
+          c_f_i += header_charges.x_studio_amount
+
+          
+
+      av = con_header.x_studio_total_amount + c_f_i
+
+      title = "Calculate Assessable Value"
+
+      message = "Assessable Value: " + str(av)
+
+      
+
+      action = {
+
+                'type': 'ir.actions.client',
+
+                'tag': 'display_notification',
+
+                'params': {'title': title,'message': message,'sticky': True,}
+
+                } 
+
+      break
+
  ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
@@ -1165,22 +1585,38 @@ action = {
     <field name="name">IMP - Reset Header Charges - Consignment</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[if record.x_studio_header_charges_allocated == True:
-  header_lines_del = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc') 
-  if header_lines_del:
-      for del_lines in header_lines_del:
-        temp_rec_del = env['x_consignment_charge_l'].search([('x_studio_consignment_charge_header_id', '=', del_lines.id),('x_studio_consignment_id', '=', del_lines.x_studio_consignment_id.id)])
-        if temp_rec_del:
-          for temp_rec_del_loop in temp_rec_del:
-            temp_rec_del_loop.unlink()
-        
-        if del_lines.x_studio_charge_group != 'Charges':
-          del_lines.write({'x_studio_amount': 0.00})
-        
-        del_lines.write({'x_studio_allocate_header_charges': False,'x_studio_tax_appicable': False})
-        
-      record.write({'x_studio_allocate_header_charges': True, 'x_studio_header_charges_allocated': False}) 
-
+    <field name="code"><![CDATA[if record.x_studio_header_charges_allocated == True:
+
+  header_lines_del = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc') 
+
+  if header_lines_del:
+
+      for del_lines in header_lines_del:
+
+        temp_rec_del = env['x_consignment_charge_l'].search([('x_studio_consignment_charge_header_id', '=', del_lines.id),('x_studio_consignment_id', '=', del_lines.x_studio_consignment_id.id)])
+
+        if temp_rec_del:
+
+          for temp_rec_del_loop in temp_rec_del:
+
+            temp_rec_del_loop.unlink()
+
+        
+
+        if del_lines.x_studio_charge_group != 'Charges':
+
+          del_lines.write({'x_studio_amount': 0.00})
+
+        
+
+        del_lines.write({'x_studio_allocate_header_charges': False,'x_studio_tax_appicable': False})
+
+        
+
+      record.write({'x_studio_allocate_header_charges': True, 'x_studio_header_charges_allocated': False}) 
+
+
+
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
@@ -1426,103 +1862,8 @@ else:
    ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1991_rr_auto_select_product_for_rug_repairs_3" model="ir.actions.server">
-    <field name="name">RR - Auto Select Product for RUG Repairs-3</field>
-    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.return.picking&apos;)]"/>
-    <field name="state">code</field>
-    <field name="code"><![CDATA[if record.ticket_id:
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-  
-  if (record.x_studio_repair_rug == True or record.x_studio_repair_normal_with_serial_no == True):
-    if company.id == 1:
-      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
-      if ticket:
-        if record.location_id.id != record.x_studio_suggested_location_id.id:
-          raise UserError("Return Location should be equal to Suggested Return Location.")
-    else:
-      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
-      if ticket:
-        if record.location_id.id != record.x_studio_suggested_location_id_1.id:
-          raise UserError('Return Location should be equal to Suggested Return Location.')
-      
-  
-      
-
-
-
-]]></field>
-    <field name="usage">base_automation</field>
-  </record>
-  <record id="server_action_1997_rr_rug_return_from_help_desk" model="ir.actions.server">
-    <field name="name">RR - RUG Return from Help desk</field>
-    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.return.picking&apos;)]"/>
-    <field name="state">code</field>
-    <field name="code"><![CDATA[if record.id:
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-
-  if company.id == 1:
-    if record.ticket_id.x_studio_virtual_location == False or record.ticket_id.x_studio_source_location == False:
-      raise UserError('Virtual & Source Locations must be setup for Current Logged in User.')
-    
-    if record.location_id.id != record.x_studio_suggested_location_id.id:
-      raise UserError('Return Location should be equal to Suggested Return Location.')
-  else:
-    if record.ticket_id.x_studio_virtual_location_1 == False or record.ticket_id.x_studio_source_location_1 == False:
-      raise UserError('Virtual & Source Locations must be setup for Current Logged in User.')
-    
-    if record.location_id.id != record.x_studio_suggested_location_id_1.id:
-      raise UserError('Return Location should be equal to Suggested Return Location.')
-  
-  for qtys in record.product_return_moves:
-    if qtys.quantity != 1:
-      raise UserError('Quantity should be 1 for all the return lines.' )
-    
-  source_loc = env['stock.location'].search([('usage', '=', 'customer')],limit=1)
-  if source_loc:
-    if company.id == 1:
-      opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.ticket_id.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Returns'),('company_id', '=', company.id)],limit=1)
-    else:
-      opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.ticket_id.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Receipts'),('company_id', '=', company.id)],limit=1)
-    
-    if opt_type:
-     #prod_move = env['stock.picking'].create({'x_studio_created_from_help_ticket':record.ticket_id.id,'picking_type_id':opt_type.id,'location_id':source_loc.id,'location_dest_id':record.location_id.id,'origin':('Return of '+ record.picking_id.name),'partner_id':record.partner_id.id})
-     prod_move = env['stock.picking'].create({'x_studio_helpdesk_ticket_id':record.ticket_id.id,'picking_type_id':opt_type.id,'location_id':source_loc.id,'location_dest_id':record.location_id.id,'origin':('Return of '+ record.picking_id.name),'partner_id':record.partner_id.id,'company_id':company.id})
-     
-     
-     update_prod_move = env['stock.picking'].search([('id', '=', prod_move.id),('company_id', '=', company.id)],limit=1)
-     if update_prod_move:
-      pro_group = env['procurement.group'].search([('sale_id', '=', record.sale_order_id.id)],limit=1)
-      stock_move = env['stock.move'].create({'picking_id':update_prod_move.id,'name':('New Move:'+record.ticket_id.product_id.name),'reference':update_prod_move.name,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':record.ticket_id.product_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'product_uom_qty':1.00,'product_uom':record.ticket_id.product_id.uom_id.id,'state':'assigned','group_id':pro_group.id,'company_id':company.id}) 
-      stock_move_line = env['stock.move.line'].create({'move_id':stock_move.id,'picking_id':update_prod_move.id,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':record.ticket_id.product_id.id,'product_uom_id':record.ticket_id.product_id.uom_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'lot_id':record.ticket_id.x_studio_serial_no.id,'qty_done':1.00,'company_id':company.id}) 
-      
-      update_ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
-      if update_ticket:
-        update_ticket.write({'picking_ids':[(4, update_prod_move.id)]})
-        
-      action = {
-              'name': 'Return',
-              'domain': [('id', '=', update_prod_move.id)],
-              'type': 'ir.actions.act_window',
-              'res_model': 'stock.picking',
-              'view_mode': 'tree,form',
-              'view_type': 'form',
-              'view_id': False,
-              'context': False,
-              }
-      
-    else:
-      raise UserError('The selected return receipt location is not correct.')
-     
-
-
-
-
-
-]]></field>
-    <field name="usage">ir_actions_server</field>
-  </record>
+  <!-- SKIPPED unknown model stock.return.picking: <record id="server_action_1991_rr_auto_select_product_for_rug_repairs_3" model="ir.actions.server">     <field name="name">RR - Auto Select Product fo... -->
+  <!-- SKIPPED unknown model stock.return.picking: <record id="server_action_1997_rr_rug_return_from_help_desk" model="ir.actions.server">     <field name="name">RR - RUG Return from Help desk</field> ... -->
   <record id="server_action_1999_rr_re_return_validation" model="ir.actions.server">
     <field name="name">RR - Re_return Validation</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
@@ -1664,48 +2005,90 @@ else:
     <field name="name">User Location Validation</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[if user.id != 1:
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-  
-  if record.x_studio_user_location_validation == True:
-    if record.x_studio_user_location_validation_2 == True:
-      warehouse = record.location_id.complete_name
-    else:
-      warehouse = record.location_dest_id.complete_name 
-    
-    if record.x_studio_type_of_operation == 'internal':
-      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
-      if loc:
-        locations = ""
-        for locs in loc:
-          locations += (locs.complete_name + "\n")
-        
-        if record.x_studio_user_location_validation_2 == True:
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-        else:
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-      else:
-        if record.x_studio_user_location_validation_2 == True:
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
-        else:
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
-    else:
-      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
-      if loc:
-        locations = ""
-        for locs in loc:
-          locations += (locs.complete_name + "\n")
-        
-        if record.x_studio_user_location_validation_2 == True:  
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
-        else:
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
-      else:
-        if record.x_studio_user_location_validation_2 == True: 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
-        else:
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+    <field name="code"><![CDATA[if user.id != 1:
+
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+
+  company = env['res.company'].browse(company_id)
+
+  
+
+  if record.x_studio_user_location_validation == True:
+
+    if record.x_studio_user_location_validation_2 == True:
+
+      warehouse = record.location_id.complete_name
+
+    else:
+
+      warehouse = record.location_dest_id.complete_name 
+
+    
+
+    if record.x_studio_type_of_operation == 'internal':
+
+      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
+
+      if loc:
+
+        locations = ""
+
+        for locs in loc:
+
+          locations += (locs.complete_name + "\n")
+
+        
+
+        if record.x_studio_user_location_validation_2 == True:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+
+      else:
+
+        if record.x_studio_user_location_validation_2 == True:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
+
+    else:
+
+      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+
+      if loc:
+
+        locations = ""
+
+        for locs in loc:
+
+          locations += (locs.complete_name + "\n")
+
+        
+
+        if record.x_studio_user_location_validation_2 == True:  
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+
+      else:
+
+        if record.x_studio_user_location_validation_2 == True: 
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+
 ]]></field>
     <field name="usage">base_automation</field>
   </record>

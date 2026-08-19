@@ -52,30 +52,9 @@
     <field name="active" eval="True"/>
     <!-- TODO: wire action_server_ids to actual server_action xmlids: [1454] -->
   </record>
-  <record id="automation_104_supplier_invoice_no_update_in_import_pos" model="base.automation">
-    <field name="name">Supplier Invoice No Update in Import POs</field>
-    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Transfer&apos;)]"/>
-    <field name="trigger">on_change</field>
-    <field name="active" eval="True"/>
-    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1697] -->
-  </record>
-  <!-- SKIPPED unresolved model ref: <record id="automation_124_srm_auto_populate_report_type_in_product_moves" model="base.automation">     <field name="name">SRM - Auto Populate Report ... -->
-  <record id="automation_148_update_source_document_in_transfers" model="base.automation">
-    <field name="name">Update Source Document in Transfers</field>
-    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Transfer&apos;)]"/>
-    <field name="trigger">on_change</field>
-    <field name="active" eval="True"/>
-    <!-- TODO: wire action_server_ids to actual server_action xmlids: [1813] -->
-  </record>
-  <!-- SKIPPED unresolved model ref: <record id="automation_174_rr_auto_select_product_for_rug_repairs_3" model="base.automation">     <field name="name">RR - Auto Select Product for RUG ... -->
-  <record id="automation_199_proj_notify_transfer_completion" model="base.automation">
-    <field name="name">PROJ - Notify Transfer Completion</field>
-    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;Transfer&apos;)]"/>
-    <field name="trigger">on_create_or_write</field>
-    <field name="active" eval="True"/>
-    <field name="filter_domain">[('sale_id.x_studio_quotation_type', '=', 'Project'), ('state', '=', 'done')]</field>
-    <!-- TODO: wire action_server_ids to actual server_action xmlids: [2185] -->
-  </record>
+  <!-- SKIPPED unknown model Transfer: <record id="automation_104_supplier_invoice_no_update_in_import_pos" model="base.automation">     <field name="name">Supplier Invoice No Update in Imp... -->
+  <!-- SKIPPED unresolved model ref: <!-- SKIPPED unknown model Transfer: <record id="automation_124_srm_auto_populate_report_type_in_product_moves" model="base.automation">     <field name="name">SRM - Auto Populate Report ... -->
+  <!-- SKIPPED unresolved model ref: <!-- SKIPPED unknown model Transfer: <record id="automation_174_rr_auto_select_product_for_rug_repairs_3" model="base.automation">     <field name="name">RR - Auto Select Product for RUG ... -->
   <record id="automation_280_jin_company_id_in_consignment_header" model="base.automation">
     <field name="name">JIN - Company Id in Consignment Header</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;x_consignment_header&apos;)]"/>
