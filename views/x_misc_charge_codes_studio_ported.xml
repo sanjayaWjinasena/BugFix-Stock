@@ -42,9 +42,7 @@
           <attribute name="delete">false</attribute>
           <attribute name="edit">false</attribute>
         </xpath>
-        <xpath expr="//field[@name='x_name']" position="attributes">
-          <attribute name="string">Misc. Charge Code</attribute>
-        </xpath>
+        
         
       </data>
     </field>

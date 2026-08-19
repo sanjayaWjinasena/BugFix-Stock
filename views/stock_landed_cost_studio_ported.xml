@@ -10,9 +10,7 @@
     <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//field[@name='vendor_bill_id']" position="attributes">
-          <attribute name="force_save">True</attribute>
-        <attribute name="readonly">state != 'draft'</attribute></xpath>
+        
       </data>
     </field>
   </record>

@@ -13,17 +13,7 @@
         <xpath expr="//form[1]" position="attributes">
           <attribute name="edit">true</attribute>
         </xpath>
-        <xpath expr="//field[@name='return_location']" position="after">
-          <field name="x_studio_repair_return_location" string="Repair Return Location"/>
-          <field name="x_studio_repair_factory_location" string="Repair Factory Location"/>
-          <field name="x_studio_finished_good_location"/>
-          <field name="x_studio_temp_location" string="Temp Location"/>
-          <field name="x_studio_return_receipt_location" string="Return Receipt Location" invisible="1"/>
-          <field name="x_studio_return_sequence" string="Return Sequence" invisible="1"/>
-          <field name="x_studio_many2many_field_7kpUe" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" string="Users (Cell Visibility)"/>
-          <field name="x_studio_users_internal_transfer" string="Users (Internal Transfer)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" invisible="True"/>
-          <field name="x_studio_users_stock_location" string="Users (Stock Location)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}"/>
-        </xpath>
+        
       </data>
     </field>
   </record>

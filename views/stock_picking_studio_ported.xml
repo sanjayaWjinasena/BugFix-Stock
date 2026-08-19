@@ -10,13 +10,6 @@
     <field name="inherit_id" ref="stock.view_picking_form"/>
     <field name="arch" type="xml">
       <data>
-      <field name="Import" invisible="1"/>
-      <field name="Local" invisible="1"/>
-      <field name="Project" invisible="1"/>
-      <field name="done" invisible="1"/>
-      <field name="draft" invisible="1"/>
-      <field name="partner_id" invisible="1"/>
-      <field name="state" invisible="1"/>
         <!-- Kapila -->
         
         
@@ -38,60 +31,12 @@
         
         
         
-        <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/label[1]" position="before">
-          <field name="x_studio_sales_order" string="Sales Order" domain="[('partner_id', '=', partner_id)]" readonly="(partner_id == False) or (state != 'draft')"/>
-        </xpath>
-        <xpath expr="//field[@name='date_done']" position="after">
-          <field name="purchase_id" help="Purchase Order Number which goods are to be received from." invisible="purchase_id == False"/>
-          <field name="x_studio_supplier_invoice_number" force_save="1" help="Invoice number of the supplier's invoice." invisible="purchase_id == False" readonly="(x_studio_pr_type == 'Import') or (state == 'done')" required="purchase_id != False"/>
-          <field name="x_studio_supplier_invoice_number_1" string="Supplier Invoice Number" invisible="1" required="purchase_id != False"/>
-          <field name="x_studio_pr_type" string="PR Type" help="Whether the purchase is import or a local." invisible="(x_studio_pr_type == False) or (x_studio_pr_type == 'Local')"/>
-          <field name="x_studio_consignment_no" string="Consignment No" domain="[('x_studio_status', '=', 'Done')]" help="Consignment number." invisible="(x_studio_pr_type == False) or (x_studio_pr_type == 'Local')" readonly="x_studio_update_consignment == True" required="x_studio_pr_type == 'Import'"/>
-          <field name="x_studio_custom_clearance_no" string="Custom Clearance No" help="Custom Clearance Number." invisible="(x_studio_pr_type == False) or (x_studio_pr_type == 'Local')"/>
-          <field name="x_studio_update_consignment" string="Update Consignment" invisible="1"/>
-        </xpath>
         
-        <xpath expr="//field[@name='origin']" position="after">
-          <field name="x_studio_journal_type" string="Journal Type" options="{&quot;no_create&quot;:true}" invisible="x_studio_movement_journal == False" readonly="False" required="x_studio_movement_journal == True" force_save="0"/>
-          <field name="x_studio_gl_account_status" string="G/L Account Status" force_save="True" readonly="1" invisible="x_studio_movement_journal == False"/>
-          <field name="x_studio_offset_account_updated" string="Offset Account Updated" force_save="True" readonly="1" invisible="1"/>
-          <field name="sale_id" force_save="True" readonly="1" invisible="sale_id == False"/>
-          <field name="x_studio_ticket_sales_order" string="Ticket Sales Order" invisible="x_studio_ticket_sales_order == False"/>
-          <field name="x_studio_repair_payment_made" string="Repair Payment Made" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_cash_full_payment_made" string="Cash Full Payment Made" invisible="1"/>
-          <field name="x_studio_quotation_type" string="Quotation Type" required="False" force_save="1" readonly="True"/>
-          <field name="x_studio_type_of_operation" string="Type of Operation"/>
-          <field name="x_studio_sequence_code" string="Sequence Code" invisible="1"/>
-          <field name="x_studio_movement_journal" string="Movement Journal" invisible="1"/>
-          <field name="x_studio_mj_in" string="MJ IN" invisible="1"/>
-          <field name="x_studio_mj_out" string="MJ OUT" invisible="1"/>
-          <field name="x_studio_valid_factory_repair" string="Valid Factory Repair" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_quotation_type_2" string="Quotation Type-2" invisible="1"/>
-          <field name="x_studio_analytic_account" string="Analytic Account" invisible="x_studio_quotation_type != 'Project'"/>
-          <field name="x_studio_budget_created" string="Budget Created" invisible="1"/>
-          <field name="x_studio_repair_return_location" string="Repair Return Location" invisible="1"/>
-          <field name="x_studio_return_receipt_location" string="Return Receipt Location" invisible="1"/>
-          <field name="x_studio_return_sequence" string="Return Sequence" invisible="1"/>
-          <field name="x_studio_maintenance_request_" string="Maintenance Request #" invisible="1"/>
-          <field name="x_studio_transfer_approval" string="Transfer Approval" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_transfer_request_sent" string="Transfer Request Sent" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_transfer_approved" string="Transfer Approved" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_transfer_rejected" string="Transfer Rejected" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_valid_transfer_lines" string="Valid Transfer Lines" force_save="True" readonly="1" invisible="1"/>
-        </xpath>
-        <xpath expr="//field[@name='owner_id']" position="after">
-          <field name="x_studio_user_location_validation" string="User Location Validation" invisible="1"/>
-          <field name="x_studio_user_location_validation_2" string="User Location Validation 2" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_picking_count" string="Picking Count" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_fsm_task_done" string="FSM Task Done" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_fully_paid_so" string="Fully Paid SO" invisible="1"/>
-          <field name="x_studio_factory_repair" string="Factory Repair" force_save="True" readonly="1" invisible="1"/>
-          <field name="x_studio_received_at_centre" string="Received at Centre" invisible="1" force_save="True" readonly="1"/>
-          <field name="x_studio_validation" string="Validation" force_save="True" readonly="1" invisible="((x_studio_received_at_centre == True) and (x_studio_factory_repair == True)) or (x_studio_factory_repair != True)"/>
-        </xpath>
-        <xpath expr="//field[@name='move_ids_without_package']" position="attributes">
-          <attribute name="readonly">(state == 'done' and is_locked) or (((x_studio_update_consignment == True) and (x_studio_pr_type == 'Import')) or ((is_locked == True) and (state == 'done')))</attribute>
-        </xpath>
+        
+        
+        
+        
+        
         
         
       </data>

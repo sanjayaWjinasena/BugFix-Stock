@@ -13,14 +13,8 @@
         <xpath expr="//form[1]" position="attributes">
           <attribute name="create">false</attribute>
         </xpath>
-        <xpath expr="//field[@name='sequence_id']" position="attributes">
-          <attribute name="groups"/>
-        </xpath>
-        <xpath expr="//field[@name='create_backorder']" position="after">
-          <field name="x_studio_movement_journal" string="Movement Journal"/>
-          <field name="x_studio_mj_out" string="MJ OUT"/>
-          <field name="x_studio_mj_in" string="MJ IN"/>
-        </xpath>
+        
+        
       </data>
     </field>
   </record>

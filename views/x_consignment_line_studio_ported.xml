@@ -37,8 +37,7 @@
     <field name="inherit_id" ref="BugFix-Stock.ported_default_form_view_fo_f9b27db6_1eab_4eda_b8d3_cb9c6a750b20"/>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//field[@name='x_name']" position="attributes">
-          <attribute name="invisible">1</attribute></xpath>
+        
         
         
       </data>
