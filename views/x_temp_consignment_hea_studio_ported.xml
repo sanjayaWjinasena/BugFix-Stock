@@ -19,29 +19,7 @@
            
           
           <group>
-            <field name="x_studio_temp_consignment_line_ids" nolabel="1" colspan="2">
-              <tree string="Details" create="false" editable="bottom" delete="false"> 
-                <field name="x_studio_select"/>
-                <field name="x_studio_purchase_id" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_supplier_id" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_indent_no" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_product_id" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_description" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_uom_id" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_quantity" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_weight" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_volume" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_delivery_remainder" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_consignment_remainder" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_unit_price" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_subtotal" options="{'no_open': true}" force_save="1" readonly="True"/>	
-                <field name="x_studio_payment_method" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_structure_name" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_delivery_date" options="{'no_open': true}" force_save="1" readonly="True"/>
-                <field name="x_studio_purchase_line_id" options="{'no_open': true}" force_save="1" column_invisible="1" readonly="True"/>
-                <field name="x_studio_concessional_rate" options="{'no_open': true}" force_save="1" column_invisible="1" readonly="True"/>
-              </tree>
-            </field>
+            
           </group>
           <newline/>
           <footer>
