@@ -343,11 +343,6 @@
     <field name="res_model">stock.quant</field>
     <field name="view_mode">kanban,tree,form,pivot,graph</field>
   </record>
-  <record id="action_2809_stock_valuation_layer" model="ir.actions.act_window">
-    <field name="name">stock.valuation.layer</field>
-    <field name="res_model">stock.valuation.layer</field>
-    <field name="view_mode">tree,form,pivot</field>
-  </record>
   <record id="action_2409_transfers" model="ir.actions.act_window">
     <field name="name">Transfers</field>
     <field name="res_model">stock.picking</field>
