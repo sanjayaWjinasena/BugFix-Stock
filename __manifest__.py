@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.17',
+    'version': '17.0.0.0.18',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -38,7 +38,12 @@
     # (see views/stock_studio_ported.xml). NEW DEP stock_landed_costs -
     # needed for view 4892's inherit_id ref on
     # stock_landed_costs.view_stock_landed_cost_form.
-    'depends': ['base_setup', 'stock', 'stock_landed_costs', 'Jinasena_Masterdata_Reporting'],
+    # v0.0.18: 6 more mid-size Studio inherits (see
+    # views/stock_studio_ported_v2.xml). NEW DEP helpdesk_stock -
+    # needed for view 4617 (stock.return.picking form) which inherits
+    # helpdesk_stock.view_stock_return_picking_form_inherit_helpdesk_stock.
+    # Already installed on repair-test-101 (module id 197).
+    'depends': ['base_setup', 'stock', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
     'data': [
         'security/ir_model_pins.xml',
         'security/ir.model.access.csv',
@@ -47,6 +52,7 @@
         'data/act_windows.xml',
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
+        'views/stock_studio_ported_v2.xml',
     ],
     'installable': True,
     'auto_install': False,

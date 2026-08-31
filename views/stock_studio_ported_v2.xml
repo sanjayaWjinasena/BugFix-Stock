@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Studio-ported ir.ui.view records - wave 3 (BugFix-Stock v0.0.18).
+
+    6 mid-size Studio inherit overlays, all byte-verbatim from Clear-DB,
+    0 hardcoded action ids, 0 unresolved field refs on repair-test-101.
+
+    2389 - form stock.location          inherit stock.view_location_form (1263b)
+           9 fields: finished_good/temp/repair_factory/return/return_receipt/
+           repair_return locations + users_internal_transfer + users_stock_
+           location + return_sequence + a many2many_field
+    2579 - tree stock.move              inherit stock.view_move_tree_receipt_picking (645b)
+           x_studio_original_qty + x_studio_variance columns + 10 std fields
+    2597 - tree stock.lot               inherit stock.view_production_lot_tree (1096b)
+           x_studio_cost / _no_of_days / _price_1 / _price_2 / _production_id /
+           _production_order / _sequence_size / _serial_no_prefix / _starting_serial_no /
+           _warehouse columns
+    3912 - tree stock.move.line         inherit stock.view_move_line_tree (919b)
+           x_studio_report_type_production_summary_split /
+           _sales_prod_purch / _slow_moving_items columns (owned by
+           Jinasena_Masterdata_Reporting via _inherit; already a dep)
+    4616 - tree stock.location          inherit stock.view_location_tree2 (642b)
+           barcode + id + 4 x_studio_* location-flag columns
+    4617 - form stock.return.picking    inherit helpdesk_stock.view_stock_return_picking_form_inherit_helpdesk_stock (610b)
+           x_studio_repair_normal_with_serial_no + _without_serial_no + _repair_rug
+
+    NEW MANIFEST DEP: helpdesk_stock (for 4617). Already installed on
+    repair-test-101 (module id 197).
+
+    NOT ported this wave (deferred):
+    * 2585 - stock.valuation.layer tree - 2 missing fields on-disk
+      (x_studio_related_field_bPlxa / _ygmmJ).
+    * 4619 - stock.return.picking form - 2 hardcoded action refs
+      to name="1997"; needs id->xmlid conversion.
+-->
+<odoo>
+
+    <record id="ported_view_2389_studio_stock_location_form" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.location.form customization</field>
+        <field name="model">stock.location</field>
+        <field name="type">form</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//form[1]" position="attributes">
+                <attribute name="edit">true</attribute>
+              </xpath>
+              <xpath expr="//field[@name='return_location']" position="after">
+                <field name="x_studio_repair_return_location" string="Repair Return Location"/>
+                <field name="x_studio_repair_factory_location" string="Repair Factory Location"/>
+                <field name="x_studio_finished_good_location"/>
+                <field name="x_studio_temp_location" string="Temp Location"/>
+                <field name="x_studio_return_receipt_location" string="Return Receipt Location" invisible="1"/>
+                <field name="x_studio_return_sequence" string="Return Sequence" invisible="1"/>
+                <field name="x_studio_many2many_field_7kpUe" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" string="Users (Cell Visibility)"/>
+                <field name="x_studio_users_internal_transfer" string="Users (Internal Transfer)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" invisible="True"/>
+                <field name="x_studio_users_stock_location" string="Users (Stock Location)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_2579_studio_stock_move_tree2" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.move.tree2 customization</field>
+        <field name="model">stock.move</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='origin']" position="after">
+                <field name="bom_line_id"/>
+                <field name="created_production_id"/>
+                <field name="raw_material_production_id"/>
+                <field name="production_id"/>
+              </xpath>
+              <xpath expr="//field[@name='product_uom_qty']" position="after">
+                <field name="unit_factor"/>
+                <field name="x_studio_original_qty" string="Original Qty"/>
+                <field name="x_studio_variance" string="Variance"/>
+                <field name="product_qty"/>
+                <field name="should_consume_qty"/>
+                <field name="availability"/>
+                <field name="forecast_availability"/>
+                <field name="price_unit"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_2597_studio_stock_production_lot_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.production.lot.tree customization</field>
+        <field name="model">stock.lot</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='product_id']" position="after">
+                <field optional="show" name="x_studio_cost" string="Cost"/>
+                <field optional="show" name="x_studio_price_1" string="Price 1"/>
+                <field optional="show" name="x_studio_price_2" string="Price 2"/>
+                <field name="x_studio_serial_no_prefix" string="Serial No Prefix" column_invisible="1"/>
+                <field name="x_studio_sequence_size" string="Sequence Size" column_invisible="1"/>
+                <field name="x_studio_starting_serial_no" string="Starting Serial No" column_invisible="1"/>
+                <field name="product_uom_id"/>
+                <field name="product_qty"/>
+                <field optional="show" name="x_studio_warehouse" string="Warehouse"/>
+                <field name="x_studio_production_id" column_invisible="1"/>
+                <field name="x_studio_production_order" string="Production Order"/>
+              </xpath>
+              <xpath expr="//field[@name='create_date']" position="after">
+                <field optional="show" name="x_studio_no_of_days" string="No of Days"/>
+                <field optional="show" name="x_studio_no_of_days_2" string="No of Days 2" column_invisible="1"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_3912_studio_stock_move_line_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.move.line.tree customization</field>
+        <field name="model">stock.move.line</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='date']" position="attributes">
+                <attribute name="options">{"show_time":false}</attribute>
+                <attribute name="widget">datetime</attribute>
+              </xpath>
+              <xpath expr="//field[@name='quantity']" position="attributes">
+                <attribute name="sum">Sum of Quantity Done</attribute>
+                <attribute name="widget">monetary</attribute>
+              </xpath>
+              <xpath expr="//field[@name='state']" position="after">
+                <field name="origin"/>
+                <field name="picking_id"/>
+                <field name="picking_code"/>
+                <field name="x_studio_report_type_sales_prod_purch" string="Report Type - Sales prod. purch." column_invisible="1"/>
+                <field name="x_studio_report_type_slow_moving_items" string="Report Type - Slow Moving Items" column_invisible="1"/>
+                <field name="x_studio_report_type_production_summary_split" string="Report Type - Production Summary Split" column_invisible="1"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_4616_studio_stock_location_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.location.tree customization</field>
+        <field name="model">stock.location</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='active']" position="attributes">
+                <attribute name="invisible"/></xpath>
+              <xpath expr="//field[@name='complete_name']" position="after">
+                <field name="barcode" optional="show"/>
+              </xpath>
+              <xpath expr="//field[@name='usage']" position="after">
+                <field name="x_studio_repair_return_location" optional="show"/>
+                <field name="x_studio_repair_factory_location" optional="show"/>
+                <field optional="show" name="x_studio_finished_good_location" string="Finished Good Location"/>
+                <field name="x_studio_temp_location" optional="show"/>
+                <field name="id" optional="show"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_4617_studio_stock_return_picking_form" model="ir.ui.view">
+        <field name="name">Odoo Studio: Return customization</field>
+        <field name="model">stock.return.picking</field>
+        <field name="type">form</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="helpdesk_stock.view_stock_return_picking_form_inherit_helpdesk_stock"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='ticket_id']" position="after">
+                <field name="x_studio_repair_rug" invisible="1"/> 
+                <field name="x_studio_repair_normal_with_serial_no" invisible="1"/>
+                <field name="x_studio_repair_normal_without_serial_no" invisible="1"/>
+              </xpath> 
+    
+              <xpath expr="//field[@name='picking_id']" position="attributes">
+                <attribute name="readonly">(x_studio_repair_normal_without_serial_no != False) or ((x_studio_repair_normal_with_serial_no != False) or (x_studio_repair_rug != False))</attribute><attribute name="required">ticket_id != False</attribute></xpath> 
+            </data>
+        </field>
+    </record>
+
+</odoo>
