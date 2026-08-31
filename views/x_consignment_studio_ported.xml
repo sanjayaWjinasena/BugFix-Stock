@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Studio-ported ir.ui.view records for x_consignment_header +
+    x_consignment_line (BugFix-Stock v0.0.16).
+
+    Ports the 3 primary Default views (2810, 2813, 2814) + 3 Studio
+    priority-99 inherit overlays (2817, 2818, 2819) from Clear-DB.
+    Arch byte-verbatim except:
+      * The oe_chatter block on 2814 is stripped: x_consignment_line
+        does not inherit mail.thread/mail.activity.mixin, so the 3
+        chatter fields would fail view validation.
+
+    NOT ported this wave (deferred):
+      * 2811 (form x_consignment_header primary, 2938b) + 2816
+        (Studio form inherit on x_consignment_header, 14852b). The
+        inherit has 5 hardcoded action-id refs (3 without local xmlids)
+        and a button-name conflict with BugFix-Purchase draft view 9609.
+      * 2948 (dashboard), 2949 (kanban), 2812/2815 (search primaries).
+        Unreferenced Studio-generated defaults; Odoo fallbacks suffice.
+-->
+<odoo>
+
+    <record id="ported_view_2810_default_list_view_for_x_consignment_header" model="ir.ui.view">
+        <field name="name">Default list view for x_consignment_header</field>
+        <field name="model">x_consignment_header</field>
+        <field name="type">tree</field>
+        <field name="priority">16</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree>
+              <field name="x_studio_sequence" widget="handle"/>
+              <field name="x_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ported_view_2813_default_list_view_for_x_consignment_line" model="ir.ui.view">
+        <field name="name">Default list view for x_consignment_line</field>
+        <field name="model">x_consignment_line</field>
+        <field name="type">tree</field>
+        <field name="priority">16</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree>
+              <field name="x_studio_sequence" widget="handle"/>
+              <field name="x_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ported_view_2814_default_form_view_for_x_consignment_line" model="ir.ui.view">
+        <field name="name">Default form view for x_consignment_line</field>
+        <field name="model">x_consignment_line</field>
+        <field name="type">form</field>
+        <field name="priority">16</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+              <header/>
+              <sheet string="Consignment Line">
+                <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
+                <field name="x_active" invisible="1"/>
+                <div class="oe_title">
+                            <h1>
+                                <field name="x_name" required="1" placeholder="Name..."/>
+                            </h1>
+                        </div>
+                <group name="studio_group_0644e6">
+                  <group name="studio_group_0644e6_left"/>
+                  <group name="studio_group_0644e6_right"/>
+                </group>
+              </sheet>
+              <!-- v0.0.16: oe_chatter block stripped: x_consignment_line does not inherit mail.thread/activity.mixin -->
+            </form>
+        </field>
+    </record>
+
+    <record id="ported_view_2817_studio_form_x_consignment_line" model="ir.ui.view">
+        <field name="name">Odoo Studio: Default form view for x_consignment_line customization</field>
+        <field name="model">x_consignment_line</field>
+        <field name="type">form</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='x_name']" position="attributes">
+                <attribute name="invisible">1</attribute></xpath>
+              <xpath expr="//group[@name='studio_group_0644e6_left']" position="inside">
+                <field name="x_studio_purchase_id"/>
+                <field name="x_studio_product_id"/>
+                <field name="x_studio_description" string="Description"/>
+                <field name="x_studio_warehouse" string="Warehouse"/>
+                <field name="x_studio_tariff_code" string="Tariff Code"/>
+                <field name="x_studio_consignment_header_id" string="Consignment Header Id" invisible="1"/>
+              </xpath>
+              <xpath expr="//group[@name='studio_group_0644e6_right']" position="inside">
+                <field name="x_currency_id"/>
+                <field name="x_studio_invoice_qty" string="Invoice Qty."/>
+                <field name="x_studio_unit_price" string="Unit Price"/>
+                <field name="x_studio_amount" string="Amount"/>
+                <field name="x_studio_received_qty" string="Received Qty."/>
+                <field name="x_studio_status" string="Status"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_2818_studio_tree_x_consignment_line" model="ir.ui.view">
+        <field name="name">Odoo Studio: Default list view for x_consignment_line customization</field>
+        <field name="model">x_consignment_line</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="BugFix-Stock.ported_view_2813_default_list_view_for_x_consignment_line"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//tree[1]" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="default_order">x_studio_consignment_header_id desc</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="edit">true</attribute>
+                <attribute name="editable">bottom</attribute>
+              </xpath>
+              <xpath expr="//field[@name='x_studio_sequence']" position="before">
+                <field name="x_studio_consignment_header_id" string="Consignment No" readonly="1"/>
+                <field name="x_studio_purchase_id" readonly="1"/>
+                <field name="x_studio_indent_no" string="Indent No"/>
+                <field name="x_studio_product_id" readonly="1"/>
+                <field name="x_studio_description" readonly="1"/>
+                <field name="x_studio_tariff_code" readonly="1"/>
+                <field name="x_studio_warehouse" readonly="1"/>
+                <field name="x_studio_invoice_qty" readonly="1"/>
+                <field name="x_studio_received_qty" optional="hide" readonly="1"/>
+                <field name="x_studio_unit_price" readonly="1"/>
+                <field name="x_studio_amount" readonly="1"/>
+                <field optional="show" name="x_studio_company_id" string="Company" column_invisible="1"/>
+                <field name="id"/>
+                <field optional="show" name="x_studio_many2many_field_ZvmKu" string="tot_tax_ex_cd_ids"/>
+                <field optional="show" name="x_studio_tot_charge_ids" string="tot_charge_ids" widget="many2many_tags"/>
+                <field optional="show" name="x_studio_tot_duty_ids" string="tot_duty_ids"/>
+                <field optional="show" name="x_studio_tot_tax_ids" string="tot_tax_ids"/>
+                <field optional="show" name="x_studio_tot_charge_cd_ids" string="tot_charge_cd_ids"/>
+                <field optional="show" name="x_studio_tot_duty_cd_ids" string="tot_duty_cd_ids"/>
+                <field optional="show" name="x_studio_tot_tax_cd_ids" string="tot_tax_cd_ids"/>
+                <field optional="show" name="x_studio_tot_charge_ex_ids" string="tot_charge_ex_ids"/>
+                <field optional="show" name="x_studio_tot_duty_ex_ids" string="tot_duty_ex_ids"/>
+                <field optional="show" name="x_studio_tot_tax_ex_ids"/>
+                <field optional="show" name="x_studio_tot_charge_ex_cd_ids" string="tot_charge_ex_cd_ids"/>
+                <field optional="show" name="x_studio_tot_duty_ex_cd_ids" string="tot_duty_ex_cd_ids"/>
+                <field optional="show" name="x_studio_tot_tax_ex_cd_ids" string="tot_tax_ex_cd_ids"/>
+                <field name="x_currency_id" optional="hide" readonly="1"/>
+                <field name="x_studio_status" optional="hide" readonly="1"/>
+              </xpath>
+              <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+                <attribute name="column_invisible">1</attribute></xpath>
+              <xpath expr="//field[@name='x_name']" position="attributes">
+                <attribute name="column_invisible">1</attribute></xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_2819_studio_tree_x_consignment_header" model="ir.ui.view">
+        <field name="name">Odoo Studio: Default list view for x_consignment_header customization</field>
+        <field name="model">x_consignment_header</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="BugFix-Stock.ported_view_2810_default_list_view_for_x_consignment_header"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//tree[1]" position="attributes">
+                <attribute name="default_order">x_name desc</attribute>
+              </xpath>
+              <xpath expr="//field[@name='x_studio_sequence']" position="before">
+                <xpath expr="//field[@name='x_name']" position="move"/>
+                <field name="x_studio_description"/>
+                <field name="x_studio_supplier_id"/>
+                <field name="x_studio_currency_id"/>
+                <field name="x_studio_shipment_start_date"/>
+                <field name="x_studio_shipping_mode" widget="badge" decoration-muted="x_studio_status == ('Air','Sea','Road','Courier')"/>
+                <field name="create_uid" widget="many2one_avatar_user"/>
+                <field name="create_date"/>
+                <field name="x_studio_invoice_date" optional="hide"/>
+                <field name="x_studio_container_no" optional="hide"/>
+                <field name="x_studio_supplier_invoice_number" optional="hide"/>
+                <field name="x_studio_status" widget="badge" decoration-muted="x_studio_status == 'Draft'" decoration-info="x_studio_status == 'In Transit'" decoration-warning="x_studio_status == 'Under Custom Clearance'" decoration-success="x_studio_status == 'Done'" decoration-primary="x_studio_status == ('Consignment', 'TP Invoice')"/>
+              </xpath>
+              <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+                <attribute name="column_invisible">1</attribute></xpath>
+              <xpath expr="//field[@name='x_name']" position="attributes">
+                <attribute name="string">Invoice Reference</attribute>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

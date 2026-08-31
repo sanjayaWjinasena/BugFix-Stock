@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.15',
+    'version': '17.0.0.0.16',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -14,6 +14,16 @@
     # class declaring _name = 'x_sales_report_type' just to make those
     # M2O refs resolve. The consolidated masterdata module removes the
     # need for that scaffold.
+    # v0.0.16: first view-port wave — 6 records for x_consignment_header +
+    # x_consignment_line (3 primary Default views + 3 Studio priority-99
+    # inherit overlays). Byte-verbatim from Clear-DB views 2810/2813/
+    # 2814/2817/2818/2819 except:
+    #   * 2814 oe_chatter block stripped (x_consignment_line does not
+    #     inherit mail.thread/mail.activity.mixin).
+    # NOT ported this wave: 2811+2816 (x_consignment_header form + its
+    # 14.8KB Studio inherit) - hardcoded action refs + cross-repo conflict
+    # with BugFix-Purchase draft view 9609 need coordination first.
+    # See VIEWS_TODO.md for the remaining 21 substantive views.
     # v0.0.15: wired 14 base.automation stubs to their local server actions.
     #   * data/automations.xml: every TODO comment
     #     `<!-- TODO: wire action_server_ids to actual server_action xmlids: [NNNN] -->`
@@ -31,6 +41,7 @@
         'data/server_actions.xml',
         'data/automations.xml',
         'data/act_windows.xml',
+        'views/x_consignment_studio_ported.xml',
     ],
     'installable': True,
     'auto_install': False,
