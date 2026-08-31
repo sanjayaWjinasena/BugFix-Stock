@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.18',
+    'version': '17.0.0.0.19',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -43,7 +43,17 @@
     # needed for view 4617 (stock.return.picking form) which inherits
     # helpdesk_stock.view_stock_return_picking_form_inherit_helpdesk_stock.
     # Already installed on repair-test-101 (module id 197).
-    'depends': ['base_setup', 'stock', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
+    # v0.0.19: re-adds models/stock_valuation_layer.py (previously
+    # deleted in v0.0.12 CRITICAL because stock_account was absent on
+    # dev). Now safe because stock_account is installed on repair-
+    # test-101 and transitively pulled by stock_landed_costs. Only 2
+    # of the 4 previously-declared fields are re-added
+    # (x_studio_related_field_bPlxa, _ygmmJ) with the proper Clear-DB
+    # `related=` attribute; the other 2 (MfcOm, dGINH) are not
+    # referenced by any view currently being ported. Also adds view
+    # 2585 (Studio inherit on stock.valuation.layer tree) to
+    # views/stock_studio_ported_v2.xml.
+    'depends': ['base_setup', 'stock', 'stock_account', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
     'data': [
         'security/ir_model_pins.xml',
         'security/ir.model.access.csv',

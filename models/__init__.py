@@ -5,6 +5,7 @@ from . import stock_move_line
 from . import stock_picking
 from . import stock_picking_type
 from . import stock_return_picking
+from . import stock_valuation_layer
 from . import x_con_consolidated_hea
 from . import x_con_consolidated_lin
 from . import x_consignment_charge_h
