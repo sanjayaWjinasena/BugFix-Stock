@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Studio-ported ir.ui.view records (Studio priority-99/160 inherits on
+    standard-Odoo stock.* models). BugFix-Stock v0.0.17.
+
+    All 6 arches are byte-verbatim from Clear-DB with no hardcoded action
+    ids and 0 unresolved field refs on repair-test-101. Each is a small
+    cosmetic overlay adding columns / fields / attributes.
+
+    3943 - tree stock.warehouse       inherit stock.view_warehouse_tree
+           edit=false + id column
+    4866 - tree stock.route           inherit stock.stock_location_route_tree
+           id / product_ids / supplier_wh_id / supplied_wh_id columns
+    4892 - form stock.landed.cost     inherit stock_landed_costs.view_stock_landed_cost_form
+           vendor_bill_id -> force_save + readonly when state != draft
+    5299 - tree stock.picking         inherit stock.vpicktree (priority 160)
+           create=true + x_studio_movement_journal / _gl_account_status columns
+    5328 - form stock.picking.type    inherit stock.view_picking_type_form (priority 160)
+           x_studio_movement_journal + _mj_out + _mj_in fields
+    5334 - tree stock.picking.type    inherit stock.view_picking_type_tree
+           code + sequence_code columns
+
+    NEW MANIFEST DEP: stock_landed_costs (for 4892 inherit ref).
+-->
+<odoo>
+
+    <record id="ported_view_3943_studio_stock_warehouse_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.warehouse.tree customization</field>
+        <field name="model">stock.warehouse</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_warehouse_tree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//tree[1]" position="attributes">
+                <attribute name="edit">false</attribute>
+              </xpath>
+              <xpath expr="//field[@name='sequence']" position="after">
+                <field name="id"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_4866_studio_stock_route_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.location.route.tree customization</field>
+        <field name="model">stock.route</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.stock_location_route_tree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='sequence']" position="after">
+                <field name="id" optional="show"/>
+                <field name="product_ids" optional="show"/>
+              </xpath>
+              <xpath expr="//tree[1]/field[@name='name']" position="after">
+                <field name="supplier_wh_id" optional="show"/>
+                <field name="supplied_wh_id" optional="show"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_4892_studio_stock_landed_cost_form" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.landed.cost.form customization</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="type">form</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='vendor_bill_id']" position="attributes">
+                <attribute name="force_save">True</attribute>
+              <attribute name="readonly">state != 'draft'</attribute></xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_5299_studio_stock_picking_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.picking.tree customization</field>
+        <field name="model">stock.picking</field>
+        <field name="type">tree</field>
+        <field name="priority">160</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//tree[1]" position="attributes">
+                <attribute name="create">true</attribute>
+              </xpath>
+              <xpath expr="//field[@name='state']" position="after">
+                <field name="x_studio_movement_journal" optional="show" column_invisible="1"/>
+                <field name="x_studio_gl_account_status" optional="hide" widget="badge" invisible="x_studio_movement_journal != True"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_5328_studio_stock_picking_type_form" model="ir.ui.view">
+        <field name="name">Odoo Studio: Operation Types customization</field>
+        <field name="model">stock.picking.type</field>
+        <field name="type">form</field>
+        <field name="priority">160</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//form[1]" position="attributes">
+                <attribute name="create">false</attribute>
+              </xpath>
+              <xpath expr="//field[@name='sequence_id']" position="attributes">
+                <attribute name="groups"/>
+              </xpath>
+              <xpath expr="//field[@name='create_backorder']" position="after">
+                <field name="x_studio_movement_journal" string="Movement Journal"/>
+                <field name="x_studio_mj_out" string="MJ OUT"/>
+                <field name="x_studio_mj_in" string="MJ IN"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="ported_view_5334_studio_stock_picking_type_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: Operation types customization</field>
+        <field name="model">stock.picking.type</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_picking_type_tree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//tree[1]/field[@name='name']" position="after">
+                <field name="code" optional="show"/>
+              </xpath>
+              <xpath expr="//field[@name='warehouse_id']" position="after">
+                <field name="sequence_code" optional="show"/>
+              </xpath>
+              <xpath expr="//field[@name='sequence_id']" position="attributes">
+                <attribute name="groups"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

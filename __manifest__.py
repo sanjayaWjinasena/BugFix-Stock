@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.16',
+    'version': '17.0.0.0.17',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -34,7 +34,11 @@
     #     semantics preserved (on_create_or_write / on_change / on_unlink).
     #   * 14 base.automation records now actually invoke their code on
     #     trigger; previously they were silent no-ops.
-    'depends': ['base_setup', 'stock', 'Jinasena_Masterdata_Reporting'],
+    # v0.0.17: 6 more Studio inherit views on standard stock.* models
+    # (see views/stock_studio_ported.xml). NEW DEP stock_landed_costs -
+    # needed for view 4892's inherit_id ref on
+    # stock_landed_costs.view_stock_landed_cost_form.
+    'depends': ['base_setup', 'stock', 'stock_landed_costs', 'Jinasena_Masterdata_Reporting'],
     'data': [
         'security/ir_model_pins.xml',
         'security/ir.model.access.csv',
@@ -42,6 +46,7 @@
         'data/automations.xml',
         'data/act_windows.xml',
         'views/x_consignment_studio_ported.xml',
+        'views/stock_studio_ported.xml',
     ],
     'installable': True,
     'auto_install': False,
