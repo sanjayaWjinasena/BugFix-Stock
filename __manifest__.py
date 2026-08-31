@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'BugFix - Stock',
-    'version': '17.0.0.0.13',
+    'name': 'Jinasena : Module : Inventory',
+    'version': '17.0.0.0.14',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
