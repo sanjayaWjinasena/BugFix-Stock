@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.19',
+    'version': '17.0.0.0.20',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,6 +53,16 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
+    # v0.0.20: ports server action 1997 (RR - RUG Return from Help
+    # desk, ~3.6 KB Python on stock.return.picking) + wires view 4619
+    # to it via %(BugFix-Stock.server_action_1997_...)d ref. The
+    # button rewrite is per feedback-hardcoded-action-ids. RR-prefix
+    # is Studio naming semantics ("Repair Return"), NOT a module
+    # boundary - action operates on stock.return.picking and fits the
+    # existing pattern of 7 other RR_* actions in BugFix-Stock.
+    # Runtime deps (helpdesk.ticket.x_studio_*, stock.picking.
+    # x_studio_helpdesk_ticket_id) verified as state='base' on
+    # repair-test-101 before landing.
     'depends': ['base_setup', 'stock', 'stock_account', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
     'data': [
         'security/ir_model_pins.xml',

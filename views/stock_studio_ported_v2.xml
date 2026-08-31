@@ -230,4 +230,33 @@
         </field>
     </record>
 
+
+    <record id="ported_view_4619_studio_stock_return_picking_form_2" model="ir.ui.view">
+        <field name="name">Odoo Studio: Return lines customization-2</field>
+        <field name="model">stock.return.picking</field>
+        <field name="type">form</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='location_id']" position="before">
+                  <!--field name="x_studio_suggested_location_id" attrs="{'invisible': [('x_studio_repair_normal_without_serial_no', '=', True)]}"/--> 
+                  <field name="x_studio_suggested_location_id" invisible="company_id != 1"/>
+                  <field name="x_studio_suggested_location_id_1" invisible="company_id != 2"/>
+                </xpath> 
+    
+                <xpath expr="//footer/button[@name='create_returns']" position="after">
+                  <!--button type="action" name="%(BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" attrs="{'invisible': ['|',('ticket_id', '=', False),('x_studio_repair_normal_without_serial_no', '=', True)]}"></button-->
+                  <button type="action" name="%(BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" invisible="ticket_id == False"/>
+                </xpath>
+    
+                <!--xpath expr="//footer/button[@name='create_returns']" position="attributes">
+                <attribute name="attrs">{'readonly': ['|',('x_studio_repair_rug', '=', True),('x_studio_repair_normal_with_serial_no', '=', True)]}</attribute>
+                </xpath--> 
+    
+              </data>
+        </field>
+    </record>
+
 </odoo>
