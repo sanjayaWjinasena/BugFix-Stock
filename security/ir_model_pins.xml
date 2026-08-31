@@ -5,7 +5,6 @@
   <record id="model_x_journal_types" model="ir.model"><field name="name">X Journal Types</field><field name="model">x_journal_types</field></record>
   <record id="model_x_material_request" model="ir.model"><field name="name">X Material Request</field><field name="model">x_material_request</field></record>
   <record id="model_x_misc_charge_codes" model="ir.model"><field name="name">X Misc Charge Codes</field><field name="model">x_misc_charge_codes</field></record>
-  <record id="model_x_sales_report_type" model="ir.model"><field name="name">X Sales Report Type</field><field name="model">x_sales_report_type</field></record>
   <record id="model_x_tariffmaster" model="ir.model"><field name="name">X Tariffmaster</field><field name="model">x_tariffmaster</field></record>
   <record id="model_x_con_consolidated_hea" model="ir.model"><field name="name">X Con Consolidated Hea</field><field name="model">x_con_consolidated_hea</field></record>
   <record id="model_x_con_consolidated_lin" model="ir.model"><field name="name">X Con Consolidated Lin</field><field name="model">x_con_consolidated_lin</field></record>
