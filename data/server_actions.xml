@@ -2163,4 +2163,85 @@ else:
 ]]></field>
   </record>
 
+
+  <record id="server_action_1367_imp_update_consignment_final" model="ir.actions.server">
+    <field name="name">IMP - Update Consignment - Final</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[if record.id:
+  con_line = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id)],limit=1)
+  if not con_line:
+    raise UserError('The Selected Consignment No is not linked with the Current PO.')
+  
+  done = 0  
+  select = 0
+  
+  for po_line in record.move_ids_without_package:
+    con_line_2 = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id), ('x_studio_product_id', '=', po_line.product_id.id), ('x_studio_invoice_qty', '<=', po_line.product_uom_qty), ('x_studio_purchase_line_id', '=', po_line.purchase_line_id.id)],limit=1)
+    if con_line_2:
+      select += 1
+      po_line.write({'quantity_done':con_line_2.x_studio_invoice_qty})
+      con_line_2.write({'x_studio_stock_move_id':po_line.id, 'x_studio_delivery_remainder':(con_line_2.x_studio_delivery_remainder - con_line_2.x_studio_invoice_qty)})
+  
+  for po_line_count in record.move_ids_without_package:
+    if po_line_count.quantity_done > 0.0000:
+      done += 1
+      
+  if done == 0:
+    raise UserError('You have not recorded done quantities yet, Atleast one done quantity should be recorded to proceed.') 
+  
+  if select == 0:
+    raise UserError('The Selected Consignment No is not linked with the Correct Items & Item Quantities in the Current PO.')
+
+  record['x_studio_update_consignment'] = True]]></field>
+  </record>
+  <record id="server_action_2181_proj_show_validate_block_errors" model="ir.actions.server">
+    <field name="name">PROJ - Show Validate Block Errors</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[if record.id:
+  raise UserError('Create the budget for the selected project sales order to proceed.')]]></field>
+  </record>
+  <record id="server_action_2448_movement_journals_update_offset_account" model="ir.actions.server">
+    <field name="name">Movement Journals - Update Offset Account</field>
+    <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[if record.id:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  if record.x_studio_movement_journal == True:
+    offset_account = env['x_journal_types'].search([('id', '=', record.x_studio_journal_type.id),('x_studio_company_id', '=', company.id)], limit=1)
+    #offset_account = record.x_studio_journal_type.x_studio_offset_account
+    if offset_account.x_studio_offset_account == False:
+      raise UserError('Offset Account for the selected Journal Type must be Specified.')
+    
+    stock_move = env['stock.move'].search([('picking_id', '=', record.id)])
+    if stock_move:
+      for stock_move_loop in stock_move:
+        stock_valuation_layer = env['stock.valuation.layer'].search([('stock_move_id', '=', stock_move_loop.id)], limit=1)  
+        if stock_valuation_layer:
+          account_move = env['account.move'].search([('id', '=', stock_valuation_layer.account_move_id.id)], limit=1)  
+          if account_move:
+            if record.x_studio_mj_out == True:
+              account_move_lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', stock_move.product_id.categ_id.property_stock_account_output_categ_id.id)],limit=1)
+            elif record.x_studio_mj_in == True:
+              account_move_lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', stock_move.product_id.categ_id.property_stock_account_input_categ_id.id)],limit=1)
+            else:
+              raise UserError('There is no journal line can be found to update the off-sett account.')
+            #account_move_lines = env['account.move.line'].search([('move_id', '=', account_move.id),('debit', '>', 0)], limit=1)
+            #lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', record.journal_id.default_account_id.id)])
+            #lines = env['account.move.line'].search([('move_id', '=', record.id),('account_id', '=', record.partner_id.property_account_receivable_id.id)])
+            #for line in lines:
+              #line.write({'account_id':rug_account.x_studio_rug_account.id}) 
+            if account_move_lines:
+              account_move_lines.write({'account_id':offset_account.x_studio_offset_account.id})   
+    record.write({'x_studio_offset_account_updated': True, 'x_studio_gl_account_status': 'Updated'})
+  
+#stock_move_id   ]]></field>
+  </record>
+
 </odoo>
