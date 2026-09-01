@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.23',
+    'version': '17.0.0.0.22',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,17 +53,6 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
-    # v0.0.23: view 4732 (stock.picking.form_button priority-999905
-    # button rewire, 6.8 KB). See views/stock_studio_ported_v4.xml.
-    # 1 xpath surgically removed via lxml etree - the block anchored on
-    # `action_set_quantities_to_reservation` which does not exist on
-    # repair-test-101 stock.view_picking_form (Odoo minor-version drift).
-    # The block only tweaked the button's `invisible` condition, so
-    # stripping it leaves that condition at Odoo default (zero
-    # functional loss). Other 9 xpath expressions and all 8 numeric
-    # name= refs preserved (interpolated to %(xmlid)d).
-    # Adds Request/Approve/Reject Transfer + Update Offset Account +
-    # Validate Reject Reason buttons to stock.picking form.
     # v0.0.22: view 2387 only (main Studio inherit on stock.picking
     # form, 13.5 KB). See views/stock_studio_ported_v3.xml. Adds
     # Update Consignment / Dispatch / Retun Reject Reason / Vend.
@@ -129,7 +118,6 @@
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
         'views/stock_studio_ported_v3.xml',
-        'views/stock_studio_ported_v4.xml',
     ],
     'installable': True,
     'auto_install': False,
