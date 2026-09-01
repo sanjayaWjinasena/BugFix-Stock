@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.22',
+    'version': '17.0.0.0.24',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,6 +53,28 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
+    # v0.0.24: 2 more act_windows in data/act_windows.xml on
+    # account.move (prep for views 2811+2816 in v0.0.25):
+    #   1306 Vendor Despatch    domain x_studio_created_from_consignment=active_id
+    #   1322 Custom Clearance   domain x_studio_created_from_consignment_1=active_id
+    #
+    # v0.0.24 first attempt shipped 3 act_windows including 1383
+    # (TP Invoices on x_tp_invoice_header). Crashed at install:
+    # "Invalid model name 'x_tp_invoice_header' in action definition".
+    # BugFix-Accounting owns that model but isn't a dep here, so at
+    # BugFix-Stock's data-load time the model wasn't yet in the
+    # registry. Reverted. Shipping only 1306+1322 which target
+    # standard-Odoo account.move (always in registry).
+    #
+    # 1383 (TP Invoices) permanently deferred - view 2816's TP Invoices
+    # button will need to be stripped from its arch when we land 2816.
+    #
+    # v0.0.23 skipped: view 4732 blocked by Odoo minor-version drift.
+    # 3 standard-Odoo stock.picking fields referenced in modifier
+    # expressions do not exist on repair-test-101:
+    # show_mark_as_todo, show_validate, immediate_transfer. 4732
+    # permanently deferred.
+    #
     # v0.0.22: view 2387 only (main Studio inherit on stock.picking
     # form, 13.5 KB). See views/stock_studio_ported_v3.xml. Adds
     # Update Consignment / Dispatch / Retun Reject Reason / Vend.
