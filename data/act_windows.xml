@@ -360,22 +360,4 @@
     <field name="res_model">stock.warehouse</field>
     <field name="view_mode">tree,form</field>
   </record>
-
-  <record id="act_1362_vend_dispatch_reversal" model="ir.actions.act_window">
-    <field name="name">Vend. Dispatch Reversal</field>
-    <field name="res_model">account.move</field>
-    <field name="view_mode">tree,form</field>
-    <field name="target">current</field>
-    <field name="domain">[('x_studio_created_from_transfer', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_created_from_transfer': active_id,'default_x_studio_created_from_transfer': active_id}</field>
-  </record>
-  <record id="act_1363_custom_clearance_reversal" model="ir.actions.act_window">
-    <field name="name">Custom Clearance Reversal</field>
-    <field name="res_model">account.move</field>
-    <field name="view_mode">tree,form</field>
-    <field name="target">current</field>
-    <field name="domain">[('x_studio_create_from_transfer_1', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_create_from_transfer_1': active_id,'default_x_studio_create_from_transfer_1': active_id}</field>
-  </record>
-
 </odoo>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.21',
+    'version': '17.0.0.0.20',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -63,32 +63,6 @@
     # Runtime deps (helpdesk.ticket.x_studio_*, stock.picking.
     # x_studio_helpdesk_ticket_id) verified as state='base' on
     # repair-test-101 before landing.
-    # v0.0.21: 2 big Studio inherit views on stock.picking form
-    # (2387 = 13.5 KB main customization; 4732 = 6.8 KB priority-999905
-    # button rewire). See views/stock_studio_ported_v3.xml.
-    # Ships supporting infra in one commit:
-    #   * 3 new server actions in data/server_actions.xml: 1367 IMP
-    #     Update Consignment Final (1488b), 2181 PROJ Show Validate
-    #     Block Errors (101b), 2448 Movement Journals Update Offset
-    #     Account (2445b) - all on stock.picking.
-    #   * 2 new act_windows in data/act_windows.xml: 1362 Vend.
-    #     Dispatch Reversal + 1363 Custom Clearance Reversal, both
-    #     on account.move with domain traversing
-    #     x_studio_created_from_transfer / x_studio_create_from_transfer_1.
-    #     Live in BugFix-Stock (not BugFix-Accounting) because they
-    #     are only referenced by BugFix-Stock's stock.picking form
-    #     view - avoids adding a BugFix-Stock -> BugFix-Accounting
-    #     manifest dep. Res_model account.move is fine here; Odoo
-    #     doesn't require the act_window's target model to be owned
-    #     by the same module.
-    #   * View archs interpolate all 10 hardcoded numeric refs to
-    #     %(...)d xmlids, covering both button-add name= attributes
-    #     AND xpath anchors ([@name='NNNN']). Uses stock.
-    #     act_stock_return_picking (195), stock.action_report_delivery
-    #     (175), stock.action_stock_report (168) for standard-Odoo
-    #     refs; local xmlids for the RR_* server actions + the 5 new
-    #     records shipped in this same commit.
-    # No new manifest deps.
     'depends': ['base_setup', 'stock', 'stock_account', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
     'data': [
         'security/ir_model_pins.xml',
@@ -99,7 +73,6 @@
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
-        'views/stock_studio_ported_v3.xml',
     ],
     'installable': True,
     'auto_install': False,
