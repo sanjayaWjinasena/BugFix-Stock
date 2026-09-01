@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.22',
+    'version': '17.0.0.0.21',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,15 +53,6 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
-    # v0.0.22: 2 big Studio inherit views on stock.picking form
-    # (2387 = 13.5 KB main customization, 4732 = 6.8 KB priority-999905
-    # button rewire). See views/stock_studio_ported_v3.xml.
-    # Regex fix from v0.0.21 first-attempt (reverted): interpolation
-    # now matches `name=["'](\d+)["']` covering both quote styles, so
-    # xpath anchor `[@name='NNN']` (single-quoted inside expr="...")
-    # gets interpolated to %(xmlid)d correctly. Pattern verified in
-    # standard Odoo: account_budget/views/account_analytic_account_views.xml:40
-    # uses `expr="//button[@name='%(analytic.account_analytic_line_action)d']"`.
     # v0.0.21: infra-only prep for the big stock.picking form view
     # ports (2387 + 4732 deferred to v0.0.22). Ships:
     #   * 3 byte-verbatim server actions in data/server_actions.xml:
@@ -105,7 +96,6 @@
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
-        'views/stock_studio_ported_v3.xml',
     ],
     'installable': True,
     'auto_install': False,
