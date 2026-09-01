@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.20',
+    'version': '17.0.0.0.21',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,6 +53,29 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
+    # v0.0.21: infra-only prep for the big stock.picking form view
+    # ports (2387 + 4732 deferred to v0.0.22). Ships:
+    #   * 3 byte-verbatim server actions in data/server_actions.xml:
+    #     1367 IMP Update Consignment Final (1488b, stock.picking)
+    #     2181 PROJ Show Validate Block Errors (101b, stock.picking)
+    #     2448 Movement Journals Update Offset Account (2445b, stock.picking)
+    #   * 2 act_windows in data/act_windows.xml on account.move:
+    #     1362 Vend. Dispatch Reversal (domain
+    #     x_studio_created_from_transfer=active_id)
+    #     1363 Custom Clearance Reversal (domain
+    #     x_studio_create_from_transfer_1=active_id)
+    #     Live in BugFix-Stock because they are only referenced by
+    #     BugFix-Stock's future view arch; avoids adding a
+    #     BugFix-Stock -> BugFix-Accounting dep.
+    # Original attempt in v0.0.21 shipped both views AND infra in one
+    # commit but crashed at view validation because my Python
+    # interpolation regex \bname="(\d+)" only matched double-quoted
+    # button-add attributes and missed the single-quoted xpath
+    # anchors (name='NNN' inside expr="..."). Reverted immediately.
+    # Splitting the retry: land the infra safely here, tackle the
+    # view arch separately with a corrected regex + an empirical
+    # test of whether Odoo's %(xmlid)d interpolation works inside
+    # xpath expr= attribute values.
     # v0.0.20: ports server action 1997 (RR - RUG Return from Help
     # desk, ~3.6 KB Python on stock.return.picking) + wires view 4619
     # to it via %(BugFix-Stock.server_action_1997_...)d ref. The
