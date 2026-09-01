@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.25',
+    'version': '17.0.0.0.24',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,16 +53,6 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
-    # v0.0.25: 2 views for x_consignment_header. See
-    # views/stock_studio_ported_v5.xml.
-    #   * 2811 primary form (2938b). oe_chatter block stripped
-    #     (x_consignment_header does not inherit mail.thread/mail.
-    #     activity.mixin). 11 numeric name= refs interpolated.
-    #   * 2816 Studio inherit (14.8 KB -> 14.6 KB after strip). TP
-    #     Invoices button (name=\"1383\") removed via lxml etree.
-    #     That button's act_window res_model x_tp_invoice_header
-    #     lives in BugFix-Accounting; permanently deferred (see
-    #     v0.0.24 comment). Remaining 5 numeric refs interpolated.
     # v0.0.24: 2 more act_windows in data/act_windows.xml on
     # account.move (prep for views 2811+2816 in v0.0.25):
     #   1306 Vendor Despatch    domain x_studio_created_from_consignment=active_id
@@ -150,7 +140,6 @@
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
         'views/stock_studio_ported_v3.xml',
-        'views/stock_studio_ported_v5.xml',
     ],
     'installable': True,
     'auto_install': False,
