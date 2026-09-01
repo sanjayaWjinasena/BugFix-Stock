@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.24',
+    'version': '17.0.0.0.25',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,6 +53,30 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
+    # v0.0.25: 2 views for x_consignment_header + 1 field port.
+    # See views/stock_studio_ported_v5.xml.
+    #
+    # models/x_consignment_header.py: x_studio_consignment_line_ids
+    # One2many field ported from Clear-DB (was TODO on-disk). Inverse:
+    # x_consignment_line.x_studio_consignment_header_id (already
+    # declared). Used by view 2816's "Consignment Lines" tab.
+    #
+    #   * 2811 primary form (2938b -> 3208b after strip + sentinels).
+    #     oe_chatter stripped, 5 sentinel <field invisible="1"/>
+    #     elements injected for x_studio_status, _lines_copied,
+    #     _allocate_header_charges, _create_header_charges,
+    #     _header_charges_allocated (Odoo 17 strict-modifier
+    #     validation). 11 numeric name= refs interpolated.
+    #   * 2816 Studio inherit (14.8 KB -> 14.6 KB after strip). TP
+    #     Invoices button (name="1383") removed via lxml etree (see
+    #     v0.0.24 comment for deferral rationale). 5 numeric refs
+    #     interpolated.
+    #
+    # First v0.0.25 attempt (c68189d) crashed on missing sentinels
+    # (fixed at retry #1). Second attempt (22c6de3) got past 2811 but
+    # crashed on 2816 referencing x_studio_consignment_line_ids which
+    # was a TODO on-disk. Retry #2 ports the missing field.
+    #
     # v0.0.24: 2 more act_windows in data/act_windows.xml on
     # account.move (prep for views 2811+2816 in v0.0.25):
     #   1306 Vendor Despatch    domain x_studio_created_from_consignment=active_id
@@ -140,6 +164,7 @@
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
         'views/stock_studio_ported_v3.xml',
+        'views/stock_studio_ported_v5.xml',
     ],
     'installable': True,
     'auto_install': False,
