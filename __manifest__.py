@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.22',
+    'version': '17.0.0.0.24',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,6 +53,26 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
+    # v0.0.24: 3 more act_windows in data/act_windows.xml (prep for
+    # views 2811+2816 in v0.0.25). All 3 have domains that traverse
+    # active_id-linked custom fields:
+    #   1306 Vendor Despatch    on account.move            domain x_studio_created_from_consignment=active_id
+    #   1322 Custom Clearance   on account.move            domain x_studio_created_from_consignment_1=active_id
+    #   1383 TP Invoices        on x_tp_invoice_header     domain x_studio_con_no=active_id
+    # 1383's res_model x_tp_invoice_header lives in BugFix-Accounting.
+    # On repair-test-101 BugFix-Accounting is installed alongside, so
+    # the model exists in the registry when BugFix-Stock loads. NO new
+    # manifest dep - accepting the fresh-install fragility gap (deployment
+    # reality has BugFix-Accounting always present).
+    #
+    # v0.0.23 skipped: view 4732 blocked by Odoo minor-version drift.
+    # In addition to the action_set_quantities_to_reservation xpath
+    # (surgically strippable), 3 standard-Odoo stock.picking fields
+    # referenced in attribute-modifier xpaths do not exist on
+    # repair-test-101: show_mark_as_todo, show_validate, immediate_transfer.
+    # Fixing would require stripping 3 more xpaths - too much surgery
+    # for a byte-verbatim port. 4732 permanently deferred.
+    #
     # v0.0.22: view 2387 only (main Studio inherit on stock.picking
     # form, 13.5 KB). See views/stock_studio_ported_v3.xml. Adds
     # Update Consignment / Dispatch / Retun Reject Reason / Vend.

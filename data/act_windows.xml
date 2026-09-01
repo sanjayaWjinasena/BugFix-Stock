@@ -378,4 +378,30 @@
     <field name="context">{'search_default_x_studio_create_from_transfer_1': active_id,'default_x_studio_create_from_transfer_1': active_id}</field>
   </record>
 
+
+  <record id="act_1306_vendor_despatch" model="ir.actions.act_window">
+    <field name="name">Vendor Despatch</field>
+    <field name="res_model">account.move</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="domain">[('x_studio_created_from_consignment', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_created_from_consignment': active_id,'default_x_studio_created_from_consignment': active_id}</field>
+  </record>
+  <record id="act_1322_custom_clearance" model="ir.actions.act_window">
+    <field name="name">Custom Clearance</field>
+    <field name="res_model">account.move</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="domain">[('x_studio_created_from_consignment_1', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_created_from_consignment_1': active_id,'default_x_studio_created_from_consignment_1': active_id}</field>
+  </record>
+  <record id="act_1383_tp_invoices" model="ir.actions.act_window">
+    <field name="name">TP Invoices</field>
+    <field name="res_model">x_tp_invoice_header</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="domain">[('x_studio_con_no', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_con_no': active_id,'default_x_studio_con_no': active_id}</field>
+  </record>
+
 </odoo>
