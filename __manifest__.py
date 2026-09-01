@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.24',
+    'version': '17.0.0.0.25',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,6 +53,24 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
+    # v0.0.25: 2 views for x_consignment_header. See
+    # views/stock_studio_ported_v5.xml.
+    #   * 2811 primary form (2938b -> 3208b after sentinel injection).
+    #     oe_chatter stripped (x_consignment_header does not inherit
+    #     mail.thread/mail.activity.mixin). 5 sentinel <field ...
+    #     invisible="1"/> elements injected after x_active for
+    #     x_studio_status, _lines_copied, _allocate_header_charges,
+    #     _create_header_charges, _header_charges_allocated - these are
+    #     referenced in 11 button-invisible modifiers but not declared
+    #     in Clear-DB's byte-verbatim arch (Odoo 17 strict validation).
+    #     11 numeric name= refs interpolated.
+    #   * 2816 Studio inherit (14.8 KB -> 14.6 KB after strip). TP
+    #     Invoices button (name="1383") removed via lxml etree (see
+    #     v0.0.24 comment for deferral rationale). 5 numeric refs
+    #     interpolated. 0 sentinels needed (all modifier refs already
+    #     declared in 2811 or 2816's own arch).
+    # First attempt at v0.0.25 (c68189d) crashed on the sentinel-
+    # missing issue; reverted; retry with the sentinels.
     # v0.0.24: 2 more act_windows in data/act_windows.xml on
     # account.move (prep for views 2811+2816 in v0.0.25):
     #   1306 Vendor Despatch    domain x_studio_created_from_consignment=active_id
@@ -140,6 +158,7 @@
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
         'views/stock_studio_ported_v3.xml',
+        'views/stock_studio_ported_v5.xml',
     ],
     'installable': True,
     'auto_install': False,
