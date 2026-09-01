@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.21',
+    'version': '17.0.0.0.22',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -53,6 +53,27 @@
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
+    # v0.0.22: view 2387 only (main Studio inherit on stock.picking
+    # form, 13.5 KB). See views/stock_studio_ported_v3.xml. Adds
+    # Update Consignment / Dispatch / Retun Reject Reason / Vend.
+    # Dispatch Reversal / Custom Clearance Reversal stat buttons +
+    # wraps 50+ x_studio_* fields into the form + adjusts several
+    # standard-field attributes.
+    #
+    # Byte-verbatim from Clear-DB except numeric name= refs are
+    # interpolated to %(xmlid)d (both quote styles via
+    # `\bname=["'](\d+)["']` regex). Pattern works inside xpath expr=
+    # attribute values - confirmed by finding it in standard Odoo:
+    # account_budget/views/account_analytic_account_views.xml:40.
+    #
+    # NOT ported: view 4732 (priority 999905 "stock.picking.form_button",
+    # 6.8 KB). Fails on `xpath expr="//header/button[@name='action_set_
+    # quantities_to_reservation']"` - a standard-Odoo button that
+    # Clear-DB's stock.view_picking_form has but repair-test-101's
+    # version doesn't (Odoo version drift). 4732 only added Request/
+    # Approve/Reject Transfer + Update Offset Account + Validate
+    # Reject Reason buttons - workflow needs a separate lower-priority
+    # inherit anchored to buttons that exist on both envs.
     # v0.0.21: infra-only prep for the big stock.picking form view
     # ports (2387 + 4732 deferred to v0.0.22). Ships:
     #   * 3 byte-verbatim server actions in data/server_actions.xml:
@@ -96,6 +117,7 @@
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
+        'views/stock_studio_ported_v3.xml',
     ],
     'installable': True,
     'auto_install': False,
