@@ -7,7 +7,7 @@ class XMaterialRequest(models.Model):
     _name = 'x_material_request'
     _description = 'X Material Request'
 
-    x_active = fields.Boolean(string='Active')
+    x_active = fields.Boolean(string='Active', default=True)
     x_name = fields.Char(string='Request Reference')
     x_studio_done = fields.Boolean(string='Done')
     x_studio_done_stage_updated = fields.Boolean(string='Done Stage Updated')

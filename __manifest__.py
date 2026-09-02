@@ -1,13 +1,23 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.25',
+    'version': '17.0.0.0.26',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.26: cross-repo fix for BugFix-Purchase v0.1.0.32.
+    # This module also declares x_material_request as a sentinel with
+    # x_active = fields.Boolean(string='Active') (no default). Since both
+    # BugFix-Purchase and BugFix-Stock declare the model via _name, Odoo
+    # merges field declarations at load time; whichever module loads LAST
+    # wins for defaults. BugFix-Stock was overriding BugFix-Purchase's
+    # v0.1.0.32 default=True fix, so records still got x_active=False.
+    # Fix: add default=True to the sentinel too. Only x_material_request
+    # is affected (verified via grep: no other Stock model overlaps with
+    # a Purchase model name).
     # v0.0.13: added Jinasena_Masterdata_Reporting - owns x_sales_report_type
     # which our stock.move + stock.move.line Many2ones target. Previously
     # each of BugFix-Stock/MRP/Sales/Accounting had a sentinel Python
