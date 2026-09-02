@@ -5,6 +5,7 @@ from odoo import fields, models
 
 class XMaterialRequest(models.Model):
     _name = 'x_material_request'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'X Material Request'
 
     x_active = fields.Boolean(string='Active', default=True)

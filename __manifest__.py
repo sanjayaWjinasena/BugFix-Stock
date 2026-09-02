@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.26',
+    'version': '17.0.0.0.27',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.27: cross-repo companion fix for BugFix-Purchase v0.1.0.71.
+    # Purchase added _inherit = ['mail.thread', 'mail.activity.mixin']
+    # to its x_material_request declaration. Both this module and
+    # BugFix-Purchase declare that model via _name; Odoo merges field
+    # declarations at load time. The later-loaded module's class
+    # definition wins for _inherit. Without matching the inherit
+    # here, chatter/activity fields would get shadowed and view
+    # ports referencing them would fail. Mirroring the inherit.
     # v0.0.26: cross-repo fix for BugFix-Purchase v0.1.0.32.
     # This module also declares x_material_request as a sentinel with
     # x_active = fields.Boolean(string='Active') (no default). Since both
