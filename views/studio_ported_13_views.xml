@@ -25,20 +25,15 @@
     <field name="model">x_con_consolidated_hea</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data>
-          <xpath expr="//sheet" position="inside">
-            <field name="x_studio_lines_copied" invisible="1"/>
-            <field name="x_studio_status" invisible="1"/>
-          </xpath>
       <form>
         <header>  
-          <button type="action" name="1413" string="Copy PI Header" class="btn-primary" invisible="x_studio_status not in ['Draft']"/>
-          <button type="action" name="1414" string="Clear PI Header" class="btn-primary" invisible="(x_studio_status not in ['Draft']) or (x_studio_lines_copied == False)"/>
-          <button type="action" name="1421" string="Confirm" class="btn-primary" invisible="(x_studio_status not in ['Draft']) or (x_studio_lines_copied == False)"/>
+          <button type="action" name="%(BugFix-Stock.server_action_1413_imp_copy_consignment_lines_to_consolidation)d" string="Copy PI Header" class="btn-primary" invisible="x_studio_status not in ['Draft']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_1414_imp_clear_consignment_lines_from_consolidation)d" string="Clear PI Header" class="btn-primary" invisible="(x_studio_status not in ['Draft']) or (x_studio_lines_copied == False)"/>
+          <button type="action" name="%(BugFix-Stock.server_action_1421_imp_confirm_consolidation)d" string="Confirm" class="btn-primary" invisible="(x_studio_status not in ['Draft']) or (x_studio_lines_copied == False)"/>
         </header>
         <header/>
         <sheet string="Con. Consolidated Header">
-          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
+          <field name="x_studio_status" invisible="1"/><field name="x_studio_lines_copied" invisible="1"/><widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
           <field name="x_active" invisible="1"/>
           <div class="oe_title">
                       <span class="o_form_label">Con. Reference </span>
@@ -56,7 +51,7 @@
           <field name="message_ids"/>
           <field name="activity_ids"/>
         </div>
-      </form></data>
+      </form>
     </field>
   </record>
 
@@ -115,10 +110,10 @@
     <field name="model">x_con_consolidated_hea</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><tree>
+      <tree>
         <field name="x_studio_sequence" widget="handle"/>
         <field name="x_name"/>
-      </tree></data>
+      </tree>
     </field>
   </record>
 
@@ -153,7 +148,7 @@
     <field name="model">x_con_consolidated_lin</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><form>
+      <form>
         <header/>
         <sheet string="Con. Consolidated Line">
           <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
@@ -173,7 +168,7 @@
           <field name="message_ids"/>
           <field name="activity_ids"/>
         </div>
-      </form></data>
+      </form>
     </field>
   </record>
 
@@ -211,10 +206,10 @@
     <field name="model">x_con_consolidated_lin</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><tree>
+      <tree>
         <field name="x_studio_sequence" widget="handle"/>
         <field name="x_name"/>
-      </tree></data>
+      </tree>
     </field>
   </record>
 
@@ -237,7 +232,7 @@
     <field name="model">x_consignment_charge_l</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><form>
+      <form>
         <header/>
         <sheet string="Consignment Charge Line">
           <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
@@ -257,7 +252,7 @@
           <field name="message_ids"/>
           <field name="activity_ids"/>
         </div>
-      </form></data>
+      </form>
     </field>
   </record>
 
@@ -293,10 +288,10 @@
     <field name="model">x_consignment_charge_l</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><tree>
+      <tree>
         <field name="x_studio_sequence" widget="handle"/>
         <field name="x_name"/>
-      </tree></data>
+      </tree>
     </field>
   </record>
 
@@ -338,23 +333,18 @@
     <field name="model">x_material_request</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data>
-          <xpath expr="//sheet" position="inside">
-            <field name="x_studio_selection_field_BupKG" invisible="1"/>
-            <field name="x_x_studio_created_from_material_request_no_stock_picking_count" invisible="1"/>
-          </xpath>
       <form>
         <header>  
-          <button type="action" name="2391" string="Reset" invisible="(x_x_studio_created_from_material_request_no_stock_picking_count != 0) or (x_studio_selection_field_BupKG not in ['Confirmed', 'To Be Approved', 'Approved', 'Rejected'])"/>
-          <button type="action" name="2388" string="Confirm" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['Draft']"/>
-          <button type="action" name="2394" string="Request approval" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['Confirmed']"/>
-          <button type="action" name="2397" string="Approve" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['To Be Approved']"/>
-          <button type="action" name="2400" string="Reject" class="btn-primary" invisible="(x_x_studio_created_from_material_request_no_stock_picking_count != 0) or (x_studio_selection_field_BupKG not in ['To Be Approved', 'Approved'])"/>
-          <button type="action" name="2406" string="Create Transfer" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['Approved']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2391_reset_mr)d" string="Reset" invisible="(x_x_studio_created_from_material_request_no_stock_picking_count != 0) or (x_studio_selection_field_BupKG not in ['Confirmed', 'To Be Approved', 'Approved', 'Rejected'])"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2388_confirm_mr)d" string="Confirm" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['Draft']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2394_request_approval_mr)d" string="Request approval" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['Confirmed']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2397_approve_mr)d" string="Approve" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['To Be Approved']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2400_reject_mr)d" string="Reject" class="btn-primary" invisible="(x_x_studio_created_from_material_request_no_stock_picking_count != 0) or (x_studio_selection_field_BupKG not in ['To Be Approved', 'Approved'])"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2406_create_material_transfer)d" string="Create Transfer" class="btn-primary" invisible="x_studio_selection_field_BupKG not in ['Approved']"/>
         </header>
         <header/>
         <sheet string="Material Request">
-          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
+          <field name="x_x_studio_created_from_material_request_no_stock_picking_count" invisible="1"/><field name="x_studio_selection_field_BupKG" invisible="1"/><widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
           <field name="x_active" invisible="1"/>
           <div class="oe_title">
                       <span class="o_form_label">Request Reference </span>
@@ -372,7 +362,7 @@
           <field name="message_ids"/>
           <field name="activity_ids"/>
         </div>
-      </form></data>
+      </form>
     </field>
   </record>
 
@@ -393,7 +383,7 @@
         </xpath>
         <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
           <div name="button_box" class="oe_button_box">
-            <button class="oe_stat_button" icon="fa-shopping-basket" type="action" name="2409" invisible="x_x_studio_created_from_material_request_no_stock_picking_count == 0">
+            <button class="oe_stat_button" icon="fa-shopping-basket" type="action" name="%(BugFix-Stock.action_2409_transfers)d" invisible="x_x_studio_created_from_material_request_no_stock_picking_count == 0">
               <field widget="statinfo" name="x_x_studio_created_from_material_request_no_stock_picking_count" string="Transfers"/>
             </button>
           </div>
@@ -431,10 +421,10 @@
     <field name="model">x_material_request</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><tree>
+      <tree>
         <field name="x_studio_sequence" widget="handle"/>
         <field name="x_name"/>
-      </tree></data>
+      </tree>
     </field>
   </record>
 
@@ -469,7 +459,7 @@
     <field name="model">x_tariffmaster</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><form>
+      <form>
         <header/>
         <sheet string="TariffMaster">
           <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
@@ -489,7 +479,7 @@
           <field name="message_ids"/>
           <field name="activity_ids"/>
         </div>
-      </form></data>
+      </form>
     </field>
   </record>
 
@@ -522,10 +512,10 @@
     <field name="model">x_tariffmaster</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><tree>
+      <tree>
         <field name="x_studio_sequence" widget="handle"/>
         <field name="x_name"/>
-      </tree></data>
+      </tree>
     </field>
   </record>
 
@@ -554,7 +544,7 @@
     <field name="model">x_temp_consignment_hea</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
-      <data><form string="Copy Import Order Lines">
+      <form string="Copy Import Order Lines">
         <separator string="Applicable Line:"/>
           <newline/>
           <group>
@@ -563,8 +553,8 @@
             <field name="x_studio_select_all" options="{'no_open': true}" invisible="1" readonly="True"/>
           </group> 
           <newline/>
-          <button name="1298" string="Select All" type="action" class="oe_highlight" invisible="x_studio_select_all == True"/> 
-          <button name="1301" string="Clear All" type="action" class="oe_highlight" invisible="x_studio_select_all == False"/>
+          <button name="%(BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines)d" string="Select All" type="action" class="oe_highlight" invisible="x_studio_select_all == True"/> 
+          <button name="%(BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines)d" string="Clear All" type="action" class="oe_highlight" invisible="x_studio_select_all == False"/>
           <group>
             <field name="x_studio_temp_consignment_line_ids" nolabel="1" colspan="2">
               <tree string="Details" create="false" editable="bottom" delete="false"> 
@@ -592,10 +582,10 @@
           </group>
           <newline/>
           <footer>
-            <button name="1302" string="Apply" type="action" class="oe_highlight"/>
+            <button name="%(BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment)d" string="Apply" type="action" class="oe_highlight"/>
             <button special="cancel" string="Cancel" class="oe_link"/>
           </footer>
-      </form></data>
+      </form>
     </field>
   </record>
 

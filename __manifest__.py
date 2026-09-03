@@ -1,13 +1,32 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.32',
+    'version': '17.0.0.0.33',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.33: hotfix v0.0.32 - three bugs in the 13-view generator:
+    #   1. Primary views got wrapped in <data> (inherit-style). Odoo
+    #      derived type='data' from the root and rejected:
+    #      "ValueError: Wrong value for ir.ui.view.type: 'data'"
+    #      Fix: primary sentinels inject as bare <field invisible=1>
+    #      inside existing <sheet>/<tree>; never wrap in <data>.
+    #      Preserved: inherit views still get <data> wrapper.
+    #   2. strip_orphan_x_fields + filter_failing_xpaths always
+    #      re-wrapped output in <data> after processing. Fix: track
+    #      pre-wrapped state; unwrap synthetic <data> before return.
+    #   3. Missed hardcoded numeric button refs (button type="action"
+    #      name="NNNN") in primary arches. Would fail on fresh install
+    #      per feedback-hardcoded-action-ids. Fix: added
+    #      convert_numeric_action_refs pass looking up BOTH server-
+    #      action AND window-action xmlids across all BugFix-* /
+    #      Fix-* / Jinasena_* modules. Buttons with unresolvable
+    #      refs get stripped with an explanatory comment.
+    # This batch converted 10 numeric button refs to xmlid form
+    # across the 11 primary arches. Zero unresolved refs remain.
     # v0.0.32: 13 Studio priority=99 view ports (12 inherits + 11
     # primaries shipped alongside).
     # Odoo lazily auto-generates Default form/list views for custom
