@@ -5,6 +5,7 @@ from odoo import fields, models
 
 class XTempConsignmentLin(models.Model):
     _name = 'x_temp_consignment_lin'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'X Temp Consignment Lin'
 
     x_active = fields.Boolean(string='Active')

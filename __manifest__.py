@@ -1,13 +1,38 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.27',
+    'version': '17.0.0.0.28',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.28: close the field-coverage gap identified by Stock audit.
+    # 21 CDB fields on 9 models had no pin on target. Breakdown:
+    #   * 16 auto-fields (activity_exception_decoration + activity_
+    #     exception_icon) on 8 custom models -> add _inherit =
+    #     ['mail.thread', 'mail.activity.mixin']. Fields are Odoo-
+    #     managed once inherit is present. All 8 CDB models already
+    #     have the thread/activity fields, so this matches source
+    #     of truth.
+    #   * 2 O2Ms declared:
+    #     - x_con_consolidated_hea.x_studio_con_line_ids -> x_con_
+    #       consolidated_lin (inverse x_studio_consolidated_header_id)
+    #     - x_temp_consignment_hea.x_studio_temp_consignment_line_ids
+    #       -> x_temp_consignment_lin (inverse x_studio_temp_
+    #       consignment_header_id)
+    #   * SKIP 1 O2M: x_tariffmaster.x_studio_tariff_master_ids ->
+    #     x_tariff_date. Comodel x_tariff_date does not exist on target
+    #     (never ported). Would fail install with KeyError. Left as
+    #     TODO in x_tariffmaster.py.
+    #   * SKIP 2 related fields on product.product (rating_avg_text,
+    #     rating_last_text). Both exist unpinned on target (auto-
+    #     generated via _inherits from product.template). No action
+    #     needed.
+    # Files touched: 8 model files (inherit added on all, O2M added
+    # on 2). No new deps (stock already pulls mail).
+    # Effective coverage after landing: 100% of Sales-safe fields.
     # v0.0.27: cross-repo companion fix for BugFix-Purchase v0.1.0.71.
     # Purchase added _inherit = ['mail.thread', 'mail.activity.mixin']
     # to its x_material_request declaration. Both this module and

@@ -5,6 +5,7 @@ from odoo import fields, models
 class XConsignmentHeader(models.Model):
     """Studio-ported custom model x_consignment_header."""
     _name = 'x_consignment_header'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Consignment Header'
 
     x_active = fields.Boolean(string='Active')
