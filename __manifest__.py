@@ -1,13 +1,29 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.33',
+    'version': '17.0.0.0.34',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.34: hotfix v0.0.33 - xpath anchors onto converted button.
+    # v0.0.33 crashed with:
+    #   Element '<xpath expr="//button[@name='1414']">' cannot be
+    #   located in parent view
+    # Root cause: v0.0.33's convert_numeric_action_refs replaced the
+    # primary button's name= with %(xmlid)d. Odoo interpolates that to
+    # the target's numeric action id at load. But the inherit's
+    # xpath //button[@name='1414'] still had the CDB numeric literal,
+    # so it targeted the wrong (or no) button on target.
+    # Fix: extend convert_numeric_action_refs to also rewrite
+    # //button[@name='NNNN'] xpath expressions to
+    # //button[@name='%(xmlid)d']. Odoo interpolates %(xmlid)d inside
+    # xpath expr= attribute values too (see feedback-hardcoded-
+    # action-ids memory - confirmed via standard Odoo
+    # account_budget/views/account_analytic_account_views.xml:40).
+    # 2 xpath refs converted this batch (views 3073 and 3245).
     # v0.0.33: hotfix v0.0.32 - three bugs in the 13-view generator:
     #   1. Primary views got wrapped in <data> (inherit-style). Odoo
     #      derived type='data' from the root and rejected:

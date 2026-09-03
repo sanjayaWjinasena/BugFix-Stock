@@ -62,7 +62,7 @@
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//button[@name='1414']" position="after">
+        <xpath expr="//button[@name='%(BugFix-Stock.server_action_1414_imp_clear_consignment_lines_from_consolidation)d']" position="after">
           <field widget="statusbar" name="x_studio_pipeline_status_bar" string="Pipeline Status Bar"/>
         </xpath>
         <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']" position="attributes">
@@ -378,7 +378,7 @@
             <field name="x_x_studio_created_from_material_request_no_stock_picking_count" invisible="1"/>
           </xpath>
 
-        <xpath expr="//button[@name='2400']" position="after">
+        <xpath expr="//button[@name='%(BugFix-Stock.server_action_2400_reject_mr)d']" position="after">
           <field widget="statusbar" name="x_studio_selection_field_BupKG" string="State" force_save="True" readonly="1"/>
         </xpath>
         <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
