@@ -1,13 +1,35 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.31',
+    'version': '17.0.0.0.32',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.32: 13 Studio priority=99 view ports (12 inherits + 11
+    # primaries shipped alongside).
+    # Odoo lazily auto-generates Default form/list views for custom
+    # models only when a window action opens them - target has no
+    # such primaries, so 11 need shipping first for our inherits to
+    # attach.
+    # Full pre-flight (all lessons from Sales debug arc):
+    #   * xpath resolution against target composed parent view
+    #     (drop non-unique with <!-- DROPPED --> comment)
+    #   * orphan x_* field strip (reverse-deps rule: strip fields
+    #     pinned solely to modules that depend on Stock)
+    #   * modifier sentinel injection (attribute + element forms)
+    #   * relax-ng validation before push
+    # This batch: 1 view (5462 stock.putaway.rule.tree) SKIPPED as
+    # entirely empty after xpath filter. Heavy orphan stripping on
+    # x_material_request form (27 refs to x_mr_config - not on
+    # target) and x_tariffmaster form (20 refs to unported x_*
+    # fields including x_studio_duties_line_id, _misc_charge_line_id,
+    # _rates, _taxes_line_id).
+    # New file: views/studio_ported_13_views.xml.
+    # Coverage: 23/37 -> 35/37 = 95% shipped (36/37 = 97% if the
+    # 11 new primaries count).
     # v0.0.31: 19 window actions closing the 81-action gap.
     # Deep dedup on 81 missing candidates:
     #   * 62 verified TRUE duplicates safely skipped (name+model+
@@ -247,6 +269,7 @@
         'views/stock_studio_ported_v2.xml',
         'views/stock_studio_ported_v3.xml',
         'views/stock_studio_ported_v5.xml',
+        'views/studio_ported_13_views.xml',
     ],
     'installable': True,
     'auto_install': False,
