@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.29: 28 truly-new server actions.
+     22 verified duplicates + 1 ir_cron auto-skipped after
+     deep dedup (name+model+state+code all match a
+     standard-owned action). State ordering: non-multi
+     states before multi so child_ids refs resolve. -->
+<odoo>
+
+  <record id="server_action_2185_proj_notify_transfer_completion" model="ir.actions.server">
+    <field name="name">PROJ - Notify Transfer Completion</field>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="state">next_activity</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+    <field name="activity_user_type">specific</field>
+    <field name="activity_summary">Project Transfer Completed</field>
+    <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
+  </record>
+
+  <record id="server_action_2440_mr_request_approval_notify_user" model="ir.actions.server">
+    <field name="name">MR Request Approval - Notify User</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">next_activity</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+    <field name="activity_user_type">specific</field>
+    <field name="activity_summary">Approve RUG Repair</field>
+    <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
+  </record>
+
+  <record id="server_action_2443_mr_request_approve_confirm_notify_user" model="ir.actions.server">
+    <field name="name">MR Request Approve Confirm - Notify User</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">next_activity</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+    <field name="activity_user_type">generic</field>
+    <field name="activity_summary">Approve RUG Repair</field>
+    <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
+  </record>
+
+  <record id="server_action_2444_approve_mr_status_update" model="ir.actions.server">
+    <field name="name">Approve MR - Status Update</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">object_write</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="value">Approved</field>
+  </record>
+
+  <record id="server_action_2400_reject_mr" model="ir.actions.server">
+    <field name="name">Reject MR</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">object_write</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="value">Rejected</field>
+  </record>
+
+  <record id="server_action_2441_request_approval_mr_update_status" model="ir.actions.server">
+    <field name="name">Request Approval MR - Update Status</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">object_write</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="value">To Be Approved</field>
+  </record>
+
+  <record id="server_action_2391_reset_mr" model="ir.actions.server">
+    <field name="name">Reset MR</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">object_write</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="value">Draft</field>
+  </record>
+
+  <record id="server_action_1358_imp_update_consignment" model="ir.actions.server">
+    <field name="name">IMP - Update Consignment</field>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.id:
+  
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  con_line = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id)],limit=1)
+  if not con_line:
+    raise UserError('The Selected Consignment No is not linked with the Current PO.')
+  
+  done = 0  
+  select = 0
+  total_amount = 0
+  total_charge = 0
+  total_duty = 0
+  total_tax = 0
+  for po_line in record.move_ids_without_package:
+    if po_line.quantity_done > 0.0000:
+      done += 1
+      con_line_2 = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id), ('x_studio_product_id', '=', po_line.product_id.id), ('x_studio_invoice_qty', '=', po_line.quantity_done), ('x_studio_purchase_line_id', '=', po_line.purchase_line_id.id)],limit=1)
+      if con_line_2:
+        po_lines = env['purchase.order.line'].search([('id', '=', po_line.purchase_line_id.id)],limit=1)
+        select += 1
+        if po_lines:
+          total_amount += po_line.quantity_done * (po_lines.price_subtotal / po_lines.product_qty)
+          
+        if con_line_2.x_studio_valid_charge == True:
+          total_charge += con_line_2.x_studio_tot_charge
+        if con_line_2.x_studio_valid_duty == True:
+          total_duty += con_line_2.x_studio_tot_duty
+        if con_line_2.x_studio_valid_tax == True:
+          total_tax += con_line_2.x_studio_tot_tax
+  
+  if done == 0:
+    raise UserError('You have not recorded done quantities yet, Atleast one done quantity should be recorded to proceed.') 
+  
+  if select == 0:
+    raise UserError('The Selected Consignment No is not linked with the Correct Items & Item Quantities in the Current PO.')
+
+  con_header = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_no.id)],limit=1)
+  grand_total_amount = 0
+  if con_header:
+    journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1) 
+    if not journal:
+      raise UserError('The required journal has not been setup. Process terminated.')
+    
+    if con_header.x_studio_vendor_dispatch == True:
+      grand_total_amount = total_amount * con_header.x_studio_vendor_dispatch_exchange_rate
+      if grand_total_amount > 0.0000:
+        despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+        if despatch_account:
+          if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
+            raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
+            
+        despatch_lines=[]
+        despatch_lines.append([0,0,{
+          'account_id':despatch_account.x_studio_vendor_despatch_credit_account.id,
+          'partner_id':record.partner_id.id,
+          'name':'Vendor Despatch Reversal',
+          'debit':grand_total_amount}])
+                  
+        despatch_lines.append([0,0,{
+          'account_id':despatch_account.x_studio_vendor_despatch_debit_account.id,
+          'partner_id':record.partner_id.id,
+          'name':'Vendor Despatch Reversal',
+          'credit':grand_total_amount}])	
+                
+        vendor_despatch = env['account.move'].create({'x_studio_created_from_transfer':record.id,'journal_id':journal.id,'move_type':'entry','line_ids':despatch_lines})
+              
+        update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
+        if update_vendor_despatch:
+          update_vendor_despatch.write({'state':'posted'})
+        
+    if con_header.x_studio_custom_clearance == True: 
+      despatch_lines_2=[]
+      if total_charge > 0.0000:
+        despatch_lines_2.append([0,0,{
+        'account_id':con_header.x_studio_account_charge.id,
+        'name':'Purchase, Charge - Reversal',
+        'credit':total_charge * con_header.x_studio_custom_clearance_exchange_rate}])
+          
+      if total_duty > 0.0000:  
+        despatch_lines_2.append([0,0,{
+        'account_id':con_header.x_studio_account_duty.id,
+        'name':'Purchase Misc. Charges Duty - Reversal',
+        'credit':total_duty * con_header.x_studio_custom_clearance_exchange_rate}])
+          
+      if total_tax > 0.0000:  
+        despatch_lines_2.append([0,0,{
+        'account_id':con_header.x_studio_account_tax.id,
+        'name':'Purchase, Packing Slip Tax - Reversal',
+        'credit':total_tax * con_header.x_studio_custom_clearance_exchange_rate}])
+          
+      if (total_charge + total_duty + total_tax) > 0.0000:    
+        despatch_lines_2.append([0,0,{
+        'account_id':con_header.x_studio_offset_account.id,
+        'name':'Purchase Packing Slip Offset - Reversal',
+        'debit':(total_charge + total_duty + total_tax) * con_header.x_studio_custom_clearance_exchange_rate}])	
+            
+        custom_clearance = env['account.move'].create({'x_studio_create_from_transfer_1':record.id,'journal_id':journal.id,'move_type':'entry','line_ids':despatch_lines_2})
+          
+        update_custom_clearance = env['account.move'].search([('id', '=', custom_clearance.id)],limit=1)
+        if update_custom_clearance:
+          update_custom_clearance.write({'state':'posted'})
+      
+  record['x_studio_update_consignment'] = True]]></field>
+  </record>
+
+  <record id="server_action_1360_imp_update_consignment_partial_grn" model="ir.actions.server">
+    <field name="name">IMP - Update Consignment - Partial GRN</field>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[record['x_studio_update_consignment'] = False
+record['x_studio_consignment_no'] = False
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_1774_sls_validate_payment_in_xxx" model="ir.actions.server">
+    <field name="name">SLS - Validate Payment in xxx</field>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.state == 'done':
+  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
+  if so:
+      sum_total = 0
+      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      if payment:
+        for total in payment:
+          sum_total += total.amount
+              
+      if so.amount_total > sum_total:     
+        raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
+  
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_1697_supplier_invoice_no_update_in_import_pos" model="ir.actions.server">
+    <field name="name">Supplier Invoice No Update in Import POs</field>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.x_studio_consignment_no:
+  consignment = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_no.id)],limit=1)
+  if consignment:
+    record['x_studio_supplier_invoice_number'] = consignment.x_studio_supplier_invoice_number
+
+   
+
+
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_1813_update_source_document_in_transfers" model="ir.actions.server">
+    <field name="name">Update Source Document in Transfers</field>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.x_studio_sales_order.id:
+  record['origin'] = record.x_studio_sales_order.name
+else:
+  record['origin'] = ""
+  
+  ]]></field>
+  </record>
+
+  <record id="server_action_1058_create_production_bom_material_cost" model="ir.actions.server">
+    <field name="name">Create Production BOM Material Cost</field>
+    <field name="model_id" search="[('model', '=', 'stock.move')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.id:
+  bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_bom_material_cost_ids':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_uom_id':record.product_uom.id})]]></field>
+  </record>
+
+  <record id="server_action_1066_create_production_bom_material_cost" model="ir.actions.server">
+    <field name="name">Create Production BOM Material Cost</field>
+    <field name="model_id" search="[('model', '=', 'stock.move')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.bom_line_id and record.raw_material_production_id:
+  prod_bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_prod_bom_material_cost_ids':record.raw_material_production_id.id,'x_studio_bom_line_id':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id})]]></field>
+  </record>
+
+  <record id="server_action_1755_srm_auto_populate_report_type_in_product_variance_moves" model="ir.actions.server">
+    <field name="name">SRM - Auto Populate Report Type in Product Variance Moves</field>
+    <field name="model_id" search="[('model', '=', 'stock.move')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.id:
+  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Production Job Variance')],limit=1)
+  if rpt_id:
+   record['x_studio_report_type_production_job_variance'] = rpt_id.id
+   
+  
+  ]]></field>
+  </record>
+
+  <record id="server_action_1758_srm_production_job_variance_write_original" model="ir.actions.server">
+    <field name="name">SRM - Production Job Variance - Write Original</field>
+    <field name="model_id" search="[('model', '=', 'stock.move')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[record['x_studio_original_qty'] = record.product_uom_qty]]></field>
+  </record>
+
+  <record id="server_action_1073_update_production_bom_material_cost" model="ir.actions.server">
+    <field name="name">Update Production BOM Material Cost</field>
+    <field name="model_id" search="[('model', '=', 'stock.move')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.bom_line_id and record.raw_material_production_id:
+  update = env['x_mrp_bom_material_cos'].search([('x_studio_prod_bom_line_id', '=', record.id), ('x_studio_prod_bom_material_cost_ids', '=', record.raw_material_production_id.id), ('x_studio_bom_line_id', '=', record.bom_line_id.id)], limit=1)
+  if update:
+    update.write({'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id}) 
+    
+  
+
+
+  
+
+]]></field>
+  </record>
+
+  <record id="server_action_1742_srm_auto_populate_report_type_in_product_moves" model="ir.actions.server">
+    <field name="name">SRM - Auto Populate Report Type in Product Moves</field>
+    <field name="model_id" search="[('model', '=', 'stock.move.line')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.state == 'progress':
+  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Slow Moving Items')],limit=1)
+  if rpt_id:
+   record['x_studio_report_type_slow_moving_items'] = rpt_id.id
+   
+  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
+  if rpt_id:
+   record['x_studio_report_type_sales_prod_purch'] = rpt_id.id
+   
+  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Production Summary - Split')],limit=1)
+  if rpt_id:
+   record['x_studio_report_type_production_summary_split'] = rpt_id.id
+   
+  ]]></field>
+  </record>
+
+  <record id="server_action_1752_srm_auto_populate_report_type_in_product_moves_2" model="ir.actions.server">
+    <field name="name">SRM - Auto Populate Report Type in Product Moves - 2</field>
+    <field name="model_id" search="[('model', '=', 'stock.move.line')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.state == 'progress':
+  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
+  if rpt_id:
+   record['Sales - Production - Purchase Report'] = rpt_id.id]]></field>
+  </record>
+
+  <record id="server_action_2388_confirm_mr" model="ir.actions.server">
+    <field name="name">Confirm MR</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.x_name:
+  null_Mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.x_name)])
+  if not null_Mr_lines:
+   raise UserError("Valid MR Lines Should Exists to Confirm!")
+   
+  invalid_mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.x_name), ('x_studio_quantity', '<=', 0)])
+  if invalid_mr_lines:
+    raise UserError("Quantity of Individual MR Lines Should be Greater than Zero!")
+    
+record.write({'x_studio_selection_field_BupKG': 'Confirmed'}) 
+]]></field>
+  </record>
+
+  <record id="server_action_2406_create_material_transfer" model="ir.actions.server">
+    <field name="name">Create Material Transfer</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[valid_req_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)],limit=1)
+if not valid_req_lines:
+  raise UserError('There are no valid item lines to transfer.')
+  
+dest_loc = env['stock.location'].search([('usage', '=', 'inventory'),('complete_name', '=', 'Virtual Locations/MJ')],limit=1)
+if dest_loc:
+  opt_type = env['stock.picking.type'].search([('default_location_src_id', '=', record.x_studio_warehouse.id),('default_location_dest_id', '=', dest_loc.id),('code', '=', 'outgoing')],limit=1)
+  if opt_type:
+    prod_move = env['stock.picking'].create({'x_studio_created_from_material_request_no':record.id,'picking_type_id':opt_type.id,'location_id':record.x_studio_warehouse.id,'location_dest_id':dest_loc.id,'x_studio_journal_type':record.x_studio_journal_type.id})
+     
+    update_prod_move = env['stock.picking'].search([('id', '=', prod_move.id)],limit=1)
+    if update_prod_move:
+      valid_req_lines_2 = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)])
+      if valid_req_lines_2:
+        for valid_lines in valid_req_lines_2: 
+          stock_move = env['stock.move'].create({'picking_id':update_prod_move.id,'name':('New Move:'+valid_lines.x_studio_product.name),'reference':update_prod_move.name,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'product_uom_qty':valid_lines.x_studio_qty_to_transfer,'product_uom':valid_lines.x_studio_product.uom_id.id,'state':'draft'}) 
+          stock_move_line = env['stock.move.line'].create({'move_id':stock_move.id,'picking_id':update_prod_move.id,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'product_uom_id':valid_lines.x_studio_product.uom_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'qty_done':valid_lines.x_studio_qty_to_transfer}) 
+
+          #cal = 0
+          #if valid_lines.x_studio_available_qty_to_transfer
+          #cal = 
+          valid_lines.write({'x_studio_qty_transfered': (valid_lines.x_studio_qty_transfered + valid_lines.x_studio_qty_to_transfer), 'x_studio_qty_to_transfer': 0}) #valid_lines.x_studio_available_qty_to_transfer 
+    action = {
+              'name': 'RFQ',
+              'domain': [('id', '=', prod_move.id)],
+              'type': 'ir.actions.act_window',
+              'res_model': 'stock.picking',
+              'view_mode': 'tree,form',
+              'view_type': 'form',
+              'view_id': False,
+              'context': False,
+              } 
+  else:
+    raise UserError('There is no valid operation type has been setup.')  
+else:
+  raise UserError('There is no valid Location has been setup.')  
+
+]]></field>
+  </record>
+
+  <record id="server_action_2410_mr_validate_delete" model="ir.actions.server">
+    <field name="name">MR Validate Delete</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.x_studio_selection_field_BupKG != 'Draft':
+  raise UserError('Processed material request can not be deleted.')
+  
+    
+   
+
+
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_1563_material_req_gen" model="ir.actions.server">
+    <field name="name">Material Req GEN</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[record['x_name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')]]></field>
+  </record>
+
+  <record id="server_action_1650_pr_create_for_mr" model="ir.actions.server">
+    <field name="name">PR create For MR</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[pr_lines=[]
+
+for pr_line in record.x_studio_one2many_field_9DTZS:
+
+  pr_lines.append([0,0,{'x_studio_many2one_field_WAqP4':pr_line.x_studio_many2one_field_2LV9q.id,'x_studio_quantity':pr_line.x_studio_qty}])
+
+env['x_purchase_request'].create({'x_studio_mr_number':record.x_name,'x_studio_material_request_ref':record.id,'x_studio_type':record.x_studio_type, 'x_studio_order_lines_1':pr_lines})
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_1652_pr_non_create_for_mr" model="ir.actions.server">
+    <field name="name">PR-non create For MR</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[prn_lines=[]
+env['x_pr_non_inventory'].create({'x_studio_material_request_ref':record.id, 'x_studio_one2many_field_rSJtb':prn_lines})
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_2686_jin_company_id_in_tariffmaster" model="ir.actions.server">
+    <field name="name">JIN - Company Id in TariffMaster</field>
+    <field name="model_id" search="[('model', '=', 'x_tariffmaster')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id]]></field>
+  </record>
+
+  <record id="server_action_2397_approve_mr" model="ir.actions.server">
+    <field name="name">Approve MR</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">multi</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2444_approve_mr_status_update'), ref('BugFix-Stock.server_action_2443_mr_request_approve_confirm_notify_user')])]"/>
+  </record>
+
+  <record id="server_action_2394_request_approval_mr" model="ir.actions.server">
+    <field name="name">Request Approval MR</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="state">multi</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2440_mr_request_approval_notify_user'), ref('BugFix-Stock.server_action_2441_request_approval_mr_update_status')])]"/>
+  </record>
+
+</odoo>

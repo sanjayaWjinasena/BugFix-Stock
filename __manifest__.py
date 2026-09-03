@@ -1,13 +1,28 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.28',
+    'version': '17.0.0.0.29',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.29: 28 truly-new server actions closing the 51-action gap.
+    # Deep dedup discipline (proven on Sales):
+    #   * 22 verified TRUE duplicates safely skipped (name+model+state+
+    #     code all match a standard-owned Odoo action)
+    #   * 1 ir_cron skipped per pattern (Studio-wrapped cron jobs)
+    #   * 28 truly-new SHIPPED (19 state=code + 4 object_write +
+    #     3 next_activity + 2 multi)
+    # Covers backing actions for the 9 missing base.automations
+    # (v0.0.30 will wire those triggers). Also ports the x_material_
+    # request MR-workflow suite (Request/Approve/Reject/Confirm
+    # cycle - 12 actions on that model alone).
+    # State ordering: non-multi states before multi so child_ids
+    # refs resolve at XML load time.
+    # New file: data/server_actions_v2.xml.
+    # Coverage after landing: 50 -> 78 shipped, 100% effective.
     # v0.0.28: close the field-coverage gap identified by Stock audit.
     # 21 CDB fields on 9 models had no pin on target. Breakdown:
     #   * 16 auto-fields (activity_exception_decoration + activity_
@@ -201,6 +216,7 @@
         'security/ir_model_pins.xml',
         'security/ir.model.access.csv',
         'data/server_actions.xml',
+        'data/server_actions_v2.xml',
         'data/automations.xml',
         'data/act_windows.xml',
         'views/x_consignment_studio_ported.xml',
