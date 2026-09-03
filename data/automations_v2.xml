@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.30: 9 base.automation triggers. All
+     backing server actions pinned in v0.0.29. -->
+<odoo>
+
+  <record id="base_automation_104_supplier_invoice_no_update_in_import_pos" model="base.automation">
+    <field name="name">Supplier Invoice No Update in Import POs</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="trigger">on_change</field>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_stock_picking__x_studio_consignment_no')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1697_supplier_invoice_no_update_in_import_pos')])]"/>
+  </record>
+
+  <record id="base_automation_148_update_source_document_in_transfers" model="base.automation">
+    <field name="name">Update Source Document in Transfers</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="trigger">on_change</field>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_stock_picking__x_studio_sales_order')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1813_update_source_document_in_transfers')])]"/>
+  </record>
+
+  <record id="base_automation_199_proj_notify_transfer_completion" model="base.automation">
+    <field name="name">PROJ - Notify Transfer Completion</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="filter_pre_domain">[('state', '!=', 'done')]</field>
+    <field name="filter_domain">[('sale_id.x_studio_quotation_type', '=', 'Project'), ('state', '=', 'done')]</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2185_proj_notify_transfer_completion')])]"/>
+  </record>
+
+  <record id="base_automation_28_create_production_bom_material_cost" model="base.automation">
+    <field name="name">Create Production BOM Material Cost</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'stock.move')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="trigger_field_ids" eval="[(6, 0, [ref('stock.field_stock_move__create_date')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1066_create_production_bom_material_cost')])]"/>
+  </record>
+
+  <record id="base_automation_29_update_production_bom_material_cost" model="base.automation">
+    <field name="name">Update Production BOM Material Cost</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'stock.move')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1073_update_production_bom_material_cost')])]"/>
+  </record>
+
+  <record id="base_automation_124_srm_auto_populate_report_type_in_product_moves" model="base.automation">
+    <field name="name">SRM - Auto Populate Report Type in Product Moves</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'stock.move.line')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('BugFix-Accounting.field_x_sales_report_model__x_studio_as_on_date')])]"/>
+    <field name="filter_domain">[]</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1742_srm_auto_populate_report_type_in_product_moves')])]"/>
+  </record>
+
+  <record id="base_automation_95_material_req_gen" model="base.automation">
+    <field name="name">Material Req GEN</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="trigger_field_ids" eval="[(6, 0, [ref('BugFix-Purchase.field_x_material_request__create_date')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1563_material_req_gen')])]"/>
+  </record>
+
+  <record id="base_automation_230_mr_validate_delete" model="base.automation">
+    <field name="name">MR Validate Delete</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
+    <field name="trigger">on_unlink</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2410_mr_validate_delete')])]"/>
+  </record>
+
+  <record id="base_automation_320_jin_company_id_in_tariffmaster" model="base.automation">
+    <field name="name">JIN - Company Id in TariffMaster</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'x_tariffmaster')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="trigger_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_x_tariffmaster__create_date')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2686_jin_company_id_in_tariffmaster')])]"/>
+  </record>
+
+</odoo>
