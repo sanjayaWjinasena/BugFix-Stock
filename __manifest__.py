@@ -1,13 +1,25 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.30',
+    'version': '17.0.0.0.31',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
     'license': 'LGPL-3',
     # Do NOT depend on studio_customization -- Odoo SH does not ship
     # a manifest for it, listing it causes install skip.
+    # v0.0.31: 19 window actions closing the 81-action gap.
+    # Deep dedup on 81 missing candidates:
+    #   * 62 verified TRUE duplicates safely skipped (name+model+
+    #     domain+context+view_mode all match a standard-owned action)
+    #   * 2 look-alikes SHIPPED (distinct domains: stock.picking
+    #     'Picking' unfiltered vs standard-filtered; stock.picking.type
+    #     'Operations' with incoming/outgoing/internal/mrp_operation)
+    #   * 17 truly-new SHIPPED
+    # Heavy concentration on x_tariffmaster (9 different windows with
+    # variations) and x_material_request (4 windows).
+    # New file: data/window_actions.xml.
+    # Coverage: 73/160 -> 92/160 = 58% shipped, 100% effective.
     # v0.0.30: 9 base.automation triggers wiring the backing server
     # actions shipped in v0.0.29. Trigger breakdown:
     #   * 5 on_create_or_write (Material Req GEN, Update BOM cost,
@@ -229,6 +241,7 @@
         'data/automations.xml',
         'data/automations_v2.xml',
         'data/act_windows.xml',
+        'data/window_actions.xml',
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',

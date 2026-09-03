@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.31: 19 window actions (17 truly-new +
+     2 look-alikes with distinct domains/contexts). 62 verified
+     TRUE duplicates auto-skipped after deep dedup. -->
+<odoo>
+
+  <record id="act_window_1159_tariffmaster" model="ir.actions.act_window">
+    <field name="name">TariffMaster</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_1562_material_request" model="ir.actions.act_window">
+    <field name="name">Material Request</field>
+    <field name="res_model">x_material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_1647_material_requests" model="ir.actions.act_window">
+    <field name="name">Material Requests</field>
+    <field name="res_model">x_material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_many2one_field_THFu6', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_many2one_field_THFu6': active_id,'default_x_studio_many2one_field_THFu6': active_id}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create new document</p></field>
+  </record>
+
+  <record id="act_window_1648_material_requests" model="ir.actions.act_window">
+    <field name="name">Material Requests</field>
+    <field name="res_model">x_material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_many2one_field_THFu6', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_many2one_field_THFu6': active_id,'default_x_studio_many2one_field_THFu6': active_id}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create new document</p></field>
+  </record>
+
+  <record id="act_window_2017_picking" model="ir.actions.act_window">
+    <field name="name">Picking</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">form</field>
+    <field name="context">{
+            'form_view_initial_mode': 'edit',
+            'force_detailed_view': True,
+        }</field>
+  </record>
+
+  <record id="act_window_2019_operations" model="ir.actions.act_window">
+    <field name="name">Operations</field>
+    <field name="res_model">stock.picking.type</field>
+    <field name="view_mode">kanban,form</field>
+    <field name="domain">[('code', 'in', ('incoming', 'outgoing', 'internal', 'mrp_operation'))]</field>
+    <field name="context">{
+            'form_view_initial_mode': 'edit',
+            'force_detailed_view': True,
+        }</field>
+  </record>
+
+  <record id="act_window_2038_tariffs_master" model="ir.actions.act_window">
+    <field name="name">Tariffs Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2041_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2044_tariff" model="ir.actions.act_window">
+    <field name="name">Tariff</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2045_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2048_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2049_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2057_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2069_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2095_stock_location_route" model="ir.actions.act_window">
+    <field name="name">stock.location.route</field>
+    <field name="res_model">stock.route</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2494_inventory_routes" model="ir.actions.act_window">
+    <field name="name">Inventory routes</field>
+    <field name="res_model">stock.route</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2810_x_material_request" model="ir.actions.act_window">
+    <field name="name">x_material_request</field>
+    <field name="res_model">x_material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2835_stock_rule" model="ir.actions.act_window">
+    <field name="name">stock.rule</field>
+    <field name="res_model">stock.rule</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+  <record id="act_window_2867_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+
+</odoo>
