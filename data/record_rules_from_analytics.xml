@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 4 record rule(s) moved from BugFix-Analytics v0.1.0.7 -->
+<!-- Target model belongs to this repo's scope; Analytics only wrapped them -->
+<odoo>
+  <data noupdate="0">
+  <record id="rule_452_kap_operation_control" model="ir.rule">
+    <field name="name">Kap-Operation Control</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="domain_force">['&amp;', (1, '=', 1), '|', '|', '|', '&amp;', ('x_studio_sequence_code', '=', 'INT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/OUT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/IN'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '!=', 'INT'), ('origin', '!=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_458_transfer_type_block" model="ir.rule">
+    <field name="name">Transfer Type Block</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="domain_force">['&amp;', '!', (0, '=', 1), ('x_studio_type_of_operation', '=', 'internal')]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_460_block_operations" model="ir.rule">
+    <field name="name">Block Operations</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="domain_force">[('x_studio_type_of_operation', '=', 'internal')]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_912_kap_operation_control_2" model="ir.rule">
+    <field name="name">Kap-Operation Control 2</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="domain_force">['&amp;', (1, '=', 1), '|', '|', '|', '&amp;', ('x_studio_sequence_code', '=', 'INT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/OUT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/IN'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '!=', 'INT'), ('origin', '!=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+  </data>
+</odoo>

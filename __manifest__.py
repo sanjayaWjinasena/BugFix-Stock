@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.44',
+    'version': '17.0.0.0.45',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -313,6 +313,7 @@
         'views/studio_ported_13_views.xml',
         'data/menus_material_management.xml',
         'data/menus_material_management_module.xml',
+        'data/record_rules_from_analytics.xml',
     ],
     'installable': True,
     'auto_install': False,
