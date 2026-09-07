@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.38: Phase 3.1 sub-batch C automations. -->
+<odoo>
+
+  <record id="base_automation_174_rr_auto_select_product_for_rug_repairs_3" model="base.automation">
+    <field name="name">RR - Auto Select Product for RUG Repairs-3</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'stock.return.picking')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3')])]"/>
+  </record>
+
+  <record id="base_automation_346_generate_sequence_number_for_mr" model="base.automation">
+    <field name="name">Generate Sequence Number for MR</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'x_material_request_mt')]"/>
+    <field name="trigger">on_change</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_3399_execute_code')])]"/>
+  </record>
+
+</odoo>

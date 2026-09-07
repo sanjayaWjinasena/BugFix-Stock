@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.37',
+    'version': '17.0.0.0.38',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -295,8 +295,10 @@
         'security/ir.model.access.csv',
         'data/server_actions.xml',
         'data/server_actions_v2.xml',
+        'data/server_actions_v3.xml',
         'data/automations.xml',
         'data/automations_v2.xml',
+        'data/automations_v3.xml',
         'data/act_windows.xml',
         'data/window_actions.xml',
         'views/x_consignment_studio_ported.xml',
