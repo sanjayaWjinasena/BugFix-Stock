@@ -11,3 +11,175 @@ access_x_consignment_charge_h_user,x_consignment_charge_h user access,model_x_co
 access_x_consignment_charge_l_user,x_consignment_charge_l user access,model_x_consignment_charge_l,base.group_user,1,1,1,1
 access_x_temp_consignment_hea_user,x_temp_consignment_hea user access,model_x_temp_consignment_hea,base.group_user,1,1,1,1
 access_x_temp_consignment_lin_user,x_temp_consignment_lin user access,model_x_temp_consignment_lin,base.group_user,1,1,1,1
+access_6528_access_stock_assign_serial,access.stock.assign.serial,mrp.model_stock_assign_serial,,1,0,0,0
+access_6414_access_stock_assign_serial,access.stock.assign.serial,mrp.model_stock_assign_serial,,1,0,0,0
+access_5679_access_stock_assign_serial,access.stock.assign.serial,mrp.model_stock_assign_serial,,1,0,0,0
+access_6873_jin___administrator,Jin - Administrator,stock.model_stock_backorder_confirmation,stock.group_stock_manager,1,1,1,1
+access_6536_access_stock_backorder_confirmation,access.stock.backorder.confirmation,stock.model_stock_backorder_confirmation,,1,0,0,0
+access_6422_access_stock_backorder_confirmation,access.stock.backorder.confirmation,stock.model_stock_backorder_confirmation,,1,0,0,0
+access_5687_access_stock_backorder_confirmation,access.stock.backorder.confirmation,stock.model_stock_backorder_confirmation,,1,0,0,0
+access_6098_stock_backorder_confirmation,stock.backorder.confirmation,stock.model_stock_backorder_confirmation,,1,0,1,0
+access_6876_stock_backorder_confirmation,stock.backorder.confirmation,stock.model_stock_backorder_confirmation,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,1,0
+access_6872_jin___administrator,Jin - Administrator,stock.model_stock_backorder_confirmation_line,stock.group_stock_manager,1,1,1,1
+access_6421_access_stock_backorder_confirmation_line,access.stock.backorder.confirmation.line,stock.model_stock_backorder_confirmation_line,,1,0,0,0
+access_5686_access_stock_backorder_confirmation_line,access.stock.backorder.confirmation.line,stock.model_stock_backorder_confirmation_line,,1,0,0,0
+access_6099_stock_backorder_confirmation_line,stock.backorder.confirmation.line,stock.model_stock_backorder_confirmation_line,,0,0,1,0
+access_6877_stock_backorder_confirmation_line,stock.backorder.confirmation.line,stock.model_stock_backorder_confirmation_line,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,1,0
+access_6531_access_stock_change_product_qty,access.stock.change.product.qty,stock.model_stock_change_product_qty,,0,0,0,0
+access_6417_access_stock_change_product_qty,access.stock.change.product.qty,stock.model_stock_change_product_qty,,0,0,0,0
+access_5682_access_stock_change_product_qty,access.stock.change.product.qty,stock.model_stock_change_product_qty,,0,0,0,0
+access_6999_stock_landed_cost_line,stock.landed.cost.line,stock_landed_costs.model_stock_landed_cost_lines,,0,0,1,0
+access_7000_stock_landed_cost_lines,stock.landed.cost.lines,stock_landed_costs.model_stock_landed_cost_lines,,0,0,1,0
+access_6119_stock_landed_cost_lines,stock.landed.cost.lines,stock_landed_costs.model_stock_landed_cost_lines,,1,0,0,0
+access_6902_stock_location,stock.location,BugFix-Stock.model_stock_location,,1,0,0,0
+access_6802_stock_location_user,stock.location.user,BugFix-Stock.model_stock_location,,1,0,0,0
+access_8692_access_stock_location_rohana_read,access_stock_location_rohana_read,BugFix-Stock.model_stock_location,,1,0,0,0
+access_6890_product_product_purchase_user,product.product.purchase.user,BugFix-Stock.model_stock_lot,,1,0,0,0
+access_7201_administrator,Administrator,BugFix-Stock.model_stock_lot,mrp.group_mrp_manager,1,1,1,1
+access_7202_jin___administrator,Jin - Administrator,BugFix-Stock.model_stock_lot,stock.group_stock_manager,1,1,1,1
+access_7283_stock_lot_user,stock.lot user,BugFix-Stock.model_stock_lot,,1,1,1,1
+access_6514_stock_production_lot_user,stock.production.lot user,BugFix-Stock.model_stock_lot,,1,0,0,0
+access_7251_jin___manufacturing____mo_full_writes____mps,Jin - Manufacturing -  MO Full Writes  + MPS,BugFix-Stock.model_stock_lot,,1,1,1,0
+access_7952_jin___manufacturing____mo_full_writes____mps,Jin - Manufacturing -  MO Full Writes  + MPS,BugFix-Stock.model_stock_lot,,1,1,1,0
+access_6400_stock_production_lot_user,stock.production.lot user,BugFix-Stock.model_stock_lot,,1,0,0,0
+access_5665_stock_production_lot_user,stock.production.lot user,BugFix-Stock.model_stock_lot,,1,0,0,0
+access_6081_jin___repair___full_rights,Jin - Repair - Full Rights,BugFix-Stock.model_stock_lot,,1,1,1,0
+access_6152_user,User,BugFix-Stock.model_stock_lot,,1,1,0,0
+access_8693_access_stock_lot_rohana_read,access_stock_lot_rohana_read,BugFix-Stock.model_stock_lot,,1,0,0,0
+access_6087_user,User,BugFix-Stock.model_stock_lot,helpdesk.group_helpdesk_user,1,1,1,0
+access_6907_stock_move,stock.move,BugFix-Stock.model_stock_move,,1,1,1,0
+access_6947_stock_move,stock.move,BugFix-Stock.model_stock_move,,1,1,1,0
+access_7042_stock_move,stock.move,BugFix-Stock.model_stock_move,,1,1,1,0
+access_5731_stock_move_user,stock.move user,BugFix-Stock.model_stock_move,,1,1,1,0
+access_6515_stock_move_user,stock.move user,BugFix-Stock.model_stock_move,,1,0,0,0
+access_5804_stock_move_user,stock.move user,BugFix-Stock.model_stock_move,,1,1,1,0
+access_7942_stock_move_user,stock.move user,BugFix-Stock.model_stock_move,,1,1,1,0
+access_6401_stock_move_user,stock.move user,BugFix-Stock.model_stock_move,,1,1,1,0
+access_5666_stock_move_user,stock.move user,BugFix-Stock.model_stock_move,,1,0,0,0
+access_7004_stock_move,Stock Move,BugFix-Stock.model_stock_move,BugFix-Approvals.group_112_jin_po_approvers_po_amount_500_000,1,1,1,0
+access_6100_stock_move,stock.move,BugFix-Stock.model_stock_move,,1,1,1,0
+access_5573_stock_move,Stock Move,BugFix-Stock.model_stock_move,,1,0,0,0
+access_6153_user,User,BugFix-Stock.model_stock_move,,1,1,1,0
+access_6853_stock_move,stock.move,BugFix-Stock.model_stock_move,BugFix-Approvals.group_132_jin_sales_pos_users,1,1,1,0
+access_6825_stock_move_salesman,stock_move salesman,BugFix-Stock.model_stock_move,,1,0,0,0
+access_8694_access_stock_move_rohana_read,access_stock_move_rohana_read,BugFix-Stock.model_stock_move,,1,0,0,0
+access_6088_user,User,BugFix-Stock.model_stock_move,helpdesk.group_helpdesk_user,1,1,1,0
+access_6523_stock_move_line_user,stock.move.line user,BugFix-Stock.model_stock_move_line,,1,0,0,0
+access_6409_stock_move_line_user,stock.move.line user,BugFix-Stock.model_stock_move_line,,1,0,0,0
+access_5674_stock_move_line_user,stock.move.line user,BugFix-Stock.model_stock_move_line,,1,0,0,0
+access_8695_access_stock_move_line_rohana_read,access_stock_move_line_rohana_read,BugFix-Stock.model_stock_move_line,,1,0,0,0
+access_6544_access_stock_orderpoint_snooze,access_stock_orderpoint_snooze,stock.model_stock_orderpoint_snooze,,1,0,0,0
+access_6430_access_stock_orderpoint_snooze,access_stock_orderpoint_snooze,stock.model_stock_orderpoint_snooze,,1,0,0,0
+access_5695_access_stock_orderpoint_snooze,access_stock_orderpoint_snooze,stock.model_stock_orderpoint_snooze,,1,0,0,0
+access_6543_access_stock_package_destination,access.stock.package.destination,stock.model_stock_package_destination,,1,0,0,0
+access_6429_access_stock_package_destination,access.stock.package.destination,stock.model_stock_package_destination,,1,0,0,0
+access_5694_access_stock_package_destination,access.stock.package.destination,stock.model_stock_package_destination,,1,0,0,0
+access_6521_stock_package_level_stock_user,stock.package_level stock user,stock.model_stock_package_level,,1,0,0,0
+access_6407_stock_package_level_stock_user,stock.package_level stock user,stock.model_stock_package_level,,1,0,0,0
+access_5672_stock_package_level_stock_user,stock.package_level stock user,stock.model_stock_package_level,,1,0,0,0
+access_6513_stock_picking_type_user,stock.picking.type user,BugFix-Stock.model_stock_picking_type,,1,0,0,0
+access_6399_stock_picking_type_user,stock.picking.type user,BugFix-Stock.model_stock_picking_type,,1,0,0,0
+access_5664_stock_picking_type_user,stock.picking.type user,BugFix-Stock.model_stock_picking_type,,1,0,0,0
+access_6266_inv___administrator,Inv - Administrator,mrp.model_stock_quant,stock.group_stock_manager,1,1,1,1
+access_6519_stock_quant_user,stock.quant user,mrp.model_stock_quant,,0,0,0,0
+access_6405_stock_quant_user,stock.quant user,mrp.model_stock_quant,,0,0,0,0
+access_5670_stock_quant_user,stock.quant user,mrp.model_stock_quant,,0,0,0,0
+access_8698_access_stock_quant_rohana_read,access_stock_quant_rohana_read,mrp.model_stock_quant,,1,0,0,0
+access_6520_stock_quant_package_stock_user,stock.quant.package stock user,stock.model_stock_quant_package,,1,0,0,0
+access_6406_stock_quant_package_stock_user,stock.quant.package stock user,stock.model_stock_quant_package,,1,0,0,0
+access_5671_stock_quant_package_stock_user,stock.quant.package stock user,stock.model_stock_quant_package,,1,0,0,0
+access_7079_jin___administrator,Jin - Administrator,stock.model_stock_quantity_history,stock.group_stock_manager,1,1,1,1
+access_6537_access_stock_quantity_history,access.stock.quantity.history,stock.model_stock_quantity_history,,1,0,0,0
+access_6423_access_stock_quantity_history,access.stock.quantity.history,stock.model_stock_quantity_history,,1,0,0,0
+access_5688_access_stock_quantity_history,access.stock.quantity.history,stock.model_stock_quantity_history,,1,0,0,0
+access_6272_inv___administrator,Inv - Administrator,BugFix-Stock.model_stock_return_picking,stock.group_stock_manager,1,1,1,1
+access_6530_access_stock_return_picking,access.stock.return.picking,BugFix-Stock.model_stock_return_picking,,1,0,0,0
+access_6416_access_stock_return_picking,access.stock.return.picking,BugFix-Stock.model_stock_return_picking,,1,0,0,0
+access_5681_access_stock_return_picking,access.stock.return.picking,BugFix-Stock.model_stock_return_picking,,1,0,0,0
+access_6274_inv___administrator,Inv - Administrator,stock.model_stock_return_picking_line,stock.group_stock_manager,1,1,1,1
+access_6529_access_stock_return_picking_line,access.stock.return.picking.line,stock.model_stock_return_picking_line,,1,0,0,0
+access_6415_access_stock_return_picking_line,access.stock.return.picking.line,stock.model_stock_return_picking_line,,1,0,0,0
+access_5680_access_stock_return_picking_line,access.stock.return.picking.line,stock.model_stock_return_picking_line,,1,0,0,0
+access_6522_stock_rule_user,stock_rule user,mrp.model_stock_rule,,1,0,0,0
+access_6408_stock_rule_user,stock_rule user,mrp.model_stock_rule,,1,0,0,0
+access_5673_stock_rule_user,stock_rule user,mrp.model_stock_rule,,1,0,0,0
+access_6826_stock_rule_flow,stock.rule.flow,mrp.model_stock_rule,,1,0,0,0
+access_8699_access_stock_rule_rohana_read,access_stock_rule_rohana_read,mrp.model_stock_rule,,1,0,0,0
+access_7077_access_stock_scheduler_compute,access.stock.scheduler.compute,stock.model_stock_scheduler_compute,stock.group_stock_manager,1,1,1,1
+access_6532_access_stock_scheduler_compute,access.stock.scheduler.compute,stock.model_stock_scheduler_compute,,1,0,0,0
+access_6418_access_stock_scheduler_compute,access.stock.scheduler.compute,stock.model_stock_scheduler_compute,,1,0,0,0
+access_5683_access_stock_scheduler_compute,access.stock.scheduler.compute,stock.model_stock_scheduler_compute,,1,0,0,0
+access_6526_stock_scrap_user,stock.scrap.user,mrp.model_stock_scrap,,1,0,0,0
+access_6412_stock_scrap_user,stock.scrap.user,mrp.model_stock_scrap,,1,0,0,0
+access_5677_stock_scrap_user,stock.scrap.user,mrp.model_stock_scrap,,1,0,0,0
+access_6860_stock_scrap,stock.scrap,mrp.model_stock_scrap,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,0,0
+access_6845_stock_scrap,stock.scrap,mrp.model_stock_scrap,,1,0,0,0
+access_6271_inv___administrator,Inv - Administrator,mrp.model_stock_traceability_report,stock.group_stock_manager,1,1,1,1
+access_6527_access_stock_traceability_report,access.stock.traceability.report,mrp.model_stock_traceability_report,,1,0,0,0
+access_6413_access_stock_traceability_report,access.stock.traceability.report,mrp.model_stock_traceability_report,,1,0,0,0
+access_5678_access_stock_traceability_report,access.stock.traceability.report,mrp.model_stock_traceability_report,,1,0,0,0
+access_6094_user,User,mrp.model_stock_traceability_report,stock.group_stock_user,1,0,0,0
+access_6541_access_stock_track_confirmation,access.stock.track.confirmation,stock.model_stock_track_confirmation,,1,0,0,0
+access_6427_access_stock_track_confirmation,access.stock.track.confirmation,stock.model_stock_track_confirmation,,1,0,0,0
+access_5692_access_stock_track_confirmation,access.stock.track.confirmation,stock.model_stock_track_confirmation,,1,0,0,0
+access_6542_access_stock_track_line,access.stock.track.line,stock.model_stock_track_line,,1,0,0,0
+access_6428_access_stock_track_line,access.stock.track.line,stock.model_stock_track_line,,1,0,0,0
+access_5693_access_stock_track_line,access.stock.track.line,stock.model_stock_track_line,,1,0,0,0
+access_7002_stock_valuation_adjustment_lines,stock.valuation.adjustment.lines,stock_landed_costs.model_stock_valuation_adjustment_lines,,1,0,0,0
+access_7001_stock_valuation_layer,stock.valuation.layer,BugFix-Stock.model_stock_valuation_layer,,1,0,0,0
+access_6901_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,,1,0,0,0
+access_6518_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,,1,0,0,0
+access_6404_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,,1,0,0,0
+access_5669_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,,1,0,0,0
+access_5874_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,,1,0,0,0
+access_6856_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,0,0
+access_6806_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,,1,0,0,0
+access_8701_access_stock_warehouse_orderpoint_rohana_read,access_stock_warehouse_orderpoint_rohana_read,mrp.model_stock_warehouse_orderpoint,,1,0,0,0
+access_6539_access_stock_warn_insufficient_qty_scrap,access.stock.warn.insufficient.qty.scrap,stock.model_stock_warn_insufficient_qty_scrap,,1,0,0,0
+access_6425_access_stock_warn_insufficient_qty_scrap,access.stock.warn.insufficient.qty.scrap,stock.model_stock_warn_insufficient_qty_scrap,,1,0,0,0
+access_5690_access_stock_warn_insufficient_qty_scrap,access.stock.warn.insufficient.qty.scrap,stock.model_stock_warn_insufficient_qty_scrap,,1,0,0,0
+access_1379_con__consolidated_header_group_user,Con. Consolidated Header group_user,BugFix-Stock.model_x_con_consolidated_hea,base.group_user,1,0,0,0
+access_6666_x_con_consolidated_hea,x_con_consolidated_hea,BugFix-Stock.model_x_con_consolidated_hea,,1,1,1,0
+access_1378_con__consolidated_header_group_system,Con. Consolidated Header group_system,BugFix-Stock.model_x_con_consolidated_hea,base.group_system,1,1,1,1
+access_1381_con__consolidated_line_group_user,Con. Consolidated Line group_user,BugFix-Stock.model_x_con_consolidated_lin,base.group_user,1,0,0,0
+access_6667_x_con_consolidated_line,x_con_consolidated_line,BugFix-Stock.model_x_con_consolidated_lin,,1,1,1,0
+access_1380_con__consolidated_line_group_system,Con. Consolidated Line group_system,BugFix-Stock.model_x_con_consolidated_lin,base.group_system,1,1,1,1
+access_1336_consignment_charge_line_group_user,Consignment Charge Line group_user,BugFix-Stock.model_x_consignment_charge_l,base.group_user,1,0,0,0
+access_6673_x_consignment_charge_l,x_consignment_charge_l,BugFix-Stock.model_x_consignment_charge_l,,1,1,1,1
+access_1335_consignment_charge_line_group_system,Consignment Charge Line group_system,BugFix-Stock.model_x_consignment_charge_l,base.group_system,1,1,1,1
+access_1292_consignment_header_group_user,Consignment Header group_user,BugFix-Stock.model_x_consignment_header,base.group_user,1,0,0,0
+access_6880_x_consignment_header,x_consignment_header,BugFix-Stock.model_x_consignment_header,,1,1,0,0
+access_6661_x_consignment_header,x_consignment_header,BugFix-Stock.model_x_consignment_header,,1,1,1,0
+access_1291_consignment_header_group_system,Consignment Header group_system,BugFix-Stock.model_x_consignment_header,base.group_system,1,1,1,1
+access_1294_consignment_line_group_user,Consignment Line group_user,BugFix-Stock.model_x_consignment_line,base.group_user,1,0,0,0
+access_6674_x_consignment_line,x_consignment_line,BugFix-Stock.model_x_consignment_line,,1,1,0,0
+access_6662_x_consignment_line,x_consignment_line,BugFix-Stock.model_x_consignment_line,,1,1,1,1
+access_1293_consignment_line_group_system,Consignment Line group_system,BugFix-Stock.model_x_consignment_line,base.group_system,1,1,1,1
+access_8292_material_request_mt_group_user,Material Request MT group_user,BugFix-Stock.model_x_material_request_mt,base.group_user,1,1,1,0
+access_8291_material_request_mt_group_system,Material Request MT group_system,BugFix-Stock.model_x_material_request_mt,base.group_system,1,1,1,1
+access_8296_material_request_mt_stages_group_user,Material Request MT Stages group_user,BugFix-Stock.model_x_material_request_mt_stage,base.group_user,1,1,1,0
+access_8295_material_request_mt_stages_group_system,Material Request MT Stages group_system,BugFix-Stock.model_x_material_request_mt_stage,base.group_system,1,1,1,1
+access_8298_material_request_mt_tags_group_user,Material Request MT Tags group_user,BugFix-Stock.model_x_material_request_mt_tag,base.group_user,1,1,1,0
+access_8297_material_request_mt_tags_group_system,Material Request MT Tags group_system,BugFix-Stock.model_x_material_request_mt_tag,base.group_system,1,1,1,1
+access_8268_material_request_test_group_user,Material Request Test group_user,BugFix-Stock.model_x_material_request_tes,base.group_user,1,1,1,0
+access_8267_material_request_test_group_system,Material Request Test group_system,BugFix-Stock.model_x_material_request_tes,base.group_system,1,1,1,1
+access_1221_tariffmaster_group_user,TariffMaster group_user,BugFix-Stock.model_x_tariffmaster,base.group_user,0,0,0,0
+access_5875_x_tariffmaster,x_tariffmaster,BugFix-Stock.model_x_tariffmaster,,1,0,0,0
+access_1220_tariffmaster_group_system,TariffMaster group_system,BugFix-Stock.model_x_tariffmaster,base.group_system,1,1,1,1
+access_1385_temp_con__conso__line_group_user,Temp Con. Conso. Line group_user,BugFix-Stock.model_x_temp_con_conso_line,base.group_user,1,0,0,0
+access_6669_x_temp_con_conso_line,x_temp_con_conso_line,BugFix-Stock.model_x_temp_con_conso_line,,1,1,1,0
+access_1384_temp_con__conso__line_group_system,Temp Con. Conso. Line group_system,BugFix-Stock.model_x_temp_con_conso_line,base.group_system,1,1,1,1
+access_1383_temp_con__consolidated_header_group_user,Temp Con. Consolidated Header group_user,BugFix-Stock.model_x_temp_con_consolidate,base.group_user,1,0,0,0
+access_6668_x_temp_con_consolidate,x_temp_con_consolidate,BugFix-Stock.model_x_temp_con_consolidate,,1,1,1,1
+access_1382_temp_con__consolidated_header_group_system,Temp Con. Consolidated Header group_system,BugFix-Stock.model_x_temp_con_consolidate,base.group_system,1,1,1,1
+access_1296_temp_consignment_header_group_user,Temp Consignment Header group_user,BugFix-Stock.model_x_temp_consignment_hea,base.group_user,1,0,0,0
+access_6663_x_temp_consignment_hea,x_temp_consignment_hea,BugFix-Stock.model_x_temp_consignment_hea,,1,1,1,0
+access_6665_x_temp_consignment_hea,x_temp_consignment_hea,BugFix-Stock.model_x_temp_consignment_hea,,1,1,1,1
+access_1295_temp_consignment_header_group_system,Temp Consignment Header group_system,BugFix-Stock.model_x_temp_consignment_hea,base.group_system,1,1,1,1
+access_1298_temp_consignment_line_group_user,Temp Consignment Line group_user,BugFix-Stock.model_x_temp_consignment_lin,base.group_user,1,0,0,0
+access_6664_x_temp_consignment_lin,x_temp_consignment_lin,BugFix-Stock.model_x_temp_consignment_lin,,1,1,1,0
+access_1297_temp_consignment_line_group_system,Temp Consignment Line group_system,BugFix-Stock.model_x_temp_consignment_lin,base.group_system,1,1,1,1
+access_1246_temp_structure_details_group_user,Temp Structure Details group_user,BugFix-Stock.model_x_temp_structure_detai,base.group_user,1,0,0,0
+access_1245_temp_structure_details_group_system,Temp Structure Details group_system,BugFix-Stock.model_x_temp_structure_detai,base.group_system,1,1,1,1
+access_1248_temp_structure_master_group_user,Temp Structure Master group_user,BugFix-Stock.model_x_temp_structure_maste,base.group_user,1,0,0,0
+access_1247_temp_structure_master_group_system,Temp Structure Master group_system,BugFix-Stock.model_x_temp_structure_maste,base.group_system,1,1,1,1
