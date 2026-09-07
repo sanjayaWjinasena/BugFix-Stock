@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.39: 8 saved filters. -->
+<odoo>
+
+  <record id="filter_182_product_moves" model="ir.filters">
+    <field name="name">Product Moves</field>
+    <field name="model_id">stock.move.line</field>
+    <field name="domain">["&amp;", "&amp;", ("state", "=", "done"), ["product_id", "ilike", "02BB 023"], "|", ["location_id", "ilike", "RP-EK"], ["location_dest_id", "ilike", "RP-EK"]]</field>
+    <field name="context">{'group_by': []}</field>
+    <field name="sort">["date"]</field>
+  </record>
+
+  <record id="filter_180_rp_ek" model="ir.filters">
+    <field name="name">RP-EK</field>
+    <field name="model_id">stock.move.line</field>
+    <field name="domain">["&amp;", "&amp;", ["product_id", "ilike", "02BB 023"], ("state", "=", "done"), "|", ["location_id", "ilike", "RP-EK"], ["location_dest_id", "ilike", "RP-EK"]]</field>
+    <field name="context">{'group_by': []}</field>
+    <field name="sort">["date"]</field>
+  </record>
+
+  <record id="filter_223_inventory_overview" model="ir.filters">
+    <field name="name">Inventory Overview</field>
+    <field name="model_id">stock.picking.type</field>
+    <field name="domain">[("warehouse_id", "ilike", "rp-ek")]</field>
+    <field name="context">{'group_by': []}</field>
+    <field name="sort">[]</field>
+  </record>
+
+  <record id="filter_176_rp_ek" model="ir.filters">
+    <field name="name">RP-EK</field>
+    <field name="model_id">stock.picking.type</field>
+    <field name="domain">[["warehouse_id", "ilike", "rp-ek"]]</field>
+    <field name="context">{'group_by': []}</field>
+    <field name="sort">[]</field>
+  </record>
+
+  <record id="filter_233_inventory_aging" model="ir.filters">
+    <field name="name">Inventory Aging</field>
+    <field name="model_id">stock.valuation.layer</field>
+    <field name="domain">[]</field>
+    <field name="context">{'group_by': [], 'pivot_measures': ['quantity', 'value'], 'pivot_column_groupby': ['create_date:month'], 'pivot_row_groupby': ['categ_id']}</field>
+    <field name="sort">[]</field>
+  </record>
+
+  <record id="filter_193_replenishment" model="ir.filters">
+    <field name="name">Replenishment</field>
+    <field name="model_id">stock.warehouse.orderpoint</field>
+    <field name="domain">[["product_id", "ilike", "06rw 005"]]</field>
+    <field name="context">{'group_by': []}</field>
+    <field name="sort">[]</field>
+  </record>
+
+  <record id="filter_43_consignment_header" model="ir.filters">
+    <field name="name">Consignment Header</field>
+    <field name="model_id">x_consignment_header</field>
+    <field name="domain">[]</field>
+    <field name="context">{'graph': {'graph_measure': '__count__', 'graph_mode': 'bar', 'graph_groupbys': ['x_studio_status', 'x_active']}, 'group_by': []}</field>
+    <field name="sort">[]</field>
+  </record>
+
+  <record id="filter_38_consignment_header" model="ir.filters">
+    <field name="name">Consignment Header</field>
+    <field name="model_id">x_consignment_header</field>
+    <field name="domain">[]</field>
+    <field name="context">{'graph': {'graph_measure': '__count__', 'graph_mode': 'pie', 'graph_groupbys': ['x_studio_status']}, 'group_by': []}</field>
+    <field name="sort">[]</field>
+  </record>
+
+</odoo>

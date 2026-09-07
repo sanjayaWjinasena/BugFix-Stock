@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.39: 3 sequences. -->
+<odoo>
+
+  <record id="seq_234_stock_scrap" model="ir.sequence">
+    <field name="name">Jinasena Agricultural Machinery (Pvt) Ltd. Sequence scrap</field>
+    <field name="code">stock.scrap</field>
+    <field name="prefix">SP/</field>
+    <field name="padding">5</field>
+    <field name="number_next">1</field>
+    <field name="number_increment">1</field>
+  </record>
+
+  <record id="seq_560_stock_scrap" model="ir.sequence">
+    <field name="name">Testing Sequence scrap</field>
+    <field name="code">stock.scrap</field>
+    <field name="prefix">SP/</field>
+    <field name="padding">5</field>
+    <field name="number_next">1</field>
+    <field name="number_increment">1</field>
+  </record>
+
+  <record id="seq_8_stock_scrap" model="ir.sequence">
+    <field name="name">jinasena Pvt Ltd Sequence scrap</field>
+    <field name="code">stock.scrap</field>
+    <field name="prefix">SP/</field>
+    <field name="padding">5</field>
+    <field name="number_next">1</field>
+    <field name="number_increment">1</field>
+  </record>
+
+</odoo>

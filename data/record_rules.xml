@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.39: 29 record rules (3 out-of-deps skipped). -->
+<odoo>
+
+  <record id="rule_49_location_multi_company" model="ir.rule">
+    <field name="name">Location multi-company</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_location"/>
+    <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_916_stock_data_restrict_location" model="ir.rule">
+    <field name="name">Stock data restrict Location</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_location"/>
+    <field name="domain_force">[(1,'=',1)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+    <field name="groups" eval="[(6, 0, [ref('stock.group_stock_manager')])]"/>
+  </record>
+
+  <record id="rule_918_stock_data_admin_location" model="ir.rule">
+    <field name="name">Stock data admin location</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_location"/>
+    <field name="domain_force">[(1, '=', 1),]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+    <field name="groups" eval="[(6, 0, [ref('stock.group_stock_manager')])]"/>
+  </record>
+
+  <record id="rule_47_stock_production_lot_multi_company" model="ir.rule">
+    <field name="name">Stock Production Lot multi-company</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="domain_force">[('company_id','in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_50_stock_move_multi_company" model="ir.rule">
+    <field name="name">stock_move multi-company</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_51_stock_move_line_multi_company" model="ir.rule">
+    <field name="name">stock_move_line multi-company</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move_line"/>
+    <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_45_stock_operation_type_multi_company" model="ir.rule">
+    <field name="name">Stock Operation Type multi-company</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="domain_force">[('company_id','in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_450_block_transfers" model="ir.rule">
+    <field name="name">Block Transfers</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="domain_force">'[('code', "=", 'Transfer')]'</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_459_internal_transfer_test" model="ir.rule">
+    <field name="name">Internal Transfer Test</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="domain_force">[('code', '!=', ('incoming','outgoing','mrp_operation'))]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_461_kap_movement_journal_block" model="ir.rule">
+    <field name="name">Kap-Movement Journal Block</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="domain_force">[('sequence_code', '!=',('MJ/OUT','MJ/IN'))]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_463_test" model="ir.rule">
+    <field name="name">Test</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="domain_force">[('sequence_code', '=',('INT'))]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_464_kap_movement_journal_only" model="ir.rule">
+    <field name="name">Kap-Movement Journal Only</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="domain_force">[('sequence_code', '=',('MJ/OUT','MJ/IN'))]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_911_inventory_no_actions" model="ir.rule">
+    <field name="name">Inventory No Actions</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups" eval="[(6, 0, [ref('stock.group_stock_manager')])]"/>
+  </record>
+
+  <record id="rule_915_stock_data_admin" model="ir.rule">
+    <field name="name">Stock data admin</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="domain_force">[(1,'=',1)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+    <field name="groups" eval="[(6, 0, [ref('stock.group_stock_manager')])]"/>
+  </record>
+
+  <record id="rule_46_stock_operation_type_multi_company" model="ir.rule">
+    <field name="name">Stock Operation Type multi-company</field>
+    <field name="model_id" ref="stock.model_stock_putaway_rule"/>
+    <field name="domain_force">[('company_id','in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_52_stock_quant_multi_company" model="ir.rule">
+    <field name="name">stock_quant multi-company</field>
+    <field name="model_id" ref="mrp.model_stock_quant"/>
+    <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_58_stock_quant_package_multi_company" model="ir.rule">
+    <field name="name">stock_quant_package multi-company</field>
+    <field name="model_id" ref="stock.model_stock_quant_package"/>
+    <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_56_product_pulled_flow_multi_company" model="ir.rule">
+    <field name="name">product_pulled_flow multi-company</field>
+    <field name="model_id" ref="mrp.model_stock_rule"/>
+    <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_59_stock_scrap_company_multi_company" model="ir.rule">
+    <field name="name">stock_scrap_company multi-company</field>
+    <field name="model_id" ref="mrp.model_stock_scrap"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_109_stock_valuation_layer_multicompany" model="ir.rule">
+    <field name="name">Stock Valuation Layer Multicompany</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_valuation_layer"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_55_stock_warehouse_orderpoint_multi_company" model="ir.rule">
+    <field name="name">stock_warehouse.orderpoint multi-company</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_514_jin_multi_company_consolidated_header" model="ir.rule">
+    <field name="name">JIN - Multi-Company - Consolidated Header</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+    <field name="domain_force">['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_515_jin_multi_company_consolidated_line" model="ir.rule">
+    <field name="name">JIN - Multi-Company - Consolidated Line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+    <field name="domain_force">['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_522_jin_multi_company_consignment_charge_line" model="ir.rule">
+    <field name="name">JIN - Multi-Company - Consignment Charge Line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_charge_l"/>
+    <field name="domain_force"> ['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_512_jin_multi_company_consignment_header" model="ir.rule">
+    <field name="name">JIN - Multi-Company - Consignment Header</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="domain_force"> ['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_513_jin_multi_company_consignment_line" model="ir.rule">
+    <field name="name">JIN - Multi-Company - Consignment Line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+    <field name="domain_force"> ['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_884_material_request_mt_multi_company" model="ir.rule">
+    <field name="name">Material Request MT - Multi-Company</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_material_request_mt"/>
+    <field name="domain_force">['|', ('x_studio_company_id', '=', False), ('x_studio_company_id', 'in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_881_material_request_test_multi_company" model="ir.rule">
+    <field name="name">Material Request Test - Multi-Company</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_material_request_tes"/>
+    <field name="domain_force">['|', ('x_studio_company_id', '=', False), ('x_studio_company_id', 'in', company_ids)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+  <record id="rule_572_jin_multi_company_tariffmaster" model="ir.rule">
+    <field name="name">JIN - Multi-Company - TariffMaster</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+    <field name="domain_force"> ['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="active" eval="True"/>
+  </record>
+
+</odoo>
