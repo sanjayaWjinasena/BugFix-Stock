@@ -21,3 +21,11 @@ from . import x_misc_charge_codes
 from . import x_tariffmaster
 from . import x_temp_consignment_hea
 from . import x_temp_consignment_lin
+from . import x_material_request_mt
+from . import x_material_request_tes
+from . import x_temp_con_conso_line
+from . import x_temp_con_consolidate
+from . import x_temp_structure_detai
+from . import x_temp_structure_maste
+from . import x_material_request_mt_tag
+from . import x_material_request_mt_stage
