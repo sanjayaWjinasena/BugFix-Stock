@@ -24,7 +24,7 @@ class XMaterialRequestTes(models.Model):
     x_studio_priority = fields.Boolean(string='High Priority')
     x_studio_sequence = fields.Integer(string='Sequence')
     x_studio_user_id = fields.Many2one('res.users', string='Responsible')
-    x_studio_value = fields.Monetary(string='Value')
+    x_studio_value = fields.Monetary(string='Value', currency_field='x_studio_currency_id')
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
     #   x_material_request_tes_line_ids_661d3 (one2many rel='x_material_request_tes_line_3301b' not safe)

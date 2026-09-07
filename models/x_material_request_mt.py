@@ -37,7 +37,7 @@ class XMaterialRequestMt(models.Model):
     x_studio_status = fields.Char(string='Status')
     x_studio_tag_ids = fields.Many2many('x_material_request_mt_tag', string='Tags')
     x_studio_user_id = fields.Many2one('res.users', string='Responsible')
-    x_studio_value = fields.Monetary(string='Value')
+    x_studio_value = fields.Monetary(string='Value', currency_field='x_studio_currency_id')
     x_studio_warehouse = fields.Char(string='Warehouse')
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
