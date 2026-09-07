@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: 'Material Management Module' menu tree (8 nodes) -->
+<odoo>
+
+  <menuitem id="menu_1745_material_management_module" name="Material Management Module" sequence="10"/>
+  <menuitem id="menu_1746_material_request_mt" name="Material Request MT" parent="menu_1745_material_management_module" action="BugFix-Stock.act_window_3384_material_request_mt" sequence="1"/>
+  <menuitem id="menu_1750_purchase_request_mt" name="Purchase Request MT" parent="menu_1745_material_management_module" action="BugFix-Purchase.action_3387_purchase_request_mt" sequence="2"/>
+  <menuitem id="menu_1747_configuration" name="Configuration" parent="menu_1745_material_management_module" sequence="3"/>
+  <menuitem id="menu_1748_material_request_mt_stages" name="Material Request MT Stages" parent="menu_1747_configuration" action="BugFix-Stock.act_window_3385_material_request_mt_stages" sequence="10"/>
+  <menuitem id="menu_1749_material_request_mt_tags" name="Material Request MT Tags" parent="menu_1747_configuration" action="BugFix-Stock.act_window_3386_material_request_mt_tags" sequence="10"/>
+  <menuitem id="menu_1751_purchase_request_mt_stages" name="Purchase Request MT Stages" parent="menu_1747_configuration" action="BugFix-Purchase.act_window_3388_purchase_request_mt_stages" sequence="10"/>
+  <menuitem id="menu_1752_purchase_request_mt_tags" name="Purchase Request MT Tags" parent="menu_1747_configuration" action="BugFix-Purchase.act_window_3389_purchase_request_mt_tags" sequence="10"/>
+
+</odoo>

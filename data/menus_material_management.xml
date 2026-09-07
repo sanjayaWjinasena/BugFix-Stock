@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: 'Material Management' menu tree (4 nodes) -->
+<odoo>
+
+  <menuitem id="menu_827_material_management" name="Material Management" sequence="10"/>
+  <menuitem id="menu_828_material_request" name="Material Request" parent="menu_827_material_management" action="BugFix-Stock.act_window_1562_material_request" sequence="10"/>
+  <menuitem id="menu_829_configuration" name="Configuration" parent="menu_827_material_management" sequence="11"/>
+  <menuitem id="menu_830_mr_config" name="MR config" parent="menu_829_configuration" action="BugFix-Purchase.action_1565_mr_config" sequence="0"/>
+
+</odoo>
