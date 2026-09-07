@@ -84,7 +84,7 @@
   <record id="rule_450_block_transfers" model="ir.rule">
     <field name="name">Block Transfers</field>
     <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
-    <field name="domain_force">'[('code', "=", 'Transfer')]'</field>
+    <field name="domain_force">[('code', "=", 'Transfer')]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="False"/>
     <field name="perm_create" eval="False"/>
