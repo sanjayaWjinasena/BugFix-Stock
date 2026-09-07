@@ -29,3 +29,5 @@ from . import x_temp_structure_detai
 from . import x_temp_structure_maste
 from . import x_material_request_mt_tag
 from . import x_material_request_mt_stage
+from . import x_material_request_tes_stage
+from . import x_material_request_tes_tag
