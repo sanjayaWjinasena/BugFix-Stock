@@ -58,12 +58,5 @@
     <field name="sort">[]</field>
   </record>
 
-  <record id="filter_38_consignment_header" model="ir.filters">
-    <field name="name">Consignment Header</field>
-    <field name="model_id">x_consignment_header</field>
-    <field name="domain">[]</field>
-    <field name="context">{'graph': {'graph_measure': '__count__', 'graph_mode': 'pie', 'graph_groupbys': ['x_studio_status']}, 'group_by': []}</field>
-    <field name="sort">[]</field>
-  </record>
-
+  <!-- SKIPPED filter_38_consignment_header: unique-constraint conflict on target -->
 </odoo>
