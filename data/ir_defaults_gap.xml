@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- BugFix-Stock: 58 ir.default records routed from Phase D2 sweep --><odoo>
+  <data noupdate="1">
+
+    <record id="default_89_stock_lot_x_studio_sequence_size" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_studio_sequence_size"/>
+      <field name="json_value">"0"</field>
+    </record>
+
+    <record id="default_90_stock_lot_x_studio_starting_serial_no" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_studio_starting_serial_no"/>
+      <field name="json_value">"0"</field>
+    </record>
+
+    <record id="default_91_x_tariffmaster_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_tariffmaster__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_92_x_tariffmaster_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_tariffmaster__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_124_x_temp_structure_detai_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_detai__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_126_x_temp_structure_maste_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_maste__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_138_x_consignment_header_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_139_x_consignment_header_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_140_x_consignment_line_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_line__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_141_x_consignment_line_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_line__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_142_x_consignment_header_x_name" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_name"/>
+      <field name="json_value">"New"</field>
+    </record>
+
+    <!-- DROPPED default_143_x_consignment_header_x_studio_shipping_mode: selection value 'Air' not in field allowed set --><!-- DROPPED default_144_x_consignment_header_x_studio_status: selection value 'Draft' not in field allowed set --><!-- DROPPED default_145_x_consignment_header_x_studio_status_bar: selection value 'Draft' not in field allowed set --><record id="default_146_x_consignment_line_x_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_line__x_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_148_x_temp_consignment_hea_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_149_x_temp_consignment_hea_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_150_x_temp_consignment_lin_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_lin__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_151_x_temp_consignment_lin_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_lin__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_152_x_temp_consignment_lin_x_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_lin__x_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_163_x_consignment_charge_l_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_charge_l__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_164_x_consignment_charge_l_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_charge_l__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_166_x_consignment_charge_l_x_studio_structure_no" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_charge_l__x_studio_structure_no"/>
+      <field name="json_value">"0"</field>
+    </record>
+
+    <record id="default_167_x_consignment_header_x_studio_allocate_header_ch" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_allocate_header_charges"/>
+      <field name="json_value">"1"</field>
+    </record>
+
+    <record id="default_168_x_consignment_header_x_studio_create_header_char" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_create_header_charges"/>
+      <field name="json_value">"1"</field>
+    </record>
+
+    <record id="default_200_x_con_consolidated_hea_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_201_x_con_consolidated_hea_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_202_x_con_consolidated_lin_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+
+    <record id="default_203_x_con_consolidated_lin_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_204_x_con_consolidated_hea_x_name" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_name"/>
+      <field name="json_value">"New"</field>
+    </record>
+
+    <!-- DROPPED default_205_x_con_consolidated_hea_x_studio_pipeline_status_: selection value 'Draft' not in field allowed set --><!-- DROPPED default_206_x_con_consolidated_hea_x_studio_status: selection value 'Draft' not in field allowed set --><record id="default_208_x_temp_con_consolidate_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_con_consolidate__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_210_x_temp_con_conso_line_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_con_conso_line__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_228_x_con_consolidated_lin_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_229_x_temp_con_conso_line_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_con_conso_line__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_359_stock_lot_x_studio_no_of_days_2" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_studio_no_of_days_2"/>
+      <field name="json_value">"0"</field>
+    </record>
+
+    <record id="default_362_stock_lot_x_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_378_stock_picking_x_studio_validation" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_picking__x_studio_validation"/>
+      <field name="json_value">"Receive at Centre should be completed to dispatch."</field>
+    </record>
+
+    <!-- DROPPED default_392_stock_picking_x_studio_gl_account_status: selection value 'Pending' not in field allowed set --><record id="default_425_x_consignment_header_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_429_x_con_consolidated_lin_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_430_x_temp_con_conso_line_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_con_conso_line__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+
+    <record id="default_597_x_material_request_tes_x_studio_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_company_id"/>
+      <field name="json_value">1</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_pvt_ltd"/>
+    </record>
+
+    <record id="default_598_x_material_request_tes_x_studio_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_company_id"/>
+      <field name="json_value">2</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_agricultural_machinery"/>
+    </record>
+
+    <record id="default_599_x_material_request_tes_x_studio_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_company_id"/>
+      <field name="json_value">3</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jltd"/>
+    </record>
+
+    <record id="default_600_x_material_request_tes_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_pvt_ltd"/>
+    </record>
+
+    <record id="default_601_x_material_request_tes_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_agricultural_machinery"/>
+    </record>
+
+    <record id="default_602_x_material_request_tes_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jltd"/>
+    </record>
+
+    <record id="default_603_x_material_request_tes_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_624_x_material_request_mt_x_studio_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_company_id"/>
+      <field name="json_value">1</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_pvt_ltd"/>
+    </record>
+
+    <record id="default_625_x_material_request_mt_x_studio_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_company_id"/>
+      <field name="json_value">2</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_agricultural_machinery"/>
+    </record>
+
+    <record id="default_626_x_material_request_mt_x_studio_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_company_id"/>
+      <field name="json_value">3</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jltd"/>
+    </record>
+
+    <record id="default_627_x_material_request_mt_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_pvt_ltd"/>
+    </record>
+
+    <record id="default_628_x_material_request_mt_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_agricultural_machinery"/>
+    </record>
+
+    <record id="default_629_x_material_request_mt_x_studio_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_currency_id"/>
+      <field name="json_value">145</field>
+      <field name="company_id" ref="seed_master_data_and_settings.company_jltd"/>
+    </record>
+
+    <record id="default_630_x_material_request_mt_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+
+    <record id="default_631_x_material_request_mt_x_studio_stage_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_stage_id"/>
+      <field name="json_value">1</field>
+    </record>
+
+  </data>
+</odoo>
