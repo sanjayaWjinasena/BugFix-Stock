@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: 18 gap server actions -->
+<odoo>
+
+
+  <record id="server_action_1258_imp_consignment_details_seq_no" model="ir.actions.server">
+    <field name="name">IMP - Consignment Details Seq.No</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+
+if record.x_name == 'New':
+ seq = env['ir.sequence'].next_by_code('consignment.det.seq')
+ record.write({'x_name': seq})
+
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_1304_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Invoice Qty. Validation in Consignment</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+if record.x_studio_invoice_qty:
+  
+  if record.x_studio_invoice_qty < 0.00:
+    raise UserError("Negative Quantities are not Allowed in Item No: " + record.x_studio_description)
+  
+  purch_line = env['purchase.order.line'].search([('id', '=', record.x_studio_purchase_line_id.id)],limit=1)
+  result = 0
+  if purch_line:
+    con_remainder = 0
+    if purch_line.product_qty != purch_line.qty_received:
+      con_lines = env['x_consignment_line'].search([('x_studio_purchase_line_id', '=', record.x_studio_purchase_line_id.id), ('id', '!=', record.id)])
+      if con_lines:
+        for sum_lines in con_lines:
+          con_remainder += sum_lines.x_studio_invoice_qty
+      
+    result = (purch_line.product_qty - con_remainder)
+ 
+  if record.x_studio_invoice_qty > result:
+    raise UserError("Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: " + record.x_studio_description)
+  
+    ]]></field>
+  </record>
+
+  <record id="server_action_1324_imp_restrict_delete_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Restrict Delete in Consignment</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+if record.x_studio_status != 'Draft':
+  raise UserError("You can only delete a consignment if the consignment is in draft state.")
+ 
+
+
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_1412_con_consolidated_seq_no" model="ir.actions.server">
+    <field name="name">Con. Consolidated Seq.No</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+
+if record.x_name == 'New':
+ seq = env['ir.sequence'].next_by_code('con.consolidated.seq')
+ record.write({'x_name': seq})
+
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_1423_imp_restrict_delete_in_consolidation" model="ir.actions.server">
+    <field name="name">IMP - Restrict Delete in Consolidation</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+if record.x_studio_status != 'Draft':
+  raise UserError("Only the consolidations in Draft status can be deleted.")
+ 
+
+
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_1424_imp_con_lines_make_available_in_delete" model="ir.actions.server">
+    <field name="name">IMP - Con. Lines Make Available in Delete</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+if record.id:
+  con_update = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_id.id)],limit=1)
+  if con_update:
+    con_update.write({'x_studio_consolidated': False}) 
+    
+  last_line = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.x_studio_consolidated_header_id.id), ('id', '!=', record.id)],limit=1)
+  if not last_line:
+    update_con = env['x_con_consolidated_hea'].search([('id', '=', record.x_studio_consolidated_header_id.id)],limit=1)
+    if update_con:
+        update_con.write({'x_studio_lines_copied': False}) 
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_1438_sls_validate_payment_in_shipment" model="ir.actions.server">
+    <field name="name">SLS - Validate Payment in Shipment</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+if record.state == 'done':
+  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
+  if so:
+      sum_total = 0
+      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      if payment:
+        for total in payment:
+          sum_total += total.amount
+              
+      if so.amount_total > sum_total:     
+        #raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
+        raise UserError('The Payment Against the Cash Sales Order must be Registered First.' + '\n'  + '\n' + 'This sale: ' + str(so.amount_total) + '\n' + 'Total payments: ' + str(sum_total) + '\n' + 'Payment due: ' + str(so.amount_total - sum_total))
+  
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_1454_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Update Cost Allocation Method in Consignment</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+if cost_allocation:
+  record['x_studio_cost_allocation_method'] = cost_allocation.x_studio_cost_allocation_method
+
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_1991_rr_auto_select_product_for_rug_repairs_3" model="ir.actions.server">
+    <field name="name">RR - Auto Select Product for RUG Repairs-3</field>
+    <field name="model_id" ref="stock.model_stock_return_picking"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+if record.ticket_id:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  if (record.x_studio_repair_rug == True or record.x_studio_repair_normal_with_serial_no == True):
+    if company.id == 1:
+      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
+      if ticket:
+        if record.location_id.id != record.x_studio_suggested_location_id.id:
+          raise UserError("Return Location should be equal to Suggested Return Location.")
+    else:
+      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
+      if ticket:
+        if record.location_id.id != record.x_studio_suggested_location_id_1.id:
+          raise UserError('Return Location should be equal to Suggested Return Location.')
+      
+  
+      
+
+
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_2474_user_location_validation" model="ir.actions.server">
+    <field name="name">User Location Validation</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+if user.id != 1:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  if record.x_studio_user_location_validation == True:
+    if record.x_studio_user_location_validation_2 == True:
+      warehouse = record.location_id.complete_name
+    else:
+      warehouse = record.location_dest_id.complete_name 
+    
+    if record.x_studio_type_of_operation == 'internal':
+      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
+      if loc:
+        locations = ""
+        for locs in loc:
+          locations += (locs.complete_name + "\n")
+        
+        if record.x_studio_user_location_validation_2 == True:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+      else:
+        if record.x_studio_user_location_validation_2 == True:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
+    else:
+      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+      if loc:
+        locations = ""
+        for locs in loc:
+          locations += (locs.complete_name + "\n")
+        
+        if record.x_studio_user_location_validation_2 == True:  
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+      else:
+        if record.x_studio_user_location_validation_2 == True: 
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+        else:
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_2489_user_location_validation_test" model="ir.actions.server">
+    <field name="name">User Location Validation-TEST</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
+     
+
+
+    ]]></field>
+  </record>
+
+  <record id="server_action_2607_jin_company_id_in_consignment_header" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consignment Header</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id
+    ]]></field>
+  </record>
+
+  <record id="server_action_2608_jin_company_id_in_consignment_line" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consignment Line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id
+    ]]></field>
+  </record>
+
+  <record id="server_action_2609_jin_company_id_in_consolidated_header" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consolidated Header</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id
+    ]]></field>
+  </record>
+
+  <record id="server_action_2611_jin_company_id_in_consolidated_line" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consolidated Line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id
+    ]]></field>
+  </record>
+
+  <record id="server_action_2618_jin_company_id_in_consignment_charge_line" model="ir.actions.server">
+    <field name="name">JIN - Company Id in Consignment Charge Line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_charge_l"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id
+    ]]></field>
+  </record>
+
+  <record id="server_action_2686_jin_company_id_in_tariffmaster" model="ir.actions.server">
+    <field name="name">JIN - Company Id in TariffMaster</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id
+    ]]></field>
+  </record>
+
+  <record id="server_action_2890_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
+    <field name="name">IMP - Update Supplier Currency in Consignment</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[
+cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+if record.x_studio_supplier_id.id:
+  if record.x_studio_supplier_id.property_purchase_currency_id.id:
+    record['x_studio_currency_id'] = record.x_studio_supplier_id.property_purchase_currency_id.id
+
+
+
+
+    ]]></field>
+  </record>
+
+</odoo>

@@ -183,3 +183,12 @@ access_1246_temp_structure_details_group_user,Temp Structure Details group_user,
 access_1245_temp_structure_details_group_system,Temp Structure Details group_system,BugFix-Stock.model_x_temp_structure_detai,base.group_system,1,1,1,1
 access_1248_temp_structure_master_group_user,Temp Structure Master group_user,BugFix-Stock.model_x_temp_structure_maste,base.group_user,1,0,0,0
 access_1247_temp_structure_master_group_system,Temp Structure Master group_system,BugFix-Stock.model_x_temp_structure_maste,base.group_system,1,1,1,1
+access_1379_con_consolidated_header_group_user,Con. Consolidated Header group_user,BugFix-Stock.model_x_con_consolidated_hea,base.group_user,1,0,0,0
+access_1378_con_consolidated_header_group_system,Con. Consolidated Header group_system,BugFix-Stock.model_x_con_consolidated_hea,base.group_system,1,1,1,1
+access_1381_con_consolidated_line_group_user,Con. Consolidated Line group_user,BugFix-Stock.model_x_con_consolidated_lin,base.group_user,1,0,0,0
+access_1380_con_consolidated_line_group_system,Con. Consolidated Line group_system,BugFix-Stock.model_x_con_consolidated_lin,base.group_system,1,1,1,1
+access_2427_tariff_master,Tariff Master,BugFix-Stock.model_x_tariffmaster,,1,0,0,0
+access_8272_material_request_test_stages_group_user,Material Request Test Stages group_user,BugFix-Stock.model_x_material_request_tes_stage,base.group_user,1,1,1,0
+access_8271_material_request_test_stages_group_system,Material Request Test Stages group_system,BugFix-Stock.model_x_material_request_tes_stage,base.group_system,1,1,1,1
+access_8274_material_request_test_tags_group_user,Material Request Test Tags group_user,BugFix-Stock.model_x_material_request_tes_tag,base.group_user,1,1,1,0
+access_8273_material_request_test_tags_group_system,Material Request Test Tags group_system,BugFix-Stock.model_x_material_request_tes_tag,base.group_system,1,1,1,1

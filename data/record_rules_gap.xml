@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: 4 gap record rules -->
+<odoo>
+  <data noupdate="0">
+
+    <record id="rule_572_jin_multi_company_tariffmaster" model="ir.rule">
+      <field name="name">JIN - Multi-Company - TariffMaster</field>
+      <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+      <field name="domain_force"> ['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="active" eval="True"/>
+    </record>
+
+    <record id="rule_522_jin_multi_company_consignment_charge_line" model="ir.rule">
+      <field name="name">JIN - Multi-Company - Consignment Charge Line</field>
+      <field name="model_id" ref="BugFix-Stock.model_x_consignment_charge_l"/>
+      <field name="domain_force"> ['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="active" eval="True"/>
+    </record>
+
+    <record id="rule_515_jin_multi_company_consolidated_line" model="ir.rule">
+      <field name="name">JIN - Multi-Company - Consolidated Line</field>
+      <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+      <field name="domain_force">['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="active" eval="True"/>
+    </record>
+
+    <record id="rule_514_jin_multi_company_consolidated_header" model="ir.rule">
+      <field name="name">JIN - Multi-Company - Consolidated Header</field>
+      <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+      <field name="domain_force">['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]</field>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="True"/>
+      <field name="perm_create" eval="True"/>
+      <field name="perm_unlink" eval="True"/>
+      <field name="active" eval="True"/>
+    </record>
+
+  </data>
+</odoo>

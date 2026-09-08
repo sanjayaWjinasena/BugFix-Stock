@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: 10 gap automations -->
+<odoo>
+
+
+  <record id="base_automation_39_work_center_costing_model_create_journal_entries" model="base.automation">
+    <field name="name">Work Center Costing Model - Create Journal Entries</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock_account.model_stock_valuation_layer"/>
+    <field name="trigger">on_create_or_write</field>
+  </record>
+
+  <record id="base_automation_63_imp_update_consignment_partial_grn" model="base.automation">
+    <field name="name">IMP - Update Consignment - Partial GRN</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="trigger">on_create</field>
+    <field name="filter_domain">[]</field>
+  </record>
+
+  <record id="base_automation_81_sls_validate_payment_in_shipment" model="base.automation">
+    <field name="name">SLS - Validate Payment in Shipment</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="trigger">on_write</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1438_sls_validate_payment_in_shipment')])]"/>
+  </record>
+
+  <record id="base_automation_129_srm_auto_populate_report_type_in_product_variance_moves" model="base.automation">
+    <field name="name">SRM - Auto Populate Report Type in Product Variance Moves</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_move"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="filter_domain">[]</field>
+  </record>
+
+  <record id="base_automation_130_srm_production_job_variance_write_original" model="base.automation">
+    <field name="name">SRM - Production Job Variance - Write Original</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_move"/>
+    <field name="trigger">on_create</field>
+    <field name="filter_domain">[]</field>
+  </record>
+
+  <record id="base_automation_177_rr_update_operation_type_in_help_desk_repairs" model="base.automation">
+    <field name="name">RR - Update Operation Type in Help Desk Repairs</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="trigger">on_create</field>
+  </record>
+
+  <record id="base_automation_181_imp_delivery_remainder_in_consignment_lines" model="base.automation">
+    <field name="name">IMP - Delivery Remainder in Consignment Lines</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+    <field name="trigger">on_create_or_write</field>
+  </record>
+
+  <record id="base_automation_246_user_location_validation" model="base.automation">
+    <field name="name">User Location Validation</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="filter_domain">["|","|","|",["state","=","draft"],["state","=","waiting"],["state","=","confirmed"],["state","=","assigned"]]</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2474_user_location_validation')])]"/>
+  </record>
+
+  <record id="base_automation_247_user_location_validation_test" model="base.automation">
+    <field name="name">User Location Validation-TEST</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="trigger">on_write</field>
+    <field name="filter_domain">[["state","=","draft"]]</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2489_user_location_validation_test')])]"/>
+  </record>
+
+  <record id="base_automation_255_work_center_costing_model_create_journal_entries_original" model="base.automation">
+    <field name="name">Work Center Costing Model - Create Journal Entries - Original</field>
+    <field name="active" eval="False"/>
+    <field name="model_id" ref="stock_account.model_stock_valuation_layer"/>
+    <field name="trigger">on_create</field>
+  </record>
+
+</odoo>
