@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- BugFix-Stock: menu sweep from routing audit (20 candidates) --><!-- Uses <menuitem> shortcut with dev-verified parent + action refs --><odoo>
+
+  <menuitem id="menu_778_temp_consignment_line" name="Temp Consignment Line" action="BugFix-Stock.action_1262_temp_consignment_line" sequence="6"/>
+  <menuitem id="menu_779_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_1259_temp_consignment_header" sequence="7"/>
+  <menuitem id="menu_1147_inventory_warehouse" name="Inventory/wAREHOUSE" sequence="10"/>
+  <menuitem id="menu_1072_inventory_holding_days" name="Inventory Holding Days" parent="mrp.menu_mrp_root" action="BugFix-Stock.action_2225_inventory_holding_days" sequence="101"/>
+  <menuitem id="menu_1148_inventory_setup" name="Inventory Setup" parent="stock.menu_stock_root" sequence="101"/>
+  <menuitem id="menu_1146_warehouse" name="WareHouse" parent="BugFix-Stock.menu_1147_inventory_warehouse" action="BugFix-Stock.action_2468_warehouse" sequence="0"/>
+  <menuitem id="menu_1149_warehouse" name="Warehouse" parent="BugFix-Stock.menu_1148_inventory_setup" action="BugFix-Stock.action_2469_warehouse" sequence="0"/>
+  <menuitem id="menu_1150_location" name="Location" parent="BugFix-Stock.menu_1148_inventory_setup" action="BugFix-Stock.action_2470_location" sequence="1"/>
+  <menuitem id="menu_1075_custom_duty" name="Custom Duty" parent="purchase.purchase_report_main" action="BugFix-Stock.action_2231_custom_duty" sequence="2"/>
+
+</odoo>
