@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: 3 Studio approval rules from routing sweep -->
+<odoo>
+  <data noupdate="0">
+
+    <record id="approval_rule_56_transfer_action_open_label_layout_administration_access_righ" model="studio.approval.rule">
+      <field name="name">Transfer/action_open_label_layout (Administration / Access Rights) (56)</field>
+      <field name="model_id" ref="stock.model_stock_picking"/>
+      <field name="method">action_open_label_layout</field>
+      <field name="group_id" ref="base.group_erp_manager"/>
+      <field name="exclusive_user" eval="True"/>
+      <field name="notification_order">1</field>
+    </record>
+
+    <record id="approval_rule_62_transfer_action_put_in_pack_user_types_internal_user_62" model="studio.approval.rule">
+      <field name="name">Transfer/action_put_in_pack (User types / Internal User) (62)</field>
+      <field name="model_id" ref="stock.model_stock_picking"/>
+      <field name="method">action_put_in_pack</field>
+      <field name="group_id" ref="base.group_user"/>
+      <field name="notification_order">1</field>
+    </record>
+
+    <record id="approval_rule_102_transfer_action_cancel_inventory_jin_administrator_102" model="studio.approval.rule">
+      <field name="name">Transfer/action_cancel (Inventory / Jin - Administrator) (102)</field>
+      <field name="model_id" ref="stock.model_stock_picking"/>
+      <field name="method">action_cancel</field>
+      <field name="group_id" ref="stock.group_stock_manager"/>
+      <field name="notification_order">1</field>
+    </record>
+
+  </data>
+</odoo>
