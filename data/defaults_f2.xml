@@ -1,32 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- BugFix-Stock: Phase F2 - 7 defaults -->
+<!-- BugFix-Stock: Phase F2 - 1 defaults (Selection-typed stripped) -->
 <odoo noupdate="1">
-  <record id="default_BugFix_Stock_field_x_consignment_header__x_studio__draft" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_status_bar"/>
-    <field name="json_value">"Draft"</field>
-  </record>
-  <record id="default_BugFix_Stock_field_x_consignment_header__x_studio__draft_1" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_status"/>
-    <field name="json_value">"Draft"</field>
-  </record>
   <record id="default_BugFix_Stock_field_x_material_request_tes__x_studi_1" model="ir.default">
     <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_stage_id"/>
     <field name="json_value">1</field>
-  </record>
-  <record id="default_BugFix_Stock_field_x_consignment_header__x_studio__air" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_shipping_mode"/>
-    <field name="json_value">"Air"</field>
-  </record>
-  <record id="default_BugFix_Stock_field_x_con_consolidated_hea__x_studi_draft" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_studio_status"/>
-    <field name="json_value">"Draft"</field>
-  </record>
-  <record id="default_BugFix_Stock_field_x_con_consolidated_hea__x_studi_draft_1" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_studio_pipeline_status_bar"/>
-    <field name="json_value">"Draft"</field>
-  </record>
-  <record id="default_BugFix_Stock_field_stock_picking__x_studio_gl_acco_pending" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_stock_picking__x_studio_gl_account_status"/>
-    <field name="json_value">"Pending"</field>
   </record>
 </odoo>
