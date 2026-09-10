@@ -28,34 +28,19 @@
       <!-- STRIPPED action button aid=1999 unresolvable -->
     </xpath>
     
-    <!--xpath expr="//header/button[@name='button_validate']" position="before">
-      <!-- STRIPPED action button aid=2204 unresolvable (had inline content) -->
-    </xpath>
+    <!-- STRIPPED malformed xpath comment block -->
     
-    <xpath expr="//header/button[@name='2204']<!-- WARNING: xpath refs unresolvable action -->" position="after">
-      <!-- STRIPPED action button aid=2205 unresolvable (had inline content) -->
-    </xpath>
+    <!-- STRIPPED xpath: numeric button ref unresolvable -->
     
-    <xpath expr="//header/button[@name='2205']<!-- WARNING: xpath refs unresolvable action -->" position="after">
-      <!-- STRIPPED action button aid=2207 unresolvable (had inline content) -->
-    </xpath-->
+    <!-- STRIPPED xpath: numeric button ref unresolvable -->
     
-    <!--xpath expr="//header/button[@name='2207']<!-- WARNING: xpath refs unresolvable action -->" position="after"-->
-    <xpath expr="//header/button[@name='button_validate']" position="after">
-      <!-- STRIPPED action button aid=2448 unresolvable -->
-    </xpath>
-    
-    <xpath expr="//header/button[@name='2448']<!-- WARNING: xpath refs unresolvable action -->" position="after">
-      <!-- STRIPPED action button aid=2181 unresolvable -->
-    </xpath>
+    <!-- STRIPPED xpath: numeric button ref unresolvable -->
     
     <xpath expr="//header/button[@name='button_validate']" position="attributes">
       <!--attribute name="attrs">{'invisible': ['|','|','|','|','|','|','|','|',('x_studio_cancelled', '=', True),('x_studio_valid_transfer_lines', '=', False),('x_studio_transfer_rejected', '=', True),('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False),'&amp;',('x_studio_quotation_type_2', '=', 'Repair'),('x_studio_repair_payment_made', '=', False),'&amp;',('x_studio_pr_type', '=', 'Import'),('x_studio_update_consignment', '=', False),'&amp;',('x_studio_quotation_type_2', '=', 'Project'),('x_studio_budget_created', '=', False),'&amp;',('x_studio_need_approval', '=', True),('x_studio_transfer_approved', '=', False)]}</attribute-->
       <attribute name="invisible">((x_studio_budget_created == False) and (x_studio_quotation_type_2 == 'Project')) or (((x_studio_update_consignment == False) and (x_studio_pr_type == 'Import')) or (((x_studio_repair_payment_made == False) and (x_studio_quotation_type_2 == 'Repair')) or ((show_validate == False) or ((state in ('waiting', 'confirmed')) or ((x_studio_transfer_rejected == True) or ((x_studio_valid_transfer_lines == False) or (x_studio_cancelled == True)))))))</attribute></xpath>
     
-    <!--xpath expr="//header/button[@name='action_set_quantities_to_reservation']" position="attributes">
-      <attribute name="attrs">{'invisible': ['|','|','|',('x_studio_helpdesk_ticket_id','!=',False),('show_validate', '=', False),('immediate_transfer', '=', True),'&amp;',('x_studio_pr_type', '=', 'Import'),('x_studio_update_consignment', '=', False)]}</attribute> 
-    </xpath-->
+    <!-- STRIPPED malformed xpath comment block -->
     
     <xpath expr="//header/button[@name='action_set_quantities_to_reservation']" position="attributes">
       <attribute name="invisible">(immediate_transfer == True) or ((show_validate == False) or ((x_studio_helpdesk_ticket_id != False) or (x_studio_pr_type == 'Import')))</attribute></xpath>

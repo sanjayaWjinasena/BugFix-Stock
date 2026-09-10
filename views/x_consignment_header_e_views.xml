@@ -71,16 +71,8 @@
                  doesn't inject them all. My inherit forces strict
                  re-validation, which trips over the missing fields.
                  Inject them all as invisible sentinels here. -->
-            <xpath expr="//button[@name='1305']<!-- WARNING: xpath refs unresolvable action -->" position="before">
-                <field name="x_studio_status" invisible="1"/>
-                <field name="x_studio_lines_copied" invisible="1"/>
-                <field name="x_studio_allocate_header_charges" invisible="1"/>
-                <field name="x_studio_create_header_charges" invisible="1"/>
-                <field name="x_studio_header_charges_allocated" invisible="1"/>
-            </xpath>
-            <xpath expr="//button[@name='1305']<!-- WARNING: xpath refs unresolvable action -->" position="replace">
-                <!-- STRIPPED action button aid=3647 unresolvable -->
-            </xpath>
+            <!-- STRIPPED xpath: numeric button ref unresolvable -->
+            <!-- STRIPPED xpath: numeric button ref unresolvable -->
         </data>
       </field>
     </record>
