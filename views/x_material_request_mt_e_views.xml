@@ -187,7 +187,7 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search>
-  <xpath expr="//search" position="inside"><field name="x_studio_date" invisible="1"/><field name="x_studio_date_start" invisible="1"/><field name="x_studio_date_stop" invisible="1"/><field name="x_studio_stage_id" invisible="1"/></xpath><field name="x_name"/>
+  <field name="x_studio_date" invisible="1"/><field name="x_studio_date_start" invisible="1"/><field name="x_studio_date_stop" invisible="1"/><field name="x_studio_stage_id" invisible="1"/><field name="x_name"/>
   <field name="x_studio_partner_id" operator="child_of"/>
   <field name="x_studio_user_id"/>
   <field name="x_studio_tag_ids"/>
