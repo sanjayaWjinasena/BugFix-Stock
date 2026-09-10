@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase E - 1 views for x_temp_con_consolidate -->
+<odoo>
+  <data>
+    <record id="view_3085_imp_copy_pi_line_to_consolidation_e" model="ir.ui.view">
+      <field name="name">IMP Copy PI Line to Consolidation</field>
+      <field name="model">x_temp_con_consolidate</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Copy Purchase Invoice Lines">
+  <separator string="Applicable Line:"/>
+    <newline/>
+    <group>
+      <field name="x_name" options="{'no_open': true}" invisible="1" readonly="True"/>
+      <field name="x_studio_consolidated_header_id" options="{'no_open': true}" invisible="1" readonly="True"/>
+      <field name="x_studio_select_all" options="{'no_open': true}" invisible="1" readonly="True"/>
+    </group> 
+    <newline/>
+    <button name="1417" string="Select All" type="action" class="oe_highlight" invisible="x_studio_select_all == True"/> 
+    <button name="1419" string="Clear All" type="action" class="oe_highlight" invisible="x_studio_select_all == False"/>
+    <group>
+      <field name="x_studio_con_lines" nolabel="1" colspan="2">
+        <tree string="Details" create="false" editable="bottom" delete="false"> 
+          <!-- STRIPPED field x_studio_select not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_consignment_id not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_supplier_id not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_currency_id not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_supplier_invoice_no not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_container_no not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_custom_clearance_no not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_delivery_term not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_shipment_start_date not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_invoice_date not on x_temp_con_consolidate -->
+          <!-- STRIPPED field x_studio_shipping_mode not on x_temp_con_consolidate -->	
+          <!-- STRIPPED field x_studio_status not on x_temp_con_consolidate -->
+        </tree>
+      </field>
+    </group>
+    <newline/>
+    <footer>
+      <button name="1420" string="Apply" type="action" class="oe_highlight"/>
+      <button special="cancel" string="Cancel" class="oe_link"/>
+    </footer>
+</form>
+      </field>
+    </record>
+
+  </data>
+</odoo>

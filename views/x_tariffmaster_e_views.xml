@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase E - 1 views for x_tariffmaster -->
+<odoo>
+  <data>
+    <record id="view_2634_default_search_view_for_x_tariffmaster_e" model="ir.ui.view">
+      <field name="name">Default search view for x_tariffmaster</field>
+      <field name="model">x_tariffmaster</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="x_name"/>
+  <separator/>
+  <filter string="Archived" name="archived_x_tariffmaster" domain="[['x_active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+
+  </data>
+</odoo>

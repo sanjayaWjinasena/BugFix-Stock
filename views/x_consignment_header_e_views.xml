@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase E - 4 views for x_consignment_header -->
+<odoo>
+  <data>
+    <record id="view_2948_default_dashboard_view_for_ir_model_905_e" model="ir.ui.view">
+      <field name="name">Default dashboard view for ir.model(905,)</field>
+      <field name="model">x_consignment_header</field>
+      <field name="type">dashboard</field>
+      <field name="arch" type="xml">
+        <dashboard><view type="graph"/></dashboard>
+      </field>
+    </record>
+
+    <record id="view_2949_default_kanban_view_for_ir_model_905_e" model="ir.ui.view">
+      <field name="name">Default kanban view for ir.model(905,)</field>
+      <field name="model">x_consignment_header</field>
+      <field name="type">kanban</field>
+      <field name="arch" type="xml">
+        <kanban string="Consignment Header">
+  <templates>
+    <t t-name="kanban-box">
+      <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+        <div class="o_kanban_record_top mb16">
+          <div class="o_kanban_record_headings ml-1">
+            <strong class="o_kanban_record_title"><span><field name="x_studio_supplier_id"/></span></strong>
+          </div>
+          <strong><field name="x_studio_total_amount" widget="monetary"/></strong>
+        </div>
+        <div class="o_kanban_record_bottom">
+          <div class="oe_kanban_bottom_left">
+            <field name="x_name"/>  
+          </div>
+          <div class="oe_kanban_bottom_right">
+            <field name="x_studio_status" widget="label_selection"/>
+          </div>
+        </div>
+      </div>
+    </t>
+  </templates>
+</kanban>
+      </field>
+    </record>
+
+    <record id="view_2812_default_search_view_for_x_consignment_header_e" model="ir.ui.view">
+      <field name="name">Default search view for x_consignment_header</field>
+      <field name="model">x_consignment_header</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="x_name"/>
+  <separator/>
+  <filter string="Archived" name="archived_x_consignment_header" domain="[['x_active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+
+    <record id="view_9609_bugfix_purchase_x_consignment_header_form_rewire_vendor_disp_e" model="ir.ui.view">
+      <field name="name">bugfix_purchase.x_consignment_header.form.rewire.vendor.dispatch</field>
+      <field name="model">x_consignment_header</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="BugFix-Stock.ported_view_2811_default_form_view_for_x_consignment_header"/>
+      <field name="mode">extension</field>
+      <field name="arch" type="xml">
+        <data><!-- Odoo 17 strict arch validation requires every field used
+                 in an `invisible` / `readonly` / `required` modifier to
+                 be present as a <field> element in the view. The base
+                 form (2811) uses several x_studio_* status/flag fields
+                 in button modifiers (1263, 1303, 1365, 1456, 2199,
+                 1316, 1318, 1321, 1377) but Studio's own inherit
+                 doesn't inject them all. My inherit forces strict
+                 re-validation, which trips over the missing fields.
+                 Inject them all as invisible sentinels here. -->
+            <xpath expr="//button[@name='1305']" position="before">
+                <field name="x_studio_status" invisible="1"/>
+                <field name="x_studio_lines_copied" invisible="1"/>
+                <field name="x_studio_allocate_header_charges" invisible="1"/>
+                <field name="x_studio_create_header_charges" invisible="1"/>
+                <field name="x_studio_header_charges_allocated" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='1305']" position="replace">
+                <button type="action" name="3647" string="Vendor Dispatch" class="btn-primary" invisible="x_studio_status not in ['Consolidated']"/>
+            </xpath>
+        </data>
+      </field>
+    </record>
+
+  </data>
+</odoo>

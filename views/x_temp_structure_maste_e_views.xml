@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase E - 1 views for x_temp_structure_maste -->
+<odoo>
+  <data>
+    <record id="view_2705_imp_apply_formula_e" model="ir.ui.view">
+      <field name="name">IMP Apply Formula</field>
+      <field name="model">x_temp_structure_maste</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Apply Structure Formula">
+  <separator string="Applicable Indicators:"/>
+    <newline/>
+    <group>
+      <field name="x_name" options="{'no_open': true}" invisible="1" readonly="True"/>
+      <field name="x_studio_temp_structure_details_id" options="{'no_open': true}" invisible="1" readonly="True"/>
+    </group> 
+    <newline/>
+    <group>
+      <field name="x_studio_temp_structure_details" nolabel="1" colspan="2">
+        <tree string="Details" create="false" editable="bottom" delete="false"> 
+          <!-- STRIPPED field x_studio_charge_name not on x_temp_structure_maste -->
+          <!-- STRIPPED field x_studio_charge_group not on x_temp_structure_maste -->
+        </tree>
+      </field>
+    </group>
+    <newline/>
+    <footer>
+      <button name="1204" string="Apply" type="action" class="oe_highlight"/>
+      <button special="cancel" string="Cancel" class="oe_link"/>
+    </footer>
+</form>
+      </field>
+    </record>
+
+  </data>
+</odoo>

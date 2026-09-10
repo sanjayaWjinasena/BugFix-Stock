@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase E - 1 views for x_consignment_charge_l -->
+<odoo>
+  <data>
+    <record id="view_2939_default_search_view_for_x_consignment_charge_l_e" model="ir.ui.view">
+      <field name="name">Default search view for x_consignment_charge_l</field>
+      <field name="model">x_consignment_charge_l</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="x_name"/>
+  <separator/>
+  <filter string="Archived" name="archived_x_consignment_charge_l" domain="[['x_active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+
+  </data>
+</odoo>
