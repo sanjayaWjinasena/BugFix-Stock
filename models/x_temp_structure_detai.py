@@ -9,7 +9,7 @@ class XTempStructureDetai(models.Model):
     _description = 'Temp Structure Details'
 
     x_name = fields.Char(string='Name')
-    x_studio_charge_group = fields.Selection([], string='Charge Group')
+    x_studio_charge_group = fields.Selection([('None', 'None'), ('Charges', 'Charges'), ('Duty', 'Duty'), ('Taxes', 'Taxes'), ('Assessable Value', 'Assessable Value')], string='Charge Group')
     x_studio_charge_name = fields.Char(string='Charge Name')
     x_studio_select = fields.Boolean(string='Select')
     x_studio_sequence = fields.Integer(string='Sequence')

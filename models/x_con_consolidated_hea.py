@@ -18,6 +18,6 @@ class XConConsolidatedHea(models.Model):
     )
     x_studio_description = fields.Char(string='Description')
     x_studio_lines_copied = fields.Boolean(string='Lines Copied')
-    x_studio_pipeline_status_bar = fields.Selection([], string='Pipeline Status Bar')
+    x_studio_pipeline_status_bar = fields.Selection([('Draft', 'Draft'), ('Confirmed', 'Confirmed')], string='Pipeline Status Bar')
     x_studio_sequence = fields.Integer(string='Sequence')
-    x_studio_status = fields.Selection([], string='Status')
+    x_studio_status = fields.Selection([('Draft', 'Draft'), ('Confirmed', 'Confirmed')], string='Status')

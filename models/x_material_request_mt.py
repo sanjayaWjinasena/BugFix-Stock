@@ -20,7 +20,7 @@ class XMaterialRequestMt(models.Model):
     x_studio_department = fields.Char(string='Department')
     x_studio_image = fields.Binary(string='Image')
     x_studio_journal_type = fields.Char(string='Journal Type')
-    x_studio_kanban_state = fields.Selection([], string='Kanban State')
+    x_studio_kanban_state = fields.Selection([('normal', 'In Progress'), ('done', 'Ready'), ('blocked', 'Blocked')], string='Kanban State')
     x_studio_maintenance_request_no = fields.Char(string='Maintenance Request No')
     x_studio_many2one_field_32i_1j8i1f37m = fields.Many2one('hr.department', string='Department')
     x_studio_notes = fields.Html(string='Notes')
