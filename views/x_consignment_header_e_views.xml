@@ -79,7 +79,7 @@
                 <field name="x_studio_header_charges_allocated" invisible="1"/>
             </xpath>
             <xpath expr="//button[@name='1305']" position="replace">
-                <button type="action" name="3647" string="Vendor Dispatch" class="btn-primary" invisible="x_studio_status not in ['Consolidated']"/>
+                <!-- STRIPPED action button aid=3647 unresolvable -->
             </xpath>
         </data>
       </field>

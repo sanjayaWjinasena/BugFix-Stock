@@ -17,15 +17,15 @@
       <attribute name="invisible">((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or (x_studio_helpdesk_ticket_id != False))</attribute></xpath>
     
     <xpath expr="//header/button[@name='action_assign']" position="after">
-      <button type="action" name="1367" string="Update Consignment" class="btn-primary" invisible="(state == 'cancel') or (((x_studio_update_consignment == True) and (x_studio_pr_type == 'Import')) or ((x_studio_pr_type == False) or (x_studio_pr_type == 'Local')))"/>
+      <!-- STRIPPED action button aid=1367 unresolvable -->
     </xpath>
     
     <xpath expr="//header/button[@name='195']" position="before">
-      <button type="action" name="195" string="Dispatch" invisible="((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_fsm_task_done == False) and (x_studio_created_from_help_ticket != False)) or (((x_studio_fsm_task_done == False) and (x_studio_helpdesk_ticket_id != False)) or (((x_studio_cancelled == False) and ((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False))) or ((state != 'done') or ((x_studio_helpdesk_ticket_id == False) or ((x_studio_cash_full_payment_made == True) or ((x_studio_fully_paid_so == False) or (x_studio_picking_count == True)))))))))))"/>
+      <button type="action" name="%(stock.act_stock_return_picking)d" string="Dispatch" invisible="((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_fsm_task_done == False) and (x_studio_created_from_help_ticket != False)) or (((x_studio_fsm_task_done == False) and (x_studio_helpdesk_ticket_id != False)) or (((x_studio_cancelled == False) and ((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False))) or ((state != 'done') or ((x_studio_helpdesk_ticket_id == False) or ((x_studio_cash_full_payment_made == True) or ((x_studio_fully_paid_so == False) or (x_studio_picking_count == True)))))))))))"/>
     </xpath>
     
     <xpath expr="//header/button[@name='195'][2]" position="before">
-      <button type="action" name="1999" string="Retun Reject Reason" class="btn-primary" invisible="((x_studio_fsm_task_done == True) and (x_studio_created_from_help_ticket != False)) or (((x_studio_fsm_task_done == True) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or ((x_studio_helpdesk_ticket_id == False) or (x_studio_cancelled == True))))"/>
+      <!-- STRIPPED action button aid=1999 unresolvable -->
     </xpath>
     
     <!--xpath expr="//header/button[@name='button_validate']" position="before">
@@ -42,11 +42,11 @@
     
     <!--xpath expr="//header/button[@name='2207']" position="after"-->
     <xpath expr="//header/button[@name='button_validate']" position="after">
-      <button type="action" name="2448" string="Update Offset Account" class="btn-primary" invisible="(x_studio_offset_account_updated == True) or ((state != 'done') or (x_studio_movement_journal == False))"/>
+      <!-- STRIPPED action button aid=2448 unresolvable -->
     </xpath>
     
     <xpath expr="//header/button[@name='2448']" position="after">
-      <button type="action" name="2181" string="Validate Reject Reason" class="btn-primary" invisible="(x_studio_budget_created == True) or ((x_studio_quotation_type_2 != 'Project') or (x_studio_cancelled == True))"/>
+      <!-- STRIPPED action button aid=2181 unresolvable -->
     </xpath>
     
     <xpath expr="//header/button[@name='button_validate']" position="attributes">
