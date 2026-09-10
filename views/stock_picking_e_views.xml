@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- BugFix-Stock: Phase E - 1 views for stock.picking -->
-<odoo>
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- BugFix-Stock: Phase E - 1 views for stock.picking --><odoo>
   <data>
     <record id="view_4732_odoo_studio_stock_picking_form_button_e" model="ir.ui.view">
       <field name="name">Odoo Studio: stock.picking.form_button</field>
@@ -13,7 +12,7 @@
       <field name="arch" type="xml">
         <data>
     
-    <xpath expr="//header/button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
+    <xpath expr="//form" position="inside"><field name="x_studio_cancelled" invisible="1"/><field name="x_studio_cash_full_payment_made" invisible="1"/><field name="x_studio_created_from_help_ticket" invisible="1"/><field name="x_studio_factory_repair" invisible="1"/><field name="x_studio_fsm_task_done" invisible="1"/><field name="x_studio_fully_paid_so" invisible="1"/><field name="x_studio_helpdesk_ticket_id" invisible="1"/><field name="x_studio_picking_count" invisible="1"/><field name="x_studio_received_at_centre" invisible="1"/><field name="x_studio_task_status" invisible="1"/><field name="x_studio_valid_factory_repair" invisible="1"/></xpath><xpath expr="//header/button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
       <attribute name="invisible">((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or (x_studio_helpdesk_ticket_id != False))</attribute></xpath>
     
     <xpath expr="//header/button[@name='action_assign']" position="after">
