@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase F6 - 17 menus -->
+<odoo>
+  <menuitem id="menu_f6_location" name="Location" parent="BugFix-Stock.menu_1148_inventory_setup" action="BugFix-Stock.act_window_2470_location" sequence="1"/>
+  <menuitem id="menu_f6_material_request_mt" name="Material Request MT" parent="BugFix-Stock.menu_1745_material_management_module" action="BugFix-Stock.act_window_3384_material_request_mt" sequence="1"/>
+  <menuitem id="menu_f6_custom_duty" name="Custom Duty" parent="purchase.purchase_report_main" action="BugFix-Stock.action_2231_custom_duty" sequence="2"/>
+  <menuitem id="menu_f6_temp_consignment_line" name="Temp Consignment Line" action="BugFix-Stock.action_1356_temp_consignment_line" sequence="6"/>
+  <menuitem id="menu_f6_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_2861_temp_consignment_header" sequence="7"/>
+  <menuitem id="menu_f6_material_request_mt_stages" name="Material Request MT Stages" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3385_material_request_mt_stages"/>
+  <menuitem id="menu_f6_material_request_mt_tags" name="Material Request MT Tags" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3386_material_request_mt_tags"/>
+  <menuitem id="menu_f6_inventory_holding_days" name="Inventory Holding Days" parent="mrp.menu_mrp_root" action="BugFix-Stock.act_window_2225_inventory_holding_days" sequence="101"/>
+  <menuitem id="menu_f6_consignment_line" name="Consignment Line" action="BugFix-Stock.action_1257_purchase_invoice_line" sequence="12"/>
+  <menuitem id="menu_f6_setups" name="Setups" parent="purchase.menu_purchase_config" action="BugFix-Stock.act_window_1159_tariffmaster" sequence="0"/>
+  <menuitem id="menu_f6_material_request_test_stages" name="Material Request Test Stages" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3375_material_request_test_stages"/>
+  <menuitem id="menu_f6_material_request_test_tags" name="Material Request Test Tags" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3376_material_request_test_tags"/>
+  <menuitem id="menu_f6_material_request_test" name="Material Request Test" parent="BugFix-Stock.menu_1745_material_management_module" action="BugFix-Stock.act_window_3374_material_request_test" sequence="1"/>
+  <menuitem id="menu_f6_imports_01" name="Imports - 01" parent="purchase.menu_purchase_root" action="BugFix-Stock.action_1323_imports_01" sequence="4"/>
+  <menuitem id="menu_f6_tariffs_master" name="Tariffs Master" action="BugFix-Stock.act_window_1159_tariffmaster" sequence="0"/>
+  <menuitem id="menu_f6_tariff_master" name="Tariff Master" parent="purchase.menu_purchase_root" action="BugFix-Stock.act_window_2041_tariff_master" sequence="6"/>
+  <menuitem id="menu_f6_temp_consignment_header_1" name="Temp Consignment Header" parent="base.menu_administration" action="BugFix-Stock.action_2861_temp_consignment_header" sequence="111"/>
+</odoo>

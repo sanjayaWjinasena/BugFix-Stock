@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.69',
+    'version': '17.0.0.0.70',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -291,6 +291,7 @@
     # repair-test-101 before landing.
     'depends': ['base_setup', 'stock', 'stock_account', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
     'data': [
+        'data/menus_f6.xml',
         'data/server_actions_f5.xml',
         'data/window_actions_f4.xml',
         'data/defaults_f2.xml',
