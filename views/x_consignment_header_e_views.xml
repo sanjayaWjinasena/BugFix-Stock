@@ -1,17 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- BugFix-Stock: Phase E - 4 views for x_consignment_header -->
-<odoo>
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- BugFix-Stock: Phase E - 4 views for x_consignment_header --><odoo>
   <data>
-    <record id="view_2948_default_dashboard_view_for_ir_model_905_e" model="ir.ui.view">
-      <field name="name">Default dashboard view for ir.model(905,)</field>
-      <field name="model">x_consignment_header</field>
-      <field name="type">dashboard</field>
-      <field name="arch" type="xml">
-        <dashboard><view type="graph"/></dashboard>
-      </field>
-    </record>
-
-    <record id="view_2949_default_kanban_view_for_ir_model_905_e" model="ir.ui.view">
+    <!-- STRIPPED dashboard view id=view_2948_default_dashboard_view_for_ir_model_905_e --><record id="view_2949_default_kanban_view_for_ir_model_905_e" model="ir.ui.view">
       <field name="name">Default kanban view for ir.model(905,)</field>
       <field name="model">x_consignment_header</field>
       <field name="type">kanban</field>
