@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- BugFix-Stock: Defaults final - 6 defaults -->
+<!-- BugFix-Stock: Defaults final - 6 non-Selection -->
 <odoo noupdate="1">
   <record id="default_final_bugfix_stock_field_x_temp_structure_detai_x_active_true" model="ir.default">
     <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_detai__x_active"/>
