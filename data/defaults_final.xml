@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Defaults final - 6 defaults -->
+<odoo noupdate="1">
+  <record id="default_final_bugfix_stock_field_x_temp_structure_detai_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_detai__x_active"/>
+    <field name="json_value">true</field>
+  </record>
+  <record id="default_final_bugfix_stock_field_x_temp_structure_maste_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_maste__x_active"/>
+    <field name="json_value">true</field>
+  </record>
+  <record id="default_final_bugfix_stock_field_x_temp_con_consolidate_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_x_temp_con_consolidate__x_active"/>
+    <field name="json_value">true</field>
+  </record>
+  <record id="default_final_bugfix_stock_field_x_temp_con_conso_line_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_x_temp_con_conso_line__x_active"/>
+    <field name="json_value">true</field>
+  </record>
+  <record id="default_final_bugfix_stock_field_x_material_request_tes_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_active"/>
+    <field name="json_value">true</field>
+  </record>
+  <record id="default_final_bugfix_stock_field_x_material_request_mt_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_active"/>
+    <field name="json_value">true</field>
+  </record>
+</odoo>
