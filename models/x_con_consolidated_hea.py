@@ -6,7 +6,7 @@ from odoo import fields, models
 class XConConsolidatedHea(models.Model):
     _name = 'x_con_consolidated_hea'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'X Con Consolidated Hea'
+    _description = 'Con. Consolidated Header'
 
     x_active = fields.Boolean(string='Active')
     x_name = fields.Char(string='Con. Reference')

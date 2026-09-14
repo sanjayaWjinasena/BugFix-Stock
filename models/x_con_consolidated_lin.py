@@ -6,7 +6,7 @@ from odoo import fields, models
 class XConConsolidatedLin(models.Model):
     _name = 'x_con_consolidated_lin'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'X Con Consolidated Lin'
+    _description = 'Con. Consolidated Line'
 
     x_active = fields.Boolean(string='Active')
     x_name = fields.Char(string='Name')

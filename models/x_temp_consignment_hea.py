@@ -6,7 +6,7 @@ from odoo import fields, models
 class XTempConsignmentHea(models.Model):
     _name = 'x_temp_consignment_hea'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'X Temp Consignment Hea'
+    _description = 'Temp Consignment Header'
 
     x_active = fields.Boolean(string='Active')
     x_name = fields.Char(string='Name')

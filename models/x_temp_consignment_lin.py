@@ -6,7 +6,7 @@ from odoo import fields, models
 class XTempConsignmentLin(models.Model):
     _name = 'x_temp_consignment_lin'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'X Temp Consignment Lin'
+    _description = 'Temp Consignment Line'
 
     x_active = fields.Boolean(string='Active')
     x_currency_id = fields.Many2one('res.currency', string='Currency')

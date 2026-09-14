@@ -6,7 +6,7 @@ from odoo import fields, models
 class XTariffmaster(models.Model):
     _name = 'x_tariffmaster'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'X Tariffmaster'
+    _description = 'TariffMaster'
 
     x_active = fields.Boolean(string='Active')
     x_name = fields.Char(string='Tarrif Code')
