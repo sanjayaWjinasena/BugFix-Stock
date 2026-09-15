@@ -26,7 +26,12 @@ class XMaterialRequestTes(models.Model):
     x_studio_user_id = fields.Many2one('res.users', string='Responsible')
     x_studio_value = fields.Monetary(string='Value', currency_field='x_studio_currency_id')
 
-    # TODO: skipped fields (unresolvable comodel or O2M inverse):
-    #   x_material_request_tes_line_ids_661d3 (one2many rel='x_material_request_tes_line_3301b' not safe)
-    #   x_studio_stage_id (many2one rel='x_material_request_tes_stage' not safe)
-    #   x_studio_tag_ids (many2many rel='x_material_request_tes_tag' not safe)
+    # Fields gap D.2: O2M inverse verified live on dev.
+    x_material_request_tes_line_ids_661d3 = fields.One2many(
+        'x_material_request_tes_line_3301b',
+        'x_material_request_tes_id',
+        string='New Lines',
+    )
+    # Still deferred (comodels not on dev):
+    #   x_studio_stage_id (many2one rel='x_material_request_tes_stage')
+    #   x_studio_tag_ids (many2many rel='x_material_request_tes_tag')

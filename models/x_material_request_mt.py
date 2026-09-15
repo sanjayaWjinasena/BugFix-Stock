@@ -39,6 +39,9 @@ class XMaterialRequestMt(models.Model):
     x_studio_user_id = fields.Many2one('res.users', string='Responsible')
     x_studio_value = fields.Monetary(string='Value', currency_field='x_studio_currency_id')
     x_studio_warehouse = fields.Char(string='Warehouse')
-
-    # TODO: skipped fields (unresolvable comodel or O2M inverse):
-    #   x_material_request_mt_line_ids_7737e (one2many rel='x_material_request_mt_line_9a011' not safe)
+    # Fields gap D.2: O2M inverse verified live on dev (v17.0.0.0.78+).
+    x_material_request_mt_line_ids_7737e = fields.One2many(
+        'x_material_request_mt_line_9a011',
+        'x_material_request_mt_id',
+        string='New Lines',
+    )

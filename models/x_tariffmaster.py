@@ -13,4 +13,9 @@ class XTariffmaster(models.Model):
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_description = fields.Char(string='Description')
     x_studio_sequence = fields.Integer(string='Sequence')
-    # TODO: x_studio_tariff_master_ids = fields.One2many('x_tariff_date', <inverse>, string='Date Range')
+    # Fields gap D.2: O2M inverse verified live on dev.
+    x_studio_tariff_master_ids = fields.One2many(
+        'x_tariff_date',
+        'x_studio_tariff_master_ids',
+        string='Date Range',
+    )
