@@ -39,9 +39,6 @@ class XMaterialRequestMt(models.Model):
     x_studio_user_id = fields.Many2one('res.users', string='Responsible')
     x_studio_value = fields.Monetary(string='Value', currency_field='x_studio_currency_id')
     x_studio_warehouse = fields.Char(string='Warehouse')
-    # Fields gap D.2: O2M inverse verified live on dev (v17.0.0.0.78+).
-    x_material_request_mt_line_ids_7737e = fields.One2many(
-        'x_material_request_mt_line_9a011',
-        'x_material_request_mt_id',
-        string='New Lines',
-    )
+    # Fields gap D.2 REVERT v0.81: O2M inverse causes registry-setup KeyError
+    # on module-load-order edge cases (comodel is in BugFix-Studio-Misc,
+    # cross-module _fields lookup fragile). Deferred as permanent skip.
