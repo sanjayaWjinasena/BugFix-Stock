@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Deactivate misplaced root menus. CDB is Known Good; -->
+<!-- these were either duplicates of nested menus or Studio scratch never on CDB. -->
+<odoo>
+  <data>
+    <!-- Tariffs Master (Studio scratch — not on CDB) -->
+    <record id="menu_f6_tariffs_master" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <!-- Consignment Line (Studio scratch — not on CDB) -->
+    <record id="menu_f6_consignment_line" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+  </data>
+</odoo>
