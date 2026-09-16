@@ -48,7 +48,7 @@
     <field name="state">object_write</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>
     <field name="value">Approved</field>
   </record>
 
@@ -58,7 +58,7 @@
     <field name="state">object_write</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>
     <field name="value">Rejected</field>
   </record>
 
@@ -68,7 +68,7 @@
     <field name="state">object_write</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>
     <field name="value">To Be Approved</field>
   </record>
 
@@ -78,7 +78,7 @@
     <field name="state">object_write</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="update_field_id" ref="BugFix-Purchase.field_x_material_request__x_studio_selection_field_BupKG"/>
+    <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>
     <field name="value">Draft</field>
   </record>
 
@@ -386,43 +386,80 @@ record.write({'x_studio_selection_field_BupKG': 'Confirmed'})
     <field name="state">code</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="code"><![CDATA[valid_req_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)],limit=1)
-if not valid_req_lines:
-  raise UserError('There are no valid item lines to transfer.')
-  
-dest_loc = env['stock.location'].search([('usage', '=', 'inventory'),('complete_name', '=', 'Virtual Locations/MJ')],limit=1)
-if dest_loc:
-  opt_type = env['stock.picking.type'].search([('default_location_src_id', '=', record.x_studio_warehouse.id),('default_location_dest_id', '=', dest_loc.id),('code', '=', 'outgoing')],limit=1)
-  if opt_type:
-    prod_move = env['stock.picking'].create({'x_studio_created_from_material_request_no':record.id,'picking_type_id':opt_type.id,'location_id':record.x_studio_warehouse.id,'location_dest_id':dest_loc.id,'x_studio_journal_type':record.x_studio_journal_type.id})
-     
-    update_prod_move = env['stock.picking'].search([('id', '=', prod_move.id)],limit=1)
-    if update_prod_move:
-      valid_req_lines_2 = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)])
-      if valid_req_lines_2:
-        for valid_lines in valid_req_lines_2: 
-          stock_move = env['stock.move'].create({'picking_id':update_prod_move.id,'name':('New Move:'+valid_lines.x_studio_product.name),'reference':update_prod_move.name,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'product_uom_qty':valid_lines.x_studio_qty_to_transfer,'product_uom':valid_lines.x_studio_product.uom_id.id,'state':'draft'}) 
-          stock_move_line = env['stock.move.line'].create({'move_id':stock_move.id,'picking_id':update_prod_move.id,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'product_uom_id':valid_lines.x_studio_product.uom_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'qty_done':valid_lines.x_studio_qty_to_transfer}) 
-
-          #cal = 0
-          #if valid_lines.x_studio_available_qty_to_transfer
-          #cal = 
-          valid_lines.write({'x_studio_qty_transfered': (valid_lines.x_studio_qty_transfered + valid_lines.x_studio_qty_to_transfer), 'x_studio_qty_to_transfer': 0}) #valid_lines.x_studio_available_qty_to_transfer 
-    action = {
-              'name': 'RFQ',
-              'domain': [('id', '=', prod_move.id)],
-              'type': 'ir.actions.act_window',
-              'res_model': 'stock.picking',
-              'view_mode': 'tree,form',
-              'view_type': 'form',
-              'view_id': False,
-              'context': False,
-              } 
-  else:
-    raise UserError('There is no valid operation type has been setup.')  
-else:
-  raise UserError('There is no valid Location has been setup.')  
-
+    <field name="code"><![CDATA[valid_req_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)],limit=1)
+
+if not valid_req_lines:
+
+  raise UserError('There are no valid item lines to transfer.')
+
+  
+
+dest_loc = env['stock.location'].search([('usage', '=', 'inventory'),('complete_name', '=', 'Virtual Locations/MJ')],limit=1)
+
+if dest_loc:
+
+  opt_type = env['stock.picking.type'].search([('default_location_src_id', '=', record.x_studio_warehouse.id),('default_location_dest_id', '=', dest_loc.id),('code', '=', 'outgoing')],limit=1)
+
+  if opt_type:
+
+    prod_move = env['stock.picking'].create({'x_studio_created_from_material_request_no':record.id,'picking_type_id':opt_type.id,'location_id':record.x_studio_warehouse.id,'location_dest_id':dest_loc.id,'x_studio_journal_type':record.x_studio_journal_type.id})
+
+     
+
+    update_prod_move = env['stock.picking'].search([('id', '=', prod_move.id)],limit=1)
+
+    if update_prod_move:
+
+      valid_req_lines_2 = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)])
+
+      if valid_req_lines_2:
+
+        for valid_lines in valid_req_lines_2: 
+
+          stock_move = env['stock.move'].create({'picking_id':update_prod_move.id,'name':('New Move:'+valid_lines.x_studio_product.name),'reference':update_prod_move.name,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'product_uom_qty':valid_lines.x_studio_qty_to_transfer,'product_uom':valid_lines.x_studio_product.uom_id.id,'state':'draft'}) 
+
+          stock_move_line = env['stock.move.line'].create({'move_id':stock_move.id,'picking_id':update_prod_move.id,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'product_uom_id':valid_lines.x_studio_product.uom_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'qty_done':valid_lines.x_studio_qty_to_transfer}) 
+
+
+
+          #cal = 0
+
+          #if valid_lines.x_studio_available_qty_to_transfer
+
+          #cal = 
+
+          valid_lines.write({'x_studio_qty_transfered': (valid_lines.x_studio_qty_transfered + valid_lines.x_studio_qty_to_transfer), 'x_studio_qty_to_transfer': 0}) #valid_lines.x_studio_available_qty_to_transfer 
+
+    action = {
+
+              'name': 'RFQ',
+
+              'domain': [('id', '=', prod_move.id)],
+
+              'type': 'ir.actions.act_window',
+
+              'res_model': 'stock.picking',
+
+              'view_mode': 'tree,form',
+
+              'view_type': 'form',
+
+              'view_id': False,
+
+              'context': False,
+
+              } 
+
+  else:
+
+    raise UserError('There is no valid operation type has been setup.')  
+
+else:
+
+  raise UserError('There is no valid Location has been setup.')  
+
+
+
 ]]></field>
   </record>
 

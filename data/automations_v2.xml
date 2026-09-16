@@ -63,7 +63,7 @@
     <field name="active" eval="True"/>
     <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
     <field name="trigger">on_create_or_write</field>
-    <field name="trigger_field_ids" eval="[(6, 0, [ref('BugFix-Purchase.field_x_material_request__create_date')])]"/>
+    <field name="trigger_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_x_material_request__create_date')])]"/>
     <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1563_material_req_gen')])]"/>
   </record>
 
