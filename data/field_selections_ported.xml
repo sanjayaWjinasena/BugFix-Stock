@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <odoo>
   <data noupdate="1">
     <record id="sel_stock_picking_x_studio_quotation_type_2_Sales" model="ir.model.fields.selection">
