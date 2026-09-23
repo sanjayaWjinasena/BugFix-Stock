@@ -13,6 +13,7 @@ from . import x_consignment_charge_l
 from . import x_consignment_header
 from . import x_consignment_line
 from . import x_journal_types
+from . import x_mr_config
 from . import x_material_request
 from . import x_misc_charge_codes
 # x_sales_report_type sentinel removed: Jinasena_Masterdata_Reporting
