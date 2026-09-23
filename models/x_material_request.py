@@ -46,8 +46,7 @@ class XMaterialRequest(models.Model):
         string='Material Request ref count',
         compute='_compute_related_x_purchase_request_count', store=False)
 
-    @api.depends('x_studio_done_stage_updated', 'x_studio_request_lines',
-                 'x_studio_request_lines.x_studio_transfer_remainder')
+    @api.depends('x_studio_done_stage_updated')
     def _compute_done(self):
         # Ported from CDB Studio compute. Side-effects (writing status +
         # done_stage_updated) preserved verbatim — original Studio behavior
