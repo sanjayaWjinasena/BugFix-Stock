@@ -11,5 +11,37 @@
     <record id="menu_f6_consignment_line" model="ir.ui.menu">
       <field name="active" eval="False"/>
     </record>
+
+    <!-- ============================================================
+         v0.0.96 Purchase-app cleanup companion to BugFix-Purchase v161.
+         Kill Stock-owned menus that duplicate BugFix-Purchase-owned
+         twins OR are misplaced at Purchase-app root on Dev.
+    ============================================================ -->
+
+    <!-- Reporting > Custom Duty duplicate (menu_1075_* is the CDB-matching twin) -->
+    <record id="menu_f6_custom_duty" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+
+    <!-- 'Imports - 01' misplaced root (BugFix-Studio-Misc.menu_f6r3_purchase_imports
+         is the correct Imports dropdown; this was an old Stock port stub) -->
+    <record id="menu_f6_imports_01" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+
+    <!-- 'Tariff Master' misplaced root (CDB has Tariff Master nested inside
+         Configuration > Imports Configurations > Tariff subtree) -->
+    <record id="menu_f6_tariff_master" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+
+    <!-- 'Setups' — huge Studio-routing extract subtree under Configuration
+         with no counterpart on CDB. Deactivating the root hides the whole
+         subtree (Import Charges, Structures, Tariffs, Delivery Terms,
+         Charges, Misc Charges, Imports Ledger Setup, Custom Currency Rates
+         and 15+ deeper leaves). -->
+    <record id="menu_f6_setups" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
   </data>
 </odoo>
