@@ -43,5 +43,16 @@
     <record id="menu_f6_setups" model="ir.ui.menu">
       <field name="active" eval="False"/>
     </record>
+
+    <!-- ============================================================
+         v0.0.97 Inventory-app cleanup: kill 'Inventory > Inventory
+         Setup > Location' duplicate owned by this repo. menu_1150_
+         location (from_routing, action_2470_location) is the CDB-
+         matching twin — keep. menu_f6_location (act_window_2470_
+         location, older f6 stub, same parent + name) is the dup.
+    ============================================================ -->
+    <record id="menu_f6_location" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
   </data>
 </odoo>
