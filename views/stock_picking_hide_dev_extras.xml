@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Hide stock.picking fields/buttons present on Dev but absent on CDB.
+
+    All targets come from Odoo modules that Dev has installed but CDB
+    doesn't (stock_picking_batch, mrp_subcontracting, sale_amazon, l10n_in).
+    Functionality preserved in DB; only UI is hidden. Reversal: delete
+    this view record.
+
+    Assumption: the source modules are installed on the target env
+    (matches Jinasena Dev + planned prod state). If any is absent, its
+    corresponding xpath fails at install — remove that xpath then.
+
+    Priority 200 so our attribute overrides run AFTER lower-priority
+    addon inherits that add these fields/buttons.
+
+    All 10 xpaths pre-flighted against Dev's composed arch (1 unique
+    match each; action_record_components has 2 siblings which Odoo
+    dedupes on name).
+
+    Kapila group-parity check (2026-09-24): none of these fields/buttons
+    are gated by CDB-missing groups — they are truly module-add-on
+    artefacts, not permission drift.
+-->
+<odoo>
+  <record id="view_stock_picking_form_hide_dev_extras" model="ir.ui.view">
+    <field name="name">stock.picking.form.hide.dev.extras</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="priority">200</field>
+    <field name="arch" type="xml">
+
+      <!-- stock_picking_batch: 1 field + 1 smart button -->
+      <xpath expr="//field[@name='batch_id']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//button[@name='action_view_batch']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+
+      <!-- mrp_subcontracting: 3 fields + 3 buttons -->
+      <xpath expr="//field[@name='is_subcontract']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//field[@name='show_subcontracting_details_visible']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//field[@name='subcontracting_source_purchase_count']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//button[@name='action_record_components']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//button[@name='action_show_subcontract_details']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//button[@name='action_view_subcontracting_source_purchase']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+
+      <!-- sale_amazon: 1 button -->
+      <xpath expr="//button[@name='action_retry_amazon_sync']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+
+      <!-- l10n_in: 1 field -->
+      <xpath expr="//field[@name='eway_bill_number']" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </xpath>
+
+    </field>
+  </record>
+</odoo>
