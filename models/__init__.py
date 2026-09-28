@@ -54,3 +54,4 @@ from . import x_temp_consignment_hea_gap
 from . import x_temp_consignment_lin_gap
 from . import x_temp_structure_detai_gap
 from . import x_temp_structure_maste_gap
+from . import product_product
