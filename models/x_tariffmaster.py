@@ -44,23 +44,28 @@ class XTariffmaster(models.Model):
     x_studio_description = fields.Char(string='Description')
     x_studio_sequence = fields.Integer(string='Sequence')
 
-    # Note: shipped as computed Many2many (not One2many) because
-    # `fields.One2many` without an `inverse_name` positional arg gets
-    # relation='_unknown' during setup, and specifying inverse_name
-    # triggers the setup_nonrelated KeyError from v0.0.100. Many2many
-    # avoids both problems — it doesn't need inverse_name, resolves
-    # the comodel cleanly, and the form widget renders it as a list
-    # of x_tariff_date records exactly like the O2M would.
-    x_studio_tariff_master_ids = fields.Many2many(
-        'x_tariff_date',
-        string='Date Range',
-        compute='_compute_x_studio_tariff_master_ids',
-        store=False,
-    )
-
-    def _compute_x_studio_tariff_master_ids(self):
-        Date = self.env['x_tariff_date']
-        for rec in self:
-            rec.x_studio_tariff_master_ids = Date.search([
-                ('x_studio_tariff_master_ids', '=', rec.id),
-            ])
+    # x_studio_tariff_master_ids field NOT shipped — permanent skip.
+    #
+    # Attempts made (all documented in commit history):
+    #   v0.0.28: skipped from initial port (documented naming collision)
+    #   v0.0.100: real Python O2M with inverse_name → KeyError at
+    #             setup_nonrelated (line 4458) — same as v0.0.28 predicted
+    #   v0.0.102: One2many(compute=/store=False) — Odoo can't resolve
+    #             comodel without inverse_name; ir.model.fields row
+    #             gets relation='_unknown' permanently
+    #   v0.0.103: switched to Many2many(compute=/store=False) — same
+    #             _unknown persistence; ORM refuses to write comodel
+    #             record instances to a field with _unknown relation
+    #   v0.0.104: field removed entirely (this version); the audit
+    #             generator MANUAL_OVERRIDES marks this as wont_ship
+    #             with reason "CDB naming self-conflict + no pure-code
+    #             recovery path on envs where earlier port attempts
+    #             left a stale ir.model.fields row"
+    #
+    # The stale ir.model.fields row (state='base', relation='_unknown')
+    # on Dev is inert — no Python backing, no widget references, no
+    # queries hit it. It will be cleaned up automatically if BugFix-Stock
+    # is ever uninstalled+reinstalled (dropping all its ir.model.fields
+    # state cleanly). New environments installing from v0.0.104 fresh
+    # will never see the row — install ships without the field, matching
+    # the audit's wont_ship classification.
