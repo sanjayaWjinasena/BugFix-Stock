@@ -1,27 +1,36 @@
 # -*- coding: utf-8 -*-
 """x_tariffmaster — Studio custom model port.
 
-v0.0.100 tried to ship the O2M `x_studio_tariff_master_ids` as a real
-Python fields.One2many. Odoo crashed with the same KeyError as
-v0.0.28 predicted:
+The Studio O2M `x_studio_tariff_master_ids` on this model shares its
+name with the inverse M2O on the comodel `x_tariff_date`. Shipping
+that O2M as a real stored One2many crashes registry setup with:
 
   File "/home/odoo/src/odoo/odoo/fields.py", line 4458, in setup_nonrelated
       invf = comodel._fields[self.inverse_name]
   KeyError: 'x_studio_tariff_master_ids'
 
-Reason: when Odoo's setup_nonrelated processes the O2M, it looks up
-its inverse M2O on the comodel by `comodel._fields[inverse_name]`.
-The inverse_name is `x_studio_tariff_master_ids` — SAME NAME as the
-O2M itself. Odoo's field registry stores field-name uniqueness per
-model, but the cross-model self-reference through an identical name
-runs a lookup ordering that fails when the M2O is still mid-setup
-in the same registry pass.
+Odoo's setup_nonrelated does `comodel._fields[inverse_name]` — when
+inverse_name matches the O2M's own name, the lookup hits an internal
+resolution collision (v0.0.28 first documented this, v0.0.100 confirmed
+the same KeyError). Different modules do not help — registry setup
+runs one pass per-model across ALL classes.
 
-Reverted in v0.0.101 to unbreak the server. The O2M is deferred to
-a future Plan B (see notes) — a compute=/store=False variant that
-bypasses setup_nonrelated by not registering an inverse_name at all.
+v0.0.102 fix (Path A): ship the O2M as compute=/store=False. No
+inverse_name is declared, so setup_nonrelated never runs for this
+field, no collision. The compute method searches x_tariff_date for
+rows whose M2O points back at this master.
+
+Trade-offs vs stored O2M:
+  + Read-only display works — form widget shows the linked date ranges
+  + Portable to new environments as pure Python (no destructive rename
+    of the M2O column on x_tariff_date, no data migration needed)
+  - No inline-create via the O2M widget — users add x_tariff_date rows
+    via that model's own list/form + set the M2O manually
+  - Field is not searchable/filterable in the standard sense (compute
+    result is not stored) — for filtering on x_tariff_date presence,
+    use the M2O side directly.
 """
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class XTariffmaster(models.Model):
@@ -34,6 +43,17 @@ class XTariffmaster(models.Model):
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_description = fields.Char(string='Description')
     x_studio_sequence = fields.Integer(string='Sequence')
-    # O2M x_studio_tariff_master_ids — see docstring for the naming-
-    # collision analysis. Ship deferred until we validate the compute=
-    # /store=False variant on a scratch env.
+
+    x_studio_tariff_master_ids = fields.One2many(
+        comodel_name='x_tariff_date',
+        string='Date Range',
+        compute='_compute_x_studio_tariff_master_ids',
+        store=False,
+    )
+
+    def _compute_x_studio_tariff_master_ids(self):
+        Date = self.env['x_tariff_date']
+        for rec in self:
+            rec.x_studio_tariff_master_ids = Date.search([
+                ('x_studio_tariff_master_ids', '=', rec.id),
+            ])
