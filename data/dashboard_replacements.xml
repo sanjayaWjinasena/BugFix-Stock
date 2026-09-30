@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Odoo 17 replacement for Odoo 15 Studio's <dashboard> view type
+     (dropped in Odoo 17). Ships an act_window with view_mode="graph,pivot"
+     so users can toggle to graph + pivot aggregations. Odoo auto-generates
+     the graph/pivot views from model fields; no explicit view records needed.
+
+     Replaces CDB view 2948 (studio_customization.default_dashboard_vi_7c1f5982...). -->
+<odoo>
+  <data noupdate="1">
+
+    <record id="action_x_consignment_header_analysis" model="ir.actions.act_window">
+      <field name="name">Consignment Header Analysis</field>
+      <field name="res_model">x_consignment_header</field>
+      <field name="view_mode">graph,pivot</field>
+      <field name="help" type="html">
+        <p>Aggregated view of consignment headers (graph + pivot).</p>
+        <p>Replaces the Odoo 15 Studio dashboard view that Odoo 17 dropped.</p>
+      </field>
+    </record>
+
+  </data>
+</odoo>
