@@ -18,5 +18,11 @@
       </field>
     </record>
 
+    <menuitem id="menu_x_consignment_header_analysis"
+              name="Consignment Header Analysis"
+              parent="stock.menu_warehouse_report"
+              action="action_x_consignment_header_analysis"
+              sequence="90"/>
+
   </data>
 </odoo>
