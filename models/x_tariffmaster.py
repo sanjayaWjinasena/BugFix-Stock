@@ -44,8 +44,15 @@ class XTariffmaster(models.Model):
     x_studio_description = fields.Char(string='Description')
     x_studio_sequence = fields.Integer(string='Sequence')
 
-    x_studio_tariff_master_ids = fields.One2many(
-        comodel_name='x_tariff_date',
+    # Note: shipped as computed Many2many (not One2many) because
+    # `fields.One2many` without an `inverse_name` positional arg gets
+    # relation='_unknown' during setup, and specifying inverse_name
+    # triggers the setup_nonrelated KeyError from v0.0.100. Many2many
+    # avoids both problems — it doesn't need inverse_name, resolves
+    # the comodel cleanly, and the form widget renders it as a list
+    # of x_tariff_date records exactly like the O2M would.
+    x_studio_tariff_master_ids = fields.Many2many(
+        'x_tariff_date',
         string='Date Range',
         compute='_compute_x_studio_tariff_master_ids',
         store=False,
