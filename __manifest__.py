@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.109',
+    'version': '17.0.0.0.110',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -349,8 +349,7 @@
         'views/stock_picking_hide_dev_extras.xml',
         'data/dashboard_replacements.xml',
     ],
-    'post_init_hook': 'post_init_hook',
-    'installable': True,
+'installable': True,
     'auto_install': False,
     'application': True,
 }
