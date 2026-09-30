@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- BugFix-Stock: 6 previously-DROPPED ir.default records now re-shippable (selection options ported since original drop) -->
+<!-- BugFix-Stock: 6 ir.default records ported from CDB. -->
 <odoo>
   <data noupdate="1">
 
@@ -23,13 +23,13 @@
       <field name="json_value">"Air"</field>
     </record>
 
-    <record id="default_206_x_con_consolidated_hea_x_studio_status" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_studio_status"/>
+    <record id="default_144_x_consignment_header_x_studio_status" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_status"/>
       <field name="json_value">"Draft"</field>
     </record>
 
-    <record id="default_144_x_consignment_header_x_studio_status" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_status"/>
+    <record id="default_206_x_con_consolidated_hea_x_studio_status" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_studio_status"/>
       <field name="json_value">"Draft"</field>
     </record>
   </data>
