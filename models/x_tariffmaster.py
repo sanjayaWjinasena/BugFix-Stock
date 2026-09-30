@@ -1,22 +1,25 @@
 # -*- coding: utf-8 -*-
 """x_tariffmaster — Studio custom model port.
 
-CDB has an O2M `x_studio_tariff_master_ids` on this model whose inverse
-M2O on x_tariff_date shares the same name (`x_studio_tariff_master_ids`).
-That naming collision made the v0.0.28 port punt on the O2M with the
-comment "would need renaming the inverse — destructive". However:
+v0.0.100 tried to ship the O2M `x_studio_tariff_master_ids` as a real
+Python fields.One2many. Odoo crashed with the same KeyError as
+v0.0.28 predicted:
 
-    - The M2O on x_tariff_date is defined by BugFix-Purchase (loaded in
-      a different pass from BugFix-Stock).
-    - By the time Odoo's setup_nonrelated processes this O2M, the M2O
-      is already fully registered in x_tariff_date._fields.
-    - The O2M inverse lookup (`comodel._fields[inverse_name]`) finds
-      the M2O by name, and since both fields correctly reference each
-      other's comodel, the pair is valid.
+  File "/home/odoo/src/odoo/odoo/fields.py", line 4458, in setup_nonrelated
+      invf = comodel._fields[self.inverse_name]
+  KeyError: 'x_studio_tariff_master_ids'
 
-Ship as a real stored Python O2M (state='base', matches everywhere-else
-port convention). Fallback to `compute=/store=False` only if the setup
-still errors — this variant is documented in the v0.0.99 port notes.
+Reason: when Odoo's setup_nonrelated processes the O2M, it looks up
+its inverse M2O on the comodel by `comodel._fields[inverse_name]`.
+The inverse_name is `x_studio_tariff_master_ids` — SAME NAME as the
+O2M itself. Odoo's field registry stores field-name uniqueness per
+model, but the cross-model self-reference through an identical name
+runs a lookup ordering that fails when the M2O is still mid-setup
+in the same registry pass.
+
+Reverted in v0.0.101 to unbreak the server. The O2M is deferred to
+a future Plan B (see notes) — a compute=/store=False variant that
+bypasses setup_nonrelated by not registering an inverse_name at all.
 """
 from odoo import fields, models
 
@@ -31,10 +34,6 @@ class XTariffmaster(models.Model):
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_description = fields.Char(string='Description')
     x_studio_sequence = fields.Integer(string='Sequence')
-    # O2M inverse to x_tariff_date via its M2O of the same name (Studio
-    # convention — see docstring for the naming-collision analysis).
-    x_studio_tariff_master_ids = fields.One2many(
-        'x_tariff_date',
-        'x_studio_tariff_master_ids',
-        string='Date Range',
-    )
+    # O2M x_studio_tariff_master_ids — see docstring for the naming-
+    # collision analysis. Ship deferred until we validate the compute=
+    # /store=False variant on a scratch env.
