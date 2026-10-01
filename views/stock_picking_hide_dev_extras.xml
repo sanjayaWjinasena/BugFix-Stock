@@ -30,13 +30,12 @@
     <field name="priority">200</field>
     <field name="arch" type="xml">
 
-      <!-- stock_picking_batch: 1 field + 1 smart button -->
-      <xpath expr="//field[@name='batch_id']" position="attributes">
-        <attribute name="invisible">1</attribute>
-      </xpath>
-      <xpath expr="//button[@name='action_view_batch']" position="attributes">
-        <attribute name="invisible">1</attribute>
-      </xpath>
+      <!-- stock_picking_batch: xpaths REMOVED in v0.0.115. The module was
+           uninstalled in v0.0.114 (CDB has it uninstalled too — see the
+           migration notes there). batch_id + action_view_batch no longer
+           exist in the composed arch, so these xpaths crashed view parsing
+           on upgrade. Reinstating stock_picking_batch would also require
+           re-adding these xpaths. -->
 
       <!-- mrp_subcontracting: 3 fields + 3 buttons -->
       <xpath expr="//field[@name='is_subcontract']" position="attributes">
