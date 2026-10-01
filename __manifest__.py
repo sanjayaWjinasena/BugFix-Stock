@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.115',
+    'version': '17.0.0.0.116',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -309,6 +309,13 @@
         'data/record_rules.xml',
         'data/filters.xml',
         'data/sequences.xml',
+        # v0.0.116: hide_dev_extras MUST load before stock_studio_ported_v3.
+        # When _v3 loads, Odoo re-validates every inheritor of
+        # stock.view_picking_form. If hide_dev_extras's DB arch is still
+        # the old one (with batch_id xpath), validation crashes because
+        # stock_picking_batch is uninstalled (v0.0.114). Load hide_dev_extras
+        # first so its arch is refreshed before any cousin validation runs.
+        'views/stock_picking_hide_dev_extras.xml',
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
@@ -346,7 +353,8 @@
         'data/menus_from_routing.xml',
         'data/menus_f6.xml',
         'data/menus_root_deactivate.xml',
-        'views/stock_picking_hide_dev_extras.xml',
+        # 'views/stock_picking_hide_dev_extras.xml' moved up to load before
+        # stock_studio_ported_v3.xml (see note above).
         'data/dashboard_replacements.xml',
     ],
     'post_init_hook': 'post_init_hook',
