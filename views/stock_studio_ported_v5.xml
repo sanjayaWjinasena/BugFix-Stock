@@ -23,6 +23,8 @@
     resolves on the model.
 -->
 <odoo>
+  <!-- v118: x_studio_delivery_term / x_studio_structure_name (x2) / x_studio_payment_method on the
+       x_consignment_header form moved to BugFix-Purchase views/upstream_link_fields_views.xml. -->
 
     <record id="ported_view_2811_default_form_view_for_x_consignment_header" model="ir.ui.view">
         <field name="name">Default form view for x_consignment_header</field>
@@ -108,7 +110,6 @@
                 <field name="x_studio_description" string="Description" invisible="1" readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_supplier_id" string="Vendor" options="{&quot;no_create&quot;:true}" required="1" readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_currency_id" required="1" readonly="x_studio_status != 'Draft'"/>
-                <field name="x_studio_delivery_term" string="Delivery Term" required="1" help="Delivery Term or the Incoterm." readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_supplier_invoice_number" string="Supplier's Invoice No (Bill Reference)" required="1" help="Invoice number of the main supplier's invoice." readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_invoice_date" string="Supplier's Invoice Date (Bill Date)" required="1" readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_shipment_start_date" readonly="x_studio_status != 'Draft'"/>
@@ -160,10 +161,8 @@
                         <field name="x_studio_amount"/>
                         <field optional="show" name="x_studio_original_delivery_remainder" string="Original Delivery Remainder" column_invisible="1"/>
                         <field name="x_studio_exchange_rate" string="Exchange Rate" force_save="True" readonly="1" column_invisible="1"/>
-                        <field name="x_studio_structure_name" string="Structure Name" column_invisible="1"/>
                         <field name="x_studio_allocate_amount" string="Allocate Amount" force_save="True" readonly="1" column_invisible="1"/>
                         <field name="x_studio_cost_allocation_method" string="Cost Allocation Method" column_invisible="1"/>
-                        <field name="x_studio_payment_method" string="Payment Method" force_save="True" readonly="1" optional="hide"/>
                         <field name="x_studio_stock_move_id" string="Stock Move Id" force_save="True" readonly="1" column_invisible="1"/>
                         <field name="x_studio_valid_tax" string="Valid Tax" column_invisible="1"/>
                         <field name="x_studio_valid_duty" string="Valid Duty" column_invisible="1"/>
@@ -226,7 +225,6 @@
                   <page string="Import Details" name="studio_page_EFr4K">
                     <group name="studio_group_EFr4K">
                       <group name="studio_group_EFr4K_left" string="Import Details">
-                        <field name="x_studio_structure_name" string="Structure Name" options="{&quot;no_create&quot;:true}" help="Imports Structure which contains formulas for duty and tax calculation of each item." readonly="x_studio_create_header_charges == False"/>
                         <field name="x_studio_custom_cleared_date" string="Custom Cleared Date" help="Date of custom clearance." readonly="x_studio_create_header_charges == False"/>
                       </group>
                     </group>

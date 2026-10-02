@@ -3,6 +3,11 @@
 from odoo import fields, models
 
 
+# NOTE (v0.0.118): the Many2one(s) x_studio_payment_method / x_studio_structure_name were MOVED to BugFix-Purchase v0.1.0.178.
+# Their comodel is owned by a DOWNSTREAM module; declared here they were
+# `_unknown` for the whole upgrade-mode registry build (see BugFix-Purchase
+# models/upstream_link_fields.py). Do NOT re-add them here.
+
 class XTempConsignmentLin(models.Model):
     _name = 'x_temp_consignment_lin'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -17,14 +22,12 @@ class XTempConsignmentLin(models.Model):
     x_studio_delivery_remainder = fields.Float(string='Delivery Remainder')
     x_studio_description = fields.Text(string='Description')
     x_studio_indent_no = fields.Char(string='Indent No')
-    x_studio_payment_method = fields.Many2one('x_payment_methods', string='Payment Method')
     x_studio_product_id = fields.Many2one('product.product', string='Product')
     x_studio_purchase_id = fields.Many2one('purchase.order', string='Order Reference')
     x_studio_purchase_line_id = fields.Many2one('purchase.order.line', string='Purchase Line Id')
     x_studio_quantity = fields.Float(string='Quantity')
     x_studio_select = fields.Boolean(string='Select')
     x_studio_sequence = fields.Integer(string='Sequence')
-    x_studio_structure_name = fields.Many2one('x_structure_master', string='Structure Name')
     x_studio_subtotal = fields.Float(string='Subtotal')  # was Monetary
     x_studio_supplier_id = fields.Many2one('res.partner', string='Vendor')
     x_studio_temp_consignment_header_id = fields.Many2one('x_temp_consignment_hea', string='Temp Consignment Header Id')

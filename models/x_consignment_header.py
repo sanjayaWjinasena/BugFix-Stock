@@ -2,6 +2,11 @@
 from odoo import fields, models
 
 
+# NOTE (v0.0.118): the Many2one(s) x_studio_delivery_term / x_studio_structure_name were MOVED to BugFix-Purchase v0.1.0.178.
+# Their comodel is owned by a DOWNSTREAM module; declared here they were
+# `_unknown` for the whole upgrade-mode registry build (see BugFix-Purchase
+# models/upstream_link_fields.py). Do NOT re-add them here.
+
 class XConsignmentHeader(models.Model):
     """Studio-ported custom model x_consignment_header."""
     _name = 'x_consignment_header'
@@ -37,7 +42,6 @@ class XConsignmentHeader(models.Model):
     x_studio_custom_clearance_exchange_rate = fields.Float(string='Custom Clearance Exchange Rate')
     x_studio_custom_clearance_no = fields.Char(string='Custom Clearance No')
     x_studio_custom_cleared_date = fields.Date(string='Custom Cleared Date')
-    x_studio_delivery_term = fields.Many2one('x_delivery_terms', string='Delivery Term')
     x_studio_description = fields.Char(string='Description')
     x_studio_header_charges_allocated = fields.Boolean(string='Header Charges Allocated')
     x_studio_invoice_date = fields.Date(string="Supplier's Invoice Date (Bill Date)")
@@ -50,7 +54,6 @@ class XConsignmentHeader(models.Model):
     x_studio_shipping_mode = fields.Selection([('Air', 'Air'), ('Sea', 'Sea'), ('Road', 'Road'), ('Courier', 'Courier')], string='Shipping Mode')
     x_studio_status = fields.Selection([('Draft', 'Draft'), ('Consignment', 'Confirmed'), ('Consolidated', 'Consolidated'), ('In Transit', 'In Transit'), ('Under Custom Clearance', 'Under Custom Clearance'), ('Done', 'Done'), ('TP Invoice', 'TP Invoice')], string='Status')
     x_studio_status_bar = fields.Selection([('Draft', 'Draft'), ('Consignment', 'Confirmed'), ('Consolidated', 'Consolidated'), ('In Transit', 'In Transit'), ('Under Custom Clearance', 'Under Custom Clearance'), ('Done', 'Done'), ('TP Invoice', 'TP Invoice')], string='Status Bar')
-    x_studio_structure_name = fields.Many2one('x_structure_master', string='Structure Name')
     x_studio_supplier_document = fields.Binary(string='Purchase Invoice')
     x_studio_supplier_document_filename = fields.Char(string='Filename for x_studio_binary_field_KSsMR')
     x_studio_supplier_id = fields.Many2one('res.partner', string='Vendor')
