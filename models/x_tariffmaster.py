@@ -35,6 +35,7 @@ from odoo import api, fields, models
 
 class XTariffmaster(models.Model):
     _name = 'x_tariffmaster'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'TariffMaster'
 

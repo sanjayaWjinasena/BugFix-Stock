@@ -14,6 +14,7 @@ from odoo import fields, models
 
 class XMiscChargeCodes(models.Model):
     _name = 'x_misc_charge_codes'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _description = 'X Misc Charge Codes'
 
     x_active = fields.Boolean(string='Active')

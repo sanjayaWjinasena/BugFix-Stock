@@ -5,6 +5,7 @@ from odoo import fields, models
 
 class XMaterialRequestMt(models.Model):
     _name = 'x_material_request_mt'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Material Request MT'
 

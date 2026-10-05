@@ -5,6 +5,7 @@ from odoo import fields, models
 
 class XTempConsignmentHea(models.Model):
     _name = 'x_temp_consignment_hea'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Temp Consignment Header'
 

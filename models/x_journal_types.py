@@ -5,6 +5,7 @@ from odoo import fields, models
 
 class XJournalTypes(models.Model):
     _name = 'x_journal_types'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _description = 'X Journal Types'
 
     x_active = fields.Boolean(string='Active')

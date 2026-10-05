@@ -10,6 +10,7 @@ from odoo import fields, models
 
 class XConsignmentChargeH(models.Model):
     _name = 'x_consignment_charge_h'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _description = 'X Consignment Charge H'
 
     x_active = fields.Boolean(string='Active')
