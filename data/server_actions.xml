@@ -1905,12 +1905,18 @@ else:
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
     <field name="state">object_write</field>
     <field name="usage">ir_actions_server</field>
+    <field name="update_path">x_studio_transfer_approved</field>
+    <field name="evaluation_type">value</field>
+    <field name="update_boolean_value">true</field>
   </record>
   <record id="server_action_2201_rr_transfer_approval_request_sent" model="ir.actions.server">
     <field name="name">RR - Transfer Approval Request Sent</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
     <field name="state">object_write</field>
     <field name="usage">ir_actions_server</field>
+    <field name="update_path">x_studio_transfer_request_sent</field>
+    <field name="evaluation_type">value</field>
+    <field name="update_boolean_value">true</field>
   </record>
   <record id="server_action_2207_rr_transfer_rejection" model="ir.actions.server">
     <field name="name">RR - Transfer Rejection</field>
