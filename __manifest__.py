@@ -315,7 +315,9 @@
         # the old one (with batch_id xpath), validation crashes because
         # stock_picking_batch is uninstalled (v0.0.114). Load hide_dev_extras
         # first so its arch is refreshed before any cousin validation runs.
-        'views/stock_picking_hide_dev_extras.xml',
+        # Staging_Migration: 'views/stock_picking_hide_dev_extras.xml' not loaded. It hides fields/buttons of apps
+        # the dev envs have and production does not; on production none of
+        # its xpaths match (verified on upgrade-testing-39209462), so it fails.
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
