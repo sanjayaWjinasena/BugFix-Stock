@@ -14,7 +14,7 @@ class XTempStructureDetai(models.Model):
     x_studio_charge_name = fields.Char(string='Charge Name')
     x_studio_select = fields.Boolean(string='Select')
     x_studio_sequence = fields.Integer(string='Sequence')
-    x_studio_temp_structure_master_id = fields.Many2one('x_temp_structure_maste', string='Temp Structure Master Id')
+    x_studio_temp_structure_master_id = fields.Many2one('x_temp_structure_maste', string='Temp Structure Master Id', ondelete='cascade')
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
     #   x_studio_structure_details_line_ids (many2one rel='x_structure_details' not safe)

@@ -31,7 +31,7 @@ class XTempConsignmentLin(models.Model):
     x_studio_sequence = fields.Integer(string='Sequence')
     x_studio_subtotal = fields.Float(string='Subtotal')  # was Monetary
     x_studio_supplier_id = fields.Many2one('res.partner', string='Vendor')
-    x_studio_temp_consignment_header_id = fields.Many2one('x_temp_consignment_hea', string='Temp Consignment Header Id')
+    x_studio_temp_consignment_header_id = fields.Many2one('x_temp_consignment_hea', string='Temp Consignment Header Id', ondelete='cascade')
     x_studio_unit_price = fields.Float(string='Unit Price')
     x_studio_uom_id = fields.Many2one('uom.uom', string='UOM')
     x_studio_volume = fields.Float(string='Volume')

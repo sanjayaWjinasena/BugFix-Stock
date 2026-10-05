@@ -22,7 +22,7 @@ class XTempConConsoLine(models.Model):
     x_studio_status = fields.Selection([('Draft', 'Draft'), ('Consignment', 'Confirmed'), ('In Transit', 'In Transit'), ('Under Custom Clearance', 'Under Custom Clearance'), ('Done', 'Done'), ('TP Invoice', 'TP Invoice')], string='Status')
     x_studio_supplier_id = fields.Many2one('res.partner', string='Vendor')
     x_studio_supplier_invoice_no = fields.Char(string='Supplier Invoice No')
-    x_studio_temp_consolidated_header_id = fields.Many2one('x_temp_con_consolidate', string='Temp Consolidated Header Id')
+    x_studio_temp_consolidated_header_id = fields.Many2one('x_temp_con_consolidate', string='Temp Consolidated Header Id', ondelete='cascade')
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
     #   x_studio_delivery_term (many2one rel='x_delivery_terms' not safe)

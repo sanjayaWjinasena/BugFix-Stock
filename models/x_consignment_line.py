@@ -22,7 +22,7 @@ class XConsignmentLine(models.Model):
     x_studio_boolean_field_Gbd5Y = fields.Boolean(string='Valid Duty')
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_concessional_rate = fields.Boolean(string='Concessional Rate')
-    x_studio_consignment_header_id = fields.Many2one('x_consignment_header', string='Consignment No')
+    x_studio_consignment_header_id = fields.Many2one('x_consignment_header', string='Consignment No', ondelete='restrict')
     x_studio_cost_allocation_method = fields.Selection([('equal', 'Equal'), ('by_quantity', 'By Quantity'), ('by_current_cost_price', 'By Current Cost'), ('by_weight', 'By Weight'), ('by_volume', 'By Volume')], string='Cost Allocation Method', readonly=True)
     x_studio_delivery_remainder = fields.Float(string='Delivery Remainder', readonly=True)
     x_studio_description = fields.Char(string='Description', readonly=True, store=False)

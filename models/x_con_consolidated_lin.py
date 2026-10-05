@@ -18,7 +18,7 @@ class XConConsolidatedLin(models.Model):
     x_name = fields.Char(string='Name')
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_consignment_id = fields.Many2one('x_consignment_header', string='Consignment Id')
-    x_studio_consolidated_header_id = fields.Many2one('x_con_consolidated_hea', string='Consolidated Header Id')
+    x_studio_consolidated_header_id = fields.Many2one('x_con_consolidated_hea', string='Consolidated Header Id', ondelete='restrict')
     x_studio_container_no = fields.Char(string='Container No')
     x_studio_currency_id = fields.Many2one('res.currency', string='Currency')
     x_studio_custom_clearance_no = fields.Char(string='Custom Clearance No')
