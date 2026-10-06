@@ -1,0 +1,1468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: access rights removed on 2026-10-06. They were entered by hand on production (Settings > Technical > Access Rights), which makes them environment data, not repo functionality; the port had also dropped their group, so they applied to every user. Kept here, commented out, so any of them can be brought back. Nothing in this file is loaded. -->
+<odoo>
+<!-- REMOVED access_6528_access_stock_assign_serial (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6528_access_stock_assign_serial" model="ir.model.access">
+    <field name="name">access.stock.assign.serial</field>
+    <field name="model_id" ref="mrp.model_stock_assign_serial"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6414_access_stock_assign_serial (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6414_access_stock_assign_serial" model="ir.model.access">
+    <field name="name">access.stock.assign.serial</field>
+    <field name="model_id" ref="mrp.model_stock_assign_serial"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5679_access_stock_assign_serial (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5679_access_stock_assign_serial" model="ir.model.access">
+    <field name="name">access.stock.assign.serial</field>
+    <field name="model_id" ref="mrp.model_stock_assign_serial"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6536_access_stock_backorder_confirmation (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6536_access_stock_backorder_confirmation" model="ir.model.access">
+    <field name="name">access.stock.backorder.confirmation</field>
+    <field name="model_id" ref="stock.model_stock_backorder_confirmation"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6422_access_stock_backorder_confirmation (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6422_access_stock_backorder_confirmation" model="ir.model.access">
+    <field name="name">access.stock.backorder.confirmation</field>
+    <field name="model_id" ref="stock.model_stock_backorder_confirmation"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5687_access_stock_backorder_confirmation (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5687_access_stock_backorder_confirmation" model="ir.model.access">
+    <field name="name">access.stock.backorder.confirmation</field>
+    <field name="model_id" ref="stock.model_stock_backorder_confirmation"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6098_stock_backorder_confirmation (1010): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Goods Receivers". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6098_stock_backorder_confirmation" model="ir.model.access">
+    <field name="name">stock.backorder.confirmation</field>
+    <field name="model_id" ref="stock.model_stock_backorder_confirmation"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_goods_receivers"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6421_access_stock_backorder_confirmation_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6421_access_stock_backorder_confirmation_line" model="ir.model.access">
+    <field name="name">access.stock.backorder.confirmation.line</field>
+    <field name="model_id" ref="stock.model_stock_backorder_confirmation_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5686_access_stock_backorder_confirmation_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5686_access_stock_backorder_confirmation_line" model="ir.model.access">
+    <field name="name">access.stock.backorder.confirmation.line</field>
+    <field name="model_id" ref="stock.model_stock_backorder_confirmation_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6099_stock_backorder_confirmation_line (0010): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Goods Receivers". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6099_stock_backorder_confirmation_line" model="ir.model.access">
+    <field name="name">stock.backorder.confirmation.line</field>
+    <field name="model_id" ref="stock.model_stock_backorder_confirmation_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_goods_receivers"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6531_access_stock_change_product_qty (0000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6531_access_stock_change_product_qty" model="ir.model.access">
+    <field name="name">access.stock.change.product.qty</field>
+    <field name="model_id" ref="stock.model_stock_change_product_qty"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6417_access_stock_change_product_qty (0000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6417_access_stock_change_product_qty" model="ir.model.access">
+    <field name="name">access.stock.change.product.qty</field>
+    <field name="model_id" ref="stock.model_stock_change_product_qty"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5682_access_stock_change_product_qty (0000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5682_access_stock_change_product_qty" model="ir.model.access">
+    <field name="name">access.stock.change.product.qty</field>
+    <field name="model_id" ref="stock.model_stock_change_product_qty"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6999_stock_landed_cost_line (0010): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Invoicing & Payment - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6999_stock_landed_cost_line" model="ir.model.access">
+    <field name="name">stock.landed.cost.line</field>
+    <field name="model_id" ref="stock_landed_costs.model_stock_landed_cost_lines"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_imports"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7000_stock_landed_cost_lines (0010): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Invoicing & Payment - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7000_stock_landed_cost_lines" model="ir.model.access">
+    <field name="name">stock.landed.cost.lines</field>
+    <field name="model_id" ref="stock_landed_costs.model_stock_landed_cost_lines"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_imports"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6119_stock_landed_cost_lines (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6119_stock_landed_cost_lines" model="ir.model.access">
+    <field name="name">stock.landed.cost.lines</field>
+    <field name="model_id" ref="stock_landed_costs.model_stock_landed_cost_lines"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6902_stock_location (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / # Jin - PO Invoicing & Payment - Inventory Credit". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6902_stock_location" model="ir.model.access">
+    <field name="name">stock.location</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_location"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_inventory_credit"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6802_stock_location_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Sales / Jin - Sales - View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6802_stock_location_user" model="ir.model.access">
+    <field name="name">stock.location.user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_location"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_sales_jin_sales_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_8692_access_stock_location_rohana_read (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Rohana". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_8692_access_stock_location_rohana_read" model="ir.model.access">
+    <field name="name">access_stock_location_rohana_read</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_location"/>
+    <field name="group_id" ref="SET_GROUP"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6890_product_product_purchase_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / # Jin - PO Invoicing & Payment - Inventory Credit". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6890_product_product_purchase_user" model="ir.model.access">
+    <field name="name">product.product.purchase.user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_inventory_credit"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7283_stock_lot_user (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Creator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7283_stock_lot_user" model="ir.model.access">
+    <field name="name">stock.lot user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_creator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+  </record>
+  -->
+<!-- REMOVED access_6514_stock_production_lot_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6514_stock_production_lot_user" model="ir.model.access">
+    <field name="name">stock.production.lot user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7251_jin___manufacturing____mo_full_writes____mps (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Master Plan Creator [ Add a Product ]". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7251_jin___manufacturing____mo_full_writes____mps" model="ir.model.access">
+    <field name="name">Jin - Manufacturing -  MO Full Writes  + MPS</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_master_plan_creator_add_a_product"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7952_jin___manufacturing____mo_full_writes____mps (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Master Plan Operator [ Replenish ]". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7952_jin___manufacturing____mo_full_writes____mps" model="ir.model.access">
+    <field name="name">Jin - Manufacturing -  MO Full Writes  + MPS</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_master_plan_operator_replenish"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6400_stock_production_lot_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6400_stock_production_lot_user" model="ir.model.access">
+    <field name="name">stock.production.lot user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5665_stock_production_lot_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5665_stock_production_lot_user" model="ir.model.access">
+    <field name="name">stock.production.lot user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6081_jin___repair___full_rights (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Helpdesk / Jin - Repair - Full Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6081_jin___repair___full_rights" model="ir.model.access">
+    <field name="name">Jin - Repair - Full Rights</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_helpdesk_jin_repair_full_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6152_user (1100): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Helpdesk / Jin - Repair - Ticket Creater". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6152_user" model="ir.model.access">
+    <field name="name">User</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_helpdesk_jin_repair_ticket_creater"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_8693_access_stock_lot_rohana_read (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Rohana". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_8693_access_stock_lot_rohana_read" model="ir.model.access">
+    <field name="name">access_stock_lot_rohana_read</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_lot"/>
+    <field name="group_id" ref="SET_GROUP"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6907_stock_move (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / # Jin - PO Invoicing & Payment - Inventory Credit". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6907_stock_move" model="ir.model.access">
+    <field name="name">stock.move</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_inventory_credit"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6947_stock_move (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Accounting / Billing Limited (archived)". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6947_stock_move" model="ir.model.access">
+    <field name="name">stock.move</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_accounting_billing_limited_archived"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7042_stock_move (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Accounting / Billing limited - Cashier". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7042_stock_move" model="ir.model.access">
+    <field name="name">stock.move</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_accounting_billing_limited_cashier"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5731_stock_move_user (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Creator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5731_stock_move_user" model="ir.model.access">
+    <field name="name">stock.move user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_creator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6515_stock_move_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6515_stock_move_user" model="ir.model.access">
+    <field name="name">stock.move user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5804_stock_move_user (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Master Plan Creator [ Add a Product ]". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5804_stock_move_user" model="ir.model.access">
+    <field name="name">stock.move user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_master_plan_creator_add_a_product"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7942_stock_move_user (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Master Plan Operator [ Replenish ]". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7942_stock_move_user" model="ir.model.access">
+    <field name="name">stock.move user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_master_plan_operator_replenish"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6401_stock_move_user (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6401_stock_move_user" model="ir.model.access">
+    <field name="name">stock.move user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5666_stock_move_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5666_stock_move_user" model="ir.model.access">
+    <field name="name">stock.move user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6100_stock_move (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Goods Receivers". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6100_stock_move" model="ir.model.access">
+    <field name="name">stock.move</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_goods_receivers"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5573_stock_move (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PR View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5573_stock_move" model="ir.model.access">
+    <field name="name">Stock Move</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_pr_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6153_user (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Helpdesk / Jin - Repair - Ticket Creater". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6153_user" model="ir.model.access">
+    <field name="name">User</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_helpdesk_jin_repair_ticket_creater"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6825_stock_move_salesman (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Sales / Jin - Sales - View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6825_stock_move_salesman" model="ir.model.access">
+    <field name="name">stock_move salesman</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_sales_jin_sales_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_8694_access_stock_move_rohana_read (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Rohana". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_8694_access_stock_move_rohana_read" model="ir.model.access">
+    <field name="name">access_stock_move_rohana_read</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move"/>
+    <field name="group_id" ref="SET_GROUP"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6523_stock_move_line_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6523_stock_move_line_user" model="ir.model.access">
+    <field name="name">stock.move.line user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6409_stock_move_line_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6409_stock_move_line_user" model="ir.model.access">
+    <field name="name">stock.move.line user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5674_stock_move_line_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5674_stock_move_line_user" model="ir.model.access">
+    <field name="name">stock.move.line user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_8695_access_stock_move_line_rohana_read (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Rohana". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_8695_access_stock_move_line_rohana_read" model="ir.model.access">
+    <field name="name">access_stock_move_line_rohana_read</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_move_line"/>
+    <field name="group_id" ref="SET_GROUP"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6544_access_stock_orderpoint_snooze (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6544_access_stock_orderpoint_snooze" model="ir.model.access">
+    <field name="name">access_stock_orderpoint_snooze</field>
+    <field name="model_id" ref="stock.model_stock_orderpoint_snooze"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6430_access_stock_orderpoint_snooze (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6430_access_stock_orderpoint_snooze" model="ir.model.access">
+    <field name="name">access_stock_orderpoint_snooze</field>
+    <field name="model_id" ref="stock.model_stock_orderpoint_snooze"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5695_access_stock_orderpoint_snooze (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5695_access_stock_orderpoint_snooze" model="ir.model.access">
+    <field name="name">access_stock_orderpoint_snooze</field>
+    <field name="model_id" ref="stock.model_stock_orderpoint_snooze"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6543_access_stock_package_destination (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6543_access_stock_package_destination" model="ir.model.access">
+    <field name="name">access.stock.package.destination</field>
+    <field name="model_id" ref="stock.model_stock_package_destination"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6429_access_stock_package_destination (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6429_access_stock_package_destination" model="ir.model.access">
+    <field name="name">access.stock.package.destination</field>
+    <field name="model_id" ref="stock.model_stock_package_destination"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5694_access_stock_package_destination (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5694_access_stock_package_destination" model="ir.model.access">
+    <field name="name">access.stock.package.destination</field>
+    <field name="model_id" ref="stock.model_stock_package_destination"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6521_stock_package_level_stock_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6521_stock_package_level_stock_user" model="ir.model.access">
+    <field name="name">stock.package_level stock user</field>
+    <field name="model_id" ref="stock.model_stock_package_level"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6407_stock_package_level_stock_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6407_stock_package_level_stock_user" model="ir.model.access">
+    <field name="name">stock.package_level stock user</field>
+    <field name="model_id" ref="stock.model_stock_package_level"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5672_stock_package_level_stock_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5672_stock_package_level_stock_user" model="ir.model.access">
+    <field name="name">stock.package_level stock user</field>
+    <field name="model_id" ref="stock.model_stock_package_level"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6513_stock_picking_type_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6513_stock_picking_type_user" model="ir.model.access">
+    <field name="name">stock.picking.type user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6399_stock_picking_type_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6399_stock_picking_type_user" model="ir.model.access">
+    <field name="name">stock.picking.type user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5664_stock_picking_type_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5664_stock_picking_type_user" model="ir.model.access">
+    <field name="name">stock.picking.type user</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_picking_type"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6519_stock_quant_user (0000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6519_stock_quant_user" model="ir.model.access">
+    <field name="name">stock.quant user</field>
+    <field name="model_id" ref="mrp.model_stock_quant"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6405_stock_quant_user (0000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6405_stock_quant_user" model="ir.model.access">
+    <field name="name">stock.quant user</field>
+    <field name="model_id" ref="mrp.model_stock_quant"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5670_stock_quant_user (0000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5670_stock_quant_user" model="ir.model.access">
+    <field name="name">stock.quant user</field>
+    <field name="model_id" ref="mrp.model_stock_quant"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="False"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_8698_access_stock_quant_rohana_read (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Rohana". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_8698_access_stock_quant_rohana_read" model="ir.model.access">
+    <field name="name">access_stock_quant_rohana_read</field>
+    <field name="model_id" ref="mrp.model_stock_quant"/>
+    <field name="group_id" ref="SET_GROUP"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6520_stock_quant_package_stock_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6520_stock_quant_package_stock_user" model="ir.model.access">
+    <field name="name">stock.quant.package stock user</field>
+    <field name="model_id" ref="stock.model_stock_quant_package"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6406_stock_quant_package_stock_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6406_stock_quant_package_stock_user" model="ir.model.access">
+    <field name="name">stock.quant.package stock user</field>
+    <field name="model_id" ref="stock.model_stock_quant_package"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5671_stock_quant_package_stock_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5671_stock_quant_package_stock_user" model="ir.model.access">
+    <field name="name">stock.quant.package stock user</field>
+    <field name="model_id" ref="stock.model_stock_quant_package"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6537_access_stock_quantity_history (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6537_access_stock_quantity_history" model="ir.model.access">
+    <field name="name">access.stock.quantity.history</field>
+    <field name="model_id" ref="stock.model_stock_quantity_history"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6423_access_stock_quantity_history (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6423_access_stock_quantity_history" model="ir.model.access">
+    <field name="name">access.stock.quantity.history</field>
+    <field name="model_id" ref="stock.model_stock_quantity_history"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5688_access_stock_quantity_history (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5688_access_stock_quantity_history" model="ir.model.access">
+    <field name="name">access.stock.quantity.history</field>
+    <field name="model_id" ref="stock.model_stock_quantity_history"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6530_access_stock_return_picking (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6530_access_stock_return_picking" model="ir.model.access">
+    <field name="name">access.stock.return.picking</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_return_picking"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6416_access_stock_return_picking (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6416_access_stock_return_picking" model="ir.model.access">
+    <field name="name">access.stock.return.picking</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_return_picking"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5681_access_stock_return_picking (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5681_access_stock_return_picking" model="ir.model.access">
+    <field name="name">access.stock.return.picking</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_return_picking"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6529_access_stock_return_picking_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6529_access_stock_return_picking_line" model="ir.model.access">
+    <field name="name">access.stock.return.picking.line</field>
+    <field name="model_id" ref="stock.model_stock_return_picking_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6415_access_stock_return_picking_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6415_access_stock_return_picking_line" model="ir.model.access">
+    <field name="name">access.stock.return.picking.line</field>
+    <field name="model_id" ref="stock.model_stock_return_picking_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5680_access_stock_return_picking_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5680_access_stock_return_picking_line" model="ir.model.access">
+    <field name="name">access.stock.return.picking.line</field>
+    <field name="model_id" ref="stock.model_stock_return_picking_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6522_stock_rule_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6522_stock_rule_user" model="ir.model.access">
+    <field name="name">stock_rule user</field>
+    <field name="model_id" ref="mrp.model_stock_rule"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6408_stock_rule_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6408_stock_rule_user" model="ir.model.access">
+    <field name="name">stock_rule user</field>
+    <field name="model_id" ref="mrp.model_stock_rule"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5673_stock_rule_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5673_stock_rule_user" model="ir.model.access">
+    <field name="name">stock_rule user</field>
+    <field name="model_id" ref="mrp.model_stock_rule"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6826_stock_rule_flow (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Sales / Jin - Sales - View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6826_stock_rule_flow" model="ir.model.access">
+    <field name="name">stock.rule.flow</field>
+    <field name="model_id" ref="mrp.model_stock_rule"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_sales_jin_sales_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_8699_access_stock_rule_rohana_read (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Rohana". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_8699_access_stock_rule_rohana_read" model="ir.model.access">
+    <field name="name">access_stock_rule_rohana_read</field>
+    <field name="model_id" ref="mrp.model_stock_rule"/>
+    <field name="group_id" ref="SET_GROUP"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6532_access_stock_scheduler_compute (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6532_access_stock_scheduler_compute" model="ir.model.access">
+    <field name="name">access.stock.scheduler.compute</field>
+    <field name="model_id" ref="stock.model_stock_scheduler_compute"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6418_access_stock_scheduler_compute (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6418_access_stock_scheduler_compute" model="ir.model.access">
+    <field name="name">access.stock.scheduler.compute</field>
+    <field name="model_id" ref="stock.model_stock_scheduler_compute"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5683_access_stock_scheduler_compute (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5683_access_stock_scheduler_compute" model="ir.model.access">
+    <field name="name">access.stock.scheduler.compute</field>
+    <field name="model_id" ref="stock.model_stock_scheduler_compute"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6526_stock_scrap_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6526_stock_scrap_user" model="ir.model.access">
+    <field name="name">stock.scrap.user</field>
+    <field name="model_id" ref="mrp.model_stock_scrap"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6412_stock_scrap_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6412_stock_scrap_user" model="ir.model.access">
+    <field name="name">stock.scrap.user</field>
+    <field name="model_id" ref="mrp.model_stock_scrap"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5677_stock_scrap_user (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5677_stock_scrap_user" model="ir.model.access">
+    <field name="name">stock.scrap.user</field>
+    <field name="model_id" ref="mrp.model_stock_scrap"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6845_stock_scrap (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Sales / Jin - Sales - View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6845_stock_scrap" model="ir.model.access">
+    <field name="name">stock.scrap</field>
+    <field name="model_id" ref="mrp.model_stock_scrap"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_sales_jin_sales_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6527_access_stock_traceability_report (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6527_access_stock_traceability_report" model="ir.model.access">
+    <field name="name">access.stock.traceability.report</field>
+    <field name="model_id" ref="mrp.model_stock_traceability_report"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6413_access_stock_traceability_report (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6413_access_stock_traceability_report" model="ir.model.access">
+    <field name="name">access.stock.traceability.report</field>
+    <field name="model_id" ref="mrp.model_stock_traceability_report"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5678_access_stock_traceability_report (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5678_access_stock_traceability_report" model="ir.model.access">
+    <field name="name">access.stock.traceability.report</field>
+    <field name="model_id" ref="mrp.model_stock_traceability_report"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6541_access_stock_track_confirmation (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6541_access_stock_track_confirmation" model="ir.model.access">
+    <field name="name">access.stock.track.confirmation</field>
+    <field name="model_id" ref="stock.model_stock_track_confirmation"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6427_access_stock_track_confirmation (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6427_access_stock_track_confirmation" model="ir.model.access">
+    <field name="name">access.stock.track.confirmation</field>
+    <field name="model_id" ref="stock.model_stock_track_confirmation"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5692_access_stock_track_confirmation (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5692_access_stock_track_confirmation" model="ir.model.access">
+    <field name="name">access.stock.track.confirmation</field>
+    <field name="model_id" ref="stock.model_stock_track_confirmation"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6542_access_stock_track_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6542_access_stock_track_line" model="ir.model.access">
+    <field name="name">access.stock.track.line</field>
+    <field name="model_id" ref="stock.model_stock_track_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6428_access_stock_track_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6428_access_stock_track_line" model="ir.model.access">
+    <field name="name">access.stock.track.line</field>
+    <field name="model_id" ref="stock.model_stock_track_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5693_access_stock_track_line (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5693_access_stock_track_line" model="ir.model.access">
+    <field name="name">access.stock.track.line</field>
+    <field name="model_id" ref="stock.model_stock_track_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7002_stock_valuation_adjustment_lines (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Invoicing & Payment - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7002_stock_valuation_adjustment_lines" model="ir.model.access">
+    <field name="name">stock.valuation.adjustment.lines</field>
+    <field name="model_id" ref="stock_landed_costs.model_stock_valuation_adjustment_lines"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_7001_stock_valuation_layer (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Invoicing & Payment - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_7001_stock_valuation_layer" model="ir.model.access">
+    <field name="name">stock.valuation.layer</field>
+    <field name="model_id" ref="BugFix-Stock.model_stock_valuation_layer"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6901_stock_warehouse_orderpoint (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / # Jin - PO Invoicing & Payment - Inventory Credit". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6901_stock_warehouse_orderpoint" model="ir.model.access">
+    <field name="name">stock.warehouse.orderpoint</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_inventory_credit"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6518_stock_warehouse_orderpoint (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6518_stock_warehouse_orderpoint" model="ir.model.access">
+    <field name="name">stock.warehouse.orderpoint</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6404_stock_warehouse_orderpoint (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6404_stock_warehouse_orderpoint" model="ir.model.access">
+    <field name="name">stock.warehouse.orderpoint</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5669_stock_warehouse_orderpoint (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5669_stock_warehouse_orderpoint" model="ir.model.access">
+    <field name="name">stock.warehouse.orderpoint</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5874_stock_warehouse_orderpoint (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PR View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5874_stock_warehouse_orderpoint" model="ir.model.access">
+    <field name="name">stock.warehouse.orderpoint</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_pr_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6806_stock_warehouse_orderpoint (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Sales / Jin - Sales - View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6806_stock_warehouse_orderpoint" model="ir.model.access">
+    <field name="name">stock.warehouse.orderpoint</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_sales_jin_sales_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_8701_access_stock_warehouse_orderpoint_rohana_read (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Rohana". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_8701_access_stock_warehouse_orderpoint_rohana_read" model="ir.model.access">
+    <field name="name">access_stock_warehouse_orderpoint_rohana_read</field>
+    <field name="model_id" ref="mrp.model_stock_warehouse_orderpoint"/>
+    <field name="group_id" ref="SET_GROUP"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6539_access_stock_warn_insufficient_qty_scrap (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - MO Operator". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6539_access_stock_warn_insufficient_qty_scrap" model="ir.model.access">
+    <field name="name">access.stock.warn.insufficient.qty.scrap</field>
+    <field name="model_id" ref="stock.model_stock_warn_insufficient_qty_scrap"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_mo_operator"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6425_access_stock_warn_insufficient_qty_scrap (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Production Orders Dismantler". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6425_access_stock_warn_insufficient_qty_scrap" model="ir.model.access">
+    <field name="name">access.stock.warn.insufficient.qty.scrap</field>
+    <field name="model_id" ref="stock.model_stock_warn_insufficient_qty_scrap"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_production_orders_dismantler"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_5690_access_stock_warn_insufficient_qty_scrap (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Manufacturing / Jin - Manufacturing - Those with only view Rights". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5690_access_stock_warn_insufficient_qty_scrap" model="ir.model.access">
+    <field name="name">access.stock.warn.insufficient.qty.scrap</field>
+    <field name="model_id" ref="stock.model_stock_warn_insufficient_qty_scrap"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_manufacturing_jin_manufacturing_those_with_only_view_rights"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6666_x_con_consolidated_hea (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6666_x_con_consolidated_hea" model="ir.model.access">
+    <field name="name">x_con_consolidated_hea</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6667_x_con_consolidated_line (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6667_x_con_consolidated_line" model="ir.model.access">
+    <field name="name">x_con_consolidated_line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6673_x_consignment_charge_l (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6673_x_consignment_charge_l" model="ir.model.access">
+    <field name="name">x_consignment_charge_l</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_charge_l"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+  </record>
+  -->
+<!-- REMOVED access_6880_x_consignment_header (1100): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Invoicing & Payment - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6880_x_consignment_header" model="ir.model.access">
+    <field name="name">x_consignment_header</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6661_x_consignment_header (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6661_x_consignment_header" model="ir.model.access">
+    <field name="name">x_consignment_header</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6674_x_consignment_line (1100): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Goods Receivers". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6674_x_consignment_line" model="ir.model.access">
+    <field name="name">x_consignment_line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_goods_receivers"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6662_x_consignment_line (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6662_x_consignment_line" model="ir.model.access">
+    <field name="name">x_consignment_line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+  </record>
+  -->
+<!-- REMOVED access_5875_x_tariffmaster (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PR View Only". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_5875_x_tariffmaster" model="ir.model.access">
+    <field name="name">x_tariffmaster</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_pr_view_only"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6669_x_temp_con_conso_line (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6669_x_temp_con_conso_line" model="ir.model.access">
+    <field name="name">x_temp_con_conso_line</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_temp_con_conso_line"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6668_x_temp_con_consolidate (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6668_x_temp_con_consolidate" model="ir.model.access">
+    <field name="name">x_temp_con_consolidate</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_temp_con_consolidate"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+  </record>
+  -->
+<!-- REMOVED access_6663_x_temp_consignment_hea (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6663_x_temp_consignment_hea" model="ir.model.access">
+    <field name="name">x_temp_consignment_hea</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_temp_consignment_hea"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_6665_x_temp_consignment_hea (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6665_x_temp_consignment_hea" model="ir.model.access">
+    <field name="name">x_temp_consignment_hea</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_temp_consignment_hea"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+  </record>
+  -->
+<!-- REMOVED access_6664_x_temp_consignment_lin (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_6664_x_temp_consignment_lin" model="ir.model.access">
+    <field name="name">x_temp_consignment_lin</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_temp_consignment_lin"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+<!-- REMOVED access_2427_tariff_master (1000): hand-made on production (hand-made (__export__)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+  <!--
+  <record id="access_2427_tariff_master" model="ir.model.access">
+    <field name="name">Tariff Master</field>
+    <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+    <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="False"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+  </record>
+  -->
+</odoo>
