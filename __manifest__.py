@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.122',
+    'version': '17.0.0.0.123',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -316,7 +316,9 @@
         # the old one (with batch_id xpath), validation crashes because
         # stock_picking_batch is uninstalled (v0.0.114). Load hide_dev_extras
         # first so its arch is refreshed before any cousin validation runs.
-        'views/stock_picking_hide_dev_extras.xml',
+        # v0.0.123: replaced by models/hide_dev_extras.py (_get_view hides only
+        # what exists; the hard xpaths broke the transfer form when an app was missing).
+        # 'views/stock_picking_hide_dev_extras.xml',
         'views/x_consignment_studio_ported.xml',
         'views/stock_studio_ported.xml',
         'views/stock_studio_ported_v2.xml',
