@@ -4,7 +4,7 @@
 
 ### `stock.picking` — Transfer
 
-*Extends a model created by `stock`.* Python: `models/stock_picking.py`.
+*Extends a model created by `stock`.* Python: `models/hide_dev_extras.py`, `models/stock_picking.py`.
 
 Other repos that use this model: `access right BugFix-Analytics.access_6084_user` (BugFix-Analytics)<br>`access right BugFix-Analytics.access_6859_stock_picking` (BugFix-Analytics)<br>`account.bank.statement.line.x_studio_create_from_transfer_1` (BugFix-Accounting)<br>`account.bank.statement.line.x_studio_create_from_transfer` (BugFix-Accounting)<br>`account.bank.statement.line.x_studio_created_from_transfer` (BugFix-Accounting)<br>`account.bank.statement.line.x_studio_created_transfer` (BugFix-Accounting)<br>`account.bank.statement.line.x_studio_many2one_field_6Sjmv` (BugFix-Accounting)<br>`account.bank.statement.line.x_studio_many2one_field_TEK9K` (BugFix-Accounting)<details><summary>+34 more</summary>`account.move.x_studio_create_from_transfer_1` (BugFix-Accounting)<br>`account.move.x_studio_create_from_transfer` (BugFix-Accounting)<br>`account.move.x_studio_created_from_transfer` (BugFix-Accounting)<br>`account.payment.x_studio_create_from_transfer_1` (BugFix-Accounting)<br>`account.payment.x_studio_create_from_transfer` (BugFix-Accounting)<br>`account.payment.x_studio_created_from_transfer` (BugFix-Accounting)<br>`account.payment.x_studio_created_transfer` (BugFix-Accounting)<br>`account.payment.x_studio_many2one_field_6Sjmv` (BugFix-Accounting)<br>`account.payment.x_studio_many2one_field_TEK9K` (BugFix-Accounting)<br>`helpdesk.ticket._compute_x_studio_task_status()` (Fix-repair)<br>`helpdesk.ticket._compute_x_x_studio_created_from_help_ticket_stock_picking_count()` (Fix-repair)<br>`helpdesk.ticket._current_item_location()` (Fix-repair)<br>`helpdesk.ticket._repair_studio_auto_create_repair_route()` (Fix-repair)<br>`helpdesk.ticket._repair_studio_auto_create_repair_serial_nos()` (Fix-repair)<br>`helpdesk.ticket.action_received_at_sales_centre()` (Fix-repair)<br>`helpdesk.ticket.repair_picking_ids` (Fix-repair)<br>`helpdesk.ticket.x_studio_picking_id` (Fix-repair)<br>`project.task._compute_x_studio_incomplete_delivery_available()` (Fix-repair)<br>`project.task._compute_x_studio_material_availability()` (Fix-repair)<br>`project.task._compute_x_studio_valid_delivered_so()` (Fix-repair)<br>`record rule BugFix-Analytics.rule_188_portal_follower_transfers` (BugFix-Analytics)<br>`record rule BugFix-Analytics.rule_44_stock_picking_multi_company` (BugFix-Analytics)<br>`record rule BugFix-Analytics.rule_462_test` (BugFix-Analytics)<br>`record rule BugFix-Analytics.rule_829_block_receipt_operations` (BugFix-Analytics)<br>`record rule BugFix-Analytics.rule_904_kap` (BugFix-Analytics)<br>`record rule BugFix-Analytics.rule_913_stock_data_admin` (BugFix-Analytics)<br>`record rule BugFix-Analytics.rule_919_stock_data_warehouse` (BugFix-Analytics)<br>`server action BugFix-Purchase.server_action_2406_create_material_transfer` (BugFix-Purchase)<br>`server action BugFix-Studio-Misc.server_action_2268_sample_server_action_2` (BugFix-Studio-Misc)<br>`stock.picking._action_done()` (Fix-repair)<br>`stock.picking.button_validate()` (Fix-Repair-Wizard-Nav, Fix-repair)<br>`stock.return.picking._create_returns()` (Fix-repair)<br>`stock.return.picking.create_returns()` (Fix-Repair-Wizard-Nav)<br>`stock.return.picking.default_get()` (Fix-repair)</details>
 
@@ -57,7 +57,7 @@ This repo adds about 50 fields to transfers: links to the sales order, helpdesk 
 | `x_studio_transfer_approval` | Transfer Approval | boolean | Flag indicating the transfer requires approval; shown on the transfer form. | stored |  | `view BugFix-Stock.ported_view_2387_studio_stock_picking_form` |
 | `x_studio_transfer_approved` | Transfer Approved | boolean | Set to True by the 'RR - Transfer Approval' action when the transfer is approved; controls approval button visibility. | stored |  | `server action BugFix-Stock.server_action_2205_rr_transfer_approval`<br>`view BugFix-Stock.ported_view_2387_studio_stock_picking_form`<br>`view BugFix-Stock.view_4732_odoo_studio_stock_picking_form_button_e` |
 | `x_studio_transfer_rejected` | Transfer Rejected | boolean | Set to True by the 'RR - Transfer Rejection' action when the transfer is rejected; controls approval button visibility. | stored |  | `server action BugFix-Stock.server_action_2207_rr_transfer_rejection`<br>`view BugFix-Stock.ported_view_2387_studio_stock_picking_form`<br>`view BugFix-Stock.view_4732_odoo_studio_stock_picking_form_button_e` |
-| `x_studio_transfer_request_sent` | Transfer Request Sent | boolean | Flag showing a transfer approval request has been sent; shown on the transfer form. | stored |  | `view BugFix-Stock.ported_view_2387_studio_stock_picking_form` |
+| `x_studio_transfer_request_sent` | Transfer Request Sent | boolean | Flag showing a transfer approval request has been sent; shown on the transfer form. | stored |  | `server action BugFix-Stock.server_action_2201_rr_transfer_approval_request_sent`<br>`view BugFix-Stock.ported_view_2387_studio_stock_picking_form` |
 | `x_studio_ttt` | TTT | boolean | Test checkbox 'TTT'; not used by any view or logic. | stored |  |  |
 | `x_studio_type_of_operation` | Type of Operation | selection: incoming=Receipt; incoming=Receipt; outgoing=Delivery; outgoing=Delivery; internal=Internal Transfer; internal=Internal Transfer; mrp_operation=Manufacturing; mrp_operation=Manufacturing | Read-only operation type of the transfer (Receipt, Delivery, Internal Transfer, Manufacturing); used by record rules that block transfer types and by the user location validation. | stored |  | `record rule BugFix-Stock.rule_458_transfer_type_block`<br>`record rule BugFix-Stock.rule_460_block_operations`<br>`server action BugFix-Stock.sa_f5_stock_picking_user_location_validation`<br>`server action BugFix-Stock.server_action_2474_user_location_validation`<br>`stock.picking._fix_repair_compute_user_location_validation()` (Fix-repair)<details><summary>+2 more</summary>`stock.picking._jin_compute_user_location_validation()` (Fix-repair)<br>`view BugFix-Stock.ported_view_2387_studio_stock_picking_form`</details> |
 | `x_studio_update_consignment` | Update Consignment | boolean | Flag on the receipt indicating the import consignment should be/has been updated; used by the Update Consignment actions. | stored |  | `server action BugFix-Stock.server_action_1358_imp_update_consignment`<br>`server action BugFix-Stock.server_action_1360_imp_update_consignment_partial_grn`<br>`server action BugFix-Stock.server_action_1367_imp_update_consignment_final`<br>`view BugFix-Stock.ported_view_2387_studio_stock_picking_form`<br>`view BugFix-Stock.view_4732_odoo_studio_stock_picking_form_button_e` |
@@ -70,8 +70,187 @@ This repo adds about 50 fields to transfers: links to the sales order, helpdesk 
 | `x_x_studio_create_from_transfer_1__account_move_count` | Create From Transfer count | integer | Smart-button counter left over from Studio; declared non-stored with no compute anywhere in the repos, so it always shows 0. Shown on the transfer form smart button. | not stored |  | `view BugFix-Stock.ported_view_2387_studio_stock_picking_form` |
 | `x_x_studio_created_from_transfer__account_move_count` | Created From Transfer count | integer | Smart-button counter left over from Studio; declared non-stored with no compute anywhere in the repos, so it always shows 0. Shown on the transfer form smart button. | not stored |  | `view BugFix-Stock.ported_view_2387_studio_stock_picking_form` |
 
+**Python methods (1):**
+
+| Method | Function | Decorators | Extends standard | Depends on | Used by | Where |
+|---|---|---|---|---|---|---|
+| `_get_view` | When the standard transfer form (stock.view_picking_form) is built, hides the subcontracting, Amazon-sync and e-way bill fields and buttons of apps Jinasena doesn't use, and only if they are present. Replaces the old hard-xpath view that broke the transfer form when an app was missing. |  | yes |  |  | `models/hide_dev_extras.py:23` |
+
 **Server actions (22):**
 
+- **Create activity: Project Transfer Completed** (`server_action_2185_proj_notify_transfer_completion`, type `next_activity`)
+  - Function: Schedules a To-Do activity 'Project Transfer Completed' on the transfer; run by the PROJ Notify Transfer Completion automation. Assignee type is 'specific' but no user is set in the repo.
+  - Depends on: `model stock.picking` (stock)
+  - Used by: `automation BugFix-Stock.base_automation_199_proj_notify_transfer_completion`
+  <details><summary>code (12 lines)</summary>
+
+```python
+# Available variables:
+#  - env: environment on which the action is triggered
+#  - model: model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: utility function to compare floats based on specific precision
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - _logger: _logger.info(message): logger to emit messages in server logs
+#  - UserError: exception class for raising user-facing warning messages
+#  - Command: x2many commands namespace
+# To return an action, assign: action = {...}
+```
+  </details>
+- **Execute Code** (`server_action_1438_sls_validate_payment_in_shipment`, type `code`)
+  - Function: Run by the Validate Payment in Shipment automation: for a done delivery from a Cash sales order without temporary credit, blocks it if posted payments are less than the order total, showing amounts due.
+  - Depends on: `model account.payment` (account), `model sale.order` (sale), `model stock.picking` (stock), `stock.picking.sale_id` (sale_stock), `stock.picking.state` (stock)<details><summary>+1 more</summary>`stock.picking.x_studio_sales_order`</details>
+  - Used by: `automation BugFix-Stock.base_automation_81_sls_validate_payment_in_shipment`
+  <details><summary>code (13 lines)</summary>
+
+```python
+
+if record.state == 'done':
+  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
+  if so:
+      sum_total = 0
+      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      if payment:
+        for total in payment:
+          sum_total += total.amount
+              
+      if so.amount_total > sum_total:     
+        #raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
+        raise UserError('The Payment Against the Cash Sales Order must be Registered First.' + '\n'  + '\n' + 'This sale: ' + str(so.amount_total) + '\n' + 'Total payments: ' + str(sum_total) + '\n' + 'Payment due: ' + str(so.amount_total - sum_total))
+```
+  </details>
+- **Execute Code** (`server_action_2489_user_location_validation_test`, type `code`)
+  - Function: Run by a test automation: creates an `x_test02` record with the transfer's source and destination location names. Debug/test only.
+  - Depends on: `model stock.picking` (stock), `model x_test02` (BugFix-Studio-Misc), `stock.picking.location_dest_id` (stock), `stock.picking.location_id` (stock)
+  - Used by: `automation BugFix-Stock.base_automation_247_user_location_validation_test`
+  <details><summary>code (2 lines)</summary>
+
+```python
+
+imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})
+```
+  </details>
+- **Execute Code** (`server_action_2474_user_location_validation`, type `code`)
+  - Function: Run by the User Location Validation automation: for non-admin users on flagged transfers, raises an error naming the disallowed source/destination location and listing the locations the user is permitted for.
+  - Depends on: `model res.company` (base), `model stock.location` (stock), `model stock.picking` (stock), `stock.picking.location_dest_id` (stock), `stock.picking.location_id` (stock)<details><summary>+3 more</summary>`stock.picking.x_studio_type_of_operation`, `stock.picking.x_studio_user_location_validation_2`, `stock.picking.x_studio_user_location_validation`</details>
+  - Used by: `automation BugFix-Stock.base_automation_246_user_location_validation`
+  <details><summary>code (84 lines)</summary>
+
+```python
+
+if user.id != 1:
+
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+
+  company = env['res.company'].browse(company_id)
+
+  
+
+  if record.x_studio_user_location_validation == True:
+
+    if record.x_studio_user_location_validation_2 == True:
+
+      warehouse = record.location_id.complete_name
+
+    else:
+
+      warehouse = record.location_dest_id.complete_name 
+
+    
+
+    if record.x_studio_type_of_operation == 'internal':
+
+      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
+
+      if loc:
+
+        locations = ""
+
+        for locs in loc:
+
+          locations += (locs.complete_name + "\n")
+
+        
+
+        if record.x_studio_user_location_validation_2 == True:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
+
+      else:
+
+        if record.x_studio_user_location_validation_2 == True:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
+
+    else:
+
+      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+
+      if loc:
+
+        locations = ""
+
+        for locs in loc:
+
+          locations += (locs.complete_name + "\n")
+
+        
+
+        if record.x_studio_user_location_validation_2 == True:  
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+
+      else:
+
+        if record.x_studio_user_location_validation_2 == True: 
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+
+        else:
+
+          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+```
+  </details>
+- **Execute Code** (`server_action_1697_supplier_invoice_no_update_in_import_pos`, type `code`)
+  - Function: Copies the Supplier Invoice Number from the transfer's Consignment header onto the transfer; run by the matching automation.
+  - Depends on: `model stock.picking` (stock), `model x_consignment_header`, `stock.picking.x_studio_consignment_no`, `stock.picking.x_studio_supplier_invoice_number`
+  - Used by: `automation BugFix-Stock.base_automation_104_supplier_invoice_no_update_in_import_pos`
+  <details><summary>code (4 lines)</summary>
+
+```python
+if record.x_studio_consignment_no:
+  consignment = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_no.id)],limit=1)
+  if consignment:
+    record['x_studio_supplier_invoice_number'] = consignment.x_studio_supplier_invoice_number
+```
+  </details>
+- **Execute Code** (`server_action_1813_update_source_document_in_transfers`, type `code`)
+  - Function: Sets the transfer's Source Document (`origin`) to the linked Sales Order name, or blanks it when no Sales Order is set; run by the matching automation.
+  - Depends on: `model stock.picking` (stock), `stock.picking.x_studio_sales_order`
+  - Used by: `automation BugFix-Stock.base_automation_148_update_source_document_in_transfers`
+  <details><summary>code (4 lines)</summary>
+
+```python
+if record.x_studio_sales_order.id:
+  record['origin'] = record.x_studio_sales_order.name
+else:
+  record['origin'] = ""
+```
+  </details>
 - **IMP - Update Consignment** (`server_action_1358_imp_update_consignment`, type `code`)
   - Function: On an import GRN, checks the chosen Consignment No belongs to the PO and matches done quantities, then totals amounts/charges/duty/tax and posts reversal journal entries (Vendor Despatch, custom clearance charges) in the 'Vendor Despatch' journal; raises errors when links or ledger setup are missing.
   - Depends on: `model account.journal` (account), `model account.move` (account), `model purchase.order.line` (purchase), `model res.company` (base), `model stock.picking` (stock)<details><summary>+8 more</summary>`model x_consignment_header`, `model x_consignment_line`, `model x_imports_ledger_setup` (BugFix-Purchase), `stock.picking.move_ids_without_package` (stock), `stock.picking.partner_id` (stock), `stock.picking.purchase_id` (purchase_stock), `stock.picking.x_studio_consignment_no`, `stock.picking.x_studio_update_consignment`</details>
@@ -274,27 +453,6 @@ if record.id:
 #stock_move_id
 ```
   </details>
-- **PROJ - Notify Transfer Completion** (`server_action_2185_proj_notify_transfer_completion`, type `next_activity`)
-  - Function: Schedules a To-Do activity 'Project Transfer Completed' on the transfer; run by the PROJ Notify Transfer Completion automation. Assignee type is 'specific' but no user is set in the repo.
-  - Depends on: `model stock.picking` (stock)
-  - Used by: `automation BugFix-Stock.base_automation_199_proj_notify_transfer_completion`
-  <details><summary>code (12 lines)</summary>
-
-```python
-# Available variables:
-#  - env: environment on which the action is triggered
-#  - model: model of the record on which the action is triggered; is a void recordset
-#  - record: record on which the action is triggered; may be void
-#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
-#  - time, datetime, dateutil, timezone: useful Python libraries
-#  - float_compare: utility function to compare floats based on specific precision
-#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
-#  - _logger: _logger.info(message): logger to emit messages in server logs
-#  - UserError: exception class for raising user-facing warning messages
-#  - Command: x2many commands namespace
-# To return an action, assign: action = {...}
-```
-  </details>
 - **PROJ - Show Validate Block Errors** (`server_action_2181_proj_show_validate_block_errors`, type `code`)
   - Function: Always raises an error asking the user to create the budget for the selected project sales order; not referenced by any view or automation in this repo.
   - Depends on: `model stock.picking` (stock)
@@ -358,9 +516,9 @@ if record.id:
 # To return an action, assign: action = {...}
 ```
   </details>
-- **RR - Transfer Approval Request Sent** (`server_action_2201_rr_transfer_approval_request_sent`, type `code`)
+- **RR - Transfer Approval Request Sent** (`server_action_2201_rr_transfer_approval_request_sent`, type `object_write`)
   - Function: Calls the transfer's `_repair_studio_update_rug_approval_in_pipeline` method to update the RUG approval status in the repair pipeline after an approval request is sent.
-  - Depends on: `model stock.picking` (stock)
+  - Depends on: `model stock.picking` (stock), `stock.picking.x_studio_transfer_request_sent`
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (2 lines)</summary>
 
@@ -444,28 +602,6 @@ if record.state == 'done':
         raise UserError('The Payment Against the Cash Sales Order must be Registered First.' + '\n'  + '\n' + 'This sale: ' + str(so.amount_total) + '\n' + 'Total payments: ' + str(sum_total) + '\n' + 'Payment due: ' + str(so.amount_total - sum_total))
 ```
   </details>
-- **SLS - Validate Payment in Shipment** (`server_action_1438_sls_validate_payment_in_shipment`, type `code`)
-  - Function: Run by the Validate Payment in Shipment automation: for a done delivery from a Cash sales order without temporary credit, blocks it if posted payments are less than the order total, showing amounts due.
-  - Depends on: `model account.payment` (account), `model sale.order` (sale), `model stock.picking` (stock), `stock.picking.sale_id` (sale_stock), `stock.picking.state` (stock)<details><summary>+1 more</summary>`stock.picking.x_studio_sales_order`</details>
-  - Used by: `automation BugFix-Stock.base_automation_81_sls_validate_payment_in_shipment`
-  <details><summary>code (13 lines)</summary>
-
-```python
-
-if record.state == 'done':
-  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
-  if so:
-      sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
-      if payment:
-        for total in payment:
-          sum_total += total.amount
-              
-      if so.amount_total > sum_total:     
-        #raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
-        raise UserError('The Payment Against the Cash Sales Order must be Registered First.' + '\n'  + '\n' + 'This sale: ' + str(so.amount_total) + '\n' + 'Total payments: ' + str(sum_total) + '\n' + 'Payment due: ' + str(so.amount_total - sum_total))
-```
-  </details>
 - **SLS - Validate Payment in xxx** (`server_action_1774_sls_validate_payment_in_xxx`, type `code`)
   - Function: For a done transfer of a done Cash sales order without temporary credit, sums posted payments linked to the SO and blocks with an error if they are less than the SO total. Not referenced by any automation in this repo.
   - Depends on: `model account.payment` (account), `model sale.order` (sale), `model stock.picking` (stock), `stock.picking.sale_id` (sale_stock), `stock.picking.state` (stock)<details><summary>+1 more</summary>`stock.picking.x_studio_sales_order`</details>
@@ -486,32 +622,6 @@ if record.state == 'done':
         raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
 ```
   </details>
-- **Supplier Invoice No Update in Import POs** (`server_action_1697_supplier_invoice_no_update_in_import_pos`, type `code`)
-  - Function: Copies the Supplier Invoice Number from the transfer's Consignment header onto the transfer; run by the matching automation.
-  - Depends on: `model stock.picking` (stock), `model x_consignment_header`, `stock.picking.x_studio_consignment_no`, `stock.picking.x_studio_supplier_invoice_number`
-  - Used by: `automation BugFix-Stock.base_automation_104_supplier_invoice_no_update_in_import_pos`
-  <details><summary>code (4 lines)</summary>
-
-```python
-if record.x_studio_consignment_no:
-  consignment = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_no.id)],limit=1)
-  if consignment:
-    record['x_studio_supplier_invoice_number'] = consignment.x_studio_supplier_invoice_number
-```
-  </details>
-- **Update Source Document in Transfers** (`server_action_1813_update_source_document_in_transfers`, type `code`)
-  - Function: Sets the transfer's Source Document (`origin`) to the linked Sales Order name, or blanks it when no Sales Order is set; run by the matching automation.
-  - Depends on: `model stock.picking` (stock), `stock.picking.x_studio_sales_order`
-  - Used by: `automation BugFix-Stock.base_automation_148_update_source_document_in_transfers`
-  <details><summary>code (4 lines)</summary>
-
-```python
-if record.x_studio_sales_order.id:
-  record['origin'] = record.x_studio_sales_order.name
-else:
-  record['origin'] = ""
-```
-  </details>
 - **User Location Validation** (`sa_f5_stock_picking_user_location_validation`, type `code`)
   - Function: For non-admin users, when the transfer is flagged for user location validation, raises an error naming the source or destination location the user may not use and listing the locations they are permitted for (internal transfers vs other operation types use different permission fields).
   - Depends on: `model res.company` (base), `model stock.location` (stock), `model stock.picking` (stock), `stock.picking.location_dest_id` (stock), `stock.picking.location_id` (stock)<details><summary>+3 more</summary>`stock.picking.x_studio_type_of_operation`, `stock.picking.x_studio_user_location_validation_2`, `stock.picking.x_studio_user_location_validation`</details>
@@ -519,99 +629,6 @@ else:
   <details><summary>code (83 lines)</summary>
 
 ```python
-if user.id != 1:
-
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-
-  company = env['res.company'].browse(company_id)
-
-  
-
-  if record.x_studio_user_location_validation == True:
-
-    if record.x_studio_user_location_validation_2 == True:
-
-      warehouse = record.location_id.complete_name
-
-    else:
-
-      warehouse = record.location_dest_id.complete_name 
-
-    
-
-    if record.x_studio_type_of_operation == 'internal':
-
-      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
-
-      if loc:
-
-        locations = ""
-
-        for locs in loc:
-
-          locations += (locs.complete_name + "\n")
-
-        
-
-        if record.x_studio_user_location_validation_2 == True:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-
-        else:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-
-      else:
-
-        if record.x_studio_user_location_validation_2 == True:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
-
-        else:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
-
-    else:
-
-      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
-
-      if loc:
-
-        locations = ""
-
-        for locs in loc:
-
-          locations += (locs.complete_name + "\n")
-
-        
-
-        if record.x_studio_user_location_validation_2 == True:  
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
-
-        else:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
-
-      else:
-
-        if record.x_studio_user_location_validation_2 == True: 
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
-
-        else:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
-```
-  </details>
-- **User Location Validation** (`server_action_2474_user_location_validation`, type `code`)
-  - Function: Run by the User Location Validation automation: for non-admin users on flagged transfers, raises an error naming the disallowed source/destination location and listing the locations the user is permitted for.
-  - Depends on: `model res.company` (base), `model stock.location` (stock), `model stock.picking` (stock), `stock.picking.location_dest_id` (stock), `stock.picking.location_id` (stock)<details><summary>+3 more</summary>`stock.picking.x_studio_type_of_operation`, `stock.picking.x_studio_user_location_validation_2`, `stock.picking.x_studio_user_location_validation`</details>
-  - Used by: `automation BugFix-Stock.base_automation_246_user_location_validation`
-  <details><summary>code (84 lines)</summary>
-
-```python
-
 if user.id != 1:
 
   company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
@@ -707,29 +724,18 @@ if user.id != 1:
 imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})
 ```
   </details>
-- **User Location Validation-TEST** (`server_action_2489_user_location_validation_test`, type `code`)
-  - Function: Run by a test automation: creates an `x_test02` record with the transfer's source and destination location names. Debug/test only.
-  - Depends on: `model stock.picking` (stock), `model x_test02` (BugFix-Studio-Misc), `stock.picking.location_dest_id` (stock), `stock.picking.location_id` (stock)
-  - Used by: `automation BugFix-Stock.base_automation_247_user_location_validation_test`
-  <details><summary>code (2 lines)</summary>
-
-```python
-
-imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})
-```
-  </details>
 **Automations (8):**
 
 | Name | Record name | State | Function | Depends on | Used by |
 |---|---|---|---|---|---|
 | IMP - Update Consignment - Partial GRN | `base_automation_63_imp_update_consignment_partial_grn` | archived | When a record is created on Transfer and `[]`, runs nothing (no action linked). **Archived — does not run.** | `model stock.picking` (stock) |  |
-| PROJ - Notify Transfer Completion | `base_automation_199_proj_notify_transfer_completion` |  | When a record is created or updated on Transfer and `[('sale_id.x_studio_quotation_type', '=', 'Project'), ('state', '=', 'done')]`, runs _PROJ - Notify Transfer Completion_. | `model stock.picking` (stock)<br>`sale.order.x_studio_quotation_type` (BugFix-Sales)<br>`server action BugFix-Stock.server_action_2185_proj_notify_transfer_completion`<br>`stock.picking.sale_id` (sale_stock)<br>`stock.picking.state` (stock) |  |
+| PROJ - Notify Transfer Completion | `base_automation_199_proj_notify_transfer_completion` |  | When a record is created or updated on Transfer and `[('sale_id.x_studio_quotation_type', '=', 'Project'), ('state', '=', 'done')]`, runs _Create activity: Project Transfer Completed_. | `model stock.picking` (stock)<br>`sale.order.x_studio_quotation_type` (BugFix-Sales)<br>`server action BugFix-Stock.server_action_2185_proj_notify_transfer_completion`<br>`stock.picking.sale_id` (sale_stock)<br>`stock.picking.state` (stock) |  |
 | RR - Update Operation Type in Help Desk Repairs | `base_automation_177_rr_update_operation_type_in_help_desk_repairs` | archived | When a record is created on Transfer, runs nothing (no action linked). **Archived — does not run.** | `model stock.picking` (stock) |  |
-| SLS - Validate Payment in Shipment | `base_automation_81_sls_validate_payment_in_shipment` | archived | When a record is updated on Transfer, runs _SLS - Validate Payment in Shipment_. **Archived — does not run.** | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_1438_sls_validate_payment_in_shipment` |  |
-| Supplier Invoice No Update in Import POs | `base_automation_104_supplier_invoice_no_update_in_import_pos` |  | When a watched field changes in the form on Transfer, runs _Supplier Invoice No Update in Import POs_. | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_1697_supplier_invoice_no_update_in_import_pos`<br>`stock.picking.x_studio_consignment_no` |  |
-| Update Source Document in Transfers | `base_automation_148_update_source_document_in_transfers` |  | When a watched field changes in the form on Transfer, runs _Update Source Document in Transfers_. | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_1813_update_source_document_in_transfers`<br>`stock.picking.x_studio_sales_order` |  |
-| User Location Validation | `base_automation_246_user_location_validation` | archived | When a record is created or updated on Transfer and `["|","|","|",["state","=","draft"],["state","=","waiting"],["state","=","confirmed"],["state","=","assigned"]]`, runs _User Location Validation_. **Archived — does not run.** | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_2474_user_location_validation`<br>`stock.picking.state` (stock) |  |
-| User Location Validation-TEST | `base_automation_247_user_location_validation_test` | archived | When a record is updated on Transfer and `[["state","=","draft"]]`, runs _User Location Validation-TEST_. **Archived — does not run.** | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_2489_user_location_validation_test`<br>`stock.picking.state` (stock) |  |
+| SLS - Validate Payment in Shipment | `base_automation_81_sls_validate_payment_in_shipment` | archived | When a record is updated on Transfer, runs _Execute Code_. **Archived — does not run.** | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_1438_sls_validate_payment_in_shipment` |  |
+| Supplier Invoice No Update in Import POs | `base_automation_104_supplier_invoice_no_update_in_import_pos` |  | When a watched field changes in the form on Transfer, runs _Execute Code_. | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_1697_supplier_invoice_no_update_in_import_pos`<br>`stock.picking.x_studio_consignment_no` |  |
+| Update Source Document in Transfers | `base_automation_148_update_source_document_in_transfers` |  | When a watched field changes in the form on Transfer, runs _Execute Code_. | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_1813_update_source_document_in_transfers`<br>`stock.picking.x_studio_sales_order` |  |
+| User Location Validation | `base_automation_246_user_location_validation` | archived | When a record is created or updated on Transfer and `["|","|","|",["state","=","draft"],["state","=","waiting"],["state","=","confirmed"],["state","=","assigned"]]`, runs _Execute Code_. **Archived — does not run.** | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_2474_user_location_validation`<br>`stock.picking.state` (stock) |  |
+| User Location Validation-TEST | `base_automation_247_user_location_validation_test` | archived | When a record is updated on Transfer and `[["state","=","draft"]]`, runs _Execute Code_. **Archived — does not run.** | `model stock.picking` (stock)<br>`server action BugFix-Stock.server_action_2489_user_location_validation_test`<br>`stock.picking.state` (stock) |  |
 
 **Approval rules (3):**
 
@@ -759,14 +765,13 @@ imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complet
 | stock.picking | `act_window_2536_stock_picking` | Opens **Transfer** records (kanban,tree,form,calendar,map). | `model stock.picking` (stock) |  |
 | stock.picking | `act_window_1978_stock_picking` | Opens **Transfer** records (kanban,tree,form,calendar,map). | `model stock.picking` (stock) |  |
 
-**Views (4):**
+**Views (3):**
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
 | Odoo Studio: stock.picking.form customization | `ported_view_2387_studio_stock_picking_form` | form | set help='Verify if the required products are available in stock. ' on `//button[@name='action_assign']`; after `//button[@name='action_assign']`: add button 'Update Consignment'; set help=The transfer order is ready to be processed, but the actual transfer has not been executed yet. on `//form[1]/header[1]/button[@name='action_confirm']`; set groups=, help=Confirm or finalize the transaction on `//form[1]/header[1]/button[@name='button_validate']`; set help=Confirm or finalize the transaction on `//form[1]/header[1]/button[@name='button_validate'][2]`; set studio_approval=True on `//button[@name='action_open_label_type']`; set groups=stock.group_stock_user on `//button[@name='852']`; after `//button[@name='852']`: add button 'Dispatch', button 'Retun Reject Reason' … | Large Studio customization of the Transfer form: help texts, Update Consignment, Dispatch, Return Reject Reason and other action buttons, approval flags, and partner, operation type and source location readonly/required/visibility rules. Uses hardcoded numeric action ids (2007, 870, 852 etc.). | `server action BugFix-Stock.server_action_1367_imp_update_consignment_final`<br>`server action BugFix-Stock.server_action_1999_rr_re_return_validation`<br>`stock.picking.partner_id` (stock)<br>`stock.picking.purchase_id` (purchase_stock)<br>`stock.picking.sale_id` (sale_stock)<details><summary>+53 more</summary>`stock.picking.state` (stock)<br>`stock.picking.x_studio_analytic_account` (BugFix-Analytics)<br>`stock.picking.x_studio_budget_created`<br>`stock.picking.x_studio_cancelled`<br>`stock.picking.x_studio_cash_full_payment_made`<br>`stock.picking.x_studio_consignment_no`<br>`stock.picking.x_studio_created_from_help_ticket`<br>`stock.picking.x_studio_created_from_material_request_no`<br>`stock.picking.x_studio_custom_clearance_no`<br>`stock.picking.x_studio_factory_repair`<br>`stock.picking.x_studio_fsm_task_done`<br>`stock.picking.x_studio_fully_paid_so`<br>`stock.picking.x_studio_gl_account_status`<br>`stock.picking.x_studio_helpdesk_ticket_id`<br>`stock.picking.x_studio_journal_type`<br>`stock.picking.x_studio_maintenance_request_`<br>`stock.picking.x_studio_mj_in`<br>`stock.picking.x_studio_mj_out`<br>`stock.picking.x_studio_movement_journal`<br>`stock.picking.x_studio_need_approval`<br>`stock.picking.x_studio_offset_account_updated`<br>`stock.picking.x_studio_picking_count`<br>`stock.picking.x_studio_pr_type`<br>`stock.picking.x_studio_quotation_type_2`<br>`stock.picking.x_studio_quotation_type`<br>`stock.picking.x_studio_received_at_centre`<br>`stock.picking.x_studio_repair_payment_made`<br>`stock.picking.x_studio_repair_return_location`<br>`stock.picking.x_studio_return_receipt_location`<br>`stock.picking.x_studio_return_sequence`<br>`stock.picking.x_studio_sales_order`<br>`stock.picking.x_studio_sequence_code`<br>`stock.picking.x_studio_supplier_invoice_number_1`<br>`stock.picking.x_studio_supplier_invoice_number`<br>`stock.picking.x_studio_task_status`<br>`stock.picking.x_studio_ticket_sales_order`<br>`stock.picking.x_studio_transfer_approval`<br>`stock.picking.x_studio_transfer_approved`<br>`stock.picking.x_studio_transfer_rejected`<br>`stock.picking.x_studio_transfer_request_sent`<br>`stock.picking.x_studio_type_of_operation`<br>`stock.picking.x_studio_update_consignment`<br>`stock.picking.x_studio_user_location_validation_2`<br>`stock.picking.x_studio_user_location_validation`<br>`stock.picking.x_studio_valid_factory_repair`<br>`stock.picking.x_studio_valid_transfer_lines`<br>`stock.picking.x_studio_validation`<br>`stock.picking.x_x_studio_create_from_transfer_1__account_move_count`<br>`stock.picking.x_x_studio_created_from_transfer__account_move_count`<br>`view stock.view_picking_form` (stock)<br>`window action BugFix-Stock.act_1362_vend_dispatch_reversal`<br>`window action BugFix-Stock.act_1363_custom_clearance_reversal`<br>`window action stock.act_stock_return_picking` (stock)</details> |  |
 | Odoo Studio: stock.picking.form_button | `view_4732_odoo_studio_stock_picking_form_button_e` | form | inside `//form`: add field x_studio_budget_created, field x_studio_cancelled, field x_studio_cash_full_payment_made, field x_studio_created_from_help_ticket, field x_studio_factory_repair, field x_studio_fsm_task_done, field x_studio_fully_paid_so, field x_studio_helpdesk_ticket_id, field x_studio_need_approval, field x_studio_picking_count, field x_studio_pr_type, field x_studio_quotation_type_2 …; set invisible=((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or (x_studio_helpdesk_ticket_id != False)) on `//header/button[@name='870']`; after `//header/button[@name='action_assign']`: add ; before `//header/button[@name='870']`: add button 'Dispatch'; before `//header/button[@name='870'][2]`: add ; set invisible=((x_studio_budget_created == False) and (x_studio_quotation_type_2 == 'Project')) or (((x_studio_update_consignment == False) and (x_studio_pr_type == 'Import')) or (((x_studio_repair_payment_made == False) and (x_studio_quotation_type_2 == 'Repair')) or ((show_validate == False) or ((state in ('waiting', 'confirmed')) or ((x_studio_transfer_rejected == True) or ((x_studio_valid_transfer_lines == False) or (x_studio_cancelled == True))))))) on `//header/button[@name='button_validate']`; set invisible=(immediate_transfer == True) or ((show_validate == False) or ((x_studio_helpdesk_ticket_id != False) or (x_studio_pr_type == 'Import'))) on `//header/button[@name='action_set_quantities_to_reservation']`; set readonly=((x_studio_update_consignment == True) and (x_studio_pr_type == 'Import')) or ((is_locked == True) and (state == 'done')) on `//sheet/notebook/page/field[@name='move_ids_without_package']` … | Inactive (archived) Studio customization of the Transfer form adding Dispatch button rules and Validate/Set Quantities/Mark as To Do visibility conditions; has no effect while inactive. | `stock.picking.state` (stock)<br>`stock.picking.x_studio_budget_created`<br>`stock.picking.x_studio_cancelled`<br>`stock.picking.x_studio_cash_full_payment_made`<br>`stock.picking.x_studio_created_from_help_ticket`<details><summary>+18 more</summary>`stock.picking.x_studio_factory_repair`<br>`stock.picking.x_studio_fsm_task_done`<br>`stock.picking.x_studio_fully_paid_so`<br>`stock.picking.x_studio_helpdesk_ticket_id`<br>`stock.picking.x_studio_need_approval`<br>`stock.picking.x_studio_picking_count`<br>`stock.picking.x_studio_pr_type`<br>`stock.picking.x_studio_quotation_type_2`<br>`stock.picking.x_studio_received_at_centre`<br>`stock.picking.x_studio_repair_payment_made`<br>`stock.picking.x_studio_task_status`<br>`stock.picking.x_studio_transfer_approved`<br>`stock.picking.x_studio_transfer_rejected`<br>`stock.picking.x_studio_update_consignment`<br>`stock.picking.x_studio_valid_factory_repair`<br>`stock.picking.x_studio_valid_transfer_lines`<br>`view stock.view_picking_form` (stock)<br>`window action stock.act_stock_return_picking` (stock)</details> |  |
 | Odoo Studio: stock.picking.tree customization | `ported_view_5299_studio_stock_picking_tree` | tree | set create=true on `//tree[1]`; after `//field[@name='state']`: add field x_studio_movement_journal, field x_studio_gl_account_status | Allows creating from the Transfers list and adds a hidden Movement Journal column plus an optional GL Account Status badge shown only for movement-journal transfers. | `stock.picking.x_studio_gl_account_status`<br>`stock.picking.x_studio_movement_journal`<br>`view stock.vpicktree` (stock) |  |
-| stock.picking.form.hide.dev.extras | `view_stock_picking_form_hide_dev_extras` | form | set invisible=1 on `//field[@name='is_subcontract']`; set invisible=1 on `//field[@name='show_subcontracting_details_visible']`; set invisible=1 on `//field[@name='subcontracting_source_purchase_count']`; set invisible=1 on `//button[@name='action_record_components']`; set invisible=1 on `//button[@name='action_show_subcontract_details']`; set invisible=1 on `//button[@name='action_view_subcontracting_source_purchase']`; set invisible=1 on `//button[@name='action_retry_amazon_sync']`; set invisible=1 on `//field[@name='eway_bill_number']` | Hides fields and buttons added by other installed addons on the Transfer form: subcontracting fields and buttons, the Amazon retry-sync button and the India e-way bill number. | `view stock.view_picking_form` (stock) |  |
 
 **Record rules (4):**
 

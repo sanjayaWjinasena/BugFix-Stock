@@ -40,7 +40,7 @@ if record.id:
   bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_bom_material_cost_ids':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_uom_id':record.product_uom.id})
 ```
   </details>
-- **Create Production BOM Material Cost** (`server_action_1066_create_production_bom_material_cost`, type `code`)
+- **Execute Code** (`server_action_1066_create_production_bom_material_cost`, type `code`)
   - Function: For a raw-material move of a manufacturing order with a BOM line, creates a Production BOM Material Cost record with operation, product, planned and actual quantities and UoM; run by the matching automation.
   - Depends on: `model stock.move` (stock), `model x_mrp_bom_material_cos` (BugFix-MRP), `stock.move.bom_line_id` (mrp), `stock.move.operation_id` (mrp), `stock.move.product_id` (stock)<details><summary>+4 more</summary>`stock.move.product_qty` (stock), `stock.move.product_uom` (stock), `stock.move.quantity` (stock), `stock.move.raw_material_production_id` (mrp)</details>
   - Used by: `automation BugFix-Stock.base_automation_28_create_production_bom_material_cost`
@@ -49,6 +49,19 @@ if record.id:
 ```python
 if record.bom_line_id and record.raw_material_production_id:
   prod_bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_prod_bom_material_cost_ids':record.raw_material_production_id.id,'x_studio_bom_line_id':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id})
+```
+  </details>
+- **Execute Code** (`server_action_1073_update_production_bom_material_cost`, type `code`)
+  - Function: Finds the Production BOM Material Cost record for this raw-material move and refreshes its operation, product, planned/actual quantities and UoM; run by the matching automation.
+  - Depends on: `model stock.move` (stock), `model x_mrp_bom_material_cos` (BugFix-MRP), `stock.move.bom_line_id` (mrp), `stock.move.operation_id` (mrp), `stock.move.product_id` (stock)<details><summary>+4 more</summary>`stock.move.product_qty` (stock), `stock.move.product_uom` (stock), `stock.move.quantity` (stock), `stock.move.raw_material_production_id` (mrp)</details>
+  - Used by: `automation BugFix-Stock.base_automation_29_update_production_bom_material_cost`
+  <details><summary>code (4 lines)</summary>
+
+```python
+if record.bom_line_id and record.raw_material_production_id:
+  update = env['x_mrp_bom_material_cos'].search([('x_studio_prod_bom_line_id', '=', record.id), ('x_studio_prod_bom_material_cost_ids', '=', record.raw_material_production_id.id), ('x_studio_bom_line_id', '=', record.bom_line_id.id)], limit=1)
+  if update:
+    update.write({'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id})
 ```
   </details>
 - **SRM - Auto Populate Report Type in Product Variance Moves** (`server_action_1755_srm_auto_populate_report_type_in_product_variance_moves`, type `code`)
@@ -74,27 +87,14 @@ if record.id:
 record['x_studio_original_qty'] = record.product_uom_qty
 ```
   </details>
-- **Update Production BOM Material Cost** (`server_action_1073_update_production_bom_material_cost`, type `code`)
-  - Function: Finds the Production BOM Material Cost record for this raw-material move and refreshes its operation, product, planned/actual quantities and UoM; run by the matching automation.
-  - Depends on: `model stock.move` (stock), `model x_mrp_bom_material_cos` (BugFix-MRP), `stock.move.bom_line_id` (mrp), `stock.move.operation_id` (mrp), `stock.move.product_id` (stock)<details><summary>+4 more</summary>`stock.move.product_qty` (stock), `stock.move.product_uom` (stock), `stock.move.quantity` (stock), `stock.move.raw_material_production_id` (mrp)</details>
-  - Used by: `automation BugFix-Stock.base_automation_29_update_production_bom_material_cost`
-  <details><summary>code (4 lines)</summary>
-
-```python
-if record.bom_line_id and record.raw_material_production_id:
-  update = env['x_mrp_bom_material_cos'].search([('x_studio_prod_bom_line_id', '=', record.id), ('x_studio_prod_bom_material_cost_ids', '=', record.raw_material_production_id.id), ('x_studio_bom_line_id', '=', record.bom_line_id.id)], limit=1)
-  if update:
-    update.write({'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id})
-```
-  </details>
 **Automations (4):**
 
 | Name | Record name | State | Function | Depends on | Used by |
 |---|---|---|---|---|---|
-| Create Production BOM Material Cost | `base_automation_28_create_production_bom_material_cost` |  | When a record is created or updated on Stock Move, runs _Create Production BOM Material Cost_. | `model stock.move` (stock)<br>`server action BugFix-Stock.server_action_1066_create_production_bom_material_cost`<br>`stock.move.create_date` (stock) |  |
+| Create Production BOM Material Cost | `base_automation_28_create_production_bom_material_cost` |  | When a record is created or updated on Stock Move, runs _Execute Code_. | `model stock.move` (stock)<br>`server action BugFix-Stock.server_action_1066_create_production_bom_material_cost`<br>`stock.move.create_date` (stock) |  |
 | SRM - Auto Populate Report Type in Product Variance Moves | `base_automation_129_srm_auto_populate_report_type_in_product_variance_moves` | archived | When a record is created or updated on Stock Move and `[]`, runs nothing (no action linked). **Archived — does not run.** | `model stock.move` (stock) |  |
 | SRM - Production Job Variance - Write Original | `base_automation_130_srm_production_job_variance_write_original` | archived | When a record is created on Stock Move and `[]`, runs nothing (no action linked). **Archived — does not run.** | `model stock.move` (stock) |  |
-| Update Production BOM Material Cost | `base_automation_29_update_production_bom_material_cost` |  | When a record is created or updated on Stock Move, runs _Update Production BOM Material Cost_. | `model stock.move` (stock)<br>`server action BugFix-Stock.server_action_1073_update_production_bom_material_cost` |  |
+| Update Production BOM Material Cost | `base_automation_29_update_production_bom_material_cost` |  | When a record is created or updated on Stock Move, runs _Execute Code_. | `model stock.move` (stock)<br>`server action BugFix-Stock.server_action_1073_update_production_bom_material_cost` |  |
 
 **Window actions (6):**
 

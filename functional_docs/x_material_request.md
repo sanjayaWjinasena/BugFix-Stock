@@ -224,6 +224,27 @@ else:
   raise UserError('There is no valid Location has been setup.')
 ```
   </details>
+- **Execute Code** (`server_action_2410_mr_validate_delete`, type `code`)
+  - Function: Blocks deletion of a Material Request whose status is not Draft with an error; run by the MR Validate Delete automation.
+  - Depends on: `model x_material_request`
+  - Used by: `automation BugFix-Stock.base_automation_230_mr_validate_delete`
+  <details><summary>code (2 lines)</summary>
+
+```python
+if record.x_studio_selection_field_BupKG != 'Draft':
+  raise UserError('Processed material request can not be deleted.')
+```
+  </details>
+- **Execute Code** (`server_action_1563_material_req_gen`, type `code`)
+  - Function: Assigns the next number from sequence `mtrl.req.seq` as the Material Request name; run by the Material Req GEN automation.
+  - Depends on: `model ir.sequence` (base), `model x_material_request`, `x_material_request.x_name`
+  - Used by: `automation BugFix-Stock.base_automation_95_material_req_gen`
+  <details><summary>code (1 lines)</summary>
+
+```python
+record['x_name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')
+```
+  </details>
 - **MR Request Approval - Notify User** (`server_action_2440_mr_request_approval_notify_user`, type `next_activity`)
   - Function: Schedules a To-Do activity (summary 'Approve RUG Repair') on the Material Request for a specific user; child step of Request Approval MR. No assignee is set in the repo and the summary looks copied from a repair flow.
   - Depends on: `model x_material_request`
@@ -264,27 +285,6 @@ else:
 #  - UserError: exception class for raising user-facing warning messages
 #  - Command: x2many commands namespace
 # To return an action, assign: action = {...}
-```
-  </details>
-- **MR Validate Delete** (`server_action_2410_mr_validate_delete`, type `code`)
-  - Function: Blocks deletion of a Material Request whose status is not Draft with an error; run by the MR Validate Delete automation.
-  - Depends on: `model x_material_request`
-  - Used by: `automation BugFix-Stock.base_automation_230_mr_validate_delete`
-  <details><summary>code (2 lines)</summary>
-
-```python
-if record.x_studio_selection_field_BupKG != 'Draft':
-  raise UserError('Processed material request can not be deleted.')
-```
-  </details>
-- **Material Req GEN** (`server_action_1563_material_req_gen`, type `code`)
-  - Function: Assigns the next number from sequence `mtrl.req.seq` as the Material Request name; run by the Material Req GEN automation.
-  - Depends on: `model ir.sequence` (base), `model x_material_request`, `x_material_request.x_name`
-  - Used by: `automation BugFix-Stock.base_automation_95_material_req_gen`
-  <details><summary>code (1 lines)</summary>
-
-```python
-record['x_name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')
 ```
   </details>
 - **PR create For MR** (`server_action_1650_pr_create_for_mr`, type `code`)
@@ -402,8 +402,8 @@ env['x_pr_non_inventory'].create({'x_studio_material_request_ref':record.id, 'x_
 
 | Name | Record name | State | Function | Depends on | Used by |
 |---|---|---|---|---|---|
-| MR Validate Delete | `base_automation_230_mr_validate_delete` |  | When a record is deleted on Material Request, runs _MR Validate Delete_. | `model x_material_request`<br>`server action BugFix-Stock.server_action_2410_mr_validate_delete` |  |
-| Material Req GEN | `base_automation_95_material_req_gen` |  | When a record is created or updated on Material Request, runs _Material Req GEN_. | `model x_material_request`<br>`server action BugFix-Stock.server_action_1563_material_req_gen`<br>`x_material_request.create_date` |  |
+| MR Validate Delete | `base_automation_230_mr_validate_delete` |  | When a record is deleted on Material Request, runs _Execute Code_. | `model x_material_request`<br>`server action BugFix-Stock.server_action_2410_mr_validate_delete` |  |
+| Material Req GEN | `base_automation_95_material_req_gen` |  | When a record is created or updated on Material Request, runs _Execute Code_. | `model x_material_request`<br>`server action BugFix-Stock.server_action_1563_material_req_gen`<br>`x_material_request.create_date` |  |
 
 **Window actions (4):**
 

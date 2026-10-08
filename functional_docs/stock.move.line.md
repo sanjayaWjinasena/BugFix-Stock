@@ -25,7 +25,7 @@ This repo adds a PR Type field and three Sales Report Type links (Slow Moving It
 
 **Server actions (2):**
 
-- **SRM - Auto Populate Report Type in Product Moves** (`server_action_1742_srm_auto_populate_report_type_in_product_moves`, type `code`)
+- **Execute Code** (`server_action_1742_srm_auto_populate_report_type_in_product_moves`, type `code`)
   - Function: When a move line is in state 'progress', fills its three report-type links (Slow Moving Items, Sales-Production-Purchase, Production Summary - Split) from Sales Report Types by code; run by the matching automation.
   - Depends on: `model stock.move.line` (stock), `model x_sales_report_type` (Jinasena_Masterdata_Reporting), `stock.move.line.state` (stock), `stock.move.line.x_studio_report_type_production_summary_split` (Jinasena_Masterdata_Reporting), `stock.move.line.x_studio_report_type_sales_prod_purch` (Jinasena_Masterdata_Reporting)<details><summary>+1 more</summary>`stock.move.line.x_studio_report_type_slow_moving_items` (Jinasena_Masterdata_Reporting)</details>
   - Used by: `automation BugFix-Stock.base_automation_124_srm_auto_populate_report_type_in_product_moves`
@@ -63,7 +63,7 @@ if record.state == 'progress':
 
 | Name | Record name | State | Function | Depends on | Used by |
 |---|---|---|---|---|---|
-| SRM - Auto Populate Report Type in Product Moves | `base_automation_124_srm_auto_populate_report_type_in_product_moves` |  | When a record is created or updated on Product Moves (Stock Move Line) and `[]`, runs _SRM - Auto Populate Report Type in Product Moves_. | `model stock.move.line` (stock)<br>`server action BugFix-Stock.server_action_1742_srm_auto_populate_report_type_in_product_moves`<br>`x_sales_report_model.x_studio_as_on_date` (Jinasena_Masterdata_Reporting) |  |
+| SRM - Auto Populate Report Type in Product Moves | `base_automation_124_srm_auto_populate_report_type_in_product_moves` |  | When a record is created or updated on Product Moves (Stock Move Line) and `[]`, runs _Execute Code_. | `model stock.move.line` (stock)<br>`server action BugFix-Stock.server_action_1742_srm_auto_populate_report_type_in_product_moves` |  |
 
 **Window actions (3):**
 

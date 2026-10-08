@@ -43,6 +43,19 @@ A Consignment Charge Header is a charge, duty or tax at consignment level, with 
 
 **Server actions (2):**
 
+- **Execute Code** (`server_action_2617_jin_company_id_in_consignment_charge_header`, type `code`)
+  - Function: Sets the Company of a Consignment Charge Header to the user's active company; run by an automation defined in BugFix-Accounting.
+  - Depends on: `model res.company` (base), `model x_consignment_charge_h`, `x_consignment_charge_h.x_studio_company_id`
+  - Used by: `automation BugFix-Stock.automation_289_jin_company_id_in_consignment_charge_header`
+  <details><summary>code (4 lines)</summary>
+
+```python
+company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+company = env['res.company'].browse(company_id)
+
+record['x_studio_company_id'] = company.id
+```
+  </details>
 - **IMP - Check Consignment Assessable Value** (`server_action_1320_imp_check_consignment_assessable_value`, type `code`)
   - Function: Calculates a consignment's Assessable Value (total amount plus tax-applicable delivery-term charges) and shows it in a sticky notification; changes no data.
   - Depends on: `model x_consignment_charge_h`, `model x_consignment_header`, `model x_delivery_term_charge` (BugFix-Purchase), `x_consignment_charge_h.x_studio_charge_group`, `x_consignment_charge_h.x_studio_charge_name`<details><summary>+2 more</summary>`x_consignment_charge_h.x_studio_consignment_id`, `x_consignment_charge_h.x_studio_tax_appicable`</details>
@@ -97,24 +110,11 @@ for header_lines in records:
       break
 ```
   </details>
-- **JIN - Company Id in Consignment Charge Header** (`server_action_2617_jin_company_id_in_consignment_charge_header`, type `code`)
-  - Function: Sets the Company of a Consignment Charge Header to the user's active company; run by an automation defined in BugFix-Accounting.
-  - Depends on: `model res.company` (base), `model x_consignment_charge_h`, `x_consignment_charge_h.x_studio_company_id`
-  - Used by: `automation BugFix-Accounting.base_automation_289_jin_company_id_in_consignment_charge_header` (BugFix-Accounting)
-  <details><summary>code (4 lines)</summary>
-
-```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
-
-record['x_studio_company_id'] = company.id
-```
-  </details>
 **Automations (1):**
 
 | Name | Record name | State | Function | Depends on | Used by |
 |---|---|---|---|---|---|
-| JIN - Company Id in Consignment Charge Header | `automation_289_jin_company_id_in_consignment_charge_header` |  | When a record is created or updated on Consignment Charge Header, runs nothing (no action linked). | `model x_consignment_charge_h` |  |
+| JIN - Company Id in Consignment Charge Header | `automation_289_jin_company_id_in_consignment_charge_header` |  | When a record is created or updated on Consignment Charge Header, runs _Execute Code_. | `model x_consignment_charge_h`<br>`server action BugFix-Stock.server_action_2617_jin_company_id_in_consignment_charge_header` |  |
 
 **Window actions (5):**
 
