@@ -292,10 +292,10 @@
     # repair-test-101 before landing.
     'depends': ['base_setup', 'stock', 'stock_account', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
     'data': [
-        # 'data/defaults_final.xml',  # upgrade-testing: data, not shipped
+        'data/defaults_final.xml',  # upgrade-testing: form defaults shipped; record-specific ones commented inside
         'data/server_actions_f5.xml',
         'data/window_actions_f4.xml',
-        # 'data/defaults_f2.xml',  # upgrade-testing: data, not shipped
+        'data/defaults_f2.xml',  # upgrade-testing: form defaults shipped; record-specific ones commented inside
         'security/ir_model_pins.xml',
         'data/server_actions.xml',
         'security/ir.model.access.csv',
@@ -332,8 +332,8 @@
         'data/server_actions_gap.xml',
         'data/automations_gap.xml',
         'data/window_actions_gap.xml',
-        # 'data/ir_defaults_gap.xml',  # upgrade-testing: data, not shipped
-        # 'data/ir_defaults_unblocked.xml',  # upgrade-testing: data, not shipped
+        'data/ir_defaults_gap.xml',  # upgrade-testing: form defaults shipped; record-specific ones commented inside
+        'data/ir_defaults_unblocked.xml',  # upgrade-testing: form defaults shipped; record-specific ones commented inside
         'views/stock_move_e_views.xml',
         'views/stock_picking_e_views.xml',
         'views/stock_picking_type_e_views.xml',

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- BugFix-Stock: Phase F2 - 1 defaults (Selection-typed stripped) -->
 <odoo noupdate="1">
+  <!-- upgrade-testing: points at a specific record (company/user/partner/location/stage...), not shipped (record id):
   <record id="default_BugFix_Stock_field_x_material_request_tes__x_studi_1" model="ir.default">
     <field name="field_id" ref="BugFix-Stock.field_x_material_request_tes__x_studio_stage_id"/>
     <field name="json_value">1</field>
   </record>
+  -->
 </odoo>
