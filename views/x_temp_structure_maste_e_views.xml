@@ -25,7 +25,7 @@
     </group>
     <newline/>
     <footer>
-      <button name="1204" string="Apply" type="action" class="oe_highlight"/>
+      <button name="%(BugFix-Stock.server_action_1204_imp_apply_formula)d" string="Apply" type="action" class="oe_highlight"/>
       <button special="cancel" string="Cancel" class="oe_link"/>
     </footer>
 </form>

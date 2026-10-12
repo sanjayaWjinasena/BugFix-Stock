@@ -16,8 +16,8 @@
       <field name="x_studio_select_all" options="{'no_open': true}" invisible="1" readonly="True"/>
     </group> 
     <newline/>
-    <button name="1417" string="Select All" type="action" class="oe_highlight" invisible="x_studio_select_all == True"/> 
-    <button name="1419" string="Clear All" type="action" class="oe_highlight" invisible="x_studio_select_all == False"/>
+    <button name="%(BugFix-Stock.server_action_1417_imp_select_all_in_copy_pi_lines)d" string="Select All" type="action" class="oe_highlight" invisible="x_studio_select_all == True"/> 
+    <button name="%(BugFix-Stock.server_action_1419_imp_clear_all_in_copy_po_lines)d" string="Clear All" type="action" class="oe_highlight" invisible="x_studio_select_all == False"/>
     <group>
       <field name="x_studio_con_lines" nolabel="1" colspan="2">
         <tree string="Details" create="false" editable="bottom" delete="false"> 
@@ -38,7 +38,7 @@
     </group>
     <newline/>
     <footer>
-      <button name="1420" string="Apply" type="action" class="oe_highlight"/>
+      <button name="%(BugFix-Stock.server_action_1420_imp_apply_selected_pi_lines_to_consolidation)d" string="Apply" type="action" class="oe_highlight"/>
       <button special="cancel" string="Cancel" class="oe_link"/>
     </footer>
 </form>
