@@ -15,6 +15,7 @@
   </record>
 
   <record id="rule_458_transfer_type_block" model="ir.rule">
+    <!-- Archived (test log 118): on Clear-DB this rule has no groups and applies to nobody; shipped without groups it became global and hid every PO receipt. -->
     <field name="name">Transfer Type Block</field>
     <field name="model_id" ref="stock.model_stock_picking"/>
     <field name="domain_force">['&amp;', '!', (0, '=', 1), ('x_studio_type_of_operation', '=', 'internal')]</field>
@@ -22,10 +23,11 @@
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
     <field name="perm_unlink" eval="True"/>
-    <field name="active" eval="True"/>
+    <field name="active" eval="False"/>
   </record>
 
   <record id="rule_460_block_operations" model="ir.rule">
+    <!-- Archived (test log 118): on Clear-DB this rule has no groups and applies to nobody; shipped without groups it became global and hid every PO receipt. -->
     <field name="name">Block Operations</field>
     <field name="model_id" ref="stock.model_stock_picking"/>
     <field name="domain_force">[('x_studio_type_of_operation', '=', 'internal')]</field>
@@ -33,7 +35,7 @@
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
     <field name="perm_unlink" eval="True"/>
-    <field name="active" eval="True"/>
+    <field name="active" eval="False"/>
   </record>
 
   <record id="rule_912_kap_operation_control_2" model="ir.rule">
