@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 {
+    # upgrade-testing branch: data files below are commented out - this branch installs functions only, no data is seeded.
     'name': 'Jinasena : Module : Inventory',
     'version': '17.0.0.0.124',
     'summary': 'Studio-to-Python port for BugFix-Stock',
@@ -291,10 +292,10 @@
     # repair-test-101 before landing.
     'depends': ['base_setup', 'stock', 'stock_account', 'stock_landed_costs', 'helpdesk_stock', 'Jinasena_Masterdata_Reporting'],
     'data': [
-        'data/defaults_final.xml',
+        # 'data/defaults_final.xml',  # upgrade-testing: data, not shipped
         'data/server_actions_f5.xml',
         'data/window_actions_f4.xml',
-        'data/defaults_f2.xml',
+        # 'data/defaults_f2.xml',  # upgrade-testing: data, not shipped
         'security/ir_model_pins.xml',
         'data/server_actions.xml',
         'security/ir.model.access.csv',
@@ -308,8 +309,8 @@
         'data/window_actions.xml',
         'data/window_actions_v2.xml',
         'data/record_rules.xml',
-        'data/filters.xml',
-        'data/sequences.xml',
+        # 'data/filters.xml',  # upgrade-testing: data, not shipped
+        # 'data/sequences.xml',  # upgrade-testing: data, not shipped
         # v0.0.116: hide_dev_extras MUST load before stock_studio_ported_v3.
         # When _v3 loads, Odoo re-validates every inheritor of
         # stock.view_picking_form. If hide_dev_extras's DB arch is still
@@ -331,8 +332,8 @@
         'data/server_actions_gap.xml',
         'data/automations_gap.xml',
         'data/window_actions_gap.xml',
-        'data/ir_defaults_gap.xml',
-        'data/ir_defaults_unblocked.xml',
+        # 'data/ir_defaults_gap.xml',  # upgrade-testing: data, not shipped
+        # 'data/ir_defaults_unblocked.xml',  # upgrade-testing: data, not shipped
         'views/stock_move_e_views.xml',
         'views/stock_picking_e_views.xml',
         'views/stock_picking_type_e_views.xml',
