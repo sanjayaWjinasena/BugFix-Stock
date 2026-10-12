@@ -7,8 +7,7 @@
   <menuitem id="menu_f6_custom_duty" name="Custom Duty" parent="purchase.purchase_report_main" action="BugFix-Stock.action_2231_custom_duty" sequence="2"/>
   <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
   <menuitem id="menu_f6_temp_consignment_line" name="Temp Consignment Line" action="BugFix-Stock.action_1356_temp_consignment_line" sequence="6" active="False"/>
-  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
-  <menuitem id="menu_f6_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_2861_temp_consignment_header" sequence="7" active="False"/>
+  <menuitem id="menu_f6_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_2861_temp_consignment_header" sequence="7"/>
   <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
   <menuitem id="menu_f6_material_request_mt_stages" name="Material Request MT Stages" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3385_material_request_mt_stages" active="False"/>
   <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->

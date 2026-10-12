@@ -2,7 +2,8 @@
 <!-- BugFix-Stock: menu sweep from routing audit (20 candidates) --><!-- Uses <menuitem> shortcut with dev-verified parent + action refs --><odoo>
 
   <menuitem id="menu_778_temp_consignment_line" name="Temp Consignment Line" action="BugFix-Stock.action_1262_temp_consignment_line" sequence="6"/>
-  <menuitem id="menu_779_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_1259_temp_consignment_header" sequence="7"/>
+  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept (form-only copy kept: matches Clear-DB) -->
+  <menuitem id="menu_779_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_1259_temp_consignment_header" sequence="7" active="False"/>
   <menuitem id="menu_1147_inventory_warehouse" name="Inventory/wAREHOUSE" sequence="10"/>
   <menuitem id="menu_1072_inventory_holding_days" name="Inventory Holding Days" parent="mrp.menu_mrp_root" action="BugFix-Stock.action_2225_inventory_holding_days" sequence="101"/>
   <menuitem id="menu_1148_inventory_setup" name="Inventory Setup" parent="stock.menu_stock_root" sequence="101"/>
