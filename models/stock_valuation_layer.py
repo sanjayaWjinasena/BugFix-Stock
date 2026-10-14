@@ -17,23 +17,24 @@ x_studio_related_field_MfcOm (Char) and x_studio_related_field_dGINH
 (M2O stock.warehouse, store=False) are not referenced by any view
 currently being ported.
 """
+
 from odoo import fields, models
 
 
 class StockValuationLayer(models.Model):
-    _inherit = 'stock.valuation.layer'
+    _inherit = "stock.valuation.layer"
 
     x_studio_related_field_bPlxa = fields.Many2one(
-        'stock.location',
-        related='stock_move_id.location_id',
-        string='From',
+        "stock.location",
+        related="stock_move_id.location_id",
+        string="From",
         readonly=True,
         store=True,
     )
     x_studio_related_field_ygmmJ = fields.Many2one(
-        'stock.location',
-        related='stock_move_id.location_dest_id',
-        string='To',
+        "stock.location",
+        related="stock_move_id.location_dest_id",
+        string="To",
         readonly=True,
         store=True,
     )

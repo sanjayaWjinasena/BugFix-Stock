@@ -133,15 +133,22 @@ A Material Request is an internal request for products from a stores warehouse, 
 
 ```python
 if record.x_name:
-  null_Mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.x_name)])
-  if not null_Mr_lines:
-   raise UserError("Valid MR Lines Should Exists to Confirm!")
-   
-  invalid_mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.x_name), ('x_studio_quantity', '<=', 0)])
-  if invalid_mr_lines:
-    raise UserError("Quantity of Individual MR Lines Should be Greater than Zero!")
-    
-record.write({'x_studio_selection_field_BupKG': 'Confirmed'})
+    null_Mr_lines = env["x_mr_config"].search(
+        [("x_studio_many2one_field_6yqbk", "=", record.x_name)]
+    )
+    if not null_Mr_lines:
+        raise UserError("Valid MR Lines Should Exists to Confirm!")
+
+    invalid_mr_lines = env["x_mr_config"].search(
+        [
+            ("x_studio_many2one_field_6yqbk", "=", record.x_name),
+            ("x_studio_quantity", "<=", 0),
+        ]
+    )
+    if invalid_mr_lines:
+        raise UserError("Quantity of Individual MR Lines Should be Greater than Zero!")
+
+record.write({"x_studio_selection_field_BupKG": "Confirmed"})
 ```
   </details>
 - **Create Material Transfer** (`server_action_2406_create_material_transfer`, type `code`)
@@ -151,77 +158,118 @@ record.write({'x_studio_selection_field_BupKG': 'Confirmed'})
   <details><summary>code (71 lines)</summary>
 
 ```python
-valid_req_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)],limit=1)
+valid_req_lines = env["x_mr_config"].search(
+    [
+        ("x_studio_many2one_field_6yqbk", "=", record.id),
+        ("x_studio_transfer_remainder", ">", 0),
+    ],
+    limit=1,
+)
 
 if not valid_req_lines:
+    raise UserError("There are no valid item lines to transfer.")
 
-  raise UserError('There are no valid item lines to transfer.')
 
-  
-
-dest_loc = env['stock.location'].search([('usage', '=', 'inventory'),('complete_name', '=', 'Virtual Locations/MJ')],limit=1)
+dest_loc = env["stock.location"].search(
+    [("usage", "=", "inventory"), ("complete_name", "=", "Virtual Locations/MJ")],
+    limit=1,
+)
 
 if dest_loc:
+    opt_type = env["stock.picking.type"].search(
+        [
+            ("default_location_src_id", "=", record.x_studio_warehouse.id),
+            ("default_location_dest_id", "=", dest_loc.id),
+            ("code", "=", "outgoing"),
+        ],
+        limit=1,
+    )
 
-  opt_type = env['stock.picking.type'].search([('default_location_src_id', '=', record.x_studio_warehouse.id),('default_location_dest_id', '=', dest_loc.id),('code', '=', 'outgoing')],limit=1)
+    if opt_type:
+        prod_move = env["stock.picking"].create(
+            {
+                "x_studio_created_from_material_request_no": record.id,
+                "picking_type_id": opt_type.id,
+                "location_id": record.x_studio_warehouse.id,
+                "location_dest_id": dest_loc.id,
+                "x_studio_journal_type": record.x_studio_journal_type.id,
+            }
+        )
 
-  if opt_type:
+        update_prod_move = env["stock.picking"].search(
+            [("id", "=", prod_move.id)], limit=1
+        )
 
-    prod_move = env['stock.picking'].create({'x_studio_created_from_material_request_no':record.id,'picking_type_id':opt_type.id,'location_id':record.x_studio_warehouse.id,'location_dest_id':dest_loc.id,'x_studio_journal_type':record.x_studio_journal_type.id})
+        if update_prod_move:
+            valid_req_lines_2 = env["x_mr_config"].search(
+                [
+                    ("x_studio_many2one_field_6yqbk", "=", record.id),
+                    ("x_studio_transfer_remainder", ">", 0),
+                ]
+            )
 
-     
+            if valid_req_lines_2:
+                for valid_lines in valid_req_lines_2:
+                    stock_move = env["stock.move"].create(
+                        {
+                            "picking_id": update_prod_move.id,
+                            "name": ("New Move:" + valid_lines.x_studio_product.name),
+                            "reference": update_prod_move.name,
+                            "picking_type_id": update_prod_move.picking_type_id.id,
+                            "product_id": valid_lines.x_studio_product.id,
+                            "location_id": update_prod_move.location_id.id,
+                            "location_dest_id": update_prod_move.location_dest_id.id,
+                            "product_uom_qty": valid_lines.x_studio_qty_to_transfer,
+                            "product_uom": valid_lines.x_studio_product.uom_id.id,
+                            "state": "draft",
+                        }
+                    )
 
-    update_prod_move = env['stock.picking'].search([('id', '=', prod_move.id)],limit=1)
+                    stock_move_line = env["stock.move.line"].create(
+                        {
+                            "move_id": stock_move.id,
+                            "picking_id": update_prod_move.id,
+                            "picking_type_id": update_prod_move.picking_type_id.id,
+                            "product_id": valid_lines.x_studio_product.id,
+                            "product_uom_id": valid_lines.x_studio_product.uom_id.id,
+                            "location_id": update_prod_move.location_id.id,
+                            "location_dest_id": update_prod_move.location_dest_id.id,
+                            "qty_done": valid_lines.x_studio_qty_to_transfer,
+                        }
+                    )
 
-    if update_prod_move:
+                    # cal = 0
 
-      valid_req_lines_2 = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.id),('x_studio_transfer_remainder', '>', 0)])
+                    # if valid_lines.x_studio_available_qty_to_transfer
 
-      if valid_req_lines_2:
+                    # cal =
 
-        for valid_lines in valid_req_lines_2: 
+                    valid_lines.write(
+                        {
+                            "x_studio_qty_transfered": (
+                                valid_lines.x_studio_qty_transfered
+                                + valid_lines.x_studio_qty_to_transfer
+                            ),
+                            "x_studio_qty_to_transfer": 0,
+                        }
+                    )  # valid_lines.x_studio_available_qty_to_transfer
 
-          stock_move = env['stock.move'].create({'picking_id':update_prod_move.id,'name':('New Move:'+valid_lines.x_studio_product.name),'reference':update_prod_move.name,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'product_uom_qty':valid_lines.x_studio_qty_to_transfer,'product_uom':valid_lines.x_studio_product.uom_id.id,'state':'draft'}) 
+        action = {
+            "name": "RFQ",
+            "domain": [("id", "=", prod_move.id)],
+            "type": "ir.actions.act_window",
+            "res_model": "stock.picking",
+            "view_mode": "tree,form",
+            "view_type": "form",
+            "view_id": False,
+            "context": False,
+        }
 
-          stock_move_line = env['stock.move.line'].create({'move_id':stock_move.id,'picking_id':update_prod_move.id,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.x_studio_product.id,'product_uom_id':valid_lines.x_studio_product.uom_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'qty_done':valid_lines.x_studio_qty_to_transfer}) 
-
-
-
-          #cal = 0
-
-          #if valid_lines.x_studio_available_qty_to_transfer
-
-          #cal = 
-
-          valid_lines.write({'x_studio_qty_transfered': (valid_lines.x_studio_qty_transfered + valid_lines.x_studio_qty_to_transfer), 'x_studio_qty_to_transfer': 0}) #valid_lines.x_studio_available_qty_to_transfer 
-
-    action = {
-
-              'name': 'RFQ',
-
-              'domain': [('id', '=', prod_move.id)],
-
-              'type': 'ir.actions.act_window',
-
-              'res_model': 'stock.picking',
-
-              'view_mode': 'tree,form',
-
-              'view_type': 'form',
-
-              'view_id': False,
-
-              'context': False,
-
-              } 
-
-  else:
-
-    raise UserError('There is no valid operation type has been setup.')  
+    else:
+        raise UserError("There is no valid operation type has been setup.")
 
 else:
-
-  raise UserError('There is no valid Location has been setup.')
+    raise UserError("There is no valid Location has been setup.")
 ```
   </details>
 - **Execute Code** (`server_action_2410_mr_validate_delete`, type `code`)
@@ -231,8 +279,8 @@ else:
   <details><summary>code (2 lines)</summary>
 
 ```python
-if record.x_studio_selection_field_BupKG != 'Draft':
-  raise UserError('Processed material request can not be deleted.')
+if record.x_studio_selection_field_BupKG != "Draft":
+    raise UserError("Processed material request can not be deleted.")
 ```
   </details>
 - **Execute Code** (`server_action_1563_material_req_gen`, type `code`)
@@ -242,7 +290,7 @@ if record.x_studio_selection_field_BupKG != 'Draft':
   <details><summary>code (1 lines)</summary>
 
 ```python
-record['x_name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')
+record["x_name"] = env["ir.sequence"].next_by_code("mtrl.req.seq")
 ```
   </details>
 - **MR Request Approval - Notify User** (`server_action_2440_mr_request_approval_notify_user`, type `next_activity`)
@@ -294,13 +342,28 @@ record['x_name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')
   <details><summary>code (7 lines)</summary>
 
 ```python
-pr_lines=[]
+pr_lines = []
 
 for pr_line in record.x_studio_one2many_field_9DTZS:
+    pr_lines.append(
+        [
+            0,
+            0,
+            {
+                "x_studio_many2one_field_WAqP4": pr_line.x_studio_many2one_field_2LV9q.id,
+                "x_studio_quantity": pr_line.x_studio_qty,
+            },
+        ]
+    )
 
-  pr_lines.append([0,0,{'x_studio_many2one_field_WAqP4':pr_line.x_studio_many2one_field_2LV9q.id,'x_studio_quantity':pr_line.x_studio_qty}])
-
-env['x_purchase_request'].create({'x_studio_mr_number':record.x_name,'x_studio_material_request_ref':record.id,'x_studio_type':record.x_studio_type, 'x_studio_order_lines_1':pr_lines})
+env["x_purchase_request"].create(
+    {
+        "x_studio_mr_number": record.x_name,
+        "x_studio_material_request_ref": record.id,
+        "x_studio_type": record.x_studio_type,
+        "x_studio_order_lines_1": pr_lines,
+    }
+)
 ```
   </details>
 - **PR-non create For MR** (`server_action_1652_pr_non_create_for_mr`, type `code`)
@@ -310,8 +373,13 @@ env['x_purchase_request'].create({'x_studio_mr_number':record.x_name,'x_studio_m
   <details><summary>code (2 lines)</summary>
 
 ```python
-prn_lines=[]
-env['x_pr_non_inventory'].create({'x_studio_material_request_ref':record.id, 'x_studio_one2many_field_rSJtb':prn_lines})
+prn_lines = []
+env["x_pr_non_inventory"].create(
+    {
+        "x_studio_material_request_ref": record.id,
+        "x_studio_one2many_field_rSJtb": prn_lines,
+    }
+)
 ```
   </details>
 - **Reject MR** (`server_action_2400_reject_mr`, type `object_write`)

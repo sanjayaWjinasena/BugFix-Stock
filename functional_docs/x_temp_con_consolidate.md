@@ -67,66 +67,50 @@ The temporary wizard record behind Copy PI Lines to Consolidation, opened from a
 select = 0
 
 for valid_line in record.x_studio_con_lines:
+    if valid_line.x_studio_select == True:
+        select += 1
 
-  if (valid_line.x_studio_select == True):
+        create_con_lines = env["x_con_consolidated_lin"].create(
+            {
+                "x_studio_consolidated_header_id": record.x_studio_consolidated_header_id.id,
+                "x_studio_consignment_id": valid_line.x_studio_consignment_id.id,
+                "x_studio_container_no": valid_line.x_studio_container_no,
+                "x_studio_currency_id": valid_line.x_studio_currency_id.id,
+                "x_studio_custom_clearance_no": valid_line.x_studio_custom_clearance_no,
+                "x_studio_delivery_term": valid_line.x_studio_delivery_term.id,
+                "x_studio_invoice_date": valid_line.x_studio_invoice_date,
+                "x_studio_shipment_start_date": valid_line.x_studio_shipment_start_date,
+                "x_studio_shipping_mode_1": valid_line.x_studio_shipping_mode,
+                "x_studio_supplier_invoice_no": valid_line.x_studio_supplier_invoice_no,
+                "x_studio_supplier_id": valid_line.x_studio_supplier_id.id,
+                "x_studio_status": valid_line.x_studio_status,
+            }
+        )
 
-    select += 1
+        con_update = env["x_consignment_header"].search(
+            [("id", "=", valid_line.x_studio_consignment_id.id)], limit=1
+        )
 
-    
+        if con_update:
+            con_update.write({"x_studio_consolidated": True})
 
-    create_con_lines = env['x_con_consolidated_lin'].create({'x_studio_consolidated_header_id':record.x_studio_consolidated_header_id.id,
-
-      'x_studio_consignment_id':valid_line.x_studio_consignment_id.id,
-
-      'x_studio_container_no':valid_line.x_studio_container_no,
-
-      'x_studio_currency_id':valid_line.x_studio_currency_id.id,
-
-      'x_studio_custom_clearance_no':valid_line.x_studio_custom_clearance_no,
-
-      'x_studio_delivery_term':valid_line.x_studio_delivery_term.id,
-
-      'x_studio_invoice_date':valid_line.x_studio_invoice_date,
-
-      'x_studio_shipment_start_date':valid_line.x_studio_shipment_start_date,
-
-      'x_studio_shipping_mode_1':valid_line.x_studio_shipping_mode,
-
-      'x_studio_supplier_invoice_no':valid_line.x_studio_supplier_invoice_no,
-
-      'x_studio_supplier_id':valid_line.x_studio_supplier_id.id,
-
-      'x_studio_status':valid_line.x_studio_status})
-
-      
-
-    con_update = env['x_consignment_header'].search([('id', '=', valid_line.x_studio_consignment_id.id)],limit=1)
-
-    if con_update:
-
-      con_update.write({'x_studio_consolidated': True}) 
-
-      
 
 if select == 0:
+    raise UserError("Atleast One Line Should be Selected to Proceed.")
 
- raise UserError("Atleast One Line Should be Selected to Proceed.")
 
- 
-
-header_update = env['x_con_consolidated_hea'].search([('id', '=', record.x_studio_consolidated_header_id.id)],limit=1)
+header_update = env["x_con_consolidated_hea"].search(
+    [("id", "=", record.x_studio_consolidated_header_id.id)], limit=1
+)
 
 if header_update:
-
-  header_update.write({'x_studio_lines_copied': True}) 
-
+    header_update.write({"x_studio_lines_copied": True})
 
 
-temp_rec = env['x_temp_con_consolidate'].search([('id', '=', record.id)],limit=1)
+temp_rec = env["x_temp_con_consolidate"].search([("id", "=", record.id)], limit=1)
 
 if temp_rec:
-
-  temp_rec.unlink()
+    temp_rec.unlink()
 ```
   </details>
 - **IMP - Clear All in Copy PO Lines** (`server_action_1419_imp_clear_all_in_copy_po_lines`, type `code`)
@@ -137,66 +121,55 @@ if temp_rec:
 
 ```python
 if record.id:
+    pi_lines = []
 
-  pi_lines=[]
+    con_lines = env["x_temp_con_conso_line"].search(
+        [("x_studio_temp_consolidated_header_id", "=", record.id)]
+    )
 
-  con_lines = env['x_temp_con_conso_line'].search([('x_studio_temp_consolidated_header_id', '=', record.id)])
+    if con_lines:
+        for update_lines in con_lines:
+            pi_lines.append(
+                [
+                    0,
+                    0,
+                    {
+                        "x_studio_select": False,
+                        "x_studio_consignment_id": update_lines.x_studio_consignment_id.id,
+                        "x_studio_container_no": update_lines.x_studio_container_no,
+                        "x_studio_currency_id": update_lines.x_studio_currency_id.id,
+                        "x_studio_custom_clearance_no": update_lines.x_studio_custom_clearance_no,
+                        "x_studio_delivery_term": update_lines.x_studio_delivery_term.id,
+                        "x_studio_invoice_date": update_lines.x_studio_invoice_date,
+                        "x_studio_shipment_start_date": update_lines.x_studio_shipment_start_date,
+                        "x_studio_shipping_mode": update_lines.x_studio_shipping_mode,
+                        "x_studio_supplier_invoice_no": update_lines.x_studio_supplier_invoice_no,
+                        "x_studio_supplier_id": update_lines.x_studio_supplier_id.id,
+                        "x_studio_status": update_lines.x_studio_status,
+                    },
+                ]
+            )
 
-  if con_lines:
+    ctx = env.context
 
-    for update_lines in con_lines:
+    ctx.update(
+        {
+            "default_x_studio_consolidated_header_id": record.x_studio_consolidated_header_id.id,
+            "default_x_studio_select_all": False,
+            "default_x_studio_con_lines": pi_lines,
+        }
+    )
 
-      pi_lines.append([0,0,{
-
-        'x_studio_select':False,
-
-        'x_studio_consignment_id':update_lines.x_studio_consignment_id.id,
-
-        'x_studio_container_no':update_lines.x_studio_container_no,
-
-        'x_studio_currency_id':update_lines.x_studio_currency_id.id,
-
-        'x_studio_custom_clearance_no':update_lines.x_studio_custom_clearance_no,
-
-        'x_studio_delivery_term':update_lines.x_studio_delivery_term.id,
-
-        'x_studio_invoice_date':update_lines.x_studio_invoice_date,
-
-        'x_studio_shipment_start_date':update_lines.x_studio_shipment_start_date,
-
-        'x_studio_shipping_mode':update_lines.x_studio_shipping_mode,
-
-        'x_studio_supplier_invoice_no':update_lines.x_studio_supplier_invoice_no,
-
-        'x_studio_supplier_id':update_lines.x_studio_supplier_id.id,
-
-        'x_studio_status':update_lines.x_studio_status}])
-
-        
-
-  ctx = env.context
-
-  ctx.update({'default_x_studio_consolidated_header_id':record.x_studio_consolidated_header_id.id,'default_x_studio_select_all':False,'default_x_studio_con_lines':pi_lines})
-
-  action = {
-
-            'name': 'Copy PIs',
-
-            'type': 'ir.actions.act_window',
-
-            'res_model': 'x_temp_con_consolidate',
-
-            'view_mode': 'form',
-
-            'view_type': 'form',
-
-            'target': 'new',
-
-#            'res_id': record.id,
-
-            'context': ctx,
-
-            }
+    action = {
+        "name": "Copy PIs",
+        "type": "ir.actions.act_window",
+        "res_model": "x_temp_con_consolidate",
+        "view_mode": "form",
+        "view_type": "form",
+        "target": "new",
+        #            'res_id': record.id,
+        "context": ctx,
+    }
 ```
   </details>
 - **IMP - Select All in Copy PI Lines** (`server_action_1417_imp_select_all_in_copy_pi_lines`, type `code`)
@@ -207,66 +180,55 @@ if record.id:
 
 ```python
 if record.id:
+    pi_lines = []
 
-  pi_lines=[]
+    con_lines = env["x_temp_con_conso_line"].search(
+        [("x_studio_temp_consolidated_header_id", "=", record.id)]
+    )
 
-  con_lines = env['x_temp_con_conso_line'].search([('x_studio_temp_consolidated_header_id', '=', record.id)])
+    if con_lines:
+        for update_lines in con_lines:
+            pi_lines.append(
+                [
+                    0,
+                    0,
+                    {
+                        "x_studio_select": True,
+                        "x_studio_consignment_id": update_lines.x_studio_consignment_id.id,
+                        "x_studio_container_no": update_lines.x_studio_container_no,
+                        "x_studio_currency_id": update_lines.x_studio_currency_id.id,
+                        "x_studio_custom_clearance_no": update_lines.x_studio_custom_clearance_no,
+                        "x_studio_delivery_term": update_lines.x_studio_delivery_term.id,
+                        "x_studio_invoice_date": update_lines.x_studio_invoice_date,
+                        "x_studio_shipment_start_date": update_lines.x_studio_shipment_start_date,
+                        "x_studio_shipping_mode": update_lines.x_studio_shipping_mode,
+                        "x_studio_supplier_invoice_no": update_lines.x_studio_supplier_invoice_no,
+                        "x_studio_supplier_id": update_lines.x_studio_supplier_id.id,
+                        "x_studio_status": update_lines.x_studio_status,
+                    },
+                ]
+            )
 
-  if con_lines:
+    ctx = env.context
 
-    for update_lines in con_lines:
+    ctx.update(
+        {
+            "default_x_studio_consolidated_header_id": record.x_studio_consolidated_header_id.id,
+            "default_x_studio_select_all": True,
+            "default_x_studio_con_lines": pi_lines,
+        }
+    )
 
-      pi_lines.append([0,0,{
-
-        'x_studio_select':True,
-
-        'x_studio_consignment_id':update_lines.x_studio_consignment_id.id,
-
-        'x_studio_container_no':update_lines.x_studio_container_no,
-
-        'x_studio_currency_id':update_lines.x_studio_currency_id.id,
-
-        'x_studio_custom_clearance_no':update_lines.x_studio_custom_clearance_no,
-
-        'x_studio_delivery_term':update_lines.x_studio_delivery_term.id,
-
-        'x_studio_invoice_date':update_lines.x_studio_invoice_date,
-
-        'x_studio_shipment_start_date':update_lines.x_studio_shipment_start_date,
-
-        'x_studio_shipping_mode':update_lines.x_studio_shipping_mode,
-
-        'x_studio_supplier_invoice_no':update_lines.x_studio_supplier_invoice_no,
-
-        'x_studio_supplier_id':update_lines.x_studio_supplier_id.id,
-
-        'x_studio_status':update_lines.x_studio_status}])
-
-        
-
-  ctx = env.context
-
-  ctx.update({'default_x_studio_consolidated_header_id':record.x_studio_consolidated_header_id.id,'default_x_studio_select_all':True,'default_x_studio_con_lines':pi_lines})
-
-  action = {
-
-            'name': 'Copy PIs',
-
-            'type': 'ir.actions.act_window',
-
-            'res_model': 'x_temp_con_consolidate',
-
-            'view_mode': 'form',
-
-            'view_type': 'form',
-
-            'target': 'new',
-
-#            'res_id': record.id,
-
-            'context': ctx,
-
-            }
+    action = {
+        "name": "Copy PIs",
+        "type": "ir.actions.act_window",
+        "res_model": "x_temp_con_consolidate",
+        "view_mode": "form",
+        "view_type": "form",
+        "target": "new",
+        #            'res_id': record.id,
+        "context": ctx,
+    }
 ```
   </details>
 **Views (1):**

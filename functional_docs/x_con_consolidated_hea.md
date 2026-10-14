@@ -67,11 +67,11 @@ A Consolidated Header groups several import consignments into one consolidation,
   <details><summary>code (5 lines)</summary>
 
 ```python
-#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+# record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
- seq = env['ir.sequence'].next_by_code('con.consolidated.seq')
- record.write({'x_name': seq})
+if record.x_name == "New":
+    seq = env["ir.sequence"].next_by_code("con.consolidated.seq")
+    record.write({"x_name": seq})
 ```
   </details>
 - **Execute Code** (`server_action_1412_con_consolidated_seq_no`, type `code`)
@@ -81,12 +81,11 @@ if record.x_name == 'New':
   <details><summary>code (6 lines)</summary>
 
 ```python
+# record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
-
-if record.x_name == 'New':
- seq = env['ir.sequence'].next_by_code('con.consolidated.seq')
- record.write({'x_name': seq})
+if record.x_name == "New":
+    seq = env["ir.sequence"].next_by_code("con.consolidated.seq")
+    record.write({"x_name": seq})
 ```
   </details>
 - **Execute Code** (`server_action_1423_imp_restrict_delete_in_consolidation`, type `code`)
@@ -96,9 +95,8 @@ if record.x_name == 'New':
   <details><summary>code (3 lines)</summary>
 
 ```python
-
-if record.x_studio_status != 'Draft':
-  raise UserError("Only the consolidations in Draft status can be deleted.")
+if record.x_studio_status != "Draft":
+    raise UserError("Only the consolidations in Draft status can be deleted.")
 ```
   </details>
 - **Execute Code** (`server_action_2609_jin_company_id_in_consolidated_header`, type `code`)
@@ -108,11 +106,10 @@ if record.x_studio_status != 'Draft':
   <details><summary>code (5 lines)</summary>
 
 ```python
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
-
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **IMP - Clear Consignment Lines from Consolidation** (`server_action_1414_imp_clear_consignment_lines_from_consolidation`, type `code`)
@@ -123,16 +120,20 @@ record['x_studio_company_id'] = company.id
 
 ```python
 if record.id:
-  temp_rec = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.id)])
-  if temp_rec:
-    for del_temp_rec in temp_rec:
-      con_update = env['x_consignment_header'].search([('id', '=', del_temp_rec.x_studio_consignment_id.id)],limit=1)
-      if con_update:
-        con_update.write({'x_studio_consolidated': False}) 
-      
-      del_temp_rec.unlink()   
+    temp_rec = env["x_con_consolidated_lin"].search(
+        [("x_studio_consolidated_header_id", "=", record.id)]
+    )
+    if temp_rec:
+        for del_temp_rec in temp_rec:
+            con_update = env["x_consignment_header"].search(
+                [("id", "=", del_temp_rec.x_studio_consignment_id.id)], limit=1
+            )
+            if con_update:
+                con_update.write({"x_studio_consolidated": False})
 
-    record['x_studio_lines_copied'] = False
+            del_temp_rec.unlink()
+
+        record["x_studio_lines_copied"] = False
 ```
   </details>
 - **IMP - Confirm Consolidation** (`server_action_1421_imp_confirm_consolidation`, type `code`)
@@ -143,13 +144,15 @@ if record.id:
 
 ```python
 if record.id:
-  for val in record.x_studio_con_line_ids:
-    con_lines = env['x_consignment_header'].search([('id', '=', val.x_studio_consignment_id.id)],limit=1)
-    if con_lines:
-      con_lines.write({'x_studio_consolidation_confirmed': True})
+    for val in record.x_studio_con_line_ids:
+        con_lines = env["x_consignment_header"].search(
+            [("id", "=", val.x_studio_consignment_id.id)], limit=1
+        )
+        if con_lines:
+            con_lines.write({"x_studio_consolidation_confirmed": True})
 
-  record['x_studio_status'] = 'Confirmed'
-  record['x_studio_pipeline_status_bar'] = 'Confirmed'
+    record["x_studio_status"] = "Confirmed"
+    record["x_studio_pipeline_status_bar"] = "Confirmed"
 
 """c = 0
   con_lines = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.id)])
@@ -169,35 +172,49 @@ if record.id:
 
 ```python
 if record.id:
-  con_lines=[]
-  
-  con_header = env['x_consignment_header'].search([('x_studio_status', '!=', 'Draft'), ('x_studio_consolidated', '=', False)])
-  if con_header:
-    for validate_lines in con_header:
-      con_lines.append([0,0,{
-        'x_studio_consignment_id':validate_lines.id,
-        'x_studio_container_no':validate_lines.x_studio_container_no,
-        'x_studio_currency_id':validate_lines.x_studio_currency_id.id,
-        'x_studio_custom_clearance_no':validate_lines.x_studio_custom_clearance_no,
-        'x_studio_delivery_term':validate_lines.x_studio_delivery_term.id,
-        'x_studio_invoice_date':validate_lines.x_studio_invoice_date,
-        'x_studio_shipment_start_date':validate_lines.x_studio_shipment_start_date,
-        'x_studio_shipping_mode':validate_lines.x_studio_shipping_mode,
-        'x_studio_supplier_invoice_no':validate_lines.x_studio_supplier_invoice_number,
-        'x_studio_supplier_id':validate_lines.x_studio_supplier_id.id,
-        'x_studio_status':validate_lines.x_studio_status}])
+    con_lines = []
 
-  ctx = env.context
-  ctx.update({'default_x_studio_consolidated_header_id':record.id,'default_x_studio_con_lines':con_lines})
-  action = {
-            'name': 'Copy PIs',
-            'type': 'ir.actions.act_window',
-            'res_model': 'x_temp_con_consolidate',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'target': 'new',
-            'context': ctx,
-            }
+    con_header = env["x_consignment_header"].search(
+        [("x_studio_status", "!=", "Draft"), ("x_studio_consolidated", "=", False)]
+    )
+    if con_header:
+        for validate_lines in con_header:
+            con_lines.append(
+                [
+                    0,
+                    0,
+                    {
+                        "x_studio_consignment_id": validate_lines.id,
+                        "x_studio_container_no": validate_lines.x_studio_container_no,
+                        "x_studio_currency_id": validate_lines.x_studio_currency_id.id,
+                        "x_studio_custom_clearance_no": validate_lines.x_studio_custom_clearance_no,
+                        "x_studio_delivery_term": validate_lines.x_studio_delivery_term.id,
+                        "x_studio_invoice_date": validate_lines.x_studio_invoice_date,
+                        "x_studio_shipment_start_date": validate_lines.x_studio_shipment_start_date,
+                        "x_studio_shipping_mode": validate_lines.x_studio_shipping_mode,
+                        "x_studio_supplier_invoice_no": validate_lines.x_studio_supplier_invoice_number,
+                        "x_studio_supplier_id": validate_lines.x_studio_supplier_id.id,
+                        "x_studio_status": validate_lines.x_studio_status,
+                    },
+                ]
+            )
+
+    ctx = env.context
+    ctx.update(
+        {
+            "default_x_studio_consolidated_header_id": record.id,
+            "default_x_studio_con_lines": con_lines,
+        }
+    )
+    action = {
+        "name": "Copy PIs",
+        "type": "ir.actions.act_window",
+        "res_model": "x_temp_con_consolidate",
+        "view_mode": "form",
+        "view_type": "form",
+        "target": "new",
+        "context": ctx,
+    }
 ```
   </details>
 - **IMP - Restrict Delete in Consolidation** (`sa_f5_x_con_consolidated_hea_imp_restrict_delete_in_consolidation`, type `code`)
@@ -207,8 +224,8 @@ if record.id:
   <details><summary>code (2 lines)</summary>
 
 ```python
-if record.x_studio_status != 'Draft':
-  raise UserError("Only the consolidations in Draft status can be deleted.")
+if record.x_studio_status != "Draft":
+    raise UserError("Only the consolidations in Draft status can be deleted.")
 ```
   </details>
 - **JIN - Company Id in Consolidated Header** (`sa_f5_x_con_consolidated_hea_jin_company_id_in_consolidated_header`, type `code`)
@@ -218,10 +235,10 @@ if record.x_studio_status != 'Draft':
   <details><summary>code (4 lines)</summary>
 
 ```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 **Automations (3):**

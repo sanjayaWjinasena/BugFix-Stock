@@ -29,20 +29,21 @@ Trade-offs vs stored O2M:
     result is not stored) — for filtering on x_tariff_date presence,
     use the M2O side directly.
 """
+
 from odoo import fields, models
 
 
 class XTariffmaster(models.Model):
-    _name = 'x_tariffmaster'
-    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'TariffMaster'
+    _name = "x_tariffmaster"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _description = "TariffMaster"
 
-    x_active = fields.Boolean(string='Active')
-    x_name = fields.Char(string='Tarrif Code')
-    x_studio_company_id = fields.Many2one('res.company', string='Company')
-    x_studio_description = fields.Char(string='Description')
-    x_studio_sequence = fields.Integer(string='Sequence')
+    x_active = fields.Boolean(string="Active")
+    x_name = fields.Char(string="Tarrif Code")
+    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    x_studio_description = fields.Char(string="Description")
+    x_studio_sequence = fields.Integer(string="Sequence")
 
     # x_studio_tariff_master_ids field NOT shipped — permanent skip.
     #

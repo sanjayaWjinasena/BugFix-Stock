@@ -3,14 +3,15 @@
 Related=stock_quant_ids.available_quantity, store=False (per CDB).
 Convenient computed display for available inventory quantity.
 """
+
 from odoo import fields, models
 
 
 class ProductProduct(models.Model):
-    _inherit = 'product.product'
+    _inherit = "product.product"
 
     x_studio_available_qty = fields.Float(
-        related='stock_quant_ids.available_quantity',
+        related="stock_quant_ids.available_quantity",
         store=False,
-        string='Available Qty',
+        string="Available Qty",
     )

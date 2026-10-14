@@ -90,7 +90,7 @@ Material Request MT is a Studio-generated kanban app for material requests, with
   <details><summary>code (1 lines)</summary>
 
 ```python
-record['x_name'] = env['ir.sequence'].next_by_code('material.request.sequence')
+record["x_name"] = env["ir.sequence"].next_by_code("material.request.sequence")
 ```
   </details>
 **Automations (1):**

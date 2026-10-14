@@ -50,10 +50,10 @@ A Consignment Charge Header is a charge, duty or tax at consignment level, with 
   <details><summary>code (4 lines)</summary>
 
 ```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **IMP - Check Consignment Assessable Value** (`server_action_1320_imp_check_consignment_assessable_value`, type `code`)
@@ -68,46 +68,54 @@ av = 0
 c_f_i = 0
 
 
-
 for header_lines in records:
+    con_header = env["x_consignment_header"].search(
+        [("id", "=", header_lines.x_studio_consignment_id.id)], limit=1
+    )
 
-  con_header = env['x_consignment_header'].search([('id', '=', header_lines.x_studio_consignment_id.id)],limit=1)
+    if con_header:
+        delivery_term = env["x_delivery_term_charge"].search(
+            [
+                (
+                    "x_studio_delivery_terms_id",
+                    "=",
+                    con_header.x_studio_delivery_term.id,
+                ),
+                ("x_studio_tax_appicable", "=", True),
+            ]
+        )
 
-  if con_header:
+        if delivery_term:
+            for valid_terms in delivery_term:
+                header_charges = env["x_consignment_charge_h"].search(
+                    [
+                        ("x_studio_consignment_id", "=", con_header.id),
+                        ("x_studio_charge_group", "=", "Charges"),
+                        ("x_studio_charge_name", "=", valid_terms.x_name),
+                    ],
+                    limit=1,
+                )
 
-    delivery_term = env['x_delivery_term_charge'].search([('x_studio_delivery_terms_id', '=', con_header.x_studio_delivery_term.id), ('x_studio_tax_appicable', '=', True)]) 
+                if header_charges:
+                    c_f_i += header_charges.x_studio_amount
 
-    if delivery_term:
+            av = con_header.x_studio_total_amount + c_f_i
 
-      for valid_terms in delivery_term:
+            title = "Calculate Assessable Value"
 
-        header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', con_header.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
+            message = "Assessable Value: " + str(av)
 
-        if header_charges:
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": title,
+                    "message": message,
+                    "sticky": True,
+                },
+            }
 
-          c_f_i += header_charges.x_studio_amount
-
-          
-
-      av = con_header.x_studio_total_amount + c_f_i
-
-      title = "Calculate Assessable Value"
-
-      message = "Assessable Value: " + str(av)
-
-      
-
-      action = {
-
-                'type': 'ir.actions.client',
-
-                'tag': 'display_notification',
-
-                'params': {'title': title,'message': message,'sticky': True,}
-
-                } 
-
-      break
+            break
 ```
   </details>
 **Automations (1):**

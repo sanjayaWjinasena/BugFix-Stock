@@ -127,26 +127,41 @@ A Consignment Line is one product from an import purchase order line shipped in 
   <details><summary>code (20 lines)</summary>
 
 ```python
-
 if record.x_studio_invoice_qty:
-  
-  if record.x_studio_invoice_qty < 0.00:
-    raise UserError("Negative Quantities are not Allowed in Item No: " + record.x_studio_description)
-  
-  purch_line = env['purchase.order.line'].search([('id', '=', record.x_studio_purchase_line_id.id)],limit=1)
-  result = 0
-  if purch_line:
-    con_remainder = 0
-    if purch_line.product_qty != purch_line.qty_received:
-      con_lines = env['x_consignment_line'].search([('x_studio_purchase_line_id', '=', record.x_studio_purchase_line_id.id), ('id', '!=', record.id)])
-      if con_lines:
-        for sum_lines in con_lines:
-          con_remainder += sum_lines.x_studio_invoice_qty
-      
-    result = (purch_line.product_qty - con_remainder)
- 
-  if record.x_studio_invoice_qty > result:
-    raise UserError("Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: " + record.x_studio_description)
+    if record.x_studio_invoice_qty < 0.00:
+        raise UserError(
+            "Negative Quantities are not Allowed in Item No: "
+            + record.x_studio_description
+        )
+
+    purch_line = env["purchase.order.line"].search(
+        [("id", "=", record.x_studio_purchase_line_id.id)], limit=1
+    )
+    result = 0
+    if purch_line:
+        con_remainder = 0
+        if purch_line.product_qty != purch_line.qty_received:
+            con_lines = env["x_consignment_line"].search(
+                [
+                    (
+                        "x_studio_purchase_line_id",
+                        "=",
+                        record.x_studio_purchase_line_id.id,
+                    ),
+                    ("id", "!=", record.id),
+                ]
+            )
+            if con_lines:
+                for sum_lines in con_lines:
+                    con_remainder += sum_lines.x_studio_invoice_qty
+
+        result = purch_line.product_qty - con_remainder
+
+    if record.x_studio_invoice_qty > result:
+        raise UserError(
+            "Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: "
+            + record.x_studio_description
+        )
 ```
   </details>
 - **Execute Code** (`server_action_2608_jin_company_id_in_consignment_line`, type `code`)
@@ -156,11 +171,10 @@ if record.x_studio_invoice_qty:
   <details><summary>code (5 lines)</summary>
 
 ```python
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
-
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **IMP - Delivery Remainder in Consignment Lines** (`server_action_2098_imp_delivery_remainder_in_consignment_lines`, type `code`)
@@ -171,7 +185,9 @@ record['x_studio_company_id'] = company.id
 
 ```python
 if record.x_studio_invoice_qty:
-  record['x_studio_delivery_remainder'] = record.x_studio_original_delivery_remainder - record.x_studio_invoice_qty
+    record["x_studio_delivery_remainder"] = (
+        record.x_studio_original_delivery_remainder - record.x_studio_invoice_qty
+    )
 ```
   </details>
 - **IMP - Invoice Qty. Validation in Consignment** (`sa_f5_x_consignment_line_imp_invoice_qty_validation_in_consignment`, type `code`)
@@ -182,24 +198,40 @@ if record.x_studio_invoice_qty:
 
 ```python
 if record.x_studio_invoice_qty:
-  
-  if record.x_studio_invoice_qty < 0.00:
-    raise UserError("Negative Quantities are not Allowed in Item No: " + record.x_studio_description)
-  
-  purch_line = env['purchase.order.line'].search([('id', '=', record.x_studio_purchase_line_id.id)],limit=1)
-  result = 0
-  if purch_line:
-    con_remainder = 0
-    if purch_line.product_qty != purch_line.qty_received:
-      con_lines = env['x_consignment_line'].search([('x_studio_purchase_line_id', '=', record.x_studio_purchase_line_id.id), ('id', '!=', record.id)])
-      if con_lines:
-        for sum_lines in con_lines:
-          con_remainder += sum_lines.x_studio_invoice_qty
-      
-    result = (purch_line.product_qty - con_remainder)
- 
-  if record.x_studio_invoice_qty > result:
-    raise UserError("Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: " + record.x_studio_description)
+    if record.x_studio_invoice_qty < 0.00:
+        raise UserError(
+            "Negative Quantities are not Allowed in Item No: "
+            + record.x_studio_description
+        )
+
+    purch_line = env["purchase.order.line"].search(
+        [("id", "=", record.x_studio_purchase_line_id.id)], limit=1
+    )
+    result = 0
+    if purch_line:
+        con_remainder = 0
+        if purch_line.product_qty != purch_line.qty_received:
+            con_lines = env["x_consignment_line"].search(
+                [
+                    (
+                        "x_studio_purchase_line_id",
+                        "=",
+                        record.x_studio_purchase_line_id.id,
+                    ),
+                    ("id", "!=", record.id),
+                ]
+            )
+            if con_lines:
+                for sum_lines in con_lines:
+                    con_remainder += sum_lines.x_studio_invoice_qty
+
+        result = purch_line.product_qty - con_remainder
+
+    if record.x_studio_invoice_qty > result:
+        raise UserError(
+            "Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: "
+            + record.x_studio_description
+        )
 ```
   </details>
 - **JIN - Company Id in Consignment Line** (`sa_f5_x_consignment_line_jin_company_id_in_consignment_line`, type `code`)
@@ -209,10 +241,10 @@ if record.x_studio_invoice_qty:
   <details><summary>code (4 lines)</summary>
 
 ```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **TEST IMP** (`server_action_1665_test_imp`, type `code`)

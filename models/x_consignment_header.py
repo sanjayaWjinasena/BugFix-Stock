@@ -5,67 +5,137 @@ from odoo import fields, models
 # `_unknown` for the whole upgrade-mode registry build (see BugFix-Purchase
 # models/upstream_link_fields.py). Do NOT re-add them here.
 
+
 class XConsignmentHeader(models.Model):
     """Studio-ported custom model x_consignment_header."""
-    _name = 'x_consignment_header'
-    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'Consignment Header'
 
-    x_active = fields.Boolean(string='Active')
-    x_color = fields.Integer(string='Color')
-    x_name = fields.Char(string='Invoice Reference')
-    x_studio_account_charge = fields.Many2one('account.account', string='Account Charge')
-    x_studio_account_duty = fields.Many2one('account.account', string='Account Duty')
-    x_studio_account_tax = fields.Many2one('account.account', string='Account Tax')
-    x_studio_allocate_header_charges = fields.Boolean(string='Allocate Header Charges')
-    x_studio_bill_of_lading = fields.Binary(string='Bill of Lading')
-    x_studio_bill_of_lading_filename = fields.Char(string='Filename for x_studio_binary_field_LzgTH')
-    x_studio_cargo_arrival_notice = fields.Binary(string='Cargo Arrival Notice')
-    x_studio_cargo_arrival_notice_filename = fields.Char(string='Filename for x_studio_binary_field_M4Ehh')
-    x_studio_company_id = fields.Many2one('res.company', string='Company')
-    x_studio_con_validated = fields.Boolean(string='Con. Validated')
-    x_studio_confirm_invoice = fields.Boolean(string='Confirm Invoice')
-    x_studio_consignment_line_ids = fields.One2many(
-        'x_consignment_line',
-        'x_studio_consignment_header_id',
-        string='Consignment Line Ids',
+    _name = "x_consignment_header"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _description = "Consignment Header"
+
+    x_active = fields.Boolean(string="Active")
+    x_color = fields.Integer(string="Color")
+    x_name = fields.Char(string="Invoice Reference")
+    x_studio_account_charge = fields.Many2one(
+        "account.account", string="Account Charge"
     )
-    x_studio_consolidated = fields.Boolean(string='Consolidated')
-    x_studio_consolidation_confirmed = fields.Boolean(string='Consolidation Confirmed')
-    x_studio_container_no = fields.Char(string='Container No')
-    x_studio_cost_allocation_method = fields.Selection([('equal', 'Equal'), ('by_quantity', 'By Quantity'), ('by_current_cost_price', 'By Current Cost'), ('by_weight', 'By Weight'), ('by_volume', 'By Volume')], string='Cost Allocation Method')
-    x_studio_create_header_charges = fields.Boolean(string='Create Header Charges')
-    x_studio_currency_id = fields.Many2one('res.currency', string='Currency')
-    x_studio_custom_clearance = fields.Boolean(string='Custom Clearance')
-    x_studio_custom_clearance_exchange_rate = fields.Float(string='Custom Clearance Exchange Rate')
-    x_studio_custom_clearance_no = fields.Char(string='Custom Clearance No')
-    x_studio_custom_cleared_date = fields.Date(string='Custom Cleared Date')
-    x_studio_description = fields.Char(string='Description')
-    x_studio_header_charges_allocated = fields.Boolean(string='Header Charges Allocated')
+    x_studio_account_duty = fields.Many2one("account.account", string="Account Duty")
+    x_studio_account_tax = fields.Many2one("account.account", string="Account Tax")
+    x_studio_allocate_header_charges = fields.Boolean(string="Allocate Header Charges")
+    x_studio_bill_of_lading = fields.Binary(string="Bill of Lading")
+    x_studio_bill_of_lading_filename = fields.Char(
+        string="Filename for x_studio_binary_field_LzgTH"
+    )
+    x_studio_cargo_arrival_notice = fields.Binary(string="Cargo Arrival Notice")
+    x_studio_cargo_arrival_notice_filename = fields.Char(
+        string="Filename for x_studio_binary_field_M4Ehh"
+    )
+    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    x_studio_con_validated = fields.Boolean(string="Con. Validated")
+    x_studio_confirm_invoice = fields.Boolean(string="Confirm Invoice")
+    x_studio_consignment_line_ids = fields.One2many(
+        "x_consignment_line",
+        "x_studio_consignment_header_id",
+        string="Consignment Line Ids",
+    )
+    x_studio_consolidated = fields.Boolean(string="Consolidated")
+    x_studio_consolidation_confirmed = fields.Boolean(string="Consolidation Confirmed")
+    x_studio_container_no = fields.Char(string="Container No")
+    x_studio_cost_allocation_method = fields.Selection(
+        [
+            ("equal", "Equal"),
+            ("by_quantity", "By Quantity"),
+            ("by_current_cost_price", "By Current Cost"),
+            ("by_weight", "By Weight"),
+            ("by_volume", "By Volume"),
+        ],
+        string="Cost Allocation Method",
+    )
+    x_studio_create_header_charges = fields.Boolean(string="Create Header Charges")
+    x_studio_currency_id = fields.Many2one("res.currency", string="Currency")
+    x_studio_custom_clearance = fields.Boolean(string="Custom Clearance")
+    x_studio_custom_clearance_exchange_rate = fields.Float(
+        string="Custom Clearance Exchange Rate"
+    )
+    x_studio_custom_clearance_no = fields.Char(string="Custom Clearance No")
+    x_studio_custom_cleared_date = fields.Date(string="Custom Cleared Date")
+    x_studio_description = fields.Char(string="Description")
+    x_studio_header_charges_allocated = fields.Boolean(
+        string="Header Charges Allocated"
+    )
     x_studio_invoice_date = fields.Date(string="Supplier's Invoice Date (Bill Date)")
-    x_studio_lines_copied = fields.Boolean(string='Lines Copied')
-    x_studio_offset_account = fields.Many2one('account.account', string='Offset Account')
-    x_studio_packing_list = fields.Binary(string='Packing List')
-    x_studio_packing_list_filename = fields.Char(string='Filename for x_studio_binary_field_xDIyn')
-    x_studio_sequence = fields.Integer(string='Sequence')
-    x_studio_shipment_start_date = fields.Date(string='Shipment Start Date')
-    x_studio_shipping_mode = fields.Selection([('Air', 'Air'), ('Sea', 'Sea'), ('Road', 'Road'), ('Courier', 'Courier')], string='Shipping Mode')
-    x_studio_status = fields.Selection([('Draft', 'Draft'), ('Consignment', 'Confirmed'), ('Consolidated', 'Consolidated'), ('In Transit', 'In Transit'), ('Under Custom Clearance', 'Under Custom Clearance'), ('Done', 'Done'), ('TP Invoice', 'TP Invoice')], string='Status')
-    x_studio_status_bar = fields.Selection([('Draft', 'Draft'), ('Consignment', 'Confirmed'), ('Consolidated', 'Consolidated'), ('In Transit', 'In Transit'), ('Under Custom Clearance', 'Under Custom Clearance'), ('Done', 'Done'), ('TP Invoice', 'TP Invoice')], string='Status Bar')
-    x_studio_supplier_document = fields.Binary(string='Purchase Invoice')
-    x_studio_supplier_document_filename = fields.Char(string='Filename for x_studio_binary_field_KSsMR')
-    x_studio_supplier_id = fields.Many2one('res.partner', string='Vendor')
-    x_studio_supplier_invoice_number = fields.Char(string="Supplier's Invoice No (Bill Reference)")
-    x_studio_total_allocate_amount = fields.Float(string='Total Allocate Amount', readonly=True)
-    x_studio_total_amount = fields.Float(string='Total Amount', readonly=True)
-    x_studio_total_amount_cost_allocation_method = fields.Float(string='Total Amount Cost Allocation Method', readonly=True)
-    x_studio_vend_dispatch_status = fields.Text(string='Vend. Dispatch Status')
-    x_studio_vendor_dispatch = fields.Boolean(string='Vendor Dispatch')
-    x_studio_vendor_dispatch_exchange_rate = fields.Float(string='Vendor Dispatch Exchange Rate')
-    x_studio_voucher_date = fields.Date(string='Vendor Dispatch Voucher Date')
-    x_x_studio_con_no__x_tp_invoice_header_count = fields.Integer(string='Created From Consignment No count', store=False)
-    x_x_studio_consignment_id__x_consignment_charge_h_count = fields.Integer(string='Consignment Id count', store=False)
-    x_x_studio_consignment_id__x_consignment_charge_l_count = fields.Integer(string='Consignment Id count', store=False)
-    x_x_studio_created_from_consignment_1__account_move_count = fields.Integer(string='Created From Consignment count', store=False)
-    x_x_studio_created_from_consignment__account_move_count = fields.Integer(string='Created From Consignment count', store=False)
+    x_studio_lines_copied = fields.Boolean(string="Lines Copied")
+    x_studio_offset_account = fields.Many2one(
+        "account.account", string="Offset Account"
+    )
+    x_studio_packing_list = fields.Binary(string="Packing List")
+    x_studio_packing_list_filename = fields.Char(
+        string="Filename for x_studio_binary_field_xDIyn"
+    )
+    x_studio_sequence = fields.Integer(string="Sequence")
+    x_studio_shipment_start_date = fields.Date(string="Shipment Start Date")
+    x_studio_shipping_mode = fields.Selection(
+        [("Air", "Air"), ("Sea", "Sea"), ("Road", "Road"), ("Courier", "Courier")],
+        string="Shipping Mode",
+    )
+    x_studio_status = fields.Selection(
+        [
+            ("Draft", "Draft"),
+            ("Consignment", "Confirmed"),
+            ("Consolidated", "Consolidated"),
+            ("In Transit", "In Transit"),
+            ("Under Custom Clearance", "Under Custom Clearance"),
+            ("Done", "Done"),
+            ("TP Invoice", "TP Invoice"),
+        ],
+        string="Status",
+    )
+    x_studio_status_bar = fields.Selection(
+        [
+            ("Draft", "Draft"),
+            ("Consignment", "Confirmed"),
+            ("Consolidated", "Consolidated"),
+            ("In Transit", "In Transit"),
+            ("Under Custom Clearance", "Under Custom Clearance"),
+            ("Done", "Done"),
+            ("TP Invoice", "TP Invoice"),
+        ],
+        string="Status Bar",
+    )
+    x_studio_supplier_document = fields.Binary(string="Purchase Invoice")
+    x_studio_supplier_document_filename = fields.Char(
+        string="Filename for x_studio_binary_field_KSsMR"
+    )
+    x_studio_supplier_id = fields.Many2one("res.partner", string="Vendor")
+    x_studio_supplier_invoice_number = fields.Char(
+        string="Supplier's Invoice No (Bill Reference)"
+    )
+    x_studio_total_allocate_amount = fields.Float(
+        string="Total Allocate Amount", readonly=True
+    )
+    x_studio_total_amount = fields.Float(string="Total Amount", readonly=True)
+    x_studio_total_amount_cost_allocation_method = fields.Float(
+        string="Total Amount Cost Allocation Method", readonly=True
+    )
+    x_studio_vend_dispatch_status = fields.Text(string="Vend. Dispatch Status")
+    x_studio_vendor_dispatch = fields.Boolean(string="Vendor Dispatch")
+    x_studio_vendor_dispatch_exchange_rate = fields.Float(
+        string="Vendor Dispatch Exchange Rate"
+    )
+    x_studio_voucher_date = fields.Date(string="Vendor Dispatch Voucher Date")
+    x_x_studio_con_no__x_tp_invoice_header_count = fields.Integer(
+        string="Created From Consignment No count", store=False
+    )
+    x_x_studio_consignment_id__x_consignment_charge_h_count = fields.Integer(
+        string="Consignment Id count", store=False
+    )
+    x_x_studio_consignment_id__x_consignment_charge_l_count = fields.Integer(
+        string="Consignment Id count", store=False
+    )
+    x_x_studio_created_from_consignment_1__account_move_count = fields.Integer(
+        string="Created From Consignment count", store=False
+    )
+    x_x_studio_created_from_consignment__account_move_count = fields.Integer(
+        string="Created From Consignment count", store=False
+    )

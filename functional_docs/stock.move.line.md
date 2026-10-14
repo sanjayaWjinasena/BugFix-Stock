@@ -32,18 +32,24 @@ This repo adds a PR Type field and three Sales Report Type links (Slow Moving It
   <details><summary>code (12 lines)</summary>
 
 ```python
-if record.state == 'progress':
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Slow Moving Items')],limit=1)
-  if rpt_id:
-   record['x_studio_report_type_slow_moving_items'] = rpt_id.id
-   
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
-  if rpt_id:
-   record['x_studio_report_type_sales_prod_purch'] = rpt_id.id
-   
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Production Summary - Split')],limit=1)
-  if rpt_id:
-   record['x_studio_report_type_production_summary_split'] = rpt_id.id
+if record.state == "progress":
+    rpt_id = env["x_sales_report_type"].search(
+        [("x_studio_report_code", "=", "Slow Moving Items")], limit=1
+    )
+    if rpt_id:
+        record["x_studio_report_type_slow_moving_items"] = rpt_id.id
+
+    rpt_id = env["x_sales_report_type"].search(
+        [("x_studio_report_code", "=", "Sales - Production - Purchase Report")], limit=1
+    )
+    if rpt_id:
+        record["x_studio_report_type_sales_prod_purch"] = rpt_id.id
+
+    rpt_id = env["x_sales_report_type"].search(
+        [("x_studio_report_code", "=", "Production Summary - Split")], limit=1
+    )
+    if rpt_id:
+        record["x_studio_report_type_production_summary_split"] = rpt_id.id
 ```
   </details>
 - **SRM - Auto Populate Report Type in Product Moves - 2** (`server_action_1752_srm_auto_populate_report_type_in_product_moves_2`, type `code`)
@@ -53,10 +59,12 @@ if record.state == 'progress':
   <details><summary>code (4 lines)</summary>
 
 ```python
-if record.state == 'progress':
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
-  if rpt_id:
-   record['Sales - Production - Purchase Report'] = rpt_id.id
+if record.state == "progress":
+    rpt_id = env["x_sales_report_type"].search(
+        [("x_studio_report_code", "=", "Sales - Production - Purchase Report")], limit=1
+    )
+    if rpt_id:
+        record["Sales - Production - Purchase Report"] = rpt_id.id
 ```
   </details>
 **Automations (1):**

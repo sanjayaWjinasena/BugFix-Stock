@@ -106,19 +106,40 @@ This repo adds about 50 fields to transfers: links to the sales order, helpdesk 
   <details><summary>code (13 lines)</summary>
 
 ```python
+if record.state == "done":
+    so = env["sale.order"].search(
+        [
+            ("id", "=", record.sale_id.id),
+            ("state", "=", "done"),
+            ("x_studio_order_payment_method", "=", "Cash"),
+            ("x_studio_grant_temporary_credit", "=", False),
+        ],
+        limit=1,
+    )
+    if so:
+        sum_total = 0
+        payment = env["account.payment"].search(
+            [("x_studio_sales_order", "=", record.sale_id.id), ("state", "=", "posted")]
+        )
+        if payment:
+            for total in payment:
+                sum_total += total.amount
 
-if record.state == 'done':
-  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
-  if so:
-      sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
-      if payment:
-        for total in payment:
-          sum_total += total.amount
-              
-      if so.amount_total > sum_total:     
-        #raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
-        raise UserError('The Payment Against the Cash Sales Order must be Registered First.' + '\n'  + '\n' + 'This sale: ' + str(so.amount_total) + '\n' + 'Total payments: ' + str(sum_total) + '\n' + 'Payment due: ' + str(so.amount_total - sum_total))
+        if so.amount_total > sum_total:
+            # raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
+            raise UserError(
+                "The Payment Against the Cash Sales Order must be Registered First."
+                + "\n"
+                + "\n"
+                + "This sale: "
+                + str(so.amount_total)
+                + "\n"
+                + "Total payments: "
+                + str(sum_total)
+                + "\n"
+                + "Payment due: "
+                + str(so.amount_total - sum_total)
+            )
 ```
   </details>
 - **Execute Code** (`server_action_2489_user_location_validation_test`, type `code`)
@@ -128,8 +149,12 @@ if record.state == 'done':
   <details><summary>code (2 lines)</summary>
 
 ```python
-
-imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})
+imp_header_charges = env["x_test02"].create(
+    {
+        "x_name": record.location_id.complete_name,
+        "x_studio_name_1": record.location_dest_id.complete_name,
+    }
+)
 ```
   </details>
 - **Execute Code** (`server_action_2474_user_location_validation`, type `code`)
@@ -139,90 +164,165 @@ imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complet
   <details><summary>code (84 lines)</summary>
 
 ```python
-
 if user.id != 1:
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
 
-  company = env['res.company'].browse(company_id)
-
-  
-
-  if record.x_studio_user_location_validation == True:
-
-    if record.x_studio_user_location_validation_2 == True:
-
-      warehouse = record.location_id.complete_name
-
-    else:
-
-      warehouse = record.location_dest_id.complete_name 
-
-    
-
-    if record.x_studio_type_of_operation == 'internal':
-
-      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
-
-      if loc:
-
-        locations = ""
-
-        for locs in loc:
-
-          locations += (locs.complete_name + "\n")
-
-        
-
+    if record.x_studio_user_location_validation == True:
         if record.x_studio_user_location_validation_2 == True:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-
-        else:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-
-      else:
-
-        if record.x_studio_user_location_validation_2 == True:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
+            warehouse = record.location_id.complete_name
 
         else:
+            warehouse = record.location_dest_id.complete_name
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
+        if record.x_studio_type_of_operation == "internal":
+            loc = env["stock.location"].search(
+                [
+                    ("x_studio_users_internal_transfer", "=", user.id),
+                    ("active", "=", True),
+                    ("company_id", "=", company.id),
+                ]
+            )
 
-    else:
+            if loc:
+                locations = ""
 
-      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+                for locs in loc:
+                    locations += locs.complete_name + "\n"
 
-      if loc:
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for internal operation types."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-        locations = ""
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for internal operation types."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-        for locs in loc:
+            else:
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for internal operation types."
+                    )
 
-          locations += (locs.complete_name + "\n")
-
-        
-
-        if record.x_studio_user_location_validation_2 == True:  
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for internal operation types."
+                    )
 
         else:
+            loc = env["stock.location"].search(
+                [
+                    ("x_studio_users_stock_location", "ilike", user.id),
+                    ("active", "=", True),
+                    ("company_id", "=", company.id),
+                ]
+            )
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+            if loc:
+                locations = ""
 
-      else:
+                for locs in loc:
+                    locations += locs.complete_name + "\n"
 
-        if record.x_studio_user_location_validation_2 == True: 
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-        else:
+            else:
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for operation types not in internal."
+                    )
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for operation types not in internal."
+                    )
 ```
   </details>
 - **Execute Code** (`server_action_1697_supplier_invoice_no_update_in_import_pos`, type `code`)
@@ -233,9 +333,13 @@ if user.id != 1:
 
 ```python
 if record.x_studio_consignment_no:
-  consignment = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_no.id)],limit=1)
-  if consignment:
-    record['x_studio_supplier_invoice_number'] = consignment.x_studio_supplier_invoice_number
+    consignment = env["x_consignment_header"].search(
+        [("id", "=", record.x_studio_consignment_no.id)], limit=1
+    )
+    if consignment:
+        record["x_studio_supplier_invoice_number"] = (
+            consignment.x_studio_supplier_invoice_number
+        )
 ```
   </details>
 - **Execute Code** (`server_action_1813_update_source_document_in_transfers`, type `code`)
@@ -246,9 +350,9 @@ if record.x_studio_consignment_no:
 
 ```python
 if record.x_studio_sales_order.id:
-  record['origin'] = record.x_studio_sales_order.name
+    record["origin"] = record.x_studio_sales_order.name
 else:
-  record['origin'] = ""
+    record["origin"] = ""
 ```
   </details>
 - **IMP - Update Consignment** (`server_action_1358_imp_update_consignment`, type `code`)
@@ -259,110 +363,218 @@ else:
 
 ```python
 if record.id:
-  
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-  
-  con_line = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id)],limit=1)
-  if not con_line:
-    raise UserError('The Selected Consignment No is not linked with the Current PO.')
-  
-  done = 0  
-  select = 0
-  total_amount = 0
-  total_charge = 0
-  total_duty = 0
-  total_tax = 0
-  for po_line in record.move_ids_without_package:
-    if po_line.quantity_done > 0.0000:
-      done += 1
-      con_line_2 = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id), ('x_studio_product_id', '=', po_line.product_id.id), ('x_studio_invoice_qty', '=', po_line.quantity_done), ('x_studio_purchase_line_id', '=', po_line.purchase_line_id.id)],limit=1)
-      if con_line_2:
-        po_lines = env['purchase.order.line'].search([('id', '=', po_line.purchase_line_id.id)],limit=1)
-        select += 1
-        if po_lines:
-          total_amount += po_line.quantity_done * (po_lines.price_subtotal / po_lines.product_qty)
-          
-        if con_line_2.x_studio_valid_charge == True:
-          total_charge += con_line_2.x_studio_tot_charge
-        if con_line_2.x_studio_valid_duty == True:
-          total_duty += con_line_2.x_studio_tot_duty
-        if con_line_2.x_studio_valid_tax == True:
-          total_tax += con_line_2.x_studio_tot_tax
-  
-  if done == 0:
-    raise UserError('You have not recorded done quantities yet, Atleast one done quantity should be recorded to proceed.') 
-  
-  if select == 0:
-    raise UserError('The Selected Consignment No is not linked with the Correct Items & Item Quantities in the Current PO.')
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
 
-  con_header = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_no.id)],limit=1)
-  grand_total_amount = 0
-  if con_header:
-    journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1) 
-    if not journal:
-      raise UserError('The required journal has not been setup. Process terminated.')
-    
-    if con_header.x_studio_vendor_dispatch == True:
-      grand_total_amount = total_amount * con_header.x_studio_vendor_dispatch_exchange_rate
-      if grand_total_amount > 0.0000:
-        despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
-        if despatch_account:
-          if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
-            raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
-            
-        despatch_lines=[]
-        despatch_lines.append([0,0,{
-          'account_id':despatch_account.x_studio_vendor_despatch_credit_account.id,
-          'partner_id':record.partner_id.id,
-          'name':'Vendor Despatch Reversal',
-          'debit':grand_total_amount}])
-                  
-        despatch_lines.append([0,0,{
-          'account_id':despatch_account.x_studio_vendor_despatch_debit_account.id,
-          'partner_id':record.partner_id.id,
-          'name':'Vendor Despatch Reversal',
-          'credit':grand_total_amount}])	
-                
-        vendor_despatch = env['account.move'].create({'x_studio_created_from_transfer':record.id,'journal_id':journal.id,'move_type':'entry','line_ids':despatch_lines})
-              
-        update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
-        if update_vendor_despatch:
-          update_vendor_despatch.write({'state':'posted'})
-        
-    if con_header.x_studio_custom_clearance == True: 
-      despatch_lines_2=[]
-      if total_charge > 0.0000:
-        despatch_lines_2.append([0,0,{
-        'account_id':con_header.x_studio_account_charge.id,
-        'name':'Purchase, Charge - Reversal',
-        'credit':total_charge * con_header.x_studio_custom_clearance_exchange_rate}])
-          
-      if total_duty > 0.0000:  
-        despatch_lines_2.append([0,0,{
-        'account_id':con_header.x_studio_account_duty.id,
-        'name':'Purchase Misc. Charges Duty - Reversal',
-        'credit':total_duty * con_header.x_studio_custom_clearance_exchange_rate}])
-          
-      if total_tax > 0.0000:  
-        despatch_lines_2.append([0,0,{
-        'account_id':con_header.x_studio_account_tax.id,
-        'name':'Purchase, Packing Slip Tax - Reversal',
-        'credit':total_tax * con_header.x_studio_custom_clearance_exchange_rate}])
-          
-      if (total_charge + total_duty + total_tax) > 0.0000:    
-        despatch_lines_2.append([0,0,{
-        'account_id':con_header.x_studio_offset_account.id,
-        'name':'Purchase Packing Slip Offset - Reversal',
-        'debit':(total_charge + total_duty + total_tax) * con_header.x_studio_custom_clearance_exchange_rate}])	
-            
-        custom_clearance = env['account.move'].create({'x_studio_create_from_transfer_1':record.id,'journal_id':journal.id,'move_type':'entry','line_ids':despatch_lines_2})
-          
-        update_custom_clearance = env['account.move'].search([('id', '=', custom_clearance.id)],limit=1)
-        if update_custom_clearance:
-          update_custom_clearance.write({'state':'posted'})
-      
-  record['x_studio_update_consignment'] = True
+    con_line = env["x_consignment_line"].search(
+        [
+            ("x_studio_consignment_header_id", "=", record.x_studio_consignment_no.id),
+            ("x_studio_purchase_id", "=", record.purchase_id.id),
+        ],
+        limit=1,
+    )
+    if not con_line:
+        raise UserError(
+            "The Selected Consignment No is not linked with the Current PO."
+        )
+
+    done = 0
+    select = 0
+    total_amount = 0
+    total_charge = 0
+    total_duty = 0
+    total_tax = 0
+    for po_line in record.move_ids_without_package:
+        if po_line.quantity_done > 0.0000:
+            done += 1
+            con_line_2 = env["x_consignment_line"].search(
+                [
+                    (
+                        "x_studio_consignment_header_id",
+                        "=",
+                        record.x_studio_consignment_no.id,
+                    ),
+                    ("x_studio_purchase_id", "=", record.purchase_id.id),
+                    ("x_studio_product_id", "=", po_line.product_id.id),
+                    ("x_studio_invoice_qty", "=", po_line.quantity_done),
+                    ("x_studio_purchase_line_id", "=", po_line.purchase_line_id.id),
+                ],
+                limit=1,
+            )
+            if con_line_2:
+                po_lines = env["purchase.order.line"].search(
+                    [("id", "=", po_line.purchase_line_id.id)], limit=1
+                )
+                select += 1
+                if po_lines:
+                    total_amount += po_line.quantity_done * (
+                        po_lines.price_subtotal / po_lines.product_qty
+                    )
+
+                if con_line_2.x_studio_valid_charge == True:
+                    total_charge += con_line_2.x_studio_tot_charge
+                if con_line_2.x_studio_valid_duty == True:
+                    total_duty += con_line_2.x_studio_tot_duty
+                if con_line_2.x_studio_valid_tax == True:
+                    total_tax += con_line_2.x_studio_tot_tax
+
+    if done == 0:
+        raise UserError(
+            "You have not recorded done quantities yet, Atleast one done quantity should be recorded to proceed."
+        )
+
+    if select == 0:
+        raise UserError(
+            "The Selected Consignment No is not linked with the Correct Items & Item Quantities in the Current PO."
+        )
+
+    con_header = env["x_consignment_header"].search(
+        [("id", "=", record.x_studio_consignment_no.id)], limit=1
+    )
+    grand_total_amount = 0
+    if con_header:
+        journal = env["account.journal"].search(
+            [("name", "=", "Vendor Despatch"), ("company_id", "=", company.id)], limit=1
+        )
+        if not journal:
+            raise UserError(
+                "The required journal has not been setup. Process terminated."
+            )
+
+        if con_header.x_studio_vendor_dispatch == True:
+            grand_total_amount = (
+                total_amount * con_header.x_studio_vendor_dispatch_exchange_rate
+            )
+            if grand_total_amount > 0.0000:
+                despatch_account = env["x_imports_ledger_setup"].search(
+                    [("x_studio_company_id", "=", company.id)], limit=1
+                )
+                if despatch_account:
+                    if (
+                        despatch_account.x_studio_vendor_despatch_debit_account.id == 0
+                        or despatch_account.x_studio_vendor_despatch_credit_account.id
+                        == 0
+                    ):
+                        raise UserError(
+                            "Vendor Despatch Accounts must be Specified in Imports Ledger Setup"
+                        )
+
+                despatch_lines = []
+                despatch_lines.append(
+                    [
+                        0,
+                        0,
+                        {
+                            "account_id": despatch_account.x_studio_vendor_despatch_credit_account.id,
+                            "partner_id": record.partner_id.id,
+                            "name": "Vendor Despatch Reversal",
+                            "debit": grand_total_amount,
+                        },
+                    ]
+                )
+
+                despatch_lines.append(
+                    [
+                        0,
+                        0,
+                        {
+                            "account_id": despatch_account.x_studio_vendor_despatch_debit_account.id,
+                            "partner_id": record.partner_id.id,
+                            "name": "Vendor Despatch Reversal",
+                            "credit": grand_total_amount,
+                        },
+                    ]
+                )
+
+                vendor_despatch = env["account.move"].create(
+                    {
+                        "x_studio_created_from_transfer": record.id,
+                        "journal_id": journal.id,
+                        "move_type": "entry",
+                        "line_ids": despatch_lines,
+                    }
+                )
+
+                update_vendor_despatch = env["account.move"].search(
+                    [("id", "=", vendor_despatch.id)], limit=1
+                )
+                if update_vendor_despatch:
+                    update_vendor_despatch.write({"state": "posted"})
+
+        if con_header.x_studio_custom_clearance == True:
+            despatch_lines_2 = []
+            if total_charge > 0.0000:
+                despatch_lines_2.append(
+                    [
+                        0,
+                        0,
+                        {
+                            "account_id": con_header.x_studio_account_charge.id,
+                            "name": "Purchase, Charge - Reversal",
+                            "credit": total_charge
+                            * con_header.x_studio_custom_clearance_exchange_rate,
+                        },
+                    ]
+                )
+
+            if total_duty > 0.0000:
+                despatch_lines_2.append(
+                    [
+                        0,
+                        0,
+                        {
+                            "account_id": con_header.x_studio_account_duty.id,
+                            "name": "Purchase Misc. Charges Duty - Reversal",
+                            "credit": total_duty
+                            * con_header.x_studio_custom_clearance_exchange_rate,
+                        },
+                    ]
+                )
+
+            if total_tax > 0.0000:
+                despatch_lines_2.append(
+                    [
+                        0,
+                        0,
+                        {
+                            "account_id": con_header.x_studio_account_tax.id,
+                            "name": "Purchase, Packing Slip Tax - Reversal",
+                            "credit": total_tax
+                            * con_header.x_studio_custom_clearance_exchange_rate,
+                        },
+                    ]
+                )
+
+            if (total_charge + total_duty + total_tax) > 0.0000:
+                despatch_lines_2.append(
+                    [
+                        0,
+                        0,
+                        {
+                            "account_id": con_header.x_studio_offset_account.id,
+                            "name": "Purchase Packing Slip Offset - Reversal",
+                            "debit": (total_charge + total_duty + total_tax)
+                            * con_header.x_studio_custom_clearance_exchange_rate,
+                        },
+                    ]
+                )
+
+                custom_clearance = env["account.move"].create(
+                    {
+                        "x_studio_create_from_transfer_1": record.id,
+                        "journal_id": journal.id,
+                        "move_type": "entry",
+                        "line_ids": despatch_lines_2,
+                    }
+                )
+
+                update_custom_clearance = env["account.move"].search(
+                    [("id", "=", custom_clearance.id)], limit=1
+                )
+                if update_custom_clearance:
+                    update_custom_clearance.write({"state": "posted"})
+
+    record["x_studio_update_consignment"] = True
 ```
   </details>
 - **IMP - Update Consignment - Final** (`server_action_1367_imp_update_consignment_final`, type `code`)
@@ -373,31 +585,64 @@ if record.id:
 
 ```python
 if record.id:
-  con_line = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id)],limit=1)
-  if not con_line:
-    raise UserError('The Selected Consignment No is not linked with the Current PO.')
-  
-  done = 0  
-  select = 0
-  
-  for po_line in record.move_ids_without_package:
-    con_line_2 = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.x_studio_consignment_no.id), ('x_studio_purchase_id', '=', record.purchase_id.id), ('x_studio_product_id', '=', po_line.product_id.id), ('x_studio_invoice_qty', '<=', po_line.product_uom_qty), ('x_studio_purchase_line_id', '=', po_line.purchase_line_id.id)],limit=1)
-    if con_line_2:
-      select += 1
-      po_line.write({'quantity_done':con_line_2.x_studio_invoice_qty})
-      con_line_2.write({'x_studio_stock_move_id':po_line.id, 'x_studio_delivery_remainder':(con_line_2.x_studio_delivery_remainder - con_line_2.x_studio_invoice_qty)})
-  
-  for po_line_count in record.move_ids_without_package:
-    if po_line_count.quantity_done > 0.0000:
-      done += 1
-      
-  if done == 0:
-    raise UserError('You have not recorded done quantities yet, Atleast one done quantity should be recorded to proceed.') 
-  
-  if select == 0:
-    raise UserError('The Selected Consignment No is not linked with the Correct Items & Item Quantities in the Current PO.')
+    con_line = env["x_consignment_line"].search(
+        [
+            ("x_studio_consignment_header_id", "=", record.x_studio_consignment_no.id),
+            ("x_studio_purchase_id", "=", record.purchase_id.id),
+        ],
+        limit=1,
+    )
+    if not con_line:
+        raise UserError(
+            "The Selected Consignment No is not linked with the Current PO."
+        )
 
-  record['x_studio_update_consignment'] = True
+    done = 0
+    select = 0
+
+    for po_line in record.move_ids_without_package:
+        con_line_2 = env["x_consignment_line"].search(
+            [
+                (
+                    "x_studio_consignment_header_id",
+                    "=",
+                    record.x_studio_consignment_no.id,
+                ),
+                ("x_studio_purchase_id", "=", record.purchase_id.id),
+                ("x_studio_product_id", "=", po_line.product_id.id),
+                ("x_studio_invoice_qty", "<=", po_line.product_uom_qty),
+                ("x_studio_purchase_line_id", "=", po_line.purchase_line_id.id),
+            ],
+            limit=1,
+        )
+        if con_line_2:
+            select += 1
+            po_line.write({"quantity_done": con_line_2.x_studio_invoice_qty})
+            con_line_2.write(
+                {
+                    "x_studio_stock_move_id": po_line.id,
+                    "x_studio_delivery_remainder": (
+                        con_line_2.x_studio_delivery_remainder
+                        - con_line_2.x_studio_invoice_qty
+                    ),
+                }
+            )
+
+    for po_line_count in record.move_ids_without_package:
+        if po_line_count.quantity_done > 0.0000:
+            done += 1
+
+    if done == 0:
+        raise UserError(
+            "You have not recorded done quantities yet, Atleast one done quantity should be recorded to proceed."
+        )
+
+    if select == 0:
+        raise UserError(
+            "The Selected Consignment No is not linked with the Correct Items & Item Quantities in the Current PO."
+        )
+
+    record["x_studio_update_consignment"] = True
 ```
   </details>
 - **IMP - Update Consignment - Partial GRN** (`server_action_1360_imp_update_consignment_partial_grn`, type `code`)
@@ -407,8 +652,8 @@ if record.id:
   <details><summary>code (2 lines)</summary>
 
 ```python
-record['x_studio_update_consignment'] = False
-record['x_studio_consignment_no'] = False
+record["x_studio_update_consignment"] = False
+record["x_studio_consignment_no"] = False
 ```
   </details>
 - **Movement Journals - Update Offset Account** (`server_action_2448_movement_journals_update_offset_account`, type `code`)
@@ -419,38 +664,81 @@ record['x_studio_consignment_no'] = False
 
 ```python
 if record.id:
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-  
-  if record.x_studio_movement_journal == True:
-    offset_account = env['x_journal_types'].search([('id', '=', record.x_studio_journal_type.id),('x_studio_company_id', '=', company.id)], limit=1)
-    #offset_account = record.x_studio_journal_type.x_studio_offset_account
-    if offset_account.x_studio_offset_account == False:
-      raise UserError('Offset Account for the selected Journal Type must be Specified.')
-    
-    stock_move = env['stock.move'].search([('picking_id', '=', record.id)])
-    if stock_move:
-      for stock_move_loop in stock_move:
-        stock_valuation_layer = env['stock.valuation.layer'].search([('stock_move_id', '=', stock_move_loop.id)], limit=1)  
-        if stock_valuation_layer:
-          account_move = env['account.move'].search([('id', '=', stock_valuation_layer.account_move_id.id)], limit=1)  
-          if account_move:
-            if record.x_studio_mj_out == True:
-              account_move_lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', stock_move.product_id.categ_id.property_stock_account_output_categ_id.id)],limit=1)
-            elif record.x_studio_mj_in == True:
-              account_move_lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', stock_move.product_id.categ_id.property_stock_account_input_categ_id.id)],limit=1)
-            else:
-              raise UserError('There is no journal line can be found to update the off-sett account.')
-            #account_move_lines = env['account.move.line'].search([('move_id', '=', account_move.id),('debit', '>', 0)], limit=1)
-            #lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', record.journal_id.default_account_id.id)])
-            #lines = env['account.move.line'].search([('move_id', '=', record.id),('account_id', '=', record.partner_id.property_account_receivable_id.id)])
-            #for line in lines:
-              #line.write({'account_id':rug_account.x_studio_rug_account.id}) 
-            if account_move_lines:
-              account_move_lines.write({'account_id':offset_account.x_studio_offset_account.id})   
-    record.write({'x_studio_offset_account_updated': True, 'x_studio_gl_account_status': 'Updated'})
-  
-#stock_move_id
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
+
+    if record.x_studio_movement_journal == True:
+        offset_account = env["x_journal_types"].search(
+            [
+                ("id", "=", record.x_studio_journal_type.id),
+                ("x_studio_company_id", "=", company.id),
+            ],
+            limit=1,
+        )
+        # offset_account = record.x_studio_journal_type.x_studio_offset_account
+        if offset_account.x_studio_offset_account == False:
+            raise UserError(
+                "Offset Account for the selected Journal Type must be Specified."
+            )
+
+        stock_move = env["stock.move"].search([("picking_id", "=", record.id)])
+        if stock_move:
+            for stock_move_loop in stock_move:
+                stock_valuation_layer = env["stock.valuation.layer"].search(
+                    [("stock_move_id", "=", stock_move_loop.id)], limit=1
+                )
+                if stock_valuation_layer:
+                    account_move = env["account.move"].search(
+                        [("id", "=", stock_valuation_layer.account_move_id.id)], limit=1
+                    )
+                    if account_move:
+                        if record.x_studio_mj_out == True:
+                            account_move_lines = env["account.move.line"].search(
+                                [
+                                    ("move_id", "=", account_move.id),
+                                    (
+                                        "account_id",
+                                        "=",
+                                        stock_move.product_id.categ_id.property_stock_account_output_categ_id.id,
+                                    ),
+                                ],
+                                limit=1,
+                            )
+                        elif record.x_studio_mj_in == True:
+                            account_move_lines = env["account.move.line"].search(
+                                [
+                                    ("move_id", "=", account_move.id),
+                                    (
+                                        "account_id",
+                                        "=",
+                                        stock_move.product_id.categ_id.property_stock_account_input_categ_id.id,
+                                    ),
+                                ],
+                                limit=1,
+                            )
+                        else:
+                            raise UserError(
+                                "There is no journal line can be found to update the off-sett account."
+                            )
+                        # account_move_lines = env['account.move.line'].search([('move_id', '=', account_move.id),('debit', '>', 0)], limit=1)
+                        # lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', record.journal_id.default_account_id.id)])
+                        # lines = env['account.move.line'].search([('move_id', '=', record.id),('account_id', '=', record.partner_id.property_account_receivable_id.id)])
+                        # for line in lines:
+                        # line.write({'account_id':rug_account.x_studio_rug_account.id})
+                        if account_move_lines:
+                            account_move_lines.write(
+                                {
+                                    "account_id": offset_account.x_studio_offset_account.id
+                                }
+                            )
+        record.write(
+            {
+                "x_studio_offset_account_updated": True,
+                "x_studio_gl_account_status": "Updated",
+            }
+        )
+
+# stock_move_id
 ```
   </details>
 - **PROJ - Show Validate Block Errors** (`server_action_2181_proj_show_validate_block_errors`, type `code`)
@@ -461,7 +749,9 @@ if record.id:
 
 ```python
 if record.id:
-  raise UserError('Create the budget for the selected project sales order to proceed.')
+    raise UserError(
+        "Create the budget for the selected project sales order to proceed."
+    )
 ```
   </details>
 - **RR - Re_return Validation** (`server_action_1999_rr_re_return_validation`, type `code`)
@@ -472,7 +762,7 @@ if record.id:
 
 ```python
 if record.id:
-  raise UserError('Perform "Mark As Done" in the linked Task to proceed.')
+    raise UserError('Perform "Mark As Done" in the linked Task to proceed.')
 ```
   </details>
 - **RR - Request Transfer Approval** (`server_action_2204_rr_request_transfer_approval`, type `multi`)
@@ -534,7 +824,7 @@ record._repair_studio_update_rug_approval_in_pipeline()
   <details><summary>code (1 lines)</summary>
 
 ```python
-record.write({"state": 'cancel', "x_studio_transfer_rejected": 'Yes'})
+record.write({"state": "cancel", "x_studio_transfer_rejected": "Yes"})
 ```
   </details>
 - **RR - Transfer Request Approval - Notify User** (`server_action_2203_rr_transfer_request_approval_notify_user`, type `next_activity`)
@@ -565,20 +855,41 @@ record.write({"state": 'cancel', "x_studio_transfer_rejected": 'Yes'})
 
 ```python
 if record.x_studio_repair_return_location == True:
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-  
-  if company.id == 1:
-    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Returns')],limit=1)
-  else:
-    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Receipts')],limit=1)
-  
-  if opt_type:
-    record['picking_type_id'] = opt_type.id
-    
-  
-    seq = env['ir.sequence'].next_by_code('purchase.request.seq')
-    record['name'] = seq
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
+
+    if company.id == 1:
+        opt_type = env["stock.picking.type"].search(
+            [
+                (
+                    "default_location_dest_id",
+                    "=",
+                    record.x_studio_return_receipt_location.id,
+                ),
+                ("code", "=", "incoming"),
+                ("name", "=", "Returns"),
+            ],
+            limit=1,
+        )
+    else:
+        opt_type = env["stock.picking.type"].search(
+            [
+                (
+                    "default_location_dest_id",
+                    "=",
+                    record.x_studio_return_receipt_location.id,
+                ),
+                ("code", "=", "incoming"),
+                ("name", "=", "Receipts"),
+            ],
+            limit=1,
+        )
+
+    if opt_type:
+        record["picking_type_id"] = opt_type.id
+
+        seq = env["ir.sequence"].next_by_code("purchase.request.seq")
+        record["name"] = seq
 ```
   </details>
 - **SLS - Validate Payment in Shipment** (`sa_f5_stock_picking_sls_validate_payment_in_shipment`, type `code`)
@@ -588,18 +899,40 @@ if record.x_studio_repair_return_location == True:
   <details><summary>code (12 lines)</summary>
 
 ```python
-if record.state == 'done':
-  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
-  if so:
-      sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
-      if payment:
-        for total in payment:
-          sum_total += total.amount
-              
-      if so.amount_total > sum_total:     
-        #raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
-        raise UserError('The Payment Against the Cash Sales Order must be Registered First.' + '\n'  + '\n' + 'This sale: ' + str(so.amount_total) + '\n' + 'Total payments: ' + str(sum_total) + '\n' + 'Payment due: ' + str(so.amount_total - sum_total))
+if record.state == "done":
+    so = env["sale.order"].search(
+        [
+            ("id", "=", record.sale_id.id),
+            ("state", "=", "done"),
+            ("x_studio_order_payment_method", "=", "Cash"),
+            ("x_studio_grant_temporary_credit", "=", False),
+        ],
+        limit=1,
+    )
+    if so:
+        sum_total = 0
+        payment = env["account.payment"].search(
+            [("x_studio_sales_order", "=", record.sale_id.id), ("state", "=", "posted")]
+        )
+        if payment:
+            for total in payment:
+                sum_total += total.amount
+
+        if so.amount_total > sum_total:
+            # raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
+            raise UserError(
+                "The Payment Against the Cash Sales Order must be Registered First."
+                + "\n"
+                + "\n"
+                + "This sale: "
+                + str(so.amount_total)
+                + "\n"
+                + "Total payments: "
+                + str(sum_total)
+                + "\n"
+                + "Payment due: "
+                + str(so.amount_total - sum_total)
+            )
 ```
   </details>
 - **SLS - Validate Payment in xxx** (`server_action_1774_sls_validate_payment_in_xxx`, type `code`)
@@ -609,17 +942,29 @@ if record.state == 'done':
   <details><summary>code (11 lines)</summary>
 
 ```python
-if record.state == 'done':
-  so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
-  if so:
-      sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
-      if payment:
-        for total in payment:
-          sum_total += total.amount
-              
-      if so.amount_total > sum_total:     
-        raise UserError('The Payment Against the Cash Sales Order must be Registered First.')
+if record.state == "done":
+    so = env["sale.order"].search(
+        [
+            ("id", "=", record.sale_id.id),
+            ("state", "=", "done"),
+            ("x_studio_order_payment_method", "=", "Cash"),
+            ("x_studio_grant_temporary_credit", "=", False),
+        ],
+        limit=1,
+    )
+    if so:
+        sum_total = 0
+        payment = env["account.payment"].search(
+            [("x_studio_sales_order", "=", record.sale_id.id), ("state", "=", "posted")]
+        )
+        if payment:
+            for total in payment:
+                sum_total += total.amount
+
+        if so.amount_total > sum_total:
+            raise UserError(
+                "The Payment Against the Cash Sales Order must be Registered First."
+            )
 ```
   </details>
 - **User Location Validation** (`sa_f5_stock_picking_user_location_validation`, type `code`)
@@ -630,88 +975,164 @@ if record.state == 'done':
 
 ```python
 if user.id != 1:
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
 
-  company = env['res.company'].browse(company_id)
-
-  
-
-  if record.x_studio_user_location_validation == True:
-
-    if record.x_studio_user_location_validation_2 == True:
-
-      warehouse = record.location_id.complete_name
-
-    else:
-
-      warehouse = record.location_dest_id.complete_name 
-
-    
-
-    if record.x_studio_type_of_operation == 'internal':
-
-      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
-
-      if loc:
-
-        locations = ""
-
-        for locs in loc:
-
-          locations += (locs.complete_name + "\n")
-
-        
-
+    if record.x_studio_user_location_validation == True:
         if record.x_studio_user_location_validation_2 == True:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-
-        else:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for internal operation types.' + "\n" + "\n" + locations)
-
-      else:
-
-        if record.x_studio_user_location_validation_2 == True:
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.')
+            warehouse = record.location_id.complete_name
 
         else:
+            warehouse = record.location_dest_id.complete_name
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" + 'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for internal operation types.') 
+        if record.x_studio_type_of_operation == "internal":
+            loc = env["stock.location"].search(
+                [
+                    ("x_studio_users_internal_transfer", "=", user.id),
+                    ("active", "=", True),
+                    ("company_id", "=", company.id),
+                ]
+            )
 
-    else:
+            if loc:
+                locations = ""
 
-      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+                for locs in loc:
+                    locations += locs.complete_name + "\n"
 
-      if loc:
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for internal operation types."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-        locations = ""
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for internal operation types."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-        for locs in loc:
+            else:
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for internal operation types."
+                    )
 
-          locations += (locs.complete_name + "\n")
-
-        
-
-        if record.x_studio_user_location_validation_2 == True:  
-
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for internal operation types."
+                    )
 
         else:
+            loc = env["stock.location"].search(
+                [
+                    ("x_studio_users_stock_location", "ilike", user.id),
+                    ("active", "=", True),
+                    ("company_id", "=", company.id),
+                ]
+            )
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal.' + "\n" + "\n" + locations)
+            if loc:
+                locations = ""
 
-      else:
+                for locs in loc:
+                    locations += locs.complete_name + "\n"
 
-        if record.x_studio_user_location_validation_2 == True: 
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Source Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "Only the below listed warehouses are permitted for the current logged-in user for operation types not in internal."
+                        + "\n"
+                        + "\n"
+                        + locations
+                    )
 
-        else:
+            else:
+                if record.x_studio_user_location_validation_2 == True:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Source Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for operation types not in internal."
+                    )
 
-          raise UserError('The current logged-in user does not have access to below listed warehouse.' + "\n" + "\n" +'Destination Location:' + "\n" + warehouse + "\n" + "\n" + 'There are no permitted warehouses set up for the current logged-in user for operation types not in internal.')
+                else:
+                    raise UserError(
+                        "The current logged-in user does not have access to below listed warehouse."
+                        + "\n"
+                        + "\n"
+                        + "Destination Location:"
+                        + "\n"
+                        + warehouse
+                        + "\n"
+                        + "\n"
+                        + "There are no permitted warehouses set up for the current logged-in user for operation types not in internal."
+                    )
 ```
   </details>
 - **User Location Validation-TEST** (`sa_f5_stock_picking_user_location_validation_test`, type `code`)
@@ -721,7 +1142,12 @@ if user.id != 1:
   <details><summary>code (1 lines)</summary>
 
 ```python
-imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})
+imp_header_charges = env["x_test02"].create(
+    {
+        "x_name": record.location_id.complete_name,
+        "x_studio_name_1": record.location_dest_id.complete_name,
+    }
+)
 ```
   </details>
 **Automations (8):**

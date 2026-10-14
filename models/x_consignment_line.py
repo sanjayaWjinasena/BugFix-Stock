@@ -5,79 +5,198 @@ from odoo import fields, models
 # `_unknown` for the whole upgrade-mode registry build (see BugFix-Purchase
 # models/upstream_link_fields.py). Do NOT re-add them here.
 
+
 class XConsignmentLine(models.Model):
     """Studio-ported custom model x_consignment_line."""
-    _name = 'x_consignment_line'
-    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'Consignment Line'
 
-    x_active = fields.Boolean(string='Active')
-    x_currency_id = fields.Many2one('res.currency', string='Currency', readonly=True)
-    x_name = fields.Char(string='Name')
-    x_studio_allocate_amount = fields.Float(string='Allocate Amount', readonly=True)
-    x_studio_amount = fields.Float(string='Amount', readonly=True)  # was Monetary (no currency_field)
-    x_studio_boolean_field_Gbd5Y = fields.Boolean(string='Valid Duty')
-    x_studio_company_id = fields.Many2one('res.company', string='Company')
-    x_studio_concessional_rate = fields.Boolean(string='Concessional Rate')
-    x_studio_consignment_header_id = fields.Many2one('x_consignment_header', string='Consignment No', ondelete='restrict')
-    x_studio_cost_allocation_method = fields.Selection([('equal', 'Equal'), ('by_quantity', 'By Quantity'), ('by_current_cost_price', 'By Current Cost'), ('by_weight', 'By Weight'), ('by_volume', 'By Volume')], string='Cost Allocation Method', readonly=True)
-    x_studio_delivery_remainder = fields.Float(string='Delivery Remainder', readonly=True)
-    x_studio_description = fields.Char(string='Description', readonly=True, store=False)
-    x_studio_exchange_rate = fields.Float(string='Exchange Rate')
-    x_studio_header_charges_allocated = fields.Boolean(string='Header Charges Allocated', readonly=True)
-    x_studio_indent_no = fields.Char(string='Indent No', readonly=True)
-    x_studio_invoice_qty = fields.Float(string='Invoice Qty.')
-    x_studio_many2many_field_ZvmKu = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_many2many_field_ZvmKu_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_tax_ex_cd_ids')
-    x_studio_order_remainder = fields.Float(string='Consignment Remainder', readonly=True)
-    x_studio_original_delivery_remainder = fields.Float(string='Original Delivery Remainder')
-    x_studio_product_id = fields.Many2one('product.product', string='Product')
-    x_studio_purchase_id = fields.Many2one('purchase.order', string='Purchase Order')
-    x_studio_purchase_line_id = fields.Many2one('purchase.order.line', string='Purchase Line Id')
-    x_studio_received_qty = fields.Float(string='Received Qty.', readonly=True)
-    x_studio_sequence = fields.Integer(string='Sequence')
-    x_studio_status = fields.Selection([('Draft', 'Draft'), ('In Transit', 'In Transit'), ('Under Custom Clearance', 'Under Custom Clearance'), ('Done', 'Done')], string='Status', readonly=True)
-    x_studio_stock_move_id = fields.Many2one('stock.move', string='Stock Move Id')
-    x_studio_tariff_code = fields.Many2one('x_tariffmaster', string='Tariff Code', readonly=True, store=False)
-    x_studio_test1 = fields.Char(string='Test1', readonly=True)
-    x_studio_test2 = fields.Many2one('x_consignment_header', string='Test2', readonly=True)
-    x_studio_tot_charge = fields.Float(string='Tot Charge')
-    x_studio_tot_charge_cd = fields.Float(string='Tot Charge Cd')
-    x_studio_tot_charge_cd_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_charge_cd_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_charge_cd_ids')
-    x_studio_tot_charge_ex = fields.Float(string='Tot Charge Ex')
-    x_studio_tot_charge_ex_cd = fields.Float(string='Tot Charge Ex Cd')
-    x_studio_tot_charge_ex_cd_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_charge_ex_cd_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_charge_ex_cd_ids')
-    x_studio_tot_charge_ex_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_charge_ex_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_charge_ex_ids')
-    x_studio_tot_charge_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_charge_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_charge_ids')
-    x_studio_tot_duty = fields.Float(string='Tot Duty')
-    x_studio_tot_duty_cd = fields.Float(string='Tot Duty Cd')
-    x_studio_tot_duty_cd_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_duty_cd_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_duty_cd_ids')
-    x_studio_tot_duty_ex = fields.Float(string='Tot Duty Ex')
-    x_studio_tot_duty_ex_cd = fields.Float(string='Tot Duty Ex Cd')
-    x_studio_tot_duty_ex_cd_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_duty_ex_cd_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_duty_ex_cd_ids')
-    x_studio_tot_duty_ex_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_duty_ex_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_duty_ex_ids')
-    x_studio_tot_duty_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_duty_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_duty_ids')
-    x_studio_tot_tax = fields.Float(string='Tot Tax')
-    x_studio_tot_tax_cd = fields.Float(string='Tot Tax Cd')
-    x_studio_tot_tax_cd_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_tax_cd_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_tax_cd_ids')
-    x_studio_tot_tax_ex = fields.Float(string='Tot Tax Ex')
-    x_studio_tot_tax_ex_cd = fields.Float(string='Tot Tax Ex Cd')
-    x_studio_tot_tax_ex_cd_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_tax_ex_cd_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_tax_ex_cd_ids')
-    x_studio_tot_tax_ex_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_tax_ex_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_tax_ex_ids')
-    x_studio_tot_tax_ids = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_tot_tax_ids_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_tax_ids')
-    x_studio_unit_price = fields.Float(string='Unit Price')
-    x_studio_valid_charge = fields.Boolean(string='Valid Charge')
-    x_studio_valid_charge_cd = fields.Boolean(string='Valid Charge Cd')
-    x_studio_valid_charge_ex = fields.Boolean(string='Valid Charge Ex')
-    x_studio_valid_charge_ex_cd = fields.Boolean(string='Valid Charge Ex Cd')
-    x_studio_valid_duty = fields.Boolean(string='Valid Duty')
-    x_studio_valid_duty_cd = fields.Boolean(string='Valid Duty Cd')
-    x_studio_valid_duty_ex = fields.Boolean(string='Valid Duty Ex')
-    x_studio_valid_duty_ex_cd = fields.Boolean(string='Valid Duty Ex Cd')
-    x_studio_valid_tax = fields.Boolean(string='Valid Tax')
-    x_studio_valid_tax_cd = fields.Boolean(string='Valid Tax Cd')
-    x_studio_valid_tax_ex = fields.Boolean(string='Valid Tax Ex')
-    x_studio_valid_tax_ex_cd = fields.Boolean(string='Valid Tax Ex Cd')
-    x_studio_volume = fields.Float(string='Volume')
-    x_studio_warehouse = fields.Many2one('stock.warehouse', string='Warehouse', readonly=True)
-    x_studio_weight = fields.Float(string='Weight')
+    _name = "x_consignment_line"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _description = "Consignment Line"
+
+    x_active = fields.Boolean(string="Active")
+    x_currency_id = fields.Many2one("res.currency", string="Currency", readonly=True)
+    x_name = fields.Char(string="Name")
+    x_studio_allocate_amount = fields.Float(string="Allocate Amount", readonly=True)
+    x_studio_amount = fields.Float(
+        string="Amount", readonly=True
+    )  # was Monetary (no currency_field)
+    x_studio_boolean_field_Gbd5Y = fields.Boolean(string="Valid Duty")
+    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    x_studio_concessional_rate = fields.Boolean(string="Concessional Rate")
+    x_studio_consignment_header_id = fields.Many2one(
+        "x_consignment_header", string="Consignment No", ondelete="restrict"
+    )
+    x_studio_cost_allocation_method = fields.Selection(
+        [
+            ("equal", "Equal"),
+            ("by_quantity", "By Quantity"),
+            ("by_current_cost_price", "By Current Cost"),
+            ("by_weight", "By Weight"),
+            ("by_volume", "By Volume"),
+        ],
+        string="Cost Allocation Method",
+        readonly=True,
+    )
+    x_studio_delivery_remainder = fields.Float(
+        string="Delivery Remainder", readonly=True
+    )
+    x_studio_description = fields.Char(string="Description", readonly=True, store=False)
+    x_studio_exchange_rate = fields.Float(string="Exchange Rate")
+    x_studio_header_charges_allocated = fields.Boolean(
+        string="Header Charges Allocated", readonly=True
+    )
+    x_studio_indent_no = fields.Char(string="Indent No", readonly=True)
+    x_studio_invoice_qty = fields.Float(string="Invoice Qty.")
+    x_studio_many2many_field_ZvmKu = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_many2many_field_ZvmKu_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_tax_ex_cd_ids",
+    )
+    x_studio_order_remainder = fields.Float(
+        string="Consignment Remainder", readonly=True
+    )
+    x_studio_original_delivery_remainder = fields.Float(
+        string="Original Delivery Remainder"
+    )
+    x_studio_product_id = fields.Many2one("product.product", string="Product")
+    x_studio_purchase_id = fields.Many2one("purchase.order", string="Purchase Order")
+    x_studio_purchase_line_id = fields.Many2one(
+        "purchase.order.line", string="Purchase Line Id"
+    )
+    x_studio_received_qty = fields.Float(string="Received Qty.", readonly=True)
+    x_studio_sequence = fields.Integer(string="Sequence")
+    x_studio_status = fields.Selection(
+        [
+            ("Draft", "Draft"),
+            ("In Transit", "In Transit"),
+            ("Under Custom Clearance", "Under Custom Clearance"),
+            ("Done", "Done"),
+        ],
+        string="Status",
+        readonly=True,
+    )
+    x_studio_stock_move_id = fields.Many2one("stock.move", string="Stock Move Id")
+    x_studio_tariff_code = fields.Many2one(
+        "x_tariffmaster", string="Tariff Code", readonly=True, store=False
+    )
+    x_studio_test1 = fields.Char(string="Test1", readonly=True)
+    x_studio_test2 = fields.Many2one(
+        "x_consignment_header", string="Test2", readonly=True
+    )
+    x_studio_tot_charge = fields.Float(string="Tot Charge")
+    x_studio_tot_charge_cd = fields.Float(string="Tot Charge Cd")
+    x_studio_tot_charge_cd_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_charge_cd_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_charge_cd_ids",
+    )
+    x_studio_tot_charge_ex = fields.Float(string="Tot Charge Ex")
+    x_studio_tot_charge_ex_cd = fields.Float(string="Tot Charge Ex Cd")
+    x_studio_tot_charge_ex_cd_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_charge_ex_cd_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_charge_ex_cd_ids",
+    )
+    x_studio_tot_charge_ex_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_charge_ex_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_charge_ex_ids",
+    )
+    x_studio_tot_charge_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_charge_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_charge_ids",
+    )
+    x_studio_tot_duty = fields.Float(string="Tot Duty")
+    x_studio_tot_duty_cd = fields.Float(string="Tot Duty Cd")
+    x_studio_tot_duty_cd_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_duty_cd_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_duty_cd_ids",
+    )
+    x_studio_tot_duty_ex = fields.Float(string="Tot Duty Ex")
+    x_studio_tot_duty_ex_cd = fields.Float(string="Tot Duty Ex Cd")
+    x_studio_tot_duty_ex_cd_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_duty_ex_cd_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_duty_ex_cd_ids",
+    )
+    x_studio_tot_duty_ex_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_duty_ex_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_duty_ex_ids",
+    )
+    x_studio_tot_duty_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_duty_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_duty_ids",
+    )
+    x_studio_tot_tax = fields.Float(string="Tot Tax")
+    x_studio_tot_tax_cd = fields.Float(string="Tot Tax Cd")
+    x_studio_tot_tax_cd_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_tax_cd_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_tax_cd_ids",
+    )
+    x_studio_tot_tax_ex = fields.Float(string="Tot Tax Ex")
+    x_studio_tot_tax_ex_cd = fields.Float(string="Tot Tax Ex Cd")
+    x_studio_tot_tax_ex_cd_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_tax_ex_cd_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_tax_ex_cd_ids",
+    )
+    x_studio_tot_tax_ex_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_tax_ex_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_tax_ex_ids",
+    )
+    x_studio_tot_tax_ids = fields.Many2many(
+        "x_misc_charge_codes",
+        "x_consignment_line_x_studio_tot_tax_ids_rel",
+        "x_id",
+        "x_misc_charge_codes_id",
+        string="tot_tax_ids",
+    )
+    x_studio_unit_price = fields.Float(string="Unit Price")
+    x_studio_valid_charge = fields.Boolean(string="Valid Charge")
+    x_studio_valid_charge_cd = fields.Boolean(string="Valid Charge Cd")
+    x_studio_valid_charge_ex = fields.Boolean(string="Valid Charge Ex")
+    x_studio_valid_charge_ex_cd = fields.Boolean(string="Valid Charge Ex Cd")
+    x_studio_valid_duty = fields.Boolean(string="Valid Duty")
+    x_studio_valid_duty_cd = fields.Boolean(string="Valid Duty Cd")
+    x_studio_valid_duty_ex = fields.Boolean(string="Valid Duty Ex")
+    x_studio_valid_duty_ex_cd = fields.Boolean(string="Valid Duty Ex Cd")
+    x_studio_valid_tax = fields.Boolean(string="Valid Tax")
+    x_studio_valid_tax_cd = fields.Boolean(string="Valid Tax Cd")
+    x_studio_valid_tax_ex = fields.Boolean(string="Valid Tax Ex")
+    x_studio_valid_tax_ex_cd = fields.Boolean(string="Valid Tax Ex Cd")
+    x_studio_volume = fields.Float(string="Volume")
+    x_studio_warehouse = fields.Many2one(
+        "stock.warehouse", string="Warehouse", readonly=True
+    )
+    x_studio_weight = fields.Float(string="Weight")

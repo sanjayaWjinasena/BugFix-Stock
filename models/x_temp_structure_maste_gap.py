@@ -5,10 +5,15 @@ from odoo import fields, models
 # `_unknown` for the whole upgrade-mode registry build (see BugFix-Purchase
 # models/upstream_link_fields.py). Do NOT re-add them here.
 
-class XTempStructureMasteGap(models.Model):
-    _inherit = 'x_temp_structure_maste'
-    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
 
-    x_active = fields.Boolean(string='Active')
-    x_name = fields.Char(string='Name')
-    x_studio_temp_structure_details = fields.One2many(comodel_name='x_temp_structure_detai', inverse_name='x_studio_temp_structure_master_id', string='Temp Structure Details')
+class XTempStructureMasteGap(models.Model):
+    _inherit = "x_temp_structure_maste"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+
+    x_active = fields.Boolean(string="Active")
+    x_name = fields.Char(string="Name")
+    x_studio_temp_structure_details = fields.One2many(
+        comodel_name="x_temp_structure_detai",
+        inverse_name="x_studio_temp_structure_master_id",
+        string="Temp Structure Details",
+    )

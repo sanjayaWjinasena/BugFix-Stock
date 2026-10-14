@@ -75,11 +75,10 @@ A Consignment Charge Line is the part of a consignment charge, duty or tax alloc
   <details><summary>code (5 lines)</summary>
 
 ```python
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
-
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **JIN - Company Id in Consignment Charge Line** (`sa_f5_x_consignment_charge_l_jin_company_id_in_consignment_charge_line`, type `code`)
@@ -89,10 +88,10 @@ record['x_studio_company_id'] = company.id
   <details><summary>code (4 lines)</summary>
 
 ```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 **Automations (1):**

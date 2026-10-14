@@ -37,7 +37,16 @@ This repo adds an Original Qty field, a report type link for Production Job Vari
 
 ```python
 if record.id:
-  bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_bom_material_cost_ids':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_uom_id':record.product_uom.id})
+    bom_material_cost = env["x_mrp_bom_material_cos"].create(
+        {
+            "x_studio_bom_material_cost_ids": record.bom_line_id.id,
+            "x_studio_prod_bom_line_id": record.id,
+            "x_studio_operation_id": record.operation_id.id,
+            "x_studio_product_id": record.product_id.id,
+            "x_studio_planned_qty": record.product_qty,
+            "x_studio_uom_id": record.product_uom.id,
+        }
+    )
 ```
   </details>
 - **Execute Code** (`server_action_1066_create_production_bom_material_cost`, type `code`)
@@ -48,7 +57,18 @@ if record.id:
 
 ```python
 if record.bom_line_id and record.raw_material_production_id:
-  prod_bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_prod_bom_material_cost_ids':record.raw_material_production_id.id,'x_studio_bom_line_id':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id})
+    prod_bom_material_cost = env["x_mrp_bom_material_cos"].create(
+        {
+            "x_studio_prod_bom_material_cost_ids": record.raw_material_production_id.id,
+            "x_studio_bom_line_id": record.bom_line_id.id,
+            "x_studio_prod_bom_line_id": record.id,
+            "x_studio_operation_id": record.operation_id.id,
+            "x_studio_product_id": record.product_id.id,
+            "x_studio_planned_qty": record.product_qty,
+            "x_studio_actual_qty": record.quantity,
+            "x_studio_uom_id": record.product_uom.id,
+        }
+    )
 ```
   </details>
 - **Execute Code** (`server_action_1073_update_production_bom_material_cost`, type `code`)
@@ -59,9 +79,28 @@ if record.bom_line_id and record.raw_material_production_id:
 
 ```python
 if record.bom_line_id and record.raw_material_production_id:
-  update = env['x_mrp_bom_material_cos'].search([('x_studio_prod_bom_line_id', '=', record.id), ('x_studio_prod_bom_material_cost_ids', '=', record.raw_material_production_id.id), ('x_studio_bom_line_id', '=', record.bom_line_id.id)], limit=1)
-  if update:
-    update.write({'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id})
+    update = env["x_mrp_bom_material_cos"].search(
+        [
+            ("x_studio_prod_bom_line_id", "=", record.id),
+            (
+                "x_studio_prod_bom_material_cost_ids",
+                "=",
+                record.raw_material_production_id.id,
+            ),
+            ("x_studio_bom_line_id", "=", record.bom_line_id.id),
+        ],
+        limit=1,
+    )
+    if update:
+        update.write(
+            {
+                "x_studio_operation_id": record.operation_id.id,
+                "x_studio_product_id": record.product_id.id,
+                "x_studio_planned_qty": record.product_qty,
+                "x_studio_actual_qty": record.quantity,
+                "x_studio_uom_id": record.product_uom.id,
+            }
+        )
 ```
   </details>
 - **SRM - Auto Populate Report Type in Product Variance Moves** (`server_action_1755_srm_auto_populate_report_type_in_product_variance_moves`, type `code`)
@@ -72,9 +111,11 @@ if record.bom_line_id and record.raw_material_production_id:
 
 ```python
 if record.id:
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Production Job Variance')],limit=1)
-  if rpt_id:
-   record['x_studio_report_type_production_job_variance'] = rpt_id.id
+    rpt_id = env["x_sales_report_type"].search(
+        [("x_studio_report_code", "=", "Production Job Variance")], limit=1
+    )
+    if rpt_id:
+        record["x_studio_report_type_production_job_variance"] = rpt_id.id
 ```
   </details>
 - **SRM - Production Job Variance - Write Original** (`server_action_1758_srm_production_job_variance_write_original`, type `code`)
@@ -84,7 +125,7 @@ if record.id:
   <details><summary>code (1 lines)</summary>
 
 ```python
-record['x_studio_original_qty'] = record.product_uom_qty
+record["x_studio_original_qty"] = record.product_uom_qty
 ```
   </details>
 **Automations (4):**

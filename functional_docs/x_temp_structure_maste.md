@@ -62,49 +62,39 @@ The temporary wizard record behind Apply Structure Formula. It lists charge line
 ```python
 select = 0
 
-formula = ''
+formula = ""
 
-formula2 = ''
+formula2 = ""
 
 for indicator_line in record.x_studio_temp_structure_details:
+    if indicator_line.x_studio_select == True:
+        select += 1
 
-  if (indicator_line.x_studio_select == True):
-
-    select += 1
-
-    formula += "[" + indicator_line.x_studio_charge_name + "]"
-
+        formula += "[" + indicator_line.x_studio_charge_name + "]"
 
 
 if select == 0:
+    raise UserError("Atleast One Line Should be Selected.")
 
- raise UserError("Atleast One Line Should be Selected.")
 
- 
-
-update_formula = env['x_structure_details'].search([('id', '=', record.x_studio_temp_structure_details_id.id)],limit=1)
+update_formula = env["x_structure_details"].search(
+    [("id", "=", record.x_studio_temp_structure_details_id.id)], limit=1
+)
 
 if update_formula:
+    if update_formula.x_studio_formula:
+        formula2 = update_formula.x_studio_formula + formula
 
-  if update_formula.x_studio_formula:
+    else:
+        formula2 = formula
 
-    formula2 = update_formula.x_studio_formula + formula
-
-  else:
-
-    formula2 = formula
-
-    
-
-  update_formula.write({'x_studio_formula':formula2})
-
+    update_formula.write({"x_studio_formula": formula2})
 
 
 if record.id:
+    temp_rec = env["x_temp_structure_maste"].search([("id", "=", record.id)], limit=1)
 
-  temp_rec = env['x_temp_structure_maste'].search([('id', '=', record.id)],limit=1)
-
-  temp_rec.unlink()
+    temp_rec.unlink()
 ```
   </details>
 **Window actions (1):**

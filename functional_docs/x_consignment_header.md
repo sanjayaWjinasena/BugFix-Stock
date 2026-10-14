@@ -111,90 +111,156 @@ A Consignment Header is an import shipment from an overseas supplier, also shown
   <details><summary>code (84 lines)</summary>
 
 ```python
-
 if record.id:
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
 
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-
-  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
-  if con_lines:
-    for val in con_lines:
-      if val.x_studio_invoice_qty == 0.00:
-        raise UserError('Invoice Qty. should be Specified in all Consignment Lines.')
+    con_lines = env["x_consignment_line"].search(
+        [("x_studio_consignment_header_id", "=", record.id)]
+    )
+    if con_lines:
+        for val in con_lines:
+            if val.x_studio_invoice_qty == 0.00:
+                raise UserError(
+                    "Invoice Qty. should be Specified in all Consignment Lines."
+                )
 
 if record.x_studio_supplier_id.id == 0:
-  raise UserError("Vendor Account must be Specified!")
+    raise UserError("Vendor Account must be Specified!")
 
 if record.x_studio_supplier_document == False:
-  raise UserError("Purchase Invoice Document must be Uploaded!")
+    raise UserError("Purchase Invoice Document must be Uploaded!")
 
 if record.x_studio_bill_of_lading == False:
     raise UserError("Bill of Lading Document must be Uploaded!")
 
-dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)
+dev_term = env["x_delivery_terms"].search(
+    [
+        ("id", "=", record.x_studio_delivery_term.id),
+        ("x_studio_vendor_despatch", "=", True),
+    ],
+    limit=1,
+)
 if dev_term:
-  despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
-  if despatch_account:
-    if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
-      raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
-    else:
-      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
-      if custom_currency:
-        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
-        if currency_rate:
-          despatch_lines = [
-            [0, 0, {
-              'account_id': despatch_account.x_studio_vendor_despatch_debit_account.id,
-              'partner_id': record.x_studio_supplier_id.id,
-              'name': 'Vendor Despatch',
-              'debit': record.x_studio_total_amount * currency_rate.x_studio_rate,
-            }],
-            [0, 0, {
-              'account_id': despatch_account.x_studio_vendor_despatch_credit_account.id,
-              'partner_id': record.x_studio_supplier_id.id,
-              'name': 'Vendor Despatch',
-              'credit': record.x_studio_total_amount * currency_rate.x_studio_rate,
-            }],
-          ]
-
-          journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1)
-          if not journal:
-             raise UserError('The required journal has not been setup. Process terminated.')
-
-          vendor_despatch = env['account.move'].create({'x_studio_created_from_consignment':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'journal_id':journal.id,'move_type':'entry','date':record.x_studio_voucher_date,'line_ids':despatch_lines})
-
-          update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
-          if update_vendor_despatch:
-            update_vendor_despatch.write({'state':'posted'})
-
-          record['x_studio_status'] = 'In Transit'
-          record['x_studio_status_bar'] = 'In Transit'
-
-          action = {
-            'name': 'Journal Entries',
-            'domain': [('id', '=', vendor_despatch.id)],
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.move',
-            'view_mode': 'tree,form',
-            'view_id': False,
-            'context': {},
-          }
-          record['x_studio_vendor_dispatch'] = True
-          record['x_studio_vendor_dispatch_exchange_rate'] = currency_rate.x_studio_rate
+    despatch_account = env["x_imports_ledger_setup"].search(
+        [("x_studio_company_id", "=", company.id)], limit=1
+    )
+    if despatch_account:
+        if (
+            despatch_account.x_studio_vendor_despatch_debit_account.id == 0
+            or despatch_account.x_studio_vendor_despatch_credit_account.id == 0
+        ):
+            raise UserError(
+                "Vendor Despatch Accounts must be Specified in Imports Ledger Setup"
+            )
         else:
-          raise UserError('There is no Valid Exchange Rate for the Consignmet Header Currency.')
-      else:
-        raise UserError('There is no Active Custom Currency is Setup for the Selected Consignment Header.')
-  else:
-      raise UserError('Imports Ledger Accounts must be Specified.')
-else:
-  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
-  record['x_studio_vendor_dispatch'] = False
+            custom_currency = env["x_custom_currency"].search(
+                [
+                    ("x_studio_currency_id", "=", record.x_studio_currency_id.id),
+                    ("x_studio_active", "=", True),
+                ],
+                limit=1,
+            )
+            if custom_currency:
+                currency_rate = env["x_custom_currency_rate"].search(
+                    [
+                        ("x_studio_custom_currency_id", "=", custom_currency.id),
+                        ("x_studio_start_date", "<=", datetime.datetime.now().date()),
+                        ("x_studio_end_date", ">=", datetime.datetime.now().date()),
+                    ],
+                    order="x_studio_start_date desc",
+                    limit=1,
+                )
+                if currency_rate:
+                    despatch_lines = [
+                        [
+                            0,
+                            0,
+                            {
+                                "account_id": despatch_account.x_studio_vendor_despatch_debit_account.id,
+                                "partner_id": record.x_studio_supplier_id.id,
+                                "name": "Vendor Despatch",
+                                "debit": record.x_studio_total_amount
+                                * currency_rate.x_studio_rate,
+                            },
+                        ],
+                        [
+                            0,
+                            0,
+                            {
+                                "account_id": despatch_account.x_studio_vendor_despatch_credit_account.id,
+                                "partner_id": record.x_studio_supplier_id.id,
+                                "name": "Vendor Despatch",
+                                "credit": record.x_studio_total_amount
+                                * currency_rate.x_studio_rate,
+                            },
+                        ],
+                    ]
 
-  record['x_studio_status'] = 'In Transit'
-  record['x_studio_status_bar'] = 'In Transit'
-  record['x_studio_vend_dispatch_status'] = message
+                    journal = env["account.journal"].search(
+                        [
+                            ("name", "=", "Vendor Despatch"),
+                            ("company_id", "=", company.id),
+                        ],
+                        limit=1,
+                    )
+                    if not journal:
+                        raise UserError(
+                            "The required journal has not been setup. Process terminated."
+                        )
+
+                    vendor_despatch = env["account.move"].create(
+                        {
+                            "x_studio_created_from_consignment": record.id,
+                            "x_studio_supplier_invoice_number": record.x_studio_supplier_invoice_number,
+                            "journal_id": journal.id,
+                            "move_type": "entry",
+                            "date": record.x_studio_voucher_date,
+                            "line_ids": despatch_lines,
+                        }
+                    )
+
+                    update_vendor_despatch = env["account.move"].search(
+                        [("id", "=", vendor_despatch.id)], limit=1
+                    )
+                    if update_vendor_despatch:
+                        update_vendor_despatch.write({"state": "posted"})
+
+                    record["x_studio_status"] = "In Transit"
+                    record["x_studio_status_bar"] = "In Transit"
+
+                    action = {
+                        "name": "Journal Entries",
+                        "domain": [("id", "=", vendor_despatch.id)],
+                        "type": "ir.actions.act_window",
+                        "res_model": "account.move",
+                        "view_mode": "tree,form",
+                        "view_id": False,
+                        "context": {},
+                    }
+                    record["x_studio_vendor_dispatch"] = True
+                    record["x_studio_vendor_dispatch_exchange_rate"] = (
+                        currency_rate.x_studio_rate
+                    )
+                else:
+                    raise UserError(
+                        "There is no Valid Exchange Rate for the Consignmet Header Currency."
+                    )
+            else:
+                raise UserError(
+                    "There is no Active Custom Currency is Setup for the Selected Consignment Header."
+                )
+    else:
+        raise UserError("Imports Ledger Accounts must be Specified.")
+else:
+    message = (
+        "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
+    )
+    record["x_studio_vendor_dispatch"] = False
+
+    record["x_studio_status"] = "In Transit"
+    record["x_studio_status_bar"] = "In Transit"
+    record["x_studio_vend_dispatch_status"] = message
 ```
   </details>
 - **Execute Code** (`server_action_1258_imp_consignment_details_seq_no`, type `code`)
@@ -204,12 +270,11 @@ else:
   <details><summary>code (6 lines)</summary>
 
 ```python
+# record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
-
-if record.x_name == 'New':
- seq = env['ir.sequence'].next_by_code('consignment.det.seq')
- record.write({'x_name': seq})
+if record.x_name == "New":
+    seq = env["ir.sequence"].next_by_code("consignment.det.seq")
+    record.write({"x_name": seq})
 ```
   </details>
 - **Execute Code** (`server_action_1324_imp_restrict_delete_in_consignment`, type `code`)
@@ -219,9 +284,10 @@ if record.x_name == 'New':
   <details><summary>code (3 lines)</summary>
 
 ```python
-
-if record.x_studio_status != 'Draft':
-  raise UserError("You can only delete a consignment if the consignment is in draft state.")
+if record.x_studio_status != "Draft":
+    raise UserError(
+        "You can only delete a consignment if the consignment is in draft state."
+    )
 ```
   </details>
 - **Execute Code** (`server_action_1454_imp_update_cost_allocation_method_in_consignment`, type `code`)
@@ -231,10 +297,11 @@ if record.x_studio_status != 'Draft':
   <details><summary>code (4 lines)</summary>
 
 ```python
-
-cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+cost_allocation = env["x_imports_ledger_setup"].search([("id", "=", 1)], limit=1)
 if cost_allocation:
-  record['x_studio_cost_allocation_method'] = cost_allocation.x_studio_cost_allocation_method
+    record["x_studio_cost_allocation_method"] = (
+        cost_allocation.x_studio_cost_allocation_method
+    )
 ```
   </details>
 - **Execute Code** (`server_action_2890_imp_update_supplier_currency_in_consignment`, type `code`)
@@ -244,11 +311,12 @@ if cost_allocation:
   <details><summary>code (5 lines)</summary>
 
 ```python
-
-cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+cost_allocation = env["x_imports_ledger_setup"].search([("id", "=", 1)], limit=1)
 if record.x_studio_supplier_id.id:
-  if record.x_studio_supplier_id.property_purchase_currency_id.id:
-    record['x_studio_currency_id'] = record.x_studio_supplier_id.property_purchase_currency_id.id
+    if record.x_studio_supplier_id.property_purchase_currency_id.id:
+        record["x_studio_currency_id"] = (
+            record.x_studio_supplier_id.property_purchase_currency_id.id
+        )
 ```
   </details>
 - **Execute Code** (`server_action_2607_jin_company_id_in_consignment_header`, type `code`)
@@ -258,11 +326,10 @@ if record.x_studio_supplier_id.id:
   <details><summary>code (5 lines)</summary>
 
 ```python
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
-
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **IMP - Allocate Consignment Header Charges** (`server_action_1318_imp_allocate_consignment_header_charges`, type `code`)
@@ -403,12 +470,14 @@ if purchase_lines:
 
 ```python
 if record.id:
-  temp_rec = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
-  if temp_rec:
-    for del_temp_rec in temp_rec:
-      del_temp_rec.unlink()   
+    temp_rec = env["x_consignment_line"].search(
+        [("x_studio_consignment_header_id", "=", record.id)]
+    )
+    if temp_rec:
+        for del_temp_rec in temp_rec:
+            del_temp_rec.unlink()
 
-record['x_studio_lines_copied'] = False
+record["x_studio_lines_copied"] = False
 ```
   </details>
 - **IMP - Confirm Purchase Invoice** (`server_action_1365_imp_confirm_purchase_invoice`, type `code`)
@@ -419,32 +488,46 @@ record['x_studio_lines_copied'] = False
 
 ```python
 if record.id:
-  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
-  if con_lines:
-    for val in con_lines:
-      if val.x_studio_invoice_qty == 0.00:
-        raise UserError('Invoice Qty. should be Specified in all Invoice Lines.')
-      if val.x_studio_volume == 0.00 and record.x_studio_cost_allocation_method == 'by_volume':
-        raise UserError('Volume should be Specified in all Invoice Lines.')
-      if val.x_studio_weight == 0.00 and record.x_studio_cost_allocation_method == 'by_weight':
-        raise UserError('Weight should be Specified in all Invoice Lines.')
-        
-      update_product_product = env['product.product'].search([('id', '=', val.x_studio_product_id.id)],limit=1)
-      if update_product_product:
-        update_product_product.write({'volume': val.x_studio_volume,'weight': val.x_studio_weight}) 
-        
-  if record.x_studio_supplier_id.id == 0:
-    raise UserError("Vendor Account must be Specified!")
-    
-  if record.x_studio_supplier_document == False:
-    raise UserError("Purchase Invoice Document must be Uploaded!")
-    
-  if record.x_studio_packing_list == False:
-    raise UserError("Packing List Document must be Uploaded!")
+    con_lines = env["x_consignment_line"].search(
+        [("x_studio_consignment_header_id", "=", record.id)]
+    )
+    if con_lines:
+        for val in con_lines:
+            if val.x_studio_invoice_qty == 0.00:
+                raise UserError(
+                    "Invoice Qty. should be Specified in all Invoice Lines."
+                )
+            if (
+                val.x_studio_volume == 0.00
+                and record.x_studio_cost_allocation_method == "by_volume"
+            ):
+                raise UserError("Volume should be Specified in all Invoice Lines.")
+            if (
+                val.x_studio_weight == 0.00
+                and record.x_studio_cost_allocation_method == "by_weight"
+            ):
+                raise UserError("Weight should be Specified in all Invoice Lines.")
 
-  record['x_studio_confirm_invoice'] = True
-  record['x_studio_status'] = 'Consignment'
-  record['x_studio_status_bar'] = 'Consignment'
+            update_product_product = env["product.product"].search(
+                [("id", "=", val.x_studio_product_id.id)], limit=1
+            )
+            if update_product_product:
+                update_product_product.write(
+                    {"volume": val.x_studio_volume, "weight": val.x_studio_weight}
+                )
+
+    if record.x_studio_supplier_id.id == 0:
+        raise UserError("Vendor Account must be Specified!")
+
+    if record.x_studio_supplier_document == False:
+        raise UserError("Purchase Invoice Document must be Uploaded!")
+
+    if record.x_studio_packing_list == False:
+        raise UserError("Packing List Document must be Uploaded!")
+
+    record["x_studio_confirm_invoice"] = True
+    record["x_studio_status"] = "Consignment"
+    record["x_studio_status_bar"] = "Consignment"
 ```
   </details>
 - **IMP - Consignment Custom Duty** (`server_action_1321_imp_consignment_custom_duty`, type `code`)
@@ -465,115 +548,212 @@ if record.id:
 #   BugFix-Purchase/docs/studio-actions-backup/1321-custom-duty-BEFORE-2026-08-04.py
 
 if record.id:
-  count_charge = 0
-  value_charge = 0
-  account_charge = 0
-  text_charge = ''
-  count_duty = 0
-  value_duty = 0
-  account_duty = 0
-  text_tax = ''
-  count_tax = 0
-  value_tax = 0
-  account_tax = 0
-  value_charge_c = 0
-  value_duty_c = 0
-  value_tax_c = 0
-  text_tax = ''
+    count_charge = 0
+    value_charge = 0
+    account_charge = 0
+    text_charge = ""
+    count_duty = 0
+    value_duty = 0
+    account_duty = 0
+    text_tax = ""
+    count_tax = 0
+    value_tax = 0
+    account_tax = 0
+    value_charge_c = 0
+    value_duty_c = 0
+    value_tax_c = 0
+    text_tax = ""
 
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
 
-  header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_ledger_post', '=', True)],order='x_studio_charge_group asc')
-  if header_charges:
-    for post_charges in header_charges:
-      import_charges = env['x_import_charges'].search([('x_studio_charge_group', '=', post_charges.x_studio_charge_group), ('x_name', '=', post_charges.x_studio_charge_name), ('x_studio_post_to_ledger', '=', True), ('x_studio_company_id', '=', company.id)],limit=1)
-      if import_charges:
-        if import_charges.x_studio_ledger_account.id == 0:
-          raise UserError('Ledger Account is not specified for the selected Charge/Duty/Tax' + ' (' + post_charges.x_studio_charge_name + ') ' + 'in Import Charges Setup.')
+    header_charges = env["x_consignment_charge_h"].search(
+        [
+            ("x_studio_consignment_id", "=", record.id),
+            ("x_studio_ledger_post", "=", True),
+        ],
+        order="x_studio_charge_group asc",
+    )
+    if header_charges:
+        for post_charges in header_charges:
+            import_charges = env["x_import_charges"].search(
+                [
+                    ("x_studio_charge_group", "=", post_charges.x_studio_charge_group),
+                    ("x_name", "=", post_charges.x_studio_charge_name),
+                    ("x_studio_post_to_ledger", "=", True),
+                    ("x_studio_company_id", "=", company.id),
+                ],
+                limit=1,
+            )
+            if import_charges:
+                if import_charges.x_studio_ledger_account.id == 0:
+                    raise UserError(
+                        "Ledger Account is not specified for the selected Charge/Duty/Tax"
+                        + " ("
+                        + post_charges.x_studio_charge_name
+                        + ") "
+                        + "in Import Charges Setup."
+                    )
+                else:
+                    if post_charges.x_studio_charge_group == "Charges":
+                        count_charge += 1
+                        if count_charge == 1:
+                            account_charge = import_charges.x_studio_ledger_account.id
+                            text_charge = str(import_charges.x_studio_posting_type)
+                        value_charge += post_charges.x_studio_amount
+                    elif post_charges.x_studio_charge_group == "Duty":
+                        count_duty += 1
+                        if count_duty == 1:
+                            account_duty = import_charges.x_studio_ledger_account.id
+                            text_duty = str(import_charges.x_studio_posting_type)
+                        value_duty += post_charges.x_studio_amount
+                    else:
+                        count_tax += 1
+                        if count_tax == 1:
+                            account_tax = import_charges.x_studio_ledger_account.id
+                            text_tax = str(import_charges.x_studio_posting_type)
+                        value_tax += post_charges.x_studio_amount
+            else:
+                raise UserError(
+                    "Ledger Posting is Not Activated for the selected Charge/Duty/Tax"
+                    + " ("
+                    + post_charges.x_studio_charge_name
+                    + ") "
+                    + "in Import Charges Setup."
+                )
+
+    offset_account = env["x_imports_ledger_setup"].search(
+        [("x_studio_company_id", "=", company.id)], limit=1
+    )
+    if offset_account:
+        if offset_account.x_studio_purch_packing_slip_offset_account.id == 0:
+            raise UserError(
+                "Packing Slip Offset Account must be Specified in Imports Ledger Setup"
+            )
         else:
-          if post_charges.x_studio_charge_group == 'Charges':
-            count_charge += 1
-            if count_charge == 1:
-              account_charge = import_charges.x_studio_ledger_account.id
-              text_charge = str(import_charges.x_studio_posting_type)
-            value_charge += post_charges.x_studio_amount
-          elif post_charges.x_studio_charge_group == 'Duty':
-            count_duty += 1
-            if count_duty == 1:
-              account_duty = import_charges.x_studio_ledger_account.id
-              text_duty = str(import_charges.x_studio_posting_type)
-            value_duty += post_charges.x_studio_amount
-          else:
-            count_tax += 1
-            if count_tax == 1:
-              account_tax = import_charges.x_studio_ledger_account.id
-              text_tax = str(import_charges.x_studio_posting_type)
-            value_tax += post_charges.x_studio_amount
-      else:
-        raise UserError('Ledger Posting is Not Activated for the selected Charge/Duty/Tax' + ' (' + post_charges.x_studio_charge_name + ') ' + 'in Import Charges Setup.')
+            custom_currency = env["x_custom_currency"].search(
+                [
+                    ("x_studio_currency_id", "=", record.x_studio_currency_id.id),
+                    ("x_studio_active", "=", True),
+                ],
+                limit=1,
+            )
+            if custom_currency:
+                currency_rate = env["x_custom_currency_rate"].search(
+                    [
+                        ("x_studio_custom_currency_id", "=", custom_currency.id),
+                        ("x_studio_start_date", "<=", datetime.datetime.now().date()),
+                        ("x_studio_end_date", ">=", datetime.datetime.now().date()),
+                    ],
+                    order="x_studio_start_date desc",
+                    limit=1,
+                )
+                if currency_rate:
+                    despatch_lines = []
 
-  offset_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
-  if offset_account:
-    if offset_account.x_studio_purch_packing_slip_offset_account.id == 0:
-      raise UserError('Packing Slip Offset Account must be Specified in Imports Ledger Setup')
-    else:
-      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
-      if custom_currency:
-        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
-        if currency_rate:
-          despatch_lines = []
+                    if value_charge > 0.0000:
+                        value_charge_c = value_charge
+                        despatch_lines.append(
+                            [
+                                0,
+                                0,
+                                {
+                                    "account_id": account_charge,
+                                    "name": text_charge,
+                                    "debit": round(value_charge_c, 2),
+                                },
+                            ]
+                        )
 
-          if value_charge > 0.0000:
-            value_charge_c = value_charge
-            despatch_lines.append([0, 0, {
-              'account_id': account_charge,
-              'name': text_charge,
-              'debit': round(value_charge_c, 2),
-            }])
+                    if value_duty > 0.0000:
+                        value_duty_c = value_duty
+                        despatch_lines.append(
+                            [
+                                0,
+                                0,
+                                {
+                                    "account_id": account_duty,
+                                    "name": text_duty,
+                                    "debit": round(value_duty_c, 2),
+                                },
+                            ]
+                        )
 
-          if value_duty > 0.0000:
-            value_duty_c = value_duty
-            despatch_lines.append([0, 0, {
-              'account_id': account_duty,
-              'name': text_duty,
-              'debit': round(value_duty_c, 2),
-            }])
+                    if value_tax > 0.0000:
+                        value_tax_c = value_tax
+                        despatch_lines.append(
+                            [
+                                0,
+                                0,
+                                {
+                                    "account_id": account_tax,
+                                    "name": text_tax,
+                                    "debit": round(value_tax_c, 2),
+                                },
+                            ]
+                        )
 
-          if value_tax > 0.0000:
-            value_tax_c = value_tax
-            despatch_lines.append([0, 0, {
-              'account_id': account_tax,
-              'name': text_tax,
-              'debit': round(value_tax_c, 2),
-            }])
+                    if (value_charge + value_duty + value_tax) > 0.0000:
+                        despatch_lines.append(
+                            [
+                                0,
+                                0,
+                                {
+                                    "account_id": offset_account.x_studio_purch_packing_slip_offset_account.id,
+                                    "name": "Purchase Packing Slip Offset",
+                                    "credit": (
+                                        round(value_charge_c, 2)
+                                        + round(value_duty_c, 2)
+                                        + round(value_tax_c, 2)
+                                    ),
+                                },
+                            ]
+                        )
 
-          if (value_charge + value_duty + value_tax) > 0.0000:
-            despatch_lines.append([0, 0, {
-              'account_id': offset_account.x_studio_purch_packing_slip_offset_account.id,
-              'name': 'Purchase Packing Slip Offset',
-              'credit': (round(value_charge_c, 2) + round(value_duty_c, 2) + round(value_tax_c, 2)),
-            }])
+                    journal = env["account.journal"].search(
+                        [
+                            ("name", "=", "Vendor Despatch"),
+                            ("company_id", "=", company.id),
+                        ],
+                        limit=1,
+                    )
+                    if not journal:
+                        raise UserError(
+                            "The required journal has not been setup. Process terminated."
+                        )
 
-          journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1)
-          if not journal:
-             raise UserError('The required journal has not been setup. Process terminated.')
+                    custom_clearance = env["account.move"].create(
+                        {
+                            "x_studio_created_from_consignment_1": record.id,
+                            "x_studio_supplier_invoice_number": record.x_studio_supplier_invoice_number,
+                            "date": record.x_studio_custom_cleared_date,
+                            "journal_id": journal.id,
+                            "move_type": "entry",
+                            "line_ids": despatch_lines,
+                        }
+                    )
 
-          custom_clearance = env['account.move'].create({'x_studio_created_from_consignment_1':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'date':record.x_studio_custom_cleared_date,'journal_id':journal.id,'move_type':'entry','line_ids':despatch_lines})
+                    update_custom_clearance = env["account.move"].search(
+                        [("id", "=", custom_clearance.id)], limit=1
+                    )
+                    if update_custom_clearance:
+                        update_custom_clearance.write({"state": "posted"})
 
-          update_custom_clearance = env['account.move'].search([('id', '=', custom_clearance.id)],limit=1)
-          if update_custom_clearance:
-            update_custom_clearance.write({'state':'posted'})
-
-          record['x_studio_custom_clearance_no'] = env['ir.sequence'].next_by_code('custom.clearance.seq')
-          record['x_studio_status'] = 'In Transit'
-          record['x_studio_status_bar'] = 'In Transit'
-          record['x_studio_custom_clearance'] = True
-          record['x_studio_custom_clearance_exchange_rate'] = currency_rate.x_studio_rate
-          record['x_studio_account_charge'] = account_charge
-          record['x_studio_account_duty'] = account_duty
-          record['x_studio_account_tax'] = account_tax
-          record['x_studio_offset_account'] = offset_account.x_studio_purch_packing_slip_offset_account.id
+                    record["x_studio_custom_clearance_no"] = env[
+                        "ir.sequence"
+                    ].next_by_code("custom.clearance.seq")
+                    record["x_studio_status"] = "In Transit"
+                    record["x_studio_status_bar"] = "In Transit"
+                    record["x_studio_custom_clearance"] = True
+                    record["x_studio_custom_clearance_exchange_rate"] = (
+                        currency_rate.x_studio_rate
+                    )
+                    record["x_studio_account_charge"] = account_charge
+                    record["x_studio_account_duty"] = account_duty
+                    record["x_studio_account_tax"] = account_tax
+                    record["x_studio_offset_account"] = (
+                        offset_account.x_studio_purch_packing_slip_offset_account.id
+                    )
 # … 21 more lines
 ```
   </details>
@@ -584,11 +764,11 @@ if record.id:
   <details><summary>code (5 lines)</summary>
 
 ```python
-#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+# record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
- seq = env['ir.sequence'].next_by_code('consignment.det.seq')
- record.write({'x_name': seq})
+if record.x_name == "New":
+    seq = env["ir.sequence"].next_by_code("consignment.det.seq")
+    record.write({"x_name": seq})
 ```
   </details>
 - **IMP - Consignment Port Receipt** (`server_action_1313_imp_consignment_port_receipt`, type `code`)
@@ -599,11 +779,11 @@ if record.x_name == 'New':
 
 ```python
 if record.id:
-  if record.x_studio_cargo_arrival_notice == False:
-    raise UserError("Cargo Arrival Notice Document must be Uploaded!")
-    
-  record['x_studio_status'] = 'Under Custom Clearance'
-  record['x_studio_status_bar'] = 'Under Custom Clearance'
+    if record.x_studio_cargo_arrival_notice == False:
+        raise UserError("Cargo Arrival Notice Document must be Uploaded!")
+
+    record["x_studio_status"] = "Under Custom Clearance"
+    record["x_studio_status_bar"] = "Under Custom Clearance"
 ```
   </details>
 - **IMP - Consignment Vendor Despatch** (`server_action_1305_imp_consignment_vendor_despatch`, type `code`)
@@ -624,89 +804,156 @@ if record.id:
 #   BugFix-Purchase/docs/studio-actions-backup/1305-vendor-despatch-BEFORE-2026-08-04.py
 
 if record.id:
+    company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+    company = env["res.company"].browse(company_id)
 
-  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-  company = env['res.company'].browse(company_id)
-
-  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
-  if con_lines:
-    for val in con_lines:
-      if val.x_studio_invoice_qty == 0.00:
-        raise UserError('Invoice Qty. should be Specified in all Consignment Lines.')
+    con_lines = env["x_consignment_line"].search(
+        [("x_studio_consignment_header_id", "=", record.id)]
+    )
+    if con_lines:
+        for val in con_lines:
+            if val.x_studio_invoice_qty == 0.00:
+                raise UserError(
+                    "Invoice Qty. should be Specified in all Consignment Lines."
+                )
 
 if record.x_studio_supplier_id.id == 0:
-  raise UserError("Vendor Account must be Specified!")
+    raise UserError("Vendor Account must be Specified!")
 
 if record.x_studio_supplier_document == False:
-  raise UserError("Purchase Invoice Document must be Uploaded!")
+    raise UserError("Purchase Invoice Document must be Uploaded!")
 
 if record.x_studio_bill_of_lading == False:
     raise UserError("Bill of Lading Document must be Uploaded!")
 
-dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)
+dev_term = env["x_delivery_terms"].search(
+    [
+        ("id", "=", record.x_studio_delivery_term.id),
+        ("x_studio_vendor_despatch", "=", True),
+    ],
+    limit=1,
+)
 if dev_term:
-  despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
-  if despatch_account:
-    if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
-      raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
-    else:
-      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
-      if custom_currency:
-        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
-        if currency_rate:
-          despatch_lines = [
-            [0, 0, {
-              'account_id': despatch_account.x_studio_vendor_despatch_debit_account.id,
-              'partner_id': record.x_studio_supplier_id.id,
-              'name': 'Vendor Despatch',
-              'debit': record.x_studio_total_amount * currency_rate.x_studio_rate,
-            }],
-            [0, 0, {
-              'account_id': despatch_account.x_studio_vendor_despatch_credit_account.id,
-              'partner_id': record.x_studio_supplier_id.id,
-              'name': 'Vendor Despatch',
-              'credit': record.x_studio_total_amount * currency_rate.x_studio_rate,
-            }],
-          ]
-
-          journal = env['account.journal'].search([('name', '=', 'Vendor Despatch'),('company_id', '=', company.id)], limit=1)
-          if not journal:
-             raise UserError('The required journal has not been setup. Process terminated.')
-
-          vendor_despatch = env['account.move'].create({'x_studio_created_from_consignment':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'journal_id':journal.id,'move_type':'entry','date':record.x_studio_voucher_date,'line_ids':despatch_lines})
-
-          update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
-          if update_vendor_despatch:
-            update_vendor_despatch.write({'state':'posted'})
-
-          record['x_studio_status'] = 'In Transit'
-          record['x_studio_status_bar'] = 'In Transit'
-
-          action = {
-                    'name': 'Journal Entries',
-                    'domain': [('id', '=', vendor_despatch.id)],
-                    'type': 'ir.actions.act_window',
-                    'res_model': 'account.move',
-                    'view_mode': 'tree,form',
-                    'view_type': 'form',
-                    'view_id': False,
-                    'context': False,
-                    }
-          record['x_studio_vendor_dispatch'] = True
-          record['x_studio_vendor_dispatch_exchange_rate'] = currency_rate.x_studio_rate
+    despatch_account = env["x_imports_ledger_setup"].search(
+        [("x_studio_company_id", "=", company.id)], limit=1
+    )
+    if despatch_account:
+        if (
+            despatch_account.x_studio_vendor_despatch_debit_account.id == 0
+            or despatch_account.x_studio_vendor_despatch_credit_account.id == 0
+        ):
+            raise UserError(
+                "Vendor Despatch Accounts must be Specified in Imports Ledger Setup"
+            )
         else:
-          raise UserError('There is no Valid Exchange Rate for the Consignmet Header Currency.')
-      else:
-        raise UserError('There is no Active Custom Currency is Setup for the Selected Consignment Header.')
-  else:
-      raise UserError('Imports Ledger Accounts must be Specified.')
-else:
-  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
-  record['x_studio_vendor_dispatch'] = False
+            custom_currency = env["x_custom_currency"].search(
+                [
+                    ("x_studio_currency_id", "=", record.x_studio_currency_id.id),
+                    ("x_studio_active", "=", True),
+                ],
+                limit=1,
+            )
+            if custom_currency:
+                currency_rate = env["x_custom_currency_rate"].search(
+                    [
+                        ("x_studio_custom_currency_id", "=", custom_currency.id),
+                        ("x_studio_start_date", "<=", datetime.datetime.now().date()),
+                        ("x_studio_end_date", ">=", datetime.datetime.now().date()),
+                    ],
+                    order="x_studio_start_date desc",
+                    limit=1,
+                )
+                if currency_rate:
+                    despatch_lines = [
+                        [
+                            0,
+                            0,
+                            {
+                                "account_id": despatch_account.x_studio_vendor_despatch_debit_account.id,
+                                "partner_id": record.x_studio_supplier_id.id,
+                                "name": "Vendor Despatch",
+                                "debit": record.x_studio_total_amount
+                                * currency_rate.x_studio_rate,
+                            },
+                        ],
+                        [
+                            0,
+                            0,
+                            {
+                                "account_id": despatch_account.x_studio_vendor_despatch_credit_account.id,
+                                "partner_id": record.x_studio_supplier_id.id,
+                                "name": "Vendor Despatch",
+                                "credit": record.x_studio_total_amount
+                                * currency_rate.x_studio_rate,
+                            },
+                        ],
+                    ]
 
-  record['x_studio_status'] = 'In Transit'
-  record['x_studio_status_bar'] = 'In Transit'
-  record['x_studio_vend_dispatch_status'] = message
+                    journal = env["account.journal"].search(
+                        [
+                            ("name", "=", "Vendor Despatch"),
+                            ("company_id", "=", company.id),
+                        ],
+                        limit=1,
+                    )
+                    if not journal:
+                        raise UserError(
+                            "The required journal has not been setup. Process terminated."
+                        )
+
+                    vendor_despatch = env["account.move"].create(
+                        {
+                            "x_studio_created_from_consignment": record.id,
+                            "x_studio_supplier_invoice_number": record.x_studio_supplier_invoice_number,
+                            "journal_id": journal.id,
+                            "move_type": "entry",
+                            "date": record.x_studio_voucher_date,
+                            "line_ids": despatch_lines,
+                        }
+                    )
+
+                    update_vendor_despatch = env["account.move"].search(
+                        [("id", "=", vendor_despatch.id)], limit=1
+                    )
+                    if update_vendor_despatch:
+                        update_vendor_despatch.write({"state": "posted"})
+
+                    record["x_studio_status"] = "In Transit"
+                    record["x_studio_status_bar"] = "In Transit"
+
+                    action = {
+                        "name": "Journal Entries",
+                        "domain": [("id", "=", vendor_despatch.id)],
+                        "type": "ir.actions.act_window",
+                        "res_model": "account.move",
+                        "view_mode": "tree,form",
+                        "view_type": "form",
+                        "view_id": False,
+                        "context": False,
+                    }
+                    record["x_studio_vendor_dispatch"] = True
+                    record["x_studio_vendor_dispatch_exchange_rate"] = (
+                        currency_rate.x_studio_rate
+                    )
+                else:
+                    raise UserError(
+                        "There is no Valid Exchange Rate for the Consignmet Header Currency."
+                    )
+            else:
+                raise UserError(
+                    "There is no Active Custom Currency is Setup for the Selected Consignment Header."
+                )
+    else:
+        raise UserError("Imports Ledger Accounts must be Specified.")
+else:
+    message = (
+        "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
+    )
+    record["x_studio_vendor_dispatch"] = False
+
+    record["x_studio_status"] = "In Transit"
+    record["x_studio_status_bar"] = "In Transit"
+    record["x_studio_vend_dispatch_status"] = message
 ```
   </details>
 - **IMP - Copy Charges to TP Invoice** (`server_action_1377_imp_copy_charges_to_tp_invoice`, type `code`)
@@ -717,40 +964,68 @@ else:
 
 ```python
 if record.id:
-  count = 0
-  ##########################################################################################################################################################
-  for posted_lines in record.x_studio_consignment_line_ids:
-    bill_lines = env['account.move.line'].search([('purchase_order_id', '=', posted_lines.x_studio_purchase_id.id),('purchase_line_id', '=', posted_lines.x_studio_purchase_line_id.id),('product_id', '=', posted_lines.	x_studio_product_id.id),('quantity', '=', posted_lines.	x_studio_invoice_qty),('x_studio_status', '=', 'posted')])
-    if not bill_lines:
-      count += 1
-      
-  if count > 0:
-    raise UserError('There are Linked PO Lines yet to be Inviced. Please Invoice the Remaining Lines to Proceed.')
-  ##########################################################################################################################################################
-  charge_lines=[]
-  
-  charge_line = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id),('x_studio_tp_processed', '=', False),('x_studio_tax_appicable2', '=', False)])
-  if charge_line:
-    for validate_lines in charge_line:
-      charge_lines.append([0,0,{
-        'x_studio_consignment_charge_header_id':validate_lines.id,
-        'x_studio_consignment_id':record.id,
-        'x_studio_charge_group':validate_lines.x_studio_charge_group,
-        'x_studio_charge_name':validate_lines.x_studio_charge_name,
-        'x_studio_basis':validate_lines.x_studio_basis,
-        'x_studio_amount':validate_lines.x_studio_amount}])
+    count = 0
+    ##########################################################################################################################################################
+    for posted_lines in record.x_studio_consignment_line_ids:
+        bill_lines = env["account.move.line"].search(
+            [
+                ("purchase_order_id", "=", posted_lines.x_studio_purchase_id.id),
+                ("purchase_line_id", "=", posted_lines.x_studio_purchase_line_id.id),
+                ("product_id", "=", posted_lines.x_studio_product_id.id),
+                ("quantity", "=", posted_lines.x_studio_invoice_qty),
+                ("x_studio_status", "=", "posted"),
+            ]
+        )
+        if not bill_lines:
+            count += 1
 
-  ctx = env.context
-  ctx.update({'default_x_studio_consignment_header_id':record.id,'default_x_studio_charge_line':charge_lines})
-  action = {
-            'name': 'Copy Charge Lines',
-            'type': 'ir.actions.act_window',
-            'res_model': 'x_temp_tp_invoice_head',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'target': 'new',
-            'context': ctx,
-            }
+    if count > 0:
+        raise UserError(
+            "There are Linked PO Lines yet to be Inviced. Please Invoice the Remaining Lines to Proceed."
+        )
+    ##########################################################################################################################################################
+    charge_lines = []
+
+    charge_line = env["x_consignment_charge_h"].search(
+        [
+            ("x_studio_consignment_id", "=", record.id),
+            ("x_studio_tp_processed", "=", False),
+            ("x_studio_tax_appicable2", "=", False),
+        ]
+    )
+    if charge_line:
+        for validate_lines in charge_line:
+            charge_lines.append(
+                [
+                    0,
+                    0,
+                    {
+                        "x_studio_consignment_charge_header_id": validate_lines.id,
+                        "x_studio_consignment_id": record.id,
+                        "x_studio_charge_group": validate_lines.x_studio_charge_group,
+                        "x_studio_charge_name": validate_lines.x_studio_charge_name,
+                        "x_studio_basis": validate_lines.x_studio_basis,
+                        "x_studio_amount": validate_lines.x_studio_amount,
+                    },
+                ]
+            )
+
+    ctx = env.context
+    ctx.update(
+        {
+            "default_x_studio_consignment_header_id": record.id,
+            "default_x_studio_charge_line": charge_lines,
+        }
+    )
+    action = {
+        "name": "Copy Charge Lines",
+        "type": "ir.actions.act_window",
+        "res_model": "x_temp_tp_invoice_head",
+        "view_mode": "form",
+        "view_type": "form",
+        "target": "new",
+        "context": ctx,
+    }
 ```
   </details>
 - **IMP - Copy PO Lines to Consignment** (`server_action_1263_imp_copy_po_lines_to_consignment`, type `code`)
@@ -760,51 +1035,77 @@ if record.id:
   <details><summary>code (45 lines)</summary>
 
 ```python
-if record.id: 
-  po_lines=[]
-  
-  purch_line = env['purchase.order.line'].search([('partner_id', '=', record.x_studio_supplier_id.id),('x_studio_pr_type', '=', 'Import'),('x_studio_delivery_term', '=', record.x_studio_delivery_term.id),('state', '=', 'purchase'),('x_Studio_Deliver_Remainder', '>', 0.00),('x_studio_billing_status', '!=', 'invoiced')])
-  if purch_line:
-    for validate_lines in purch_line:
-      con_remainder = 0
-      if validate_lines.product_qty != validate_lines.qty_received:
-        con_lines = env['x_consignment_line'].search([('x_studio_purchase_line_id', '=', validate_lines.id)])
-        if con_lines:
-          for sum_lines in con_lines:
-            con_remainder += sum_lines.x_studio_invoice_qty
-             
-        if con_remainder < validate_lines.product_qty:       
-          po_lines.append([0,0,{
-          'x_studio_purchase_line_id':validate_lines.id,
-          'x_studio_purchase_id':validate_lines.order_id.id,
-          'x_studio_supplier_id':validate_lines.partner_id.id,
-          'x_studio_indent_no':validate_lines.order_id.x_studio_indent,
-          'x_studio_product_id':validate_lines.product_id.id,
-          'x_studio_description':validate_lines.name or validate_lines.product_id.name,
-          'x_studio_quantity':validate_lines.product_qty,
-          'x_studio_weight':validate_lines.x_studio_weight,
-          'x_studio_volume':validate_lines.x_studio_volume,
-          'x_studio_delivery_remainder':validate_lines.product_qty - validate_lines.qty_received,
-          'x_studio_consignment_remainder':validate_lines.product_qty - con_remainder,
-          'x_studio_unit_price':validate_lines.price_unit,
-          'x_studio_concessional_rate':validate_lines.x_studio_concessional_rate,
-          'x_currency_id':validate_lines.currency_id.id,
-          'x_studio_subtotal':validate_lines.price_subtotal,
-          'x_studio_payment_method':validate_lines.x_studio_payment_method.id,
-          'x_studio_delivery_date':validate_lines.date_planned,
-          'x_studio_uom_id':validate_lines.product_id.uom_id.id}])
+if record.id:
+    po_lines = []
 
-  ctx = env.context
-  ctx.update({'default_x_studio_temp_consignment_header_id':record.id,'default_x_studio_temp_consignment_line_ids':po_lines})
-  action = {
-            'name': 'Copy PO Lines',
-            'type': 'ir.actions.act_window',
-            'res_model': 'x_temp_consignment_hea',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'target': 'new',
-            'context': ctx,
-            }
+    purch_line = env["purchase.order.line"].search(
+        [
+            ("partner_id", "=", record.x_studio_supplier_id.id),
+            ("x_studio_pr_type", "=", "Import"),
+            ("x_studio_delivery_term", "=", record.x_studio_delivery_term.id),
+            ("state", "=", "purchase"),
+            ("x_Studio_Deliver_Remainder", ">", 0.00),
+            ("x_studio_billing_status", "!=", "invoiced"),
+        ]
+    )
+    if purch_line:
+        for validate_lines in purch_line:
+            con_remainder = 0
+            if validate_lines.product_qty != validate_lines.qty_received:
+                con_lines = env["x_consignment_line"].search(
+                    [("x_studio_purchase_line_id", "=", validate_lines.id)]
+                )
+                if con_lines:
+                    for sum_lines in con_lines:
+                        con_remainder += sum_lines.x_studio_invoice_qty
+
+                if con_remainder < validate_lines.product_qty:
+                    po_lines.append(
+                        [
+                            0,
+                            0,
+                            {
+                                "x_studio_purchase_line_id": validate_lines.id,
+                                "x_studio_purchase_id": validate_lines.order_id.id,
+                                "x_studio_supplier_id": validate_lines.partner_id.id,
+                                "x_studio_indent_no": validate_lines.order_id.x_studio_indent,
+                                "x_studio_product_id": validate_lines.product_id.id,
+                                "x_studio_description": validate_lines.name
+                                or validate_lines.product_id.name,
+                                "x_studio_quantity": validate_lines.product_qty,
+                                "x_studio_weight": validate_lines.x_studio_weight,
+                                "x_studio_volume": validate_lines.x_studio_volume,
+                                "x_studio_delivery_remainder": validate_lines.product_qty
+                                - validate_lines.qty_received,
+                                "x_studio_consignment_remainder": validate_lines.product_qty
+                                - con_remainder,
+                                "x_studio_unit_price": validate_lines.price_unit,
+                                "x_studio_concessional_rate": validate_lines.x_studio_concessional_rate,
+                                "x_currency_id": validate_lines.currency_id.id,
+                                "x_studio_subtotal": validate_lines.price_subtotal,
+                                "x_studio_payment_method": validate_lines.x_studio_payment_method.id,
+                                "x_studio_delivery_date": validate_lines.date_planned,
+                                "x_studio_uom_id": validate_lines.product_id.uom_id.id,
+                            },
+                        ]
+                    )
+
+    ctx = env.context
+    ctx.update(
+        {
+            "default_x_studio_temp_consignment_header_id": record.id,
+            "default_x_studio_temp_consignment_line_ids": po_lines,
+        }
+    )
+    action = {
+        "name": "Copy PO Lines",
+        "type": "ir.actions.act_window",
+        "res_model": "x_temp_consignment_hea",
+        "view_mode": "form",
+        "view_type": "form",
+        "target": "new",
+        "context": ctx,
+    }
 ```
   </details>
 - **IMP - Create Consignment Header Charges** (`server_action_1316_imp_create_consignment_header_charges`, type `code`)
@@ -815,32 +1116,46 @@ if record.id:
 
 ```python
 if record.x_studio_custom_cleared_date == False:
-  raise UserError("Custom Cleared Date must be Specified!")
-  
-if record.x_studio_delivery_term.id == 0: 
-  raise UserError("Delivery Term must be Specified!")
-  
+    raise UserError("Custom Cleared Date must be Specified!")
+
+if record.x_studio_delivery_term.id == 0:
+    raise UserError("Delivery Term must be Specified!")
+
 if record.x_studio_structure_name.id == 0:
-  raise UserError("Structure Name must be Specified!")  
+    raise UserError("Structure Name must be Specified!")
 
-header_charges = env['x_structure_details'].search([('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc')
+header_charges = env["x_structure_details"].search(
+    [("x_studio_structure_master_id", "=", record.x_studio_structure_name.id)],
+    order="x_studio_structure_no asc",
+)
 if header_charges:
-  for update_header_charges in header_charges:
-    imp_header_charges = env['x_consignment_charge_h'].create({'x_studio_consignment_id':record.id,'x_studio_structure_master_id':update_header_charges.x_studio_structure_master_id.id,'x_studio_structure_details_line_ids':update_header_charges.id,'x_studio_structure_no':update_header_charges.x_studio_structure_no,'x_studio_basis':update_header_charges.x_studio_basis,'x_studio_charge_group':update_header_charges.x_studio_charge_group,'x_studio_charge_name':update_header_charges.x_studio_charge_name,'x_studio_formula':update_header_charges.x_studio_formula})  
+    for update_header_charges in header_charges:
+        imp_header_charges = env["x_consignment_charge_h"].create(
+            {
+                "x_studio_consignment_id": record.id,
+                "x_studio_structure_master_id": update_header_charges.x_studio_structure_master_id.id,
+                "x_studio_structure_details_line_ids": update_header_charges.id,
+                "x_studio_structure_no": update_header_charges.x_studio_structure_no,
+                "x_studio_basis": update_header_charges.x_studio_basis,
+                "x_studio_charge_group": update_header_charges.x_studio_charge_group,
+                "x_studio_charge_name": update_header_charges.x_studio_charge_name,
+                "x_studio_formula": update_header_charges.x_studio_formula,
+            }
+        )
 
-record.write({'x_studio_create_header_charges': False}) 
+record.write({"x_studio_create_header_charges": False})
 
 action = {
-          'name': 'Header Charges',
-          'domain': [('x_studio_consignment_id', '=', record.id)],
-          'type': 'ir.actions.act_window',
-          'res_model': 'x_consignment_charge_h',
-          'view_mode': 'tree,form',
-          'view_type': 'form',
-          'view_id': False,
-          'context': False,
-          'context': {'group_by': 'x_studio_charge_group'},
-          }
+    "name": "Header Charges",
+    "domain": [("x_studio_consignment_id", "=", record.id)],
+    "type": "ir.actions.act_window",
+    "res_model": "x_consignment_charge_h",
+    "view_mode": "tree,form",
+    "view_type": "form",
+    "view_id": False,
+    "context": False,
+    "context": {"group_by": "x_studio_charge_group"},
+}
 ```
   </details>
 - **IMP - Reset Header Charges - Consignment** (`server_action_2199_imp_reset_header_charges_consignment`, type `code`)
@@ -851,34 +1166,47 @@ action = {
 
 ```python
 if record.x_studio_header_charges_allocated == True:
+    header_lines_del = env["x_consignment_charge_h"].search(
+        [
+            ("x_studio_consignment_id", "=", record.id),
+            ("x_studio_structure_master_id", "=", record.x_studio_structure_name.id),
+        ],
+        order="x_studio_structure_no asc",
+    )
 
-  header_lines_del = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id)],order='x_studio_structure_no asc') 
+    if header_lines_del:
+        for del_lines in header_lines_del:
+            temp_rec_del = env["x_consignment_charge_l"].search(
+                [
+                    ("x_studio_consignment_charge_header_id", "=", del_lines.id),
+                    (
+                        "x_studio_consignment_id",
+                        "=",
+                        del_lines.x_studio_consignment_id.id,
+                    ),
+                ]
+            )
 
-  if header_lines_del:
+            if temp_rec_del:
+                for temp_rec_del_loop in temp_rec_del:
+                    temp_rec_del_loop.unlink()
 
-      for del_lines in header_lines_del:
+            if del_lines.x_studio_charge_group != "Charges":
+                del_lines.write({"x_studio_amount": 0.00})
 
-        temp_rec_del = env['x_consignment_charge_l'].search([('x_studio_consignment_charge_header_id', '=', del_lines.id),('x_studio_consignment_id', '=', del_lines.x_studio_consignment_id.id)])
+            del_lines.write(
+                {
+                    "x_studio_allocate_header_charges": False,
+                    "x_studio_tax_appicable": False,
+                }
+            )
 
-        if temp_rec_del:
-
-          for temp_rec_del_loop in temp_rec_del:
-
-            temp_rec_del_loop.unlink()
-
-        
-
-        if del_lines.x_studio_charge_group != 'Charges':
-
-          del_lines.write({'x_studio_amount': 0.00})
-
-        
-
-        del_lines.write({'x_studio_allocate_header_charges': False,'x_studio_tax_appicable': False})
-
-        
-
-      record.write({'x_studio_allocate_header_charges': True, 'x_studio_header_charges_allocated': False})
+        record.write(
+            {
+                "x_studio_allocate_header_charges": True,
+                "x_studio_header_charges_allocated": False,
+            }
+        )
 ```
   </details>
 - **IMP - Restrict Delete in Consignment** (`sa_f5_x_consignment_header_imp_restrict_delete_in_consignment`, type `code`)
@@ -888,8 +1216,10 @@ if record.x_studio_header_charges_allocated == True:
   <details><summary>code (2 lines)</summary>
 
 ```python
-if record.x_studio_status != 'Draft':
-  raise UserError("You can only delete a consignment if the consignment is in draft state.")
+if record.x_studio_status != "Draft":
+    raise UserError(
+        "You can only delete a consignment if the consignment is in draft state."
+    )
 ```
   </details>
 - **IMP - Update Cost Allocation Method in Consignment** (`sa_f5_x_consignment_header_imp_update_cost_allocation_method_in_consignment`, type `code`)
@@ -899,9 +1229,11 @@ if record.x_studio_status != 'Draft':
   <details><summary>code (3 lines)</summary>
 
 ```python
-cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+cost_allocation = env["x_imports_ledger_setup"].search([("id", "=", 1)], limit=1)
 if cost_allocation:
-  record['x_studio_cost_allocation_method'] = cost_allocation.x_studio_cost_allocation_method
+    record["x_studio_cost_allocation_method"] = (
+        cost_allocation.x_studio_cost_allocation_method
+    )
 ```
   </details>
 - **IMP - Update Supplier Currency in Consignment** (`sa_f5_x_consignment_header_imp_update_supplier_currency_in_consignment`, type `code`)
@@ -911,10 +1243,12 @@ if cost_allocation:
   <details><summary>code (4 lines)</summary>
 
 ```python
-cost_allocation = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
+cost_allocation = env["x_imports_ledger_setup"].search([("id", "=", 1)], limit=1)
 if record.x_studio_supplier_id.id:
-  if record.x_studio_supplier_id.property_purchase_currency_id.id:
-    record['x_studio_currency_id'] = record.x_studio_supplier_id.property_purchase_currency_id.id
+    if record.x_studio_supplier_id.property_purchase_currency_id.id:
+        record["x_studio_currency_id"] = (
+            record.x_studio_supplier_id.property_purchase_currency_id.id
+        )
 ```
   </details>
 - **IMP - Validate Consolidation in Consignment** (`server_action_1456_imp_validate_consolidation_in_consignment`, type `code`)
@@ -925,10 +1259,10 @@ if record.x_studio_supplier_id.id:
 
 ```python
 if record.x_studio_consolidation_confirmed == True:
-  record['x_studio_status'] = 'Consolidated'
-  record['x_studio_status_bar'] = 'Consolidated'
+    record["x_studio_status"] = "Consolidated"
+    record["x_studio_status_bar"] = "Consolidated"
 else:
-  raise UserError('The Selected Consignment Should be Consolidated First to Proceed.')
+    raise UserError("The Selected Consignment Should be Consolidated First to Proceed.")
 ```
   </details>
 - **JIN - Company Id in Consignment Header** (`sa_f5_x_consignment_header_jin_company_id_in_consignment_header`, type `code`)
@@ -938,10 +1272,10 @@ else:
   <details><summary>code (4 lines)</summary>
 
 ```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **Project - Update Month End Entries** (`server_action_2118_project_update_month_end_entries`, type `code`)
@@ -952,83 +1286,147 @@ record['x_studio_company_id'] = company.id
 
 ```python
 if record.id:
-  con_lines = env['x_consignment_line'].search([('x_studio_consignment_header_id', '=', record.id)])
-  if con_lines:
-    for val in con_lines:
-      if val.x_studio_invoice_qty == 0.00:
-        raise UserError('Invoice Qty. should be Specified in all Consignment Lines.')
-        
+    con_lines = env["x_consignment_line"].search(
+        [("x_studio_consignment_header_id", "=", record.id)]
+    )
+    if con_lines:
+        for val in con_lines:
+            if val.x_studio_invoice_qty == 0.00:
+                raise UserError(
+                    "Invoice Qty. should be Specified in all Consignment Lines."
+                )
+
 if record.x_studio_supplier_id.id == 0:
-  raise UserError("Vendor Account must be Specified!")
-  
+    raise UserError("Vendor Account must be Specified!")
+
 if record.x_studio_supplier_document == False:
-  raise UserError("Purchase Invoice Document must be Uploaded!")
-  
+    raise UserError("Purchase Invoice Document must be Uploaded!")
+
 if record.x_studio_bill_of_lading == False:
     raise UserError("Bill of Lading Document must be Uploaded!")
-  
-dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)  
+
+dev_term = env["x_delivery_terms"].search(
+    [
+        ("id", "=", record.x_studio_delivery_term.id),
+        ("x_studio_vendor_despatch", "=", True),
+    ],
+    limit=1,
+)
 if dev_term:
-  despatch_account = env['x_imports_ledger_setup'].search([('id', '=', 1)], limit=1)
-  if despatch_account:
-    if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
-      raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
-    else:
-      custom_currency = env['x_custom_currency'].search([('x_studio_currency_id', '=', record.x_studio_currency_id.id),('x_studio_active', '=', True)],limit=1)
-      if custom_currency:
-        currency_rate = env['x_custom_currency_rate'].search([('x_studio_custom_currency_id', '=', custom_currency.id),('x_studio_start_date', '<=', datetime.datetime.now().date()),('x_studio_end_date', '>=', datetime.datetime.now().date())],order='x_studio_start_date desc',limit=1)
-        if currency_rate:
-          despatch_lines=[]
-          despatch_lines.append([0,0,{
-            'account_id':despatch_account.x_studio_vendor_despatch_debit_account.id,
-            'partner_id':record.x_studio_supplier_id.id,
-            'name':'Vendor Despatch',
-            'debit':record.x_studio_total_amount * currency_rate.x_studio_rate}])
-              
-          despatch_lines.append([0,0,{
-            'account_id':despatch_account.x_studio_vendor_despatch_credit_account.id,
-            'partner_id':record.x_studio_supplier_id.id,
-            'name':'Vendor Despatch',
-            'credit':record.x_studio_total_amount * currency_rate.x_studio_rate}])	
-            
-          vendor_despatch = env['account.move'].create({'x_studio_created_from_consignment':record.id,'x_studio_supplier_invoice_number':record.x_studio_supplier_invoice_number,'journal_id':15,'move_type':'entry','date':record.x_studio_voucher_date,'line_ids':despatch_lines})
-          
-          update_vendor_despatch = env['account.move'].search([('id', '=', vendor_despatch.id)],limit=1)
-          if update_vendor_despatch:
-            update_vendor_despatch.write({'state':'posted'})
-            
-          record['x_studio_status'] = 'In Transit'
-          record['x_studio_status_bar'] = 'In Transit'
-            
-          action = {
-                    'name': 'Journal Entries',
-                    'domain': [('id', '=', vendor_despatch.id)],
-                    'type': 'ir.actions.act_window',
-                    'res_model': 'account.move',
-                    'view_mode': 'tree,form',
-                    'view_type': 'form',
-                    'view_id': False,
-                    'context': False,
-                    }
-          record['x_studio_vendor_dispatch'] = True
-          record['x_studio_vendor_dispatch_exchange_rate'] = currency_rate.x_studio_rate
+    despatch_account = env["x_imports_ledger_setup"].search([("id", "=", 1)], limit=1)
+    if despatch_account:
+        if (
+            despatch_account.x_studio_vendor_despatch_debit_account.id == 0
+            or despatch_account.x_studio_vendor_despatch_credit_account.id == 0
+        ):
+            raise UserError(
+                "Vendor Despatch Accounts must be Specified in Imports Ledger Setup"
+            )
         else:
-          raise UserError('There is no Valid Exchange Rate for the Consignmet Header Currency.')
-      else:
-        raise UserError('There is no Active Custom Currency is Setup for the Selected Consignment Header.')
-  else:
-      raise UserError('Imports Ledger Accounts must be Specified.')
+            custom_currency = env["x_custom_currency"].search(
+                [
+                    ("x_studio_currency_id", "=", record.x_studio_currency_id.id),
+                    ("x_studio_active", "=", True),
+                ],
+                limit=1,
+            )
+            if custom_currency:
+                currency_rate = env["x_custom_currency_rate"].search(
+                    [
+                        ("x_studio_custom_currency_id", "=", custom_currency.id),
+                        ("x_studio_start_date", "<=", datetime.datetime.now().date()),
+                        ("x_studio_end_date", ">=", datetime.datetime.now().date()),
+                    ],
+                    order="x_studio_start_date desc",
+                    limit=1,
+                )
+                if currency_rate:
+                    despatch_lines = []
+                    despatch_lines.append(
+                        [
+                            0,
+                            0,
+                            {
+                                "account_id": despatch_account.x_studio_vendor_despatch_debit_account.id,
+                                "partner_id": record.x_studio_supplier_id.id,
+                                "name": "Vendor Despatch",
+                                "debit": record.x_studio_total_amount
+                                * currency_rate.x_studio_rate,
+                            },
+                        ]
+                    )
+
+                    despatch_lines.append(
+                        [
+                            0,
+                            0,
+                            {
+                                "account_id": despatch_account.x_studio_vendor_despatch_credit_account.id,
+                                "partner_id": record.x_studio_supplier_id.id,
+                                "name": "Vendor Despatch",
+                                "credit": record.x_studio_total_amount
+                                * currency_rate.x_studio_rate,
+                            },
+                        ]
+                    )
+
+                    vendor_despatch = env["account.move"].create(
+                        {
+                            "x_studio_created_from_consignment": record.id,
+                            "x_studio_supplier_invoice_number": record.x_studio_supplier_invoice_number,
+                            "journal_id": 15,
+                            "move_type": "entry",
+                            "date": record.x_studio_voucher_date,
+                            "line_ids": despatch_lines,
+                        }
+                    )
+
+                    update_vendor_despatch = env["account.move"].search(
+                        [("id", "=", vendor_despatch.id)], limit=1
+                    )
+                    if update_vendor_despatch:
+                        update_vendor_despatch.write({"state": "posted"})
+
+                    record["x_studio_status"] = "In Transit"
+                    record["x_studio_status_bar"] = "In Transit"
+
+                    action = {
+                        "name": "Journal Entries",
+                        "domain": [("id", "=", vendor_despatch.id)],
+                        "type": "ir.actions.act_window",
+                        "res_model": "account.move",
+                        "view_mode": "tree,form",
+                        "view_type": "form",
+                        "view_id": False,
+                        "context": False,
+                    }
+                    record["x_studio_vendor_dispatch"] = True
+                    record["x_studio_vendor_dispatch_exchange_rate"] = (
+                        currency_rate.x_studio_rate
+                    )
+                else:
+                    raise UserError(
+                        "There is no Valid Exchange Rate for the Consignmet Header Currency."
+                    )
+            else:
+                raise UserError(
+                    "There is no Active Custom Currency is Setup for the Selected Consignment Header."
+                )
+    else:
+        raise UserError("Imports Ledger Accounts must be Specified.")
 else:
-  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
-  record['x_studio_vendor_dispatch'] = False
-  
-  record['x_studio_status'] = 'In Transit'
-  record['x_studio_status_bar'] = 'In Transit'
-  record['x_studio_vend_dispatch_status'] = message
-  
+    message = (
+        "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
+    )
+    record["x_studio_vendor_dispatch"] = False
+
+    record["x_studio_status"] = "In Transit"
+    record["x_studio_status_bar"] = "In Transit"
+    record["x_studio_vend_dispatch_status"] = message
+
 #  title = "Vendor Dispatch"
 #  message = "No Vendor Dispatch has been Created based on the Related Delivery Term Setup."
-  
+
 #  action = {
 #            'type': 'ir.actions.client',
 #            'tag': 'display_notification',

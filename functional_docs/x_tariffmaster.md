@@ -63,11 +63,10 @@ A Tariff Master record is a customs tariff (HS) code with a description and comp
   <details><summary>code (5 lines)</summary>
 
 ```python
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
-
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **JIN - Company Id in TariffMaster** (`sa_f5_x_tariffmaster_jin_company_id_in_tariffmaster`, type `code`)
@@ -77,10 +76,10 @@ record['x_studio_company_id'] = company.id
   <details><summary>code (4 lines)</summary>
 
 ```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 **Automations (1):**

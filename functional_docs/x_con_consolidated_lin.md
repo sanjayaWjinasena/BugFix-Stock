@@ -73,17 +73,30 @@ A Consolidated Line is one consignment included in a consolidation, holding the 
   <details><summary>code (11 lines)</summary>
 
 ```python
-
 if record.id:
-  con_update = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_id.id)],limit=1)
-  if con_update:
-    con_update.write({'x_studio_consolidated': False}) 
-    
-  last_line = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.x_studio_consolidated_header_id.id), ('id', '!=', record.id)],limit=1)
-  if not last_line:
-    update_con = env['x_con_consolidated_hea'].search([('id', '=', record.x_studio_consolidated_header_id.id)],limit=1)
-    if update_con:
-        update_con.write({'x_studio_lines_copied': False})
+    con_update = env["x_consignment_header"].search(
+        [("id", "=", record.x_studio_consignment_id.id)], limit=1
+    )
+    if con_update:
+        con_update.write({"x_studio_consolidated": False})
+
+    last_line = env["x_con_consolidated_lin"].search(
+        [
+            (
+                "x_studio_consolidated_header_id",
+                "=",
+                record.x_studio_consolidated_header_id.id,
+            ),
+            ("id", "!=", record.id),
+        ],
+        limit=1,
+    )
+    if not last_line:
+        update_con = env["x_con_consolidated_hea"].search(
+            [("id", "=", record.x_studio_consolidated_header_id.id)], limit=1
+        )
+        if update_con:
+            update_con.write({"x_studio_lines_copied": False})
 ```
   </details>
 - **Execute Code** (`server_action_2611_jin_company_id_in_consolidated_line`, type `code`)
@@ -93,11 +106,10 @@ if record.id:
   <details><summary>code (5 lines)</summary>
 
 ```python
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
-
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 - **IMP - Con. Lines Make Available in Delete** (`sa_f5_x_con_consolidated_lin_imp_con_lines_make_available_in_delete`, type `code`)
@@ -108,15 +120,29 @@ record['x_studio_company_id'] = company.id
 
 ```python
 if record.id:
-  con_update = env['x_consignment_header'].search([('id', '=', record.x_studio_consignment_id.id)],limit=1)
-  if con_update:
-    con_update.write({'x_studio_consolidated': False}) 
-    
-  last_line = env['x_con_consolidated_lin'].search([('x_studio_consolidated_header_id', '=', record.x_studio_consolidated_header_id.id), ('id', '!=', record.id)],limit=1)
-  if not last_line:
-    update_con = env['x_con_consolidated_hea'].search([('id', '=', record.x_studio_consolidated_header_id.id)],limit=1)
-    if update_con:
-        update_con.write({'x_studio_lines_copied': False})
+    con_update = env["x_consignment_header"].search(
+        [("id", "=", record.x_studio_consignment_id.id)], limit=1
+    )
+    if con_update:
+        con_update.write({"x_studio_consolidated": False})
+
+    last_line = env["x_con_consolidated_lin"].search(
+        [
+            (
+                "x_studio_consolidated_header_id",
+                "=",
+                record.x_studio_consolidated_header_id.id,
+            ),
+            ("id", "!=", record.id),
+        ],
+        limit=1,
+    )
+    if not last_line:
+        update_con = env["x_con_consolidated_hea"].search(
+            [("id", "=", record.x_studio_consolidated_header_id.id)], limit=1
+        )
+        if update_con:
+            update_con.write({"x_studio_lines_copied": False})
 ```
   </details>
 - **JIN - Company Id in Consolidated Line** (`sa_f5_x_con_consolidated_lin_jin_company_id_in_consolidated_line`, type `code`)
@@ -126,10 +152,10 @@ if record.id:
   <details><summary>code (4 lines)</summary>
 
 ```python
-company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
-company = env['res.company'].browse(company_id)
+company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
+company = env["res.company"].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record["x_studio_company_id"] = company.id
 ```
   </details>
 **Automations (2):**

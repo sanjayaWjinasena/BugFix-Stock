@@ -1,11 +1,12 @@
 """Studio-ported custom model x_material_request_tes_tag."""
+
 from odoo import fields, models
 
 
 class XMaterialRequestTesTag(models.Model):
-    _name = 'x_material_request_tes_tag'
-    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
-    _description = 'Material Request Test Tags'
+    _name = "x_material_request_tes_tag"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _description = "Material Request Test Tags"
 
-    x_color = fields.Integer(string='Color')
-    x_name = fields.Char(string='Name')
+    x_color = fields.Integer(string="Color")
+    x_name = fields.Char(string="Name")
