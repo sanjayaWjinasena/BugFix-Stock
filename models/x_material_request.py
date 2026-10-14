@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Sentinel declaration for x_material_request so cross-references resolve."""
 from odoo import api, fields, models
 

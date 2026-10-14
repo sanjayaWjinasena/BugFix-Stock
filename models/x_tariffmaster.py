@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """x_tariffmaster — Studio custom model port.
 
 The Studio O2M `x_studio_tariff_master_ids` on this model shares its
@@ -30,7 +29,7 @@ Trade-offs vs stored O2M:
     result is not stored) — for filtering on x_tariff_date presence,
     use the M2O side directly.
 """
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class XTariffmaster(models.Model):

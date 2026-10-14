@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import fields, models
+
 
 class StockLotGap(models.Model):
     _inherit = 'stock.lot'

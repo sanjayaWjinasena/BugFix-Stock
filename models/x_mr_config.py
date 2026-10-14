@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """x_mr_config declared in BugFix-Stock so x_material_request's O2M
 inverse + notebook page arch validate at Stock load time.
 
@@ -59,7 +58,7 @@ class XMrConfig(models.Model):
         compute='_compute_on_hand_qty_2', readonly=True)
     x_studio_product = fields.Many2one('product.product', string='Product', ondelete='set null', copy=True)
     x_studio_qty = fields.Integer(string='Qty', copy=True)
-    x_studio_qty_1 = fields.Integer(string='X Studio Qty 1', copy=True)
+    x_studio_qty_1 = fields.Integer(copy=True)
     x_studio_qty_to_transfer = fields.Float(string='Qty. to Transfer', copy=True)
     x_studio_qty_transfered = fields.Float(string='Qty. Transferred', copy=True)
     x_studio_quantity = fields.Float(string='Quantity', copy=True)

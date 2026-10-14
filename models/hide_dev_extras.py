@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Hide fields/buttons of apps Jinasena doesn't use on the transfer form.
 
 Replaces views/stock_picking_hide_dev_extras.xml (v0.0.123). That view used

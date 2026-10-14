@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """v17.0.0.0.114: mark stock_picking_batch (+ auto_install dependents) for uninstall.
 
 CDB (our known-good reference) has stock_picking_batch and its 3 auto_install=True
@@ -21,7 +20,7 @@ Uses ORM only, no cr.execute.
 """
 import logging
 
-from odoo import api, SUPERUSER_ID
+from odoo import SUPERUSER_ID, api
 
 _logger = logging.getLogger(__name__)
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Studio-ported custom model x_temp_con_conso_line."""
 from odoo import fields, models
 

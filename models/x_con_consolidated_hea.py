@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Sentinel declaration for x_con_consolidated_hea."""
 from odoo import fields, models
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Studio-ported custom model x_temp_structure_maste."""
 from odoo import fields, models
 

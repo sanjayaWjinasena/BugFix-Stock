@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 """Sentinel declaration for x_temp_consignment_lin."""
 from odoo import fields, models
-
 
 # NOTE (v0.0.118): the Many2one(s) x_studio_payment_method / x_studio_structure_name were MOVED to BugFix-Purchase v0.1.0.178.
 # Their comodel is owned by a DOWNSTREAM module; declared here they were

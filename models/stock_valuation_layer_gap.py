@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import fields, models
+
 
 class StockValuationLayerGap(models.Model):
     _inherit = 'stock.valuation.layer'

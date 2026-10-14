@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import fields, models
+
 
 class XConsignmentChargeLGap(models.Model):
     _inherit = 'x_consignment_charge_l'

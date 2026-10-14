@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Studio-owned field x_studio_available_qty on product.product.
 
 Related=stock_quant_ids.available_quantity, store=False (per CDB).

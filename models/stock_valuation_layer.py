@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Related-field navigation on stock.valuation.layer.
 
 Ports 2 x_studio_related_field_* M2Os that view 2585 (Studio inherit

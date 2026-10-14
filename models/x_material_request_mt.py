@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Studio-ported custom model x_material_request_mt."""
 from odoo import fields, models
 
