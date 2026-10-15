@@ -66,9 +66,6 @@ class XMrConfig(models.Model):
     x_studio_requested_by = fields.Many2one('res.users', string='Requested by', ondelete='set null', copy=True)
     x_studio_sequence = fields.Integer(string='Sequence', copy=True)
     x_studio_status = fields.Selection(
-        [('Draft', 'Draft'), ('Confirmed', 'Confirmed'),
-         ('To Be Approved', 'To Be Approved'), ('Approved', 'Approved'),
-         ('Rejected', 'Rejected'), ('Done', 'Done')],
         string='Status',
         related='x_studio_many2one_field_6yqbk.x_studio_selection_field_BupKG',
         readonly=True)
