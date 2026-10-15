@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="aw_f4_stock_move_stock_move" model="ir.actions.act_window">
+    <field name="name">Stock.Move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+  <record id="aw_f4_stock_move_stock_move_1" model="ir.actions.act_window">
+    <field name="name">stock.move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+  <record id="action_1757_stock_move" model="ir.actions.act_window">
+    <field name="name">Stock.Move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+  <record id="action_1065_stock_move" model="ir.actions.act_window">
+    <field name="name">stock.move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+    <record id="ported_view_2579_studio_stock_move_tree2" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.move.tree2 customization</field>
+        <field name="model">stock.move</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='origin']" position="after">
+                <field name="bom_line_id"/>
+                <field name="created_production_id"/>
+                <field name="raw_material_production_id"/>
+                <field name="production_id"/>
+              </xpath>
+              <xpath expr="//field[@name='product_uom_qty']" position="after">
+                <field name="unit_factor"/>
+                <field name="x_studio_original_qty" string="Original Qty"/>
+                <field name="x_studio_variance" string="Variance"/>
+                <field name="product_qty"/>
+                <field name="should_consume_qty"/>
+                <field name="availability"/>
+                <field name="forecast_availability"/>
+                <field name="price_unit"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+  <record id="act_window_1757_stock_move" model="ir.actions.act_window">
+    <field name="name">Stock.Move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+  <record id="act_window_1065_stock_move" model="ir.actions.act_window">
+    <field name="name">stock.move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+    <record id="view_6051_odoo_studio_stock_picking_move_tree_customization_e" model="ir.ui.view">
+      <field name="name">Odoo Studio: stock.picking.move.tree customization</field>
+      <field name="model">stock.move</field>
+      <field name="type">tree</field>
+      <field name="priority">10000</field>
+      <field name="inherit_id" ref="stock.view_picking_move_tree"/>
+      <field name="mode">extension</field>
+      <field name="arch" type="xml">
+        <data>
+  <xpath expr="//tree[1]" position="attributes">
+    <attribute name="edit">true</attribute>
+    <attribute name="multi_edit">true</attribute>
+  </xpath>
+  </data>
+      </field>
+    </record>
+</odoo>

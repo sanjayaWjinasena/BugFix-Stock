@@ -42,3 +42,12 @@ class XTempConsignmentLin(models.Model):
     x_studio_uom_id = fields.Many2one("uom.uom", string="UOM")
     x_studio_volume = fields.Float(string="Volume")
     x_studio_weight = fields.Float(string="Weight")
+
+
+class XTempConsignmentLinGap(models.Model):
+    _inherit = "x_temp_consignment_lin"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+
+    x_active = fields.Boolean(string="Active")
+    x_currency_id = fields.Many2one(comodel_name="res.currency", string="Currency")
+    x_name = fields.Char(string="Name")

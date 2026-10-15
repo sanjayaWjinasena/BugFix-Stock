@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="server_action_1302_imp_apply_selected_po_lines_to_consignment" model="ir.actions.server">
+    <field name="name">IMP - Apply Selected PO Lines to Consignment</field>
+    <field name="model_id" search="[('model', '=', 'x_temp_consignment_hea')]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[select = 0
+
+
+
+for valid_line in record.x_studio_temp_consignment_line_ids:
+
+  if (valid_line.x_studio_select == True):
+
+    select += 1
+
+    
+
+    if select == 1:
+
+      structure = valid_line.x_studio_structure_name.id
+
+    if select > 1:
+
+      if valid_line.x_studio_structure_name.id != structure:
+
+          raise UserError("PO Lines with Same Structure Should be Selected!")
+
+    
+
+    if valid_line.x_studio_payment_method.x_studio_lc == True:
+
+      search_lc = env['x_lc_header'].search([('x_studio_created_from_purchase_order', '=', valid_line.x_studio_purchase_id.id), ('x_studio_status', '=', ('Posted','Paid'))],limit=1)
+
+      if not search_lc:
+
+        raise UserError('The LC of all the Selected PO Line/ Lines Should be in Posted or Paid State.')
+
+    
+
+    create_con_lines = env['x_consignment_line'].create({'x_studio_consignment_header_id':record.x_studio_temp_consignment_header_id.id,'x_studio_purchase_id':valid_line.x_studio_purchase_id.id,'x_studio_product_id':valid_line.x_studio_product_id.id,'x_studio_description':valid_line.x_studio_description,'x_studio_payment_method':valid_line.x_studio_payment_method.id,
+
+      'x_studio_tariff_code':valid_line.x_studio_product_id.x_studio_tariff_code.id,'x_studio_unit_price':valid_line.x_studio_unit_price,'x_currency_id':valid_line.x_currency_id.id,'x_studio_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_original_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_purchase_line_id':valid_line.x_studio_purchase_line_id.id,'x_studio_concessional_rate':valid_line.x_studio_concessional_rate,
+
+      'x_studio_volume':valid_line.x_studio_volume,'x_studio_weight':valid_line.x_studio_weight})
+
+      
+
+if select == 0:
+
+ raise UserError("Atleast One Line Should be Selected to Proceed.")
+
+ 
+
+header_update = env['x_consignment_header'].search([('id', '=', record.x_studio_temp_consignment_header_id.id)],limit=1)
+
+if header_update:
+
+  header_update.write({'x_studio_lines_copied': True, 'x_studio_structure_name': structure}) 
+
+
+
+temp_rec = env['x_temp_consignment_hea'].search([('id', '=', record.id)],limit=1)
+
+if temp_rec:
+
+  temp_rec.unlink()
+
+
+
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1301_imp_clear_all_in_copy_po_lines" model="ir.actions.server">
+    <field name="name">IMP - Clear All in Copy PO Lines</field>
+    <field name="model_id" search="[('model', '=', 'x_temp_consignment_hea')]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[# PATCHED IN-PLACE (Clear All): toggle x_studio_select=False on
+# every existing line and REOPEN the same wizard record so the popup
+# stays visible with the updated checkboxes.
+if record.id:
+  record.x_studio_temp_consignment_line_ids.write({'x_studio_select': False})
+  record.write({'x_studio_select_all': False})
+  action = {
+    'name': 'Copy PO Lines',
+    'type': 'ir.actions.act_window',
+    'res_model': 'x_temp_consignment_hea',
+    'view_mode': 'form',
+    'res_id': record.id,
+    'target': 'new',
+    'context': env.context,
+  }
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+  <record id="server_action_1298_imp_select_all_in_copy_po_lines" model="ir.actions.server">
+    <field name="name">IMP - Select All in Copy PO Lines</field>
+    <field name="model_id" search="[('model', '=', 'x_temp_consignment_hea')]"/>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[# PATCHED IN-PLACE (Select All): toggle x_studio_select=True on
+# every existing line and REOPEN the same wizard record so the popup
+# stays visible with the updated checkboxes. Returning no action was
+# closing the popup.
+if record.id:
+  record.x_studio_temp_consignment_line_ids.write({'x_studio_select': True})
+  record.write({'x_studio_select_all': True})
+  action = {
+    'name': 'Copy PO Lines',
+    'type': 'ir.actions.act_window',
+    'res_model': 'x_temp_consignment_hea',
+    'view_mode': 'form',
+    'res_id': record.id,
+    'target': 'new',
+    'context': env.context,
+  }
+]]></field>
+    <field name="usage">ir_actions_server</field>
+  </record>
+    <data noupdate="1">
+    <record id="default_148_x_temp_consignment_hea_x_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__x_active"/>
+      <field name="json_value">true</field>
+    </record>
+    <record id="default_149_x_temp_consignment_hea_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+    </data>
+</odoo>

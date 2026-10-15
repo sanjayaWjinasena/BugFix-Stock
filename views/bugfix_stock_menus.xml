@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- 2026-10-13: moved from a home-screen tile into the Inventory app -->
+  <menuitem id="menu_827_material_management" name="Material Management" sequence="10" parent="stock.menu_stock_root"/>
+  <menuitem id="menu_828_material_request" name="Material Request" parent="menu_827_material_management" action="BugFix-Stock.act_window_1562_material_request" sequence="10"/>
+  <menuitem id="menu_829_configuration" name="Configuration" parent="menu_827_material_management" sequence="11"/>
+  <!-- 2026-10-13: home-screen tile tidy-up - switched off: the "Material Management Module" home-screen tile (Studio test copies: MT / Test Material and Purchase Requests); models and menus kept, only hidden -->
+  <menuitem id="menu_1745_material_management_module" name="Material Management Module" sequence="10" active="False"/>
+  <menuitem id="menu_1746_material_request_mt" name="Material Request MT" parent="menu_1745_material_management_module" action="BugFix-Stock.act_window_3384_material_request_mt" sequence="1"/>
+  <menuitem id="menu_1747_configuration" name="Configuration" parent="menu_1745_material_management_module" sequence="3"/>
+  <menuitem id="menu_1748_material_request_mt_stages" name="Material Request MT Stages" parent="menu_1747_configuration" action="BugFix-Stock.act_window_3385_material_request_mt_stages" sequence="10"/>
+  <menuitem id="menu_1749_material_request_mt_tags" name="Material Request MT Tags" parent="menu_1747_configuration" action="BugFix-Stock.act_window_3386_material_request_mt_tags" sequence="10"/>
+  <menuitem id="menu_778_temp_consignment_line" name="Temp Consignment Line" action="BugFix-Stock.action_1262_temp_consignment_line" sequence="6"/>
+  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept (form-only copy kept: matches Clear-DB) -->
+  <menuitem id="menu_779_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_1259_temp_consignment_header" sequence="7" active="False"/>
+  <!-- 2026-10-13: home-screen tile tidy-up - switched off: the "Inventory/wAREHOUSE" home-screen tile; same list as Inventory > Configuration > Warehouse Management > Warehouses -->
+  <menuitem id="menu_1147_inventory_warehouse" name="Inventory/wAREHOUSE" sequence="10" active="False"/>
+  <menuitem id="menu_1072_inventory_holding_days" name="Inventory Holding Days" parent="mrp.menu_mrp_root" action="BugFix-Stock.action_2225_inventory_holding_days" sequence="101"/>
+  <menuitem id="menu_1148_inventory_setup" name="Inventory Setup" parent="stock.menu_stock_root" sequence="101"/>
+  <menuitem id="menu_1146_warehouse" name="WareHouse" parent="BugFix-Stock.menu_1147_inventory_warehouse" action="BugFix-Stock.action_2468_warehouse" sequence="0"/>
+  <menuitem id="menu_1149_warehouse" name="Warehouse" parent="BugFix-Stock.menu_1148_inventory_setup" action="BugFix-Stock.action_2469_warehouse" sequence="0"/>
+  <menuitem id="menu_1150_location" name="Location" parent="BugFix-Stock.menu_1148_inventory_setup" action="BugFix-Stock.action_2470_location" sequence="1"/>
+  <menuitem id="menu_1075_custom_duty" name="Custom Duty" parent="purchase.purchase_report_main" action="BugFix-Stock.action_2231_custom_duty" sequence="2"/>
+  <menuitem id="menu_f6_location" name="Location" parent="BugFix-Stock.menu_1148_inventory_setup" action="BugFix-Stock.act_window_2470_location" sequence="1"/>
+  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
+  <menuitem id="menu_f6_material_request_mt" name="Material Request MT" parent="BugFix-Stock.menu_1745_material_management_module" action="BugFix-Stock.act_window_3384_material_request_mt" sequence="1" active="False"/>
+  <menuitem id="menu_f6_custom_duty" name="Custom Duty" parent="purchase.purchase_report_main" action="BugFix-Stock.action_2231_custom_duty" sequence="2"/>
+  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
+  <menuitem id="menu_f6_temp_consignment_line" name="Temp Consignment Line" action="BugFix-Stock.action_1356_temp_consignment_line" sequence="6" active="False"/>
+  <menuitem id="menu_f6_temp_consignment_header" name="Temp Consignment Header" action="BugFix-Stock.action_2861_temp_consignment_header" sequence="7"/>
+  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
+  <menuitem id="menu_f6_material_request_mt_stages" name="Material Request MT Stages" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3385_material_request_mt_stages" active="False"/>
+  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
+  <menuitem id="menu_f6_material_request_mt_tags" name="Material Request MT Tags" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3386_material_request_mt_tags" active="False"/>
+  <!-- upgrade-testing/VM02 2026-10-12: duplicate of the same Clear-DB menu ported twice; switched off, the other copy is kept -->
+  <menuitem id="menu_f6_inventory_holding_days" name="Inventory Holding Days" parent="mrp.menu_mrp_root" action="BugFix-Stock.act_window_2225_inventory_holding_days" sequence="101" active="False"/>
+  <menuitem id="menu_f6_consignment_line" name="Consignment Line" action="BugFix-Stock.action_1257_purchase_invoice_line" sequence="12"/>
+  <menuitem id="menu_f6_setups" name="Setups" parent="purchase.menu_purchase_config" action="BugFix-Stock.act_window_1159_tariffmaster" sequence="0"/>
+  <menuitem id="menu_f6_material_request_test_stages" name="Material Request Test Stages" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3375_material_request_test_stages"/>
+  <menuitem id="menu_f6_material_request_test_tags" name="Material Request Test Tags" parent="BugFix-Stock.menu_1747_configuration" action="BugFix-Stock.act_window_3376_material_request_test_tags"/>
+  <menuitem id="menu_f6_material_request_test" name="Material Request Test" parent="BugFix-Stock.menu_1745_material_management_module" action="BugFix-Stock.act_window_3374_material_request_test" sequence="1"/>
+  <menuitem id="menu_f6_imports_01" name="Imports - 01" parent="purchase.menu_purchase_root" action="BugFix-Stock.action_1323_imports_01" sequence="4"/>
+  <menuitem id="menu_f6_tariffs_master" name="Tariffs Master" action="BugFix-Stock.act_window_1159_tariffmaster" sequence="0"/>
+  <menuitem id="menu_f6_tariff_master" name="Tariff Master" parent="purchase.menu_purchase_root" action="BugFix-Stock.act_window_2041_tariff_master" sequence="6"/>
+  <menuitem id="menu_f6_temp_consignment_header_1" name="Temp Consignment Header" parent="base.menu_administration" action="BugFix-Stock.action_2861_temp_consignment_header" sequence="111"/>
+    <!-- Tariffs Master (Studio scratch — not on CDB) -->
+    <record id="menu_f6_tariffs_master" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <!-- Consignment Line (Studio scratch — not on CDB) -->
+    <record id="menu_f6_consignment_line" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <!-- ============================================================
+         v0.0.96 Purchase-app cleanup companion to BugFix-Purchase v161.
+         Kill Stock-owned menus that duplicate BugFix-Purchase-owned
+         twins OR are misplaced at Purchase-app root on Dev.
+    ============================================================ -->
+    <!-- Reporting > Custom Duty duplicate (menu_1075_* is the CDB-matching twin) -->
+    <record id="menu_f6_custom_duty" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <!-- 'Imports - 01' misplaced root (BugFix-Studio-Misc.menu_f6r3_purchase_imports
+         is the correct Imports dropdown; this was an old Stock port stub) -->
+    <record id="menu_f6_imports_01" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <!-- 'Tariff Master' misplaced root (CDB has Tariff Master nested inside
+         Configuration > Imports Configurations > Tariff subtree) -->
+    <record id="menu_f6_tariff_master" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <!-- 'Setups' — huge Studio-routing extract subtree under Configuration
+         with no counterpart on CDB. Deactivating the root hides the whole
+         subtree (Import Charges, Structures, Tariffs, Delivery Terms,
+         Charges, Misc Charges, Imports Ledger Setup, Custom Currency Rates
+         and 15+ deeper leaves). -->
+    <record id="menu_f6_setups" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <!-- ============================================================
+         v0.0.97 Inventory-app cleanup: kill 'Inventory > Inventory
+         Setup > Location' duplicate owned by this repo. menu_1150_
+         location (from_routing, action_2470_location) is the CDB-
+         matching twin — keep. menu_f6_location (act_window_2470_
+         location, older f6 stub, same parent + name) is the dup.
+    ============================================================ -->
+    <record id="menu_f6_location" model="ir.ui.menu">
+      <field name="active" eval="False"/>
+    </record>
+    <data noupdate="1">
+    <menuitem id="menu_x_consignment_header_analysis" name="Consignment Header Analysis" parent="stock.menu_warehouse_report" action="action_x_consignment_header_analysis" sequence="90"/>
+    </data>
+</odoo>

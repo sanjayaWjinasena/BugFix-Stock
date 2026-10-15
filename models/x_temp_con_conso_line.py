@@ -45,3 +45,11 @@ class XTempConConsoLine(models.Model):
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
     #   x_studio_delivery_term (many2one rel='x_delivery_terms' not safe)
+
+
+class XTempConConsoLineGap(models.Model):
+    _inherit = "x_temp_con_conso_line"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+
+    x_active = fields.Boolean(string="Active")
+    x_name = fields.Char(string="Name")

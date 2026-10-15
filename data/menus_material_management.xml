@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!-- BugFix-Stock: 'Material Management' menu tree (4 nodes) -->
-<odoo>
-
-  <!-- 2026-10-13: moved from a home-screen tile into the Inventory app -->
-  <menuitem id="menu_827_material_management" name="Material Management" sequence="10" parent="stock.menu_stock_root"/>
-  <menuitem id="menu_828_material_request" name="Material Request" parent="menu_827_material_management" action="BugFix-Stock.act_window_1562_material_request" sequence="10"/>
-  <menuitem id="menu_829_configuration" name="Configuration" parent="menu_827_material_management" sequence="11"/>
-  </odoo>

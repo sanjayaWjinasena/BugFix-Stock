@@ -29,3 +29,11 @@ class XTempStructureDetai(models.Model):
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
     #   x_studio_structure_details_line_ids (many2one rel='x_structure_details' not safe)
+
+
+class XTempStructureDetaiGap(models.Model):
+    _inherit = "x_temp_structure_detai"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+
+    x_active = fields.Boolean(string="Active")
+    x_name = fields.Char(string="Name")

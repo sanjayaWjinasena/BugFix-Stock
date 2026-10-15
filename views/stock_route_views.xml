@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="act_window_2095_stock_location_route" model="ir.actions.act_window">
+    <field name="name">stock.location.route</field>
+    <field name="res_model">stock.route</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2494_inventory_routes" model="ir.actions.act_window">
+    <field name="name">Inventory routes</field>
+    <field name="res_model">stock.route</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+    <record id="ported_view_4866_studio_stock_route_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.location.route.tree customization</field>
+        <field name="model">stock.route</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.stock_location_route_tree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='sequence']" position="after">
+                <field name="id" optional="show"/>
+                <field name="product_ids" optional="show"/>
+              </xpath>
+              <xpath expr="//tree[1]/field[@name='name']" position="after">
+                <field name="supplier_wh_id" optional="show"/>
+                <field name="supplied_wh_id" optional="show"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

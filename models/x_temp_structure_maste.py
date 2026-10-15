@@ -15,3 +15,16 @@ class XTempStructureMaste(models.Model):
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
     #   x_studio_temp_structure_details (one2many rel='x_temp_structure_detai' needs inverse)
     #   x_studio_temp_structure_details_id (many2one rel='x_structure_details' not safe)
+
+
+class XTempStructureMasteGap(models.Model):
+    _inherit = "x_temp_structure_maste"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+
+    x_active = fields.Boolean(string="Active")
+    x_name = fields.Char(string="Name")
+    x_studio_temp_structure_details = fields.One2many(
+        comodel_name="x_temp_structure_detai",
+        inverse_name="x_studio_temp_structure_master_id",
+        string="Temp Structure Details",
+    )

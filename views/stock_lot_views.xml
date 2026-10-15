@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="aw_f4_stock_lot_inventory_holding_days" model="ir.actions.act_window">
+    <field name="name">Inventory Holding Days</field>
+    <field name="res_model">stock.lot</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2225_inventory_holding_days" model="ir.actions.act_window">
+    <field name="name">Inventory Holding Days</field>
+    <field name="res_model">stock.lot</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+    <record id="ported_view_2597_studio_stock_production_lot_tree" model="ir.ui.view">
+        <field name="name">Odoo Studio: stock.production.lot.tree customization</field>
+        <field name="model">stock.lot</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='product_id']" position="after">
+                <field optional="show" name="x_studio_cost" string="Cost"/>
+                <field optional="show" name="x_studio_price_1" string="Price 1"/>
+                <field optional="show" name="x_studio_price_2" string="Price 2"/>
+                <field name="x_studio_serial_no_prefix" string="Serial No Prefix" column_invisible="1"/>
+                <field name="x_studio_sequence_size" string="Sequence Size" column_invisible="1"/>
+                <field name="x_studio_starting_serial_no" string="Starting Serial No" column_invisible="1"/>
+                <field name="product_uom_id"/>
+                <field name="product_qty"/>
+                <field optional="show" name="x_studio_warehouse" string="Warehouse"/>
+                <field name="x_studio_production_id" column_invisible="1"/>
+                <field name="x_studio_production_order" string="Production Order"/>
+              </xpath>
+              <xpath expr="//field[@name='create_date']" position="after">
+                <field optional="show" name="x_studio_no_of_days" string="No of Days"/>
+                <field optional="show" name="x_studio_no_of_days_2" string="No of Days 2" column_invisible="1"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+  <record id="act_window_2225_inventory_holding_days" model="ir.actions.act_window">
+    <field name="name">Inventory Holding Days</field>
+    <field name="res_model">stock.lot</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+</odoo>

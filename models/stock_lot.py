@@ -42,3 +42,11 @@ class StockLot(models.Model):
     x_studio_serial_no_prefix = fields.Char(string="Serial No Prefix")
     x_studio_starting_serial_no = fields.Integer(string="Starting Serial No")
     x_studio_warehouse = fields.Char(string="Warehouse", readonly=True)
+
+
+class StockLotGap(models.Model):
+    _inherit = "stock.lot"
+
+    x_currency_id = fields.Many2one(
+        string="Currency", related="product_id.stock_valuation_layer_ids.currency_id"
+    )

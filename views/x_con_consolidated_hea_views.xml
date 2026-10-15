@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="action_1410_con_consolidated_header" model="ir.actions.act_window">
+    <field name="name">Con. Consolidated Header</field>
+    <field name="res_model">x_con_consolidated_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2054_consolidated_consignments" model="ir.actions.act_window">
+    <field name="name">Consolidated Consignments</field>
+    <field name="res_model">x_con_consolidated_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2888_consolidated_consignments" model="ir.actions.act_window">
+    <field name="name">Consolidated Consignments</field>
+    <field name="res_model">x_con_consolidated_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="ported_primary_3068_form_x_con_consolidated_hea" model="ir.ui.view">
+    <field name="name">Default form view for x_con_consolidated_hea</field>
+    <field name="model">x_con_consolidated_hea</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>  
+          <button type="action" name="%(BugFix-Stock.server_action_1413_imp_copy_consignment_lines_to_consolidation)d" string="Copy PI Header" class="btn-primary" invisible="x_studio_status not in ['Draft']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_1414_imp_clear_consignment_lines_from_consolidation)d" string="Clear PI Header" class="btn-primary" invisible="(x_studio_status not in ['Draft']) or (x_studio_lines_copied == False)"/>
+          <button type="action" name="%(BugFix-Stock.server_action_1421_imp_confirm_consolidation)d" string="Confirm" class="btn-primary" invisible="(x_studio_status not in ['Draft']) or (x_studio_lines_copied == False)"/>
+        </header>
+        <header/>
+        <sheet string="Con. Consolidated Header">
+          <field name="x_studio_status" invisible="1"/><field name="x_studio_lines_copied" invisible="1"/><widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
+          <field name="x_active" invisible="1"/>
+          <div class="oe_title">
+                      <span class="o_form_label">Con. Reference </span>
+                      <h1>
+                          <field name="x_name" required="1" placeholder="Name..."/>
+                      </h1>
+                  </div>
+          <group name="studio_group_bc4ef6">
+            <group name="studio_group_bc4ef6_left"/>
+            <group name="studio_group_bc4ef6_right"/>
+          </group>
+        </sheet>
+        <div class="oe_chatter" name="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+          <field name="activity_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <record id="ported_view_3073_odoo_studio_default_form_view_for_x_con_" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default form view for x_con_consolidated_hea customization</field>
+    <field name="model">x_con_consolidated_hea</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3068_form_x_con_consolidated_hea"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//button[@name='%(BugFix-Stock.server_action_1414_imp_clear_consignment_lines_from_consolidation)d']" position="after">
+          <field widget="statusbar" name="x_studio_pipeline_status_bar" string="Pipeline Status Bar"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']" position="attributes">
+          <attribute name="force_save">True</attribute>
+          <attribute name="readonly">1</attribute></xpath>
+        <xpath expr="//group[@name='studio_group_bc4ef6_left']" position="inside">
+          <field name="x_studio_description" string="Description" readonly="x_studio_status == 'Confirmed'"/>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_bc4ef6_right']" position="inside">
+          <field name="create_uid"/>
+          <field name="create_date"/>
+          <field name="x_studio_status" string="Status" force_save="True" readonly="1"/>
+          <field name="x_studio_company_id" string="Company" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_lines_copied" string="Lines Copied" force_save="True" readonly="1" invisible="1"/>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_bc4ef6']" position="after">
+          <notebook name="studio_notebook_8O2sf">
+            <page string="Lines" name="studio_page_8O2sf">
+              <field name="x_studio_con_line_ids" string="Con. Line Ids" readonly="x_studio_status != 'Draft'">
+                <tree create="false" edit="false">
+                  <field name="x_studio_sequence" widget="handle" column_invisible="1"/>
+                  <field name="x_studio_consignment_id" string="Consignment No" force_save="True" readonly="1"/>
+                  <field name="x_studio_supplier_id" force_save="True" readonly="1"/>
+                  <field name="x_studio_currency_id" force_save="True" readonly="1"/>
+                  <field name="x_studio_supplier_invoice_no" force_save="True" readonly="1"/>
+                  <field name="x_studio_container_no" force_save="True" readonly="1"/>
+                  <field name="x_studio_custom_clearance_no" force_save="True" readonly="1"/>
+                  <field name="x_studio_shipment_start_date" force_save="True" readonly="1" optional="hide"/>
+                  <field name="x_studio_invoice_date" force_save="True" readonly="1" optional="hide"/>
+                  <field name="x_studio_status" force_save="True" readonly="1" optional="hide"/>
+                  <field name="x_studio_shipping_mode_1" force_save="True" readonly="1" optional="hide"/>
+                  <field name="x_name" column_invisible="1"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </xpath>
+      </data>
+    </field>
+  </record>
+  <record id="ported_primary_3067_tree_x_con_consolidated_hea" model="ir.ui.view">
+    <field name="name">Default list view for x_con_consolidated_hea</field>
+    <field name="model">x_con_consolidated_hea</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_view_3075_odoo_studio_default_list_view_for_x_con_" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_con_consolidated_hea customization</field>
+    <field name="model">x_con_consolidated_hea</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3067_tree_x_con_consolidated_hea"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="default_order">x_name desc</attribute>
+        </xpath>
+        <xpath expr="//field[@name='x_studio_sequence']" position="before">
+          <xpath expr="//field[@name='x_name']" position="move"/>
+          <field name="x_studio_description"/>
+          <field name="create_uid" widget="many2one_avatar"/>
+          <field name="create_date"/>
+          <field name="x_studio_status" widget="badge" decoration-muted="x_studio_status == 'Draft'" decoration-success="x_studio_status == 'Confirmed'"/>
+        </xpath>
+        <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+          <attribute name="column_invisible">1</attribute></xpath>
+        <xpath expr="//field[@name='x_name']" position="attributes">
+          <attribute name="string">Con. Reference</attribute>
+        </xpath>
+      </data>
+    </field>
+  </record>
+    <record id="view_3069_default_search_view_for_x_con_consolidated_hea_e" model="ir.ui.view">
+      <field name="name">Default search view for x_con_consolidated_hea</field>
+      <field name="model">x_con_consolidated_hea</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="x_name"/>
+  <separator/>
+  <filter string="Archived" name="archived_x_con_consolidated_hea" domain="[['x_active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+</odoo>

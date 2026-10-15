@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+  <record id="default_final_bugfix_stock_field_x_temp_structure_detai_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_detai__x_active"/>
+    <field name="json_value">true</field>
+  </record>
+    <record id="default_124_x_temp_structure_detai_x_studio_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_detai__x_studio_sequence"/>
+      <field name="json_value">10</field>
+    </record>
+    </data>
+</odoo>

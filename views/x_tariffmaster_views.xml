@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="act_window_1159_tariffmaster" model="ir.actions.act_window">
+    <field name="name">TariffMaster</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2038_tariffs_master" model="ir.actions.act_window">
+    <field name="name">Tariffs Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2041_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2044_tariff" model="ir.actions.act_window">
+    <field name="name">Tariff</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2045_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2048_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2049_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2057_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2069_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_2867_tariff_master" model="ir.actions.act_window">
+    <field name="name">Tariff Master</field>
+    <field name="res_model">x_tariffmaster</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="ported_primary_2633_form_x_tariffmaster" model="ir.ui.view">
+    <field name="name">Default form view for x_tariffmaster</field>
+    <field name="model">x_tariffmaster</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <form>
+        <header/>
+        <sheet string="TariffMaster">
+          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
+          <field name="x_active" invisible="1"/>
+          <div class="oe_title">
+                      <h1>
+                          <field name="x_name" required="1" placeholder="Name..."/>
+                      </h1>
+                  </div>
+          <group name="studio_group_f8209d">
+            <group name="studio_group_f8209d_left"/>
+            <group name="studio_group_f8209d_right"/>
+          </group>
+        </sheet>
+        <div class="oe_chatter" name="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+          <field name="activity_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <record id="ported_view_2635_odoo_studio_default_form_view_for_x_tari" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default form view for x_tariffmaster customization</field>
+    <field name="model">x_tariffmaster</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_2633_form_x_tariffmaster"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']" position="attributes">
+          <attribute name="string">Tarrif Code</attribute>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_f8209d_left']" position="inside">
+          <field name="x_studio_description" string="Description"/>
+          <field name="x_studio_company_id" string="Company"/>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_f8209d']" position="after">
+          <notebook name="studio_notebook_T0Dw9">
+            <page string="Date Range" name="studio_page_T0Dw9">
+              <!-- DROPPED (orphan x_studio_tariff_master_ids not on x_tariffmaster) --></page>
+          </notebook>
+        </xpath>
+      </data>
+    </field>
+  </record>
+  <record id="ported_primary_2632_tree_x_tariffmaster" model="ir.ui.view">
+    <field name="name">Default list view for x_tariffmaster</field>
+    <field name="model">x_tariffmaster</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_view_2636_odoo_studio_default_list_view_for_x_tari" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_tariffmaster customization</field>
+    <field name="model">x_tariffmaster</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_2632_tree_x_tariffmaster"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='x_studio_sequence']" position="before">
+          <xpath expr="//field[@name='x_name']" position="move"/>
+          <field name="x_studio_description"/>
+          <field name="x_studio_company_id" optional="show"/>
+        </xpath>
+        <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+          <attribute name="column_invisible">1</attribute></xpath>
+        <xpath expr="//field[@name='x_name']" position="attributes">
+          <attribute name="required">1</attribute></xpath>
+      </data>
+    </field>
+  </record>
+    <record id="view_2634_default_search_view_for_x_tariffmaster_e" model="ir.ui.view">
+      <field name="name">Default search view for x_tariffmaster</field>
+      <field name="model">x_tariffmaster</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="x_name"/>
+  <separator/>
+  <filter string="Archived" name="archived_x_tariffmaster" domain="[['x_active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+</odoo>

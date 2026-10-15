@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <record id="default_89_stock_lot_x_studio_sequence_size" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_studio_sequence_size"/>
+      <field name="json_value">"0"</field>
+    </record>
+    <record id="default_90_stock_lot_x_studio_starting_serial_no" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_studio_starting_serial_no"/>
+      <field name="json_value">"0"</field>
+    </record>
+    <record id="default_359_stock_lot_x_studio_no_of_days_2" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_studio_no_of_days_2"/>
+      <field name="json_value">"0"</field>
+    </record>
+    <record id="default_362_stock_lot_x_currency_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_lot__x_currency_id"/>
+      <field name="json_value">145</field>
+    </record>
+    </data>
+</odoo>

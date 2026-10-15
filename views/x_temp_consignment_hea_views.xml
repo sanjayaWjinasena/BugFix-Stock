@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="action_1259_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2851_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_1299_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_1260_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1357_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_2861_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="action_1261_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1295_temp_consignment_header" model="ir.actions.act_window">
+    <field name="name">temp Consignment Header</field>
+    <field name="res_model">x_temp_consignment_hea</field>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="ported_primary_2905_form_x_temp_consignment_hea" model="ir.ui.view">
+    <field name="name">IMP Copy PO Line to Consignment</field>
+    <field name="model">x_temp_consignment_hea</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <form string="Copy Import Order Lines">
+        <separator string="Applicable Line:"/>
+          <newline/>
+          <group>
+            <field name="x_name" options="{'no_open': true}" invisible="1" readonly="True"/>
+            <field name="x_studio_temp_consignment_header_id" options="{'no_open': true}" invisible="1" readonly="True"/>
+            <field name="x_studio_select_all" options="{'no_open': true}" invisible="1" readonly="True"/>
+          </group> 
+          <newline/>
+          <button name="%(BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines)d" string="Select All" type="action" class="oe_highlight" invisible="x_studio_select_all == True"/> 
+          <button name="%(BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines)d" string="Clear All" type="action" class="oe_highlight" invisible="x_studio_select_all == False"/>
+          <group>
+            <field name="x_studio_temp_consignment_line_ids" nolabel="1" colspan="2">
+              <tree string="Details" create="false" editable="bottom" delete="false"> 
+                <field name="x_studio_select"/>
+                <field name="x_studio_purchase_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_supplier_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_indent_no" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_product_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_description" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_uom_id" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_quantity" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_weight" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_volume" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_delivery_remainder" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_consignment_remainder" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_unit_price" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_subtotal" options="{'no_open': true}" force_save="1" readonly="True"/>	
+                <field name="x_studio_delivery_date" options="{'no_open': true}" force_save="1" readonly="True"/>
+                <field name="x_studio_purchase_line_id" options="{'no_open': true}" force_save="1" column_invisible="1" readonly="True"/>
+                <field name="x_studio_concessional_rate" options="{'no_open': true}" force_save="1" column_invisible="1" readonly="True"/>
+              </tree>
+            </field>
+          </group>
+          <newline/>
+          <footer>
+            <button name="%(BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment)d" string="Apply" type="action" class="oe_highlight"/>
+            <button special="cancel" string="Cancel" class="oe_link"/>
+          </footer>
+      </form>
+    </field>
+  </record>
+  <record id="ported_view_3018_odoo_studio_imp_copy_po_line_to_consignm" model="ir.ui.view">
+    <field name="name">Odoo Studio: IMP Copy PO Line to Consignment customization</field>
+    <field name="model">x_temp_consignment_hea</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <!-- v118: the attributes xpath on x_studio_payment_method moved to BugFix-Purchase
+             views/upstream_link_fields_views.xml (the field itself now comes from that module). -->
+      </data>
+    </field>
+  </record>
+</odoo>

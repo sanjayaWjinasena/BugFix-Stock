@@ -21,3 +21,11 @@ class XTempConsignmentHea(models.Model):
         "x_studio_temp_consignment_header_id",
         string="Temp Consignment Line Ids",
     )
+
+
+class XTempConsignmentHeaGap(models.Model):
+    _inherit = "x_temp_consignment_hea"
+    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+
+    x_active = fields.Boolean(string="Active")
+    x_name = fields.Char(string="Name")

@@ -159,7 +159,7 @@
     # NOT ported this wave: 2811+2816 (x_consignment_header form + its
     # 14.8KB Studio inherit) - hardcoded action refs + cross-repo conflict
     # with BugFix-Purchase draft view 9609 need coordination first.
-    # See VIEWS_TODO.md for the remaining 21 substantive views.
+    # See docs/VIEWS_TODO.md for the remaining 21 substantive views.
     # v0.0.15: wired 14 base.automation stubs to their local server actions.
     #   * data/automations.xml: every TODO comment
     #     `<!-- TODO: wire action_server_ids to actual server_action xmlids: [NNNN] -->`
@@ -298,74 +298,72 @@
         "Jinasena_Masterdata_Reporting",
     ],
     "data": [
-        "data/defaults_final.xml",  # upgrade-testing: form defaults shipped; record-specific ones commented inside
-        "data/server_actions_f5.xml",
-        "data/window_actions_f4.xml",
-        "data/defaults_f2.xml",  # upgrade-testing: form defaults shipped; record-specific ones commented inside
         "security/ir_model_pins.xml",
-        "data/server_actions.xml",
-        "security/ir.model.access.csv",
         "security/removed_handmade_access_rights.xml",
-        "data/server_actions_v2.xml",
-        "data/server_actions_v3.xml",
-        "data/automations.xml",
-        "data/automations_v2.xml",
-        "data/automations_v3.xml",
-        "data/act_windows.xml",
-        "data/window_actions.xml",
-        "data/window_actions_v2.xml",
-        "data/record_rules.xml",
+        "security/bugfix_stock_security.xml",
+        "security/ir.model.access.csv",
+        "data/x_material_request_mt_data.xml",
+        "data/x_material_request_tes_data.xml",
+        "data/x_temp_con_conso_line_data.xml",
+        "data/x_temp_con_consolidate_data.xml",
+        "data/x_temp_structure_detai_data.xml",
+        "data/x_temp_structure_maste_data.xml",
+        "data/stock_picking_data.xml",
+        "data/stock_return_picking_data.xml",
+        "data/x_con_consolidated_hea_data.xml",
+        "data/x_con_consolidated_lin_data.xml",
+        "data/x_consignment_charge_l_data.xml",
+        "data/x_consignment_header_data.xml",
+        "data/x_consignment_line_data.xml",
+        "data/x_tariffmaster_data.xml",
+        "data/defaults_f2.xml",
+        "data/x_consignment_charge_h_data.xml",
+        "data/x_temp_consignment_hea_data.xml",
+        "data/stock_move_data.xml",
+        "data/stock_move_line_data.xml",
+        "data/x_material_request_data.xml",
+        "data/stock_valuation_layer_data.xml",
+        "data/stock_lot_data.xml",
+        "data/x_temp_consignment_lin_data.xml",
+        "views/stock_location_views.xml",
+        "views/stock_lot_views.xml",
+        "views/stock_move_line_views.xml",
+        "views/stock_move_views.xml",
+        "views/stock_picking_type_views.xml",
+        "views/stock_valuation_layer_views.xml",
+        "views/account_move_views.xml",
+        "views/stock_picking_views.xml",
+        "views/stock_quant_views.xml",
+        "views/stock_warehouse_views.xml",
+        "views/x_con_consolidated_hea_views.xml",
+        "views/x_con_consolidated_lin_views.xml",
+        "views/x_consignment_charge_h_views.xml",
+        "views/x_consignment_charge_l_views.xml",
+        "views/x_consignment_header_views.xml",
+        "views/x_consignment_line_views.xml",
+        "views/x_temp_consignment_hea_views.xml",
+        "views/x_temp_consignment_lin_views.xml",
+        "views/stock_route_views.xml",
+        "views/stock_rule_views.xml",
+        "views/x_material_request_views.xml",
+        "views/x_tariffmaster_views.xml",
+        "views/stock_landed_cost_lines_views.xml",
+        "views/x_material_request_mt_stage_views.xml",
+        "views/x_material_request_mt_tag_views.xml",
+        "views/x_material_request_mt_views.xml",
+        "views/x_material_request_tes_stage_views.xml",
+        "views/x_material_request_tes_tag_views.xml",
+        "views/x_material_request_tes_views.xml",
+        "views/x_temp_structure_maste_views.xml",
+        "views/stock_landed_cost_views.xml",
+        "views/stock_return_picking_views.xml",
+        "views/x_temp_con_consolidate_views.xml",
+        "views/bugfix_stock_menus.xml",
+        # Not loaded on this branch:
         # 'data/filters.xml',  # upgrade-testing: data, not shipped
         # 'data/sequences.xml',  # upgrade-testing: data, not shipped
-        # v0.0.116: hide_dev_extras MUST load before stock_studio_ported_v3.
-        # When _v3 loads, Odoo re-validates every inheritor of
-        # stock.view_picking_form. If hide_dev_extras's DB arch is still
-        # the old one (with batch_id xpath), validation crashes because
-        # stock_picking_batch is uninstalled (v0.0.114). Load hide_dev_extras
-        # first so its arch is refreshed before any cousin validation runs.
-        # v0.0.123: replaced by models/hide_dev_extras.py (_get_view hides only
-        # what exists; the hard xpaths broke the transfer form when an app was missing).
         # 'views/stock_picking_hide_dev_extras.xml',
-        "views/x_consignment_studio_ported.xml",
-        "views/stock_studio_ported.xml",
-        "views/stock_studio_ported_v2.xml",
-        "views/stock_studio_ported_v3.xml",
-        "views/stock_studio_ported_v5.xml",
-        "views/studio_ported_13_views.xml",
-        "data/record_rules_from_analytics.xml",
-        "data/approval_rules.xml",
-        "data/record_rules_gap.xml",
-        "data/server_actions_gap.xml",
-        "data/automations_gap.xml",
-        "data/window_actions_gap.xml",
-        "data/ir_defaults_gap.xml",  # upgrade-testing: form defaults shipped; record-specific ones commented inside
-        "data/ir_defaults_unblocked.xml",  # upgrade-testing: form defaults shipped; record-specific ones commented inside
-        "views/stock_move_e_views.xml",
-        "views/stock_picking_e_views.xml",
-        "views/stock_picking_type_e_views.xml",
-        "views/x_con_consolidated_hea_e_views.xml",
-        "views/x_con_consolidated_lin_e_views.xml",
-        "views/x_consignment_charge_l_e_views.xml",
-        "views/x_consignment_header_e_views.xml",
-        "views/x_consignment_line_e_views.xml",
-        "views/x_material_request_mt_e_views.xml",
-        "views/views_final.xml",
-        "views/x_material_request_mt_stage_e_views.xml",
-        "views/x_material_request_mt_tag_e_views.xml",
-        "views/x_material_request_tes_e_views.xml",
-        "views/x_material_request_tes_stage_e_views.xml",
-        "views/x_material_request_tes_tag_e_views.xml",
-        "views/x_tariffmaster_e_views.xml",
-        "views/x_temp_con_consolidate_e_views.xml",
-        "views/x_temp_structure_maste_e_views.xml",
-        "data/menus_material_management.xml",
-        "data/menus_material_management_module.xml",
-        "data/menus_from_routing.xml",
-        "data/menus_f6.xml",
-        "data/menus_root_deactivate.xml",
         # 'views/stock_picking_hide_dev_extras.xml' moved up to load before
-        # stock_studio_ported_v3.xml (see note above).
-        "data/dashboard_replacements.xml",
     ],
     "post_init_hook": "post_init_hook",
     "application": True,

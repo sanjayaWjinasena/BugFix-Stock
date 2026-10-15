@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="action_1411_con_consolidated_line" model="ir.actions.act_window">
+    <field name="name">Con. Consolidated Line</field>
+    <field name="res_model">x_con_consolidated_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2610_x_con_consolidated_lin" model="ir.actions.act_window">
+    <field name="name">x_con_consolidated_lin</field>
+    <field name="res_model">x_con_consolidated_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="ported_primary_3071_form_x_con_consolidated_lin" model="ir.ui.view">
+    <field name="name">Default form view for x_con_consolidated_lin</field>
+    <field name="model">x_con_consolidated_lin</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <form>
+        <header/>
+        <sheet string="Con. Consolidated Line">
+          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
+          <field name="x_active" invisible="1"/>
+          <div class="oe_title">
+                      <h1>
+                          <field name="x_name" required="1" placeholder="Name..."/>
+                      </h1>
+                  </div>
+          <group name="studio_group_759e62">
+            <group name="studio_group_759e62_left"/>
+            <group name="studio_group_759e62_right"/>
+          </group>
+        </sheet>
+        <div class="oe_chatter" name="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+          <field name="activity_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <record id="ported_view_3074_odoo_studio_default_form_view_for_x_con_" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default form view for x_con_consolidated_lin customization</field>
+    <field name="model">x_con_consolidated_lin</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3071_form_x_con_consolidated_lin"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='x_name']" position="attributes">
+          <attribute name="invisible">1</attribute><attribute name="required"/></xpath>
+        <xpath expr="//group[@name='studio_group_759e62_left']" position="inside">
+          <field name="x_studio_supplier_id" string="Vendor" force_save="True" readonly="1"/>
+          <field name="x_studio_currency_id" string="Currency" force_save="True" readonly="1"/>
+          <field name="x_studio_shipment_start_date" string="Shipment Start Date" force_save="True" readonly="1"/>
+          <field name="x_studio_invoice_date" string="Invoice Date" force_save="True" readonly="1"/>
+          <field name="x_studio_supplier_invoice_no" string="Supplier Invoice No" force_save="True" readonly="1"/>
+          <field name="x_studio_consignment_id" string="Consignment Id" force_save="True" readonly="1" invisible="1"/>
+          <field name="x_studio_consolidated_header_id" string="Consolidated Header Id" force_save="True" readonly="1" invisible="1"/>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_759e62_right']" position="inside">
+          <field name="x_studio_container_no" string="Container No" force_save="True" readonly="1"/>
+          <field name="x_studio_shipping_mode_1" string="Shipping Mode" force_save="True" readonly="1"/>
+          <field name="x_studio_custom_clearance_no" string="Custom Clearance No" force_save="True" readonly="1"/>
+          <field name="x_studio_status" string="Status" force_save="True" readonly="1"/>
+        </xpath>
+      </data>
+    </field>
+  </record>
+  <record id="ported_primary_3070_tree_x_con_consolidated_lin" model="ir.ui.view">
+    <field name="name">Default list view for x_con_consolidated_lin</field>
+    <field name="model">x_con_consolidated_lin</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="x_studio_sequence" widget="handle"/>
+        <field name="x_name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_view_5564_odoo_studio_default_list_view_for_x_con_" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for x_con_consolidated_lin customization</field>
+    <field name="model">x_con_consolidated_lin</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3070_tree_x_con_consolidated_lin"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='x_name']" position="after">
+          <field optional="show" name="x_studio_company_id" string="Company" column_invisible="1"/>
+        </xpath>
+      </data>
+    </field>
+  </record>
+    <record id="view_3072_default_search_view_for_x_con_consolidated_lin_e" model="ir.ui.view">
+      <field name="name">Default search view for x_con_consolidated_lin</field>
+      <field name="model">x_con_consolidated_lin</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="x_name"/>
+  <separator/>
+  <filter string="Archived" name="archived_x_con_consolidated_lin" domain="[['x_active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+</odoo>

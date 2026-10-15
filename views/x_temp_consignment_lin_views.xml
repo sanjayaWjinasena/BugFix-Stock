@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="action_2847_consignment_lines" model="ir.actions.act_window">
+    <field name="name">Consignment Lines</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1656_temp_conn_line" model="ir.actions.act_window">
+    <field name="name">TEMP CONN LINE</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1657_temp123" model="ir.actions.act_window">
+    <field name="name">TEMP123</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1658_test66" model="ir.actions.act_window">
+    <field name="name">TEST66</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1262_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1300_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1356_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2850_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2860_temp_consignment_line" model="ir.actions.act_window">
+    <field name="name">Temp Consignment Line</field>
+    <field name="res_model">x_temp_consignment_lin</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+</odoo>
