@@ -31,11 +31,11 @@ class XMaterialRequest(models.Model):
         string='Request Lines')
     x_studio_requested_by = fields.Many2one('res.users', string='Requested by')
     x_studio_requested_date = fields.Date(string='Requested Date')
-    x_studio_selection_field_BupKG = fields.Selection([], string='Status')
-    x_studio_selection_field_X1Bue = fields.Selection([], string='Pipeline status bar')
+    x_studio_selection_field_BupKG = fields.Selection([('Draft', 'Draft'), ('Confirmed', 'Confirmed'), ('To Be Approved', 'To Be Approved'), ('Approved', 'Approved'), ('Rejected', 'Rejected'), ('Done', 'Done')], string='Status')
+    x_studio_selection_field_X1Bue = fields.Selection([('status1', 'Create MR'), ('status2', 'Create PR')], string='Pipeline status bar')
     x_studio_sequence = fields.Integer(string='Sequence')
     x_studio_test = fields.Char(string='Test')
-    x_studio_type = fields.Selection([], string='Type')
+    x_studio_type = fields.Selection([('Local', 'Local'), ('Import', 'Import')], string='Type')
     x_studio_warehouse = fields.Many2one('stock.location', string='Warehouse')
     x_x_studio_created_from_material_request_no_stock_picking_count = fields.Integer(
         string='Created from Material Request No count',
