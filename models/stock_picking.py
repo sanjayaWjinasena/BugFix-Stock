@@ -20,9 +20,11 @@ class StockPicking(models.Model):
     x_studio_helpdesk_ticket_id = fields.Many2one('helpdesk.ticket', string='Helpdesk Ticket Id')
     x_studio_journal_type = fields.Many2one('x_journal_types', string='Journal Type')
     x_studio_maintenance_request_ = fields.Many2one('maintenance.request', string='Maintenance Request #')
-    x_studio_mj_in = fields.Boolean(string='MJ IN', readonly=True)
-    x_studio_mj_out = fields.Boolean(string='MJ OUT', readonly=True)
-    x_studio_movement_journal = fields.Boolean(string='Movement Journal', readonly=True)
+    # Clear-DB: related to the operation type (stored, readonly). The port had dropped related=, so the
+    # Movement Journal flags stayed False and the Journal Type field never showed on Movement Journal transfers.
+    x_studio_mj_in = fields.Boolean(string='MJ IN', related='picking_type_id.x_studio_mj_in', store=True, readonly=True)
+    x_studio_mj_out = fields.Boolean(string='MJ OUT', related='picking_type_id.x_studio_mj_out', store=True, readonly=True)
+    x_studio_movement_journal = fields.Boolean(string='Movement Journal', related='picking_type_id.x_studio_movement_journal', store=True, readonly=True)
     x_studio_need_approval = fields.Boolean(string='Need Approval', readonly=True, store=False)
     x_studio_offset_account_updated = fields.Boolean(string='Offset Account Updated')
     x_studio_picking_count = fields.Boolean(string='Picking Count')
