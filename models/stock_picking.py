@@ -38,7 +38,7 @@ class StockPicking(models.Model):
     x_studio_return_receipt_location = fields.Many2one('stock.location', string='Return Receipt Location', readonly=True)
     x_studio_return_sequence = fields.Many2one('ir.sequence', string='Return Sequence', readonly=True)
     x_studio_sales_order = fields.Many2one('sale.order', string='Sales Order')
-    x_studio_sequence_code = fields.Char(string='Sequence Code', readonly=True)
+    x_studio_sequence_code = fields.Char(string='Sequence Code', related='picking_type_id.sequence_code', store=True, readonly=True)
     x_studio_supplier_invoice_number = fields.Char(string='Supplier Invoice Number')
     x_studio_supplier_invoice_number_1 = fields.Char(string='Supplier Invoice Number', readonly=True)
     x_studio_task_status = fields.Boolean(string='Task Status', readonly=True, store=False)

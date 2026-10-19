@@ -11,7 +11,8 @@
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
     <field name="perm_unlink" eval="True"/>
-    <field name="active" eval="True"/>
+    <!-- Off: on Clear-DB this rule has no groups and global=False, so Odoo never applies it -->
+    <field name="active" eval="False"/>
   </record>
 
   <record id="rule_458_transfer_type_block" model="ir.rule">
@@ -46,7 +47,8 @@
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
     <field name="perm_unlink" eval="True"/>
-    <field name="active" eval="True"/>
+    <!-- Off: on Clear-DB this rule has no groups and global=False, so Odoo never applies it -->
+    <field name="active" eval="False"/>
   </record>
   </data>
 </odoo>
