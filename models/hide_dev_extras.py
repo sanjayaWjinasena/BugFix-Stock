@@ -1,6 +1,6 @@
 """Hide fields/buttons of apps Jinasena doesn't use on the transfer form.
 
-Replaces views/stock_picking_hide_dev_extras.xml (v0.0.123). That view used
+Replaces _disabled/views/stock_picking_hide_dev_extras.xml (v0.0.123). That view used
 one hard <xpath> per element; when an app providing an element is not
 installed (or gets uninstalled) the xpath cannot be located and Odoo refuses
 to render the whole transfer form. Here the elements are hidden in

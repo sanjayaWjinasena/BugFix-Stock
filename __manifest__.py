@@ -360,10 +360,10 @@
         "views/x_temp_con_consolidate_views.xml",
         "views/bugfix_stock_menus.xml",
         # Not loaded on this branch:
-        # 'data/filters.xml',  # upgrade-testing: data, not shipped
-        # 'data/sequences.xml',  # upgrade-testing: data, not shipped
-        # 'views/stock_picking_hide_dev_extras.xml',
-        # 'views/stock_picking_hide_dev_extras.xml' moved up to load before
+        # 'data/ir_filters_data.xml',  # upgrade-testing: data, not shipped
+        # 'data/ir_sequence_data.xml',  # upgrade-testing: data, not shipped
+        # '_disabled/views/stock_picking_hide_dev_extras.xml',
+        # '_disabled/views/stock_picking_hide_dev_extras.xml' moved up to load before
     ],
     "post_init_hook": "post_init_hook",
     "application": True,
