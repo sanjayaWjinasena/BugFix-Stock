@@ -252,10 +252,7 @@ def _seed_field_selections(env, entries):
                 )
         except Exception as e:
             _logger.warning(
-                "BugFix-Stock: seed failed %s.%s (%s).",
-                model,
-                fname,
-                e,
+                "BugFix-Stock: seed failed %s.%s (%s).", model, fname, e, exc_info=True
             )
 
 
