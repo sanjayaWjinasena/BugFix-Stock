@@ -1,6 +1,7 @@
 from odoo import fields, models
 
-# NOTE (v0.0.118): the Many2one(s) x_studio_delivery_term / x_studio_structure_name were MOVED to BugFix-Purchase v0.1.0.178.
+# NOTE (v0.0.118): the Many2one(s) x_studio_delivery_term / x_studio_structure_name were
+# MOVED to BugFix-Purchase v0.1.0.178.
 # Their comodel is owned by a DOWNSTREAM module; declared here they were
 # `_unknown` for the whole upgrade-mode registry build (see BugFix-Purchase
 # models/upstream_link_fields.py). Do NOT re-add them here.

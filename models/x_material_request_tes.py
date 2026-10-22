@@ -46,7 +46,8 @@ class XMaterialRequestTesGap(models.Model):
 
     x_active = fields.Boolean(string="Active")
     x_color = fields.Integer(string="Color")
-    # STRIPPED x_material_request_tes_line_ids_661d3: O2M inverse lives in another repo (load-order risk)
+    # STRIPPED x_material_request_tes_line_ids_661d3: O2M inverse lives in another repo
+    # (load-order risk)
     x_name = fields.Char(string="Description", required=True)
     x_studio_stage_id = fields.Many2one(
         comodel_name="x_material_request_tes_stage", string="Stage", required=True

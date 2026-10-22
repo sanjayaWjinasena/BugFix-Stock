@@ -28,7 +28,7 @@ class XTempStructureDetai(models.Model):
     )
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
-    #   x_studio_structure_details_line_ids (many2one rel='x_structure_details' not safe)
+    # x_studio_structure_details_line_ids (many2one rel='x_structure_details' not safe)
 
 
 class XTempStructureDetaiGap(models.Model):
