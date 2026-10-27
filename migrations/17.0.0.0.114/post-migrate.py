@@ -62,4 +62,5 @@ def migrate(cr, version):
             "Manual uninstall via Apps may be needed.",
             TARGET,
             e,
+            exc_info=True,
         )
