@@ -306,7 +306,8 @@
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
     <field name="perm_unlink" eval="True"/>
-    <field name="active" eval="True"/>
+    <!-- Off: on Clear-DB this rule has no groups and global=False, so Odoo never applies it -->
+    <field name="active" eval="False"/>
   </record>
   <record id="rule_458_transfer_type_block" model="ir.rule">
     <!-- Archived (test log 118): on Clear-DB this rule has no groups and applies to nobody; shipped without groups it became global and hid every PO receipt. -->
@@ -338,7 +339,8 @@
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
     <field name="perm_unlink" eval="True"/>
-    <field name="active" eval="True"/>
+    <!-- Off: on Clear-DB this rule has no groups and global=False, so Odoo never applies it -->
+    <field name="active" eval="False"/>
   </record>
     <record id="rule_572_jin_multi_company_tariffmaster" model="ir.rule">
       <field name="name">JIN - Multi-Company - TariffMaster</field>

@@ -41,9 +41,26 @@ class StockPicking(models.Model):
     x_studio_maintenance_request_ = fields.Many2one(
         "maintenance.request", string="Maintenance Request #"
     )
-    x_studio_mj_in = fields.Boolean(string="MJ IN", readonly=True)
-    x_studio_mj_out = fields.Boolean(string="MJ OUT", readonly=True)
-    x_studio_movement_journal = fields.Boolean(string="Movement Journal", readonly=True)
+    # Clear-DB: related to the operation type (stored, readonly). The port had dropped related=, so the
+    # Movement Journal flags stayed False and the Journal Type field never showed on Movement Journal transfers.
+    x_studio_mj_in = fields.Boolean(
+        string="MJ IN",
+        related="picking_type_id.x_studio_mj_in",
+        store=True,
+        readonly=True,
+    )
+    x_studio_mj_out = fields.Boolean(
+        string="MJ OUT",
+        related="picking_type_id.x_studio_mj_out",
+        store=True,
+        readonly=True,
+    )
+    x_studio_movement_journal = fields.Boolean(
+        string="Movement Journal",
+        related="picking_type_id.x_studio_movement_journal",
+        store=True,
+        readonly=True,
+    )
     x_studio_need_approval = fields.Boolean(
         string="Need Approval", readonly=True, store=False
     )
@@ -53,10 +70,14 @@ class StockPicking(models.Model):
         [("Local", "Local"), ("Import", "Import")], string="PR Type", readonly=True
     )
     x_studio_quotation_type = fields.Selection(
-        [], string="Quotation Type", readonly=True
+        [("Sales", "Sales"), ("Project", "Project"), ("Repair", "Repair")],
+        string="Quotation Type",
+        readonly=True,
     )
     x_studio_quotation_type_2 = fields.Selection(
-        [], string="Quotation Type-2", readonly=True
+        [("Sales", "Sales"), ("Project", "Project"), ("Repair", "Repair")],
+        string="Quotation Type-2",
+        readonly=True,
     )
     x_studio_received_at_centre = fields.Boolean(string="Received at Centre")
     x_studio_related_field_zZDiA = fields.Selection(
@@ -77,7 +98,12 @@ class StockPicking(models.Model):
         "ir.sequence", string="Return Sequence", readonly=True
     )
     x_studio_sales_order = fields.Many2one("sale.order", string="Sales Order")
-    x_studio_sequence_code = fields.Char(string="Sequence Code", readonly=True)
+    x_studio_sequence_code = fields.Char(
+        string="Sequence Code",
+        related="picking_type_id.sequence_code",
+        store=True,
+        readonly=True,
+    )
     x_studio_supplier_invoice_number = fields.Char(string="Supplier Invoice Number")
     x_studio_supplier_invoice_number_1 = fields.Char(
         string="Supplier Invoice Number", readonly=True
@@ -94,7 +120,10 @@ class StockPicking(models.Model):
     x_studio_transfer_request_sent = fields.Boolean(string="Transfer Request Sent")
     x_studio_ttt = fields.Boolean(string="TTT")
     x_studio_type_of_operation = fields.Selection(
-        [], string="Type of Operation", readonly=True
+        string="Type of Operation",
+        readonly=True,
+        related="picking_type_id.code",
+        store=True,
     )
     x_studio_update_consignment = fields.Boolean(string="Update Consignment")
     x_studio_user_location_validation = fields.Boolean(
