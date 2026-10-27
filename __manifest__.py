@@ -1,5 +1,6 @@
 {
-    # upgrade-testing branch: data files below are commented out - this branch installs functions only, no data is seeded.
+    # upgrade-testing branch: data files below are commented out - this branch installs
+    # functions only, no data is seeded.
     "name": "Jinasena : Module : Inventory",
     "version": "17.0.0.0.124",
     "summary": "Studio-to-Python port for BugFix-Stock",
@@ -164,7 +165,8 @@
     #   * data/automations.xml: every TODO comment
     #     `<!-- TODO: wire action_server_ids to actual server_action xmlids: [NNNN] -->`
     #     replaced by
-    #     `<field name="action_server_ids" eval="[(6, 0, [ref('server_action_NNNN_...')])]"/>`.
+    # `<field name="action_server_ids" eval="[(6, 0,
+    # [ref('server_action_NNNN_...')])]"/>`.
     #   * All 14 referenced action xmlids already existed in
     #     data/server_actions.xml - no server-action ports needed. Trigger
     #     semantics preserved (on_create_or_write / on_change / on_unlink).
