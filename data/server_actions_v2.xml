@@ -26,6 +26,8 @@
     <field name="binding_view_types">list,form</field>
     <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
     <field name="activity_user_type">specific</field>
+    <!-- Clear-DB: activity goes to kapila.h@jinasena.com.lk (user is environment data: matched by login). -->
+    <field name="activity_user_id" search="[('login', '=', 'kapila.h@jinasena.com.lk')]"/>
     <field name="activity_summary">Approve RUG Repair</field>
     <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
   </record>
@@ -38,6 +40,8 @@
     <field name="binding_view_types">list,form</field>
     <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
     <field name="activity_user_type">generic</field>
+    <!-- Clear-DB: user taken from the record's user_id. Without it Odoo 17 fails with "False in ..." -->
+    <field name="activity_user_field_name">user_id</field>
     <field name="activity_summary">Approve RUG Repair</field>
     <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
   </record>
@@ -46,6 +50,9 @@
     <field name="name">Approve MR - Status Update</field>
     <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
     <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: x_studio_selection_field_BupKG). -->
+    <field name="update_path">x_studio_selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
     <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>
@@ -56,6 +63,9 @@
     <field name="name">Reject MR</field>
     <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
     <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: x_studio_selection_field_BupKG). -->
+    <field name="update_path">x_studio_selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
     <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>
@@ -66,6 +76,9 @@
     <field name="name">Request Approval MR - Update Status</field>
     <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
     <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: x_studio_selection_field_BupKG). -->
+    <field name="update_path">x_studio_selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
     <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>
@@ -76,6 +89,9 @@
     <field name="name">Reset MR</field>
     <field name="model_id" search="[('model', '=', 'x_material_request')]"/>
     <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: x_studio_selection_field_BupKG). -->
+    <field name="update_path">x_studio_selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
     <field name="update_field_id" ref="BugFix-Stock.field_x_material_request__x_studio_selection_field_BupKG"/>

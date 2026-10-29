@@ -1929,6 +1929,9 @@ else:
     <field name="name">RR - Transfer Request Approval - Notify User</field>
     <field name="model_id" search="[(&apos;model&apos;, &apos;=&apos;, &apos;stock.picking&apos;)]"/>
     <field name="state">next_activity</field>
+    <!-- Clear-DB: activity goes to kapila.h@jinasena.com.lk (user is environment data: matched by login). -->
+    <field name="activity_user_type">specific</field>
+    <field name="activity_user_id" search="[('login', '=', 'kapila.h@jinasena.com.lk')]"/>
     <field name="code"><![CDATA[# Available variables:
 #  - env: Odoo Environment on which the action is triggered
 #  - model: Odoo Model of the record on which the action is triggered; is a void recordset
