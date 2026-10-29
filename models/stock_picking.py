@@ -58,3 +58,28 @@ class StockPicking(models.Model):
     x_studio_xxx = fields.Boolean(string='XXX')
     x_x_studio_create_from_transfer_1__account_move_count = fields.Integer(string='Create From Transfer count', store=False)
     x_x_studio_created_from_transfer__account_move_count = fields.Integer(string='Created From Transfer count', store=False)
+
+    def _action_done(self):
+        res = super()._action_done()
+        for picking in self.filtered(lambda p: p.state == 'done' and p.x_studio_movement_journal):
+            picking._apply_movement_journal_offset_account()
+        return res
+
+    def _apply_movement_journal_offset_account(self):
+        """Post the valuation of a Movement IN/OUT to the offset account of the Journal Type
+        (replaces the interim Received / Delivered account line)."""
+        self.ensure_one()
+        offset = self.x_studio_journal_type.x_studio_offset_account
+        if not offset or not (self.x_studio_mj_in or self.x_studio_mj_out):
+            return
+        for move in self.move_ids:
+            categ = move.product_id.categ_id
+            interim = (categ.property_stock_account_output_categ_id if self.x_studio_mj_out
+                       else categ.property_stock_account_input_categ_id)
+            if not interim or interim == offset:
+                continue
+            account_moves = move.stock_valuation_layer_ids.account_move_id
+            lines = account_moves.line_ids.filtered(lambda l: l.account_id == interim)
+            if lines:
+                lines.write({'account_id': offset.id})
+        self.write({'x_studio_offset_account_updated': True, 'x_studio_gl_account_status': 'Updated'})
