@@ -22,7 +22,7 @@ for header_lines in records:
 
       for valid_terms in delivery_term:
 
-        header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', con_header.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
+        header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', con_header.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.name)],limit=1)
 
         if header_charges:
 
@@ -60,7 +60,7 @@ for header_lines in records:
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
   </record>
   <record id="automation_289_jin_company_id_in_consignment_charge_header" model="base.automation">

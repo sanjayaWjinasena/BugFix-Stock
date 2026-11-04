@@ -43,8 +43,8 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <tree>
-              <field name="x_studio_sequence" widget="handle"/>
-              <field name="x_name"/>
+              <field name="sequence" widget="handle"/>
+              <field name="name"/>
             </tree>
         </field>
     </record>
@@ -58,11 +58,11 @@
         <field name="arch" type="xml">
             <data>
               <xpath expr="//tree[1]" position="attributes">
-                <attribute name="default_order">x_name desc</attribute>
+                <attribute name="default_order">name desc</attribute>
               </xpath>
-              <xpath expr="//field[@name='x_studio_sequence']" position="before">
-                <xpath expr="//field[@name='x_name']" position="move"/>
-                <field name="x_studio_description"/>
+              <xpath expr="//field[@name='sequence']" position="before">
+                <xpath expr="//field[@name='name']" position="move"/>
+                <field name="description"/>
                 <field name="x_studio_supplier_id"/>
                 <field name="x_studio_currency_id"/>
                 <field name="x_studio_shipment_start_date"/>
@@ -74,9 +74,9 @@
                 <field name="x_studio_supplier_invoice_number" optional="hide"/>
                 <field name="x_studio_status" widget="badge" decoration-muted="x_studio_status == 'Draft'" decoration-info="x_studio_status == 'In Transit'" decoration-warning="x_studio_status == 'Under Custom Clearance'" decoration-success="x_studio_status == 'Done'" decoration-primary="x_studio_status == ('Consignment', 'TP Invoice')"/>
               </xpath>
-              <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+              <xpath expr="//field[@name='sequence']" position="attributes">
                 <attribute name="column_invisible">1</attribute></xpath>
-              <xpath expr="//field[@name='x_name']" position="attributes">
+              <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="string">Invoice Reference</attribute>
               </xpath>
             </data>
@@ -107,8 +107,8 @@
               </header>
               <header/>
               <sheet string="Consignment Header">
-                <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-                <field name="x_active" invisible="1"/>
+                <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+                <field name="active" invisible="1"/>
                 <!-- v0.0.25: sentinel fields for Odoo 17 strict-validation modifiers -->
                 <field name="x_studio_status" invisible="1"/>
                 <field name="x_studio_lines_copied" invisible="1"/>
@@ -118,7 +118,7 @@
                 <div class="oe_title">
                             <span class="o_form_label">Invoice Reference</span>
                             <h1>
-                                <field name="x_name" required="1" placeholder="Name..."/>
+                                <field name="name" required="1" placeholder="Name..."/>
                             </h1>
                         </div>
                 <group name="studio_group_01a9e3">
@@ -158,13 +158,13 @@
                   </button>
                   </div>
               </xpath>
-              <xpath expr="//field[@name='x_name']" position="attributes">
+              <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="force_save">True</attribute>
                 <attribute name="placeholder">New</attribute>
                 <attribute name="string">Consignment Reference</attribute>
               <attribute name="readonly">1</attribute><attribute name="required"/></xpath>
               <xpath expr="//group[@name='studio_group_01a9e3_left']" position="inside">
-                <field name="x_studio_description" string="Description" invisible="1" readonly="x_studio_status != 'Draft'"/>
+                <field name="description" string="Description" invisible="1" readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_supplier_id" string="Vendor" options="{&quot;no_create&quot;:true}" required="1" readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_currency_id" required="1" readonly="x_studio_status != 'Draft'"/>
                 <field name="x_studio_supplier_invoice_number" string="Supplier's Invoice No (Bill Reference)" required="1" help="Invoice number of the main supplier's invoice." readonly="x_studio_status != 'Draft'"/>
@@ -191,7 +191,7 @@
                 <field name="x_studio_custom_clearance" string="Custom Clearance" invisible="1"/>
                 <field name="x_studio_vend_dispatch_status" string="Vend. Dispatch Status" force_save="True" readonly="1" invisible="x_studio_vend_dispatch_status == False"/>
                 <field name="x_studio_vendor_dispatch_exchange_rate" string="Vendor Dispatch Exchange Rate"/>
-                <field name="x_studio_company_id" string="Company" force_save="True" readonly="1" invisible="1"/>
+                <field name="accounting_company_id" string="Company" force_save="True" readonly="1" invisible="1"/>
                 <field name="x_studio_vendor_dispatch" string="Vendor Dispatch" invisible="1"/>
                 <field name="x_studio_allocate_header_charges" string="Allocate Header Charges" invisible="1"/>
                 <field name="x_studio_header_charges_allocated" string="Header Charges Allocated" invisible="1"/>
@@ -205,16 +205,16 @@
                   <page string="Lines" name="studio_page_TKzcl">
                     <field name="x_studio_consignment_line_ids" string="Consignment Line Ids" readonly="(x_studio_header_charges_allocated == True) or (x_studio_status != 'Draft')">
                       <tree editable="bottom" create="false">
-                        <field name="x_studio_sequence" widget="handle" column_invisible="1"/>
+                        <field name="sequence" widget="handle" column_invisible="1"/>
                         <field name="x_studio_purchase_id" force_save="True" readonly="1"/>
                         <field name="x_studio_product_id" force_save="True" readonly="1"/>
-                        <field name="x_studio_description"/>
+                        <field name="description"/>
                         <field name="x_studio_tariff_code"/>
                         <field name="x_studio_warehouse"/>
                         <field name="x_studio_invoice_qty"/>
                         <field name="x_studio_weight" string="Weight" column_invisible="parent.x_studio_cost_allocation_method != 'by_weight'"/>
                         <field name="x_studio_volume" string="Volume" column_invisible="parent.x_studio_cost_allocation_method != 'by_volume'"/>
-                        <field name="x_studio_unit_price" force_save="True" readonly="1"/>
+                        <field name="unit_price" force_save="True" readonly="1"/>
                         <field name="x_studio_amount"/>
                         <field optional="show" name="x_studio_original_delivery_remainder" string="Original Delivery Remainder" column_invisible="1"/>
                         <field name="x_studio_exchange_rate" string="Exchange Rate" force_save="True" readonly="1" column_invisible="1"/>
@@ -239,24 +239,24 @@
                         <field name="x_studio_tot_duty_ex_cd_ids" optional="show" widget="many2many_tags" column_invisible="1"/>
                         <field name="x_studio_tot_tax_ex_cd_ids" optional="show" widget="many2many_tags" column_invisible="1"/>
                         <field name="x_studio_tot_charge_ex_cd_ids" optional="show" widget="many2many_tags" column_invisible="1"/>
-                        <field name="x_name" column_invisible="1"/>
+                        <field name="name" column_invisible="1"/>
                         <field name="x_studio_header_charges_allocated" optional="hide" string="Header Charges Allocated" column_invisible="1"/>
                       </tree>
                       <form>
                         <header/>
                         <sheet string="Consignment Line" name="studio_sheet_527984">
-                          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-                          <field name="x_active" invisible="1"/>
+                          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+                          <field name="active" invisible="1"/>
                           <div class="oe_title" name="studio_div_9afb5b">
                             <h1>
-                              <field name="x_name" required="1" placeholder="Name..." invisible="1"/>
+                              <field name="name" required="1" placeholder="Name..." invisible="1"/>
                             </h1>
                           </div>
                           <group name="studio_group_0644e6">
                             <group name="studio_group_0644e6_left">
                               <field name="x_studio_purchase_id"/>
                               <field name="x_studio_product_id"/>
-                              <field name="x_studio_description" string="Description"/>
+                              <field name="description" string="Description"/>
                               <field name="x_studio_warehouse" string="Warehouse"/>
                               <field name="x_studio_tariff_code" string="Tariff Code"/>
                               <field name="x_studio_consignment_header_id" string="Consignment Header Id" invisible="1"/>
@@ -264,7 +264,7 @@
                             <group name="studio_group_0644e6_right">
                               <field name="x_currency_id"/>
                               <field name="x_studio_invoice_qty" string="Invoice Qty."/>
-                              <field name="x_studio_unit_price" string="Unit Price"/>
+                              <field name="unit_price" string="Unit Price"/>
                               <field name="x_studio_amount" string="Amount"/>
                               <field name="x_studio_received_qty" string="Received Qty."/>
                               <field name="x_studio_order_remainder" string="Order Remainder" force_save="True" readonly="1"/>
@@ -337,7 +337,7 @@
         </div>
         <div class="o_kanban_record_bottom">
           <div class="oe_kanban_bottom_left">
-            <field name="x_name"/>  
+            <field name="name"/>  
           </div>
           <div class="oe_kanban_bottom_right">
             <field name="x_studio_status" widget="label_selection"/>
@@ -355,9 +355,9 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search>
-  <field name="x_name"/>
+  <field name="name"/>
   <separator/>
-  <filter string="Archived" name="archived_x_consignment_header" domain="[['x_active', '=', False]]"/>
+  <filter string="Archived" name="archived_x_consignment_header" domain="[['active', '=', False]]"/>
   <separator/>
 </search>
       </field>

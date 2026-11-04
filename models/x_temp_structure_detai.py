@@ -5,11 +5,11 @@ from odoo import fields, models
 
 class XTempStructureDetai(models.Model):
     _name = "x_temp_structure_detai"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Structure Details"
 
-    x_name = fields.Char(string="Name")
+    name = fields.Char(string="Name")
     x_studio_charge_group = fields.Selection(
         [
             ("None", "None"),
@@ -22,7 +22,7 @@ class XTempStructureDetai(models.Model):
     )
     x_studio_charge_name = fields.Char(string="Charge Name")
     x_studio_select = fields.Boolean(string="Select")
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_temp_structure_master_id = fields.Many2one(
         "x_temp_structure_maste", string="Temp Structure Master Id", ondelete="cascade"
     )
@@ -33,7 +33,7 @@ class XTempStructureDetai(models.Model):
 
 class XTempStructureDetaiGap(models.Model):
     _inherit = "x_temp_structure_detai"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")

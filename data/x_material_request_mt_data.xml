@@ -2,7 +2,7 @@
 <odoo>
     <data noupdate="1">
   <record id="default_final_bugfix_stock_field_x_material_request_mt_x_active_true" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_active"/>
+    <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__active"/>
     <field name="json_value">true</field>
   </record>
     </data>
@@ -11,7 +11,7 @@
     <field name="model_id" search="[('model', '=', 'x_material_request_mt')]"/>
     <field name="state">code</field>
     <field name="usage">base_automation</field>
-    <field name="code"><![CDATA[record['x_name'] = env['ir.sequence'].next_by_code('material.request.sequence')]]></field>
+    <field name="code"><![CDATA[record['name'] = env['ir.sequence'].next_by_code('material.request.sequence')]]></field>
   </record>
   <record id="base_automation_346_generate_sequence_number_for_mr" model="base.automation">
     <field name="name">Generate Sequence Number for MR</field>
@@ -22,22 +22,22 @@
   </record>
     <data noupdate="1">
     <!-- upgrade-testing: points at a specific record (company/user/partner/location/stage...), not shipped (company/user specific):
-    <record id="default_624_x_material_request_mt_x_studio_company_id" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_company_id"/>
+    <record id="default_624_x_material_request_mt_accounting_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__accounting_company_id"/>
       <field name="json_value">1</field>
       <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_pvt_ltd"/>
     </record>
     -->
     <!-- upgrade-testing: points at a specific record (company/user/partner/location/stage...), not shipped (company/user specific):
-    <record id="default_625_x_material_request_mt_x_studio_company_id" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_company_id"/>
+    <record id="default_625_x_material_request_mt_accounting_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__accounting_company_id"/>
       <field name="json_value">2</field>
       <field name="company_id" ref="seed_master_data_and_settings.company_jinasena_agricultural_machinery"/>
     </record>
     -->
     <!-- upgrade-testing: points at a specific record (company/user/partner/location/stage...), not shipped (company/user specific):
-    <record id="default_626_x_material_request_mt_x_studio_company_id" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_company_id"/>
+    <record id="default_626_x_material_request_mt_accounting_company_id" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__accounting_company_id"/>
       <field name="json_value">3</field>
       <field name="company_id" ref="seed_master_data_and_settings.company_jltd"/>
     </record>
@@ -63,8 +63,8 @@
       <field name="company_id" ref="seed_master_data_and_settings.company_jltd"/>
     </record>
     -->
-    <record id="default_630_x_material_request_mt_x_studio_sequence" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__x_studio_sequence"/>
+    <record id="default_630_x_material_request_mt_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_material_request_mt__sequence"/>
       <field name="json_value">10</field>
     </record>
     <!-- upgrade-testing: points at a specific record (company/user/partner/location/stage...), not shipped (record id):

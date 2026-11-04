@@ -38,9 +38,9 @@ for valid_line in record.x_studio_temp_consignment_line_ids:
 
     
 
-    create_con_lines = env['x_consignment_line'].create({'x_studio_consignment_header_id':record.x_studio_temp_consignment_header_id.id,'x_studio_purchase_id':valid_line.x_studio_purchase_id.id,'x_studio_product_id':valid_line.x_studio_product_id.id,'x_studio_description':valid_line.x_studio_description,'x_studio_payment_method':valid_line.x_studio_payment_method.id,
+    create_con_lines = env['x_consignment_line'].create({'x_studio_consignment_header_id':record.x_studio_temp_consignment_header_id.id,'x_studio_purchase_id':valid_line.x_studio_purchase_id.id,'x_studio_product_id':valid_line.x_studio_product_id.id,'description':valid_line.description,'x_studio_payment_method':valid_line.x_studio_payment_method.id,
 
-      'x_studio_tariff_code':valid_line.x_studio_product_id.x_studio_tariff_code.id,'x_studio_unit_price':valid_line.x_studio_unit_price,'x_currency_id':valid_line.x_currency_id.id,'x_studio_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_original_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_purchase_line_id':valid_line.x_studio_purchase_line_id.id,'x_studio_concessional_rate':valid_line.x_studio_concessional_rate,
+      'x_studio_tariff_code':valid_line.x_studio_product_id.x_studio_tariff_code.id,'unit_price':valid_line.unit_price,'x_currency_id':valid_line.x_currency_id.id,'x_studio_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_original_delivery_remainder':valid_line.x_studio_delivery_remainder,'x_studio_purchase_line_id':valid_line.x_studio_purchase_line_id.id,'x_studio_concessional_rate':valid_line.x_studio_concessional_rate,
 
       'x_studio_volume':valid_line.x_studio_volume,'x_studio_weight':valid_line.x_studio_weight})
 
@@ -117,12 +117,12 @@ if record.id:
     <field name="usage">ir_actions_server</field>
   </record>
     <data noupdate="1">
-    <record id="default_148_x_temp_consignment_hea_x_active" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__x_active"/>
+    <record id="default_148_x_temp_consignment_hea_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_149_x_temp_consignment_hea_x_studio_sequence" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__x_studio_sequence"/>
+    <record id="default_149_x_temp_consignment_hea_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_consignment_hea__sequence"/>
       <field name="json_value">10</field>
     </record>
     </data>

@@ -2,7 +2,7 @@
     # upgrade-testing branch: data files below are commented out - this branch installs
     # functions only, no data is seeded.
     "name": "Jinasena : Module : Inventory",
-    "version": "17.0.0.0.128",
+    "version": "17.0.0.0.129",
     "summary": "Studio-to-Python port for BugFix-Stock",
     "author": "Jinasena Agricultural Machinery (Pvt) Ltd.",
     "category": "Inventory",
@@ -137,11 +137,11 @@
     # ports referencing them would fail. Mirroring the inherit.
     # v0.0.26: cross-repo fix for BugFix-Purchase v0.1.0.32.
     # This module also declares x_material_request as a sentinel with
-    # x_active = fields.Boolean(string='Active') (no default). Since both
+    # active = fields.Boolean(string='Active') (no default). Since both
     # BugFix-Purchase and BugFix-Stock declare the model via _name, Odoo
     # merges field declarations at load time; whichever module loads LAST
     # wins for defaults. BugFix-Stock was overriding BugFix-Purchase's
-    # v0.1.0.32 default=True fix, so records still got x_active=False.
+    # v0.1.0.32 default=True fix, so records still got active=False.
     # Fix: add default=True to the sentinel too. Only x_material_request
     # is affected (verified via grep: no other Stock model overlaps with
     # a Purchase model name).
@@ -289,7 +289,7 @@
     # boundary - action operates on stock.return.picking and fits the
     # existing pattern of 7 other RR_* actions in BugFix-Stock.
     # Runtime deps (helpdesk.ticket.x_studio_*, stock.picking.
-    # x_studio_helpdesk_ticket_id) verified as state='base' on
+    # helpdesk_ticket_id) verified as state='base' on
     # repair-test-101 before landing.
     "depends": [
         "base_setup",

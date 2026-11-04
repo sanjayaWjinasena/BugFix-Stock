@@ -4,7 +4,7 @@
 
 ### `x_temp_con_conso_line` — Temp Con. Conso. Line
 
-*Created by this repo.* Python: `models/x_temp_con_conso_line.py`, `models/x_temp_con_conso_line_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_temp_con_conso_line.py`, `models/x_temp_con_conso_line_gap.py`. Record name field: `name`.
 
 Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_temp_con_conso_line_x_temp_con_conso_line_purchase_jin_procurement_end_user_imp` (BugFix-Studio-Misc)
 
@@ -48,15 +48,15 @@ A temporary candidate line in the Copy PI Lines to Consolidation wizard, holding
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_con_conso_line_x_active_true` |
-| `x_name` | Name | char | Name of the temporary consolidation candidate line. | stored |  |  |
+| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_con_conso_line_x_active_true` |
+| `name` | Name | char | Name of the temporary consolidation candidate line. | stored |  |  |
 | `x_studio_consignment_id` | Consignment Id | many2one → `x_consignment_header` | Consignment offered for selection in the Copy PI Lines to Consolidation wizard. | stored | `model x_consignment_header` |  |
 | `x_studio_container_no` | Container No | char | Container number of the candidate consignment. | stored |  |  |
 | `x_studio_currency_id` | Currency | many2one → `res.currency` | Currency of the candidate consignment; has a default value. | stored | `model res.currency` (base) | `default BugFix-Stock.default_229_x_temp_con_conso_line_x_studio_currency_id`<br>`default BugFix-Stock.default_430_x_temp_con_conso_line_x_studio_currency_id` |
 | `x_studio_custom_clearance_no` | Custom Clearance No | char | Customs clearance number of the candidate consignment. | stored |  |  |
 | `x_studio_invoice_date` | Invoice Date | date | Supplier invoice date of the candidate consignment. | stored |  |  |
 | `x_studio_select` | Select | boolean | Tick box in the consolidation wizard; ticked consignments become consolidation lines via 'Apply Selected PI Lines to Consolidation'. | stored |  |  |
-| `x_studio_sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_210_x_temp_con_conso_line_x_studio_sequence` |
+| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_210_x_temp_con_conso_line_sequence` |
 | `x_studio_shipment_start_date` | Shipment Start Date | date | Shipment start date of the candidate consignment. | stored |  |  |
 | `x_studio_shipping_mode` | Shipping Mode | selection: Air=Air; Sea=Sea; Road=Road; Courier=Courier | Shipping mode of the candidate consignment: Air, Sea, Road or Courier. | stored |  |  |
 | `x_studio_status` | Status | selection: Draft=Draft; Consignment=Confirmed; In Transit=In Transit; Under Custom Clearance=Under Custom Clearance; Done=Done; TP Invoice=TP Invoice | Status of the candidate consignment (Draft, Confirmed, In Transit, Under Custom Clearance, Done, TP Invoice). | stored |  |  |

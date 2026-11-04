@@ -27,7 +27,7 @@
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
@@ -57,7 +57,7 @@ record['x_studio_company_id'] = company.id]]></field>
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
   </record>
   <record id="automation_76_imp_con_lines_make_available_in_delete" model="base.automation">
@@ -104,16 +104,16 @@ if record.id:
 company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record['accounting_company_id'] = company.id
     ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_202_x_con_consolidated_lin_x_active" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__x_active"/>
+    <record id="default_202_x_con_consolidated_lin_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_203_x_con_consolidated_lin_x_studio_sequence" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__x_studio_sequence"/>
+    <record id="default_203_x_con_consolidated_lin_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_lin__sequence"/>
       <field name="json_value">10</field>
     </record>
     <record id="default_228_x_con_consolidated_lin_x_studio_currency_id" model="ir.default">

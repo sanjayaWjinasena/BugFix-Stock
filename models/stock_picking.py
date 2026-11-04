@@ -8,14 +8,14 @@ class StockPicking(models.Model):
         "account.analytic.account", string="Analytic Account", readonly=True
     )
     x_studio_budget_created = fields.Boolean(string="Budget Created", readonly=True)
-    x_studio_cancelled = fields.Boolean(string="Cancelled", readonly=True)
-    x_studio_cash_full_payment_made = fields.Boolean(
+    cancelled = fields.Boolean(string="Cancelled", readonly=True)
+    cash_full_payment_made = fields.Boolean(
         string="Cash Full Payment Made", readonly=True, store=False
     )
     x_studio_consignment_no = fields.Many2one(
         "x_consignment_header", string="Consignment No"
     )
-    x_studio_created_from_help_ticket = fields.Many2one(
+    created_from_help_ticket = fields.Many2one(
         "helpdesk.ticket", string="Created from Help Ticket"
     )
     x_studio_created_from_material_request_no = fields.Many2one(
@@ -25,18 +25,12 @@ class StockPicking(models.Model):
         string="Custom Clearance No", readonly=True
     )
     x_studio_factory_repair = fields.Boolean(string="Factory Repair")
-    x_studio_fsm_task_done = fields.Boolean(
-        string="FSM Task Done", readonly=True, store=False
-    )
-    x_studio_fully_paid_so = fields.Boolean(
-        string="Fully Paid SO", readonly=True, store=False
-    )
+    fsm_task_done = fields.Boolean(string="FSM Task Done", readonly=True, store=False)
+    fully_paid_so = fields.Boolean(string="Fully Paid SO", readonly=True, store=False)
     x_studio_gl_account_status = fields.Selection(
         [("Pending", "Pending"), ("Updated", "Updated")], string="G/L Account Status"
     )
-    x_studio_helpdesk_ticket_id = fields.Many2one(
-        "helpdesk.ticket", string="Helpdesk Ticket Id"
-    )
+    helpdesk_ticket_id = fields.Many2one("helpdesk.ticket", string="Helpdesk Ticket Id")
     x_studio_journal_type = fields.Many2one("x_journal_types", string="Journal Type")
     x_studio_maintenance_request_ = fields.Many2one(
         "maintenance.request", string="Maintenance Request #"
@@ -61,20 +55,18 @@ class StockPicking(models.Model):
         store=True,
         readonly=True,
     )
-    x_studio_need_approval = fields.Boolean(
-        string="Need Approval", readonly=True, store=False
-    )
+    need_approval = fields.Boolean(string="Need Approval", readonly=True, store=False)
     x_studio_offset_account_updated = fields.Boolean(string="Offset Account Updated")
     x_studio_picking_count = fields.Boolean(string="Picking Count")
     x_studio_pr_type = fields.Selection(
         [("Local", "Local"), ("Import", "Import")], string="PR Type", readonly=True
     )
-    x_studio_quotation_type = fields.Selection(
+    quotation_type = fields.Selection(
         [("Sales", "Sales"), ("Project", "Project"), ("Repair", "Repair")],
         string="Quotation Type",
         readonly=True,
     )
-    x_studio_quotation_type_2 = fields.Selection(
+    quotation_type_2 = fields.Selection(
         [("Sales", "Sales"), ("Project", "Project"), ("Repair", "Repair")],
         string="Quotation Type-2",
         readonly=True,
@@ -85,19 +77,19 @@ class StockPicking(models.Model):
         string="New Related Field",
         readonly=True,
     )
-    x_studio_repair_payment_made = fields.Boolean(
+    repair_payment_made = fields.Boolean(
         string="Repair Payment Made", readonly=True, store=False
     )
-    x_studio_repair_return_location = fields.Boolean(
+    repair_return_location = fields.Boolean(
         string="Repair Return Location", readonly=True
     )
-    x_studio_return_receipt_location = fields.Many2one(
+    return_receipt_location = fields.Many2one(
         "stock.location", string="Return Receipt Location", readonly=True
     )
-    x_studio_return_sequence = fields.Many2one(
+    return_sequence = fields.Many2one(
         "ir.sequence", string="Return Sequence", readonly=True
     )
-    x_studio_sales_order = fields.Many2one("sale.order", string="Sales Order")
+    sales_order = fields.Many2one("sale.order", string="Sales Order")
     x_studio_sequence_code = fields.Char(
         string="Sequence Code",
         related="picking_type_id.sequence_code",
@@ -108,10 +100,8 @@ class StockPicking(models.Model):
     x_studio_supplier_invoice_number_1 = fields.Char(
         string="Supplier Invoice Number", readonly=True
     )
-    x_studio_task_status = fields.Boolean(
-        string="Task Status", readonly=True, store=False
-    )
-    x_studio_ticket_sales_order = fields.Many2one(
+    task_status = fields.Boolean(string="Task Status", readonly=True, store=False)
+    ticket_sales_order = fields.Many2one(
         "sale.order", string="Ticket Sales Order", readonly=True, store=False
     )
     x_studio_transfer_approval = fields.Boolean(string="Transfer Approval")
@@ -119,26 +109,26 @@ class StockPicking(models.Model):
     x_studio_transfer_rejected = fields.Boolean(string="Transfer Rejected")
     x_studio_transfer_request_sent = fields.Boolean(string="Transfer Request Sent")
     x_studio_ttt = fields.Boolean(string="TTT")
-    x_studio_type_of_operation = fields.Selection(
+    type_of_operation = fields.Selection(
         string="Type of Operation",
         readonly=True,
         related="picking_type_id.code",
         store=True,
     )
     x_studio_update_consignment = fields.Boolean(string="Update Consignment")
-    x_studio_user_location_validation = fields.Boolean(
+    user_location_validation = fields.Boolean(
         string="User Location Validation", readonly=True, store=False
     )
     x_studio_user_location_validation_2 = fields.Boolean(
         string="User Location Validation 2"
     )
-    x_studio_valid_factory_repair = fields.Boolean(
+    valid_factory_repair = fields.Boolean(
         string="Valid Factory Repair", readonly=True, store=False
     )
-    x_studio_valid_transfer_lines = fields.Boolean(
+    valid_transfer_lines = fields.Boolean(
         string="Valid Transfer Lines", readonly=True, store=False
     )
-    x_studio_validation = fields.Char(string="Validation")
+    validation = fields.Char(string="Validation")
     x_studio_xxx = fields.Boolean(string="XXX")
     x_x_studio_create_from_transfer_1__account_move_count = fields.Integer(
         string="Create From Transfer count", store=False

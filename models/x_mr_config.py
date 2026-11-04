@@ -19,21 +19,21 @@ class XMrConfig(models.Model):
     _name = "x_mr_config"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "MR config"
-    _rec_name = "x_name"
-    _order = "x_studio_sequence asc, id asc"
+    _rec_name = "name"
+    _order = "sequence asc, id asc"
 
-    x_active = fields.Boolean(string="Active", default=True, copy=True)
+    active = fields.Boolean(string="Active", default=True, copy=True)
     x_currency_id = fields.Many2one(
         "res.currency", string="Currency", ondelete="set null", copy=True
     )
-    x_name = fields.Char(string="Name", copy=True)
+    name = fields.Char(string="Name", copy=True)
     x_studio_available_qty_to_transfer = fields.Float(
         string="Available Qty. to Transfer",
         store=False,
         compute="_compute_available_qty_to_transfer",
         readonly=True,
     )
-    x_studio_description = fields.Html(
+    description = fields.Html(
         string="Description",
         store=False,
         related="x_studio_product.description",
@@ -97,15 +97,15 @@ class XMrConfig(models.Model):
     x_studio_product = fields.Many2one(
         "product.product", string="Product", ondelete="set null", copy=True
     )
-    x_studio_qty = fields.Integer(string="Qty", copy=True)
+    qty = fields.Integer(string="Qty", copy=True)
     x_studio_qty_1 = fields.Integer(copy=True)
     x_studio_qty_to_transfer = fields.Float(string="Qty. to Transfer", copy=True)
     x_studio_qty_transfered = fields.Float(string="Qty. Transferred", copy=True)
-    x_studio_quantity = fields.Float(string="Quantity", copy=True)
+    quantity = fields.Float(string="Quantity", copy=True)
     x_studio_requested_by = fields.Many2one(
         "res.users", string="Requested by", ondelete="set null", copy=True
     )
-    x_studio_sequence = fields.Integer(string="Sequence", copy=True)
+    sequence = fields.Integer(string="Sequence", copy=True)
     x_studio_status = fields.Selection(
         string="Status",
         related="x_studio_many2one_field_6yqbk.x_studio_selection_field_BupKG",
@@ -152,33 +152,29 @@ class XMrConfig(models.Model):
         readonly=True,
     )
 
-    @api.depends("x_studio_quantity", "x_studio_qty_transfered")
+    @api.depends("quantity", "x_studio_qty_transfered")
     def _compute_transfer_remainder(self):
         for rec in self:
-            rec.x_studio_transfer_remainder = (
-                rec.x_studio_quantity - rec.x_studio_qty_transfered
-            )
+            rec.x_studio_transfer_remainder = rec.quantity - rec.x_studio_qty_transfered
 
-    @api.depends(
-        "x_studio_quantity", "x_studio_on_hand_qty_2", "x_studio_qty_transfered"
-    )
+    @api.depends("quantity", "x_studio_on_hand_qty_2", "x_studio_qty_transfered")
     def _compute_available_qty_to_transfer(self):
         # Ported from CDB Studio compute - preserves the branch logic
         # despite unusual conditions.
         for rec in self:
             onhand_qty = 0
             if rec.x_studio_qty_transfered == 0:
-                if rec.x_studio_quantity <= rec.x_studio_on_hand_qty_2:
-                    onhand_qty = rec.x_studio_quantity
+                if rec.quantity <= rec.x_studio_on_hand_qty_2:
+                    onhand_qty = rec.quantity
                 else:
                     onhand_qty = rec.x_studio_on_hand_qty_2
             else:
                 if (
-                    rec.x_studio_quantity - rec.x_studio_qty_transfered
+                    rec.quantity - rec.x_studio_qty_transfered
                 ) <= rec.x_studio_on_hand_qty_2:
-                    onhand_qty = (
-                        rec.x_studio_quantity - rec.x_studio_qty_transfered
-                    ) - (rec.x_studio_quantity - rec.x_studio_on_hand_qty_2)
+                    onhand_qty = (rec.quantity - rec.x_studio_qty_transfered) - (
+                        rec.quantity - rec.x_studio_on_hand_qty_2
+                    )
                 else:
                     onhand_qty = rec.x_studio_on_hand_qty_2
             rec.x_studio_available_qty_to_transfer = onhand_qty

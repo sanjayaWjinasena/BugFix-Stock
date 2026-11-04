@@ -28,12 +28,12 @@
         </header>
         <header/>
         <sheet string="Con. Consolidated Header">
-          <field name="x_studio_status" invisible="1"/><field name="x_studio_lines_copied" invisible="1"/><widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-          <field name="x_active" invisible="1"/>
+          <field name="x_studio_status" invisible="1"/><field name="x_studio_lines_copied" invisible="1"/><widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+          <field name="active" invisible="1"/>
           <div class="oe_title">
                       <span class="o_form_label">Con. Reference </span>
                       <h1>
-                          <field name="x_name" required="1" placeholder="Name..."/>
+                          <field name="name" required="1" placeholder="Name..."/>
                       </h1>
                   </div>
           <group name="studio_group_bc4ef6">
@@ -59,17 +59,17 @@
         <xpath expr="//button[@name='%(BugFix-Stock.server_action_1414_imp_clear_consignment_lines_from_consolidation)d']" position="after">
           <field widget="statusbar" name="x_studio_pipeline_status_bar" string="Pipeline Status Bar"/>
         </xpath>
-        <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']" position="attributes">
+        <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='name']" position="attributes">
           <attribute name="force_save">True</attribute>
           <attribute name="readonly">1</attribute></xpath>
         <xpath expr="//group[@name='studio_group_bc4ef6_left']" position="inside">
-          <field name="x_studio_description" string="Description" readonly="x_studio_status == 'Confirmed'"/>
+          <field name="description" string="Description" readonly="x_studio_status == 'Confirmed'"/>
         </xpath>
         <xpath expr="//group[@name='studio_group_bc4ef6_right']" position="inside">
           <field name="create_uid"/>
           <field name="create_date"/>
           <field name="x_studio_status" string="Status" force_save="True" readonly="1"/>
-          <field name="x_studio_company_id" string="Company" force_save="True" readonly="1" invisible="1"/>
+          <field name="accounting_company_id" string="Company" force_save="True" readonly="1" invisible="1"/>
           <field name="x_studio_lines_copied" string="Lines Copied" force_save="True" readonly="1" invisible="1"/>
         </xpath>
         <xpath expr="//group[@name='studio_group_bc4ef6']" position="after">
@@ -77,7 +77,7 @@
             <page string="Lines" name="studio_page_8O2sf">
               <field name="x_studio_con_line_ids" string="Con. Line Ids" readonly="x_studio_status != 'Draft'">
                 <tree create="false" edit="false">
-                  <field name="x_studio_sequence" widget="handle" column_invisible="1"/>
+                  <field name="sequence" widget="handle" column_invisible="1"/>
                   <field name="x_studio_consignment_id" string="Consignment No" force_save="True" readonly="1"/>
                   <field name="x_studio_supplier_id" force_save="True" readonly="1"/>
                   <field name="x_studio_currency_id" force_save="True" readonly="1"/>
@@ -88,7 +88,7 @@
                   <field name="x_studio_invoice_date" force_save="True" readonly="1" optional="hide"/>
                   <field name="x_studio_status" force_save="True" readonly="1" optional="hide"/>
                   <field name="x_studio_shipping_mode_1" force_save="True" readonly="1" optional="hide"/>
-                  <field name="x_name" column_invisible="1"/>
+                  <field name="name" column_invisible="1"/>
                 </tree>
               </field>
             </page>
@@ -103,8 +103,8 @@
     <field name="priority">16</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="x_studio_sequence" widget="handle"/>
-        <field name="x_name"/>
+        <field name="sequence" widget="handle"/>
+        <field name="name"/>
       </tree>
     </field>
   </record>
@@ -116,18 +116,18 @@
     <field name="arch" type="xml">
       <data>
         <xpath expr="//tree[1]" position="attributes">
-          <attribute name="default_order">x_name desc</attribute>
+          <attribute name="default_order">name desc</attribute>
         </xpath>
-        <xpath expr="//field[@name='x_studio_sequence']" position="before">
-          <xpath expr="//field[@name='x_name']" position="move"/>
-          <field name="x_studio_description"/>
+        <xpath expr="//field[@name='sequence']" position="before">
+          <xpath expr="//field[@name='name']" position="move"/>
+          <field name="description"/>
           <field name="create_uid" widget="many2one_avatar"/>
           <field name="create_date"/>
           <field name="x_studio_status" widget="badge" decoration-muted="x_studio_status == 'Draft'" decoration-success="x_studio_status == 'Confirmed'"/>
         </xpath>
-        <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+        <xpath expr="//field[@name='sequence']" position="attributes">
           <attribute name="column_invisible">1</attribute></xpath>
-        <xpath expr="//field[@name='x_name']" position="attributes">
+        <xpath expr="//field[@name='name']" position="attributes">
           <attribute name="string">Con. Reference</attribute>
         </xpath>
       </data>
@@ -139,9 +139,9 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search>
-  <field name="x_name"/>
+  <field name="name"/>
   <separator/>
-  <filter string="Archived" name="archived_x_con_consolidated_hea" domain="[['x_active', '=', False]]"/>
+  <filter string="Archived" name="archived_x_con_consolidated_hea" domain="[['active', '=', False]]"/>
   <separator/>
 </search>
       </field>

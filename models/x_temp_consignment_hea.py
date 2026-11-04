@@ -5,14 +5,14 @@ from odoo import fields, models
 
 class XTempConsignmentHea(models.Model):
     _name = "x_temp_consignment_hea"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Consignment Header"
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")
     x_studio_select_all = fields.Boolean(string="Select All")
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_temp_consignment_header_id = fields.Many2one(
         "x_consignment_header", string="Temp Consignment Header Id"
     )
@@ -25,7 +25,7 @@ class XTempConsignmentHea(models.Model):
 
 class XTempConsignmentHeaGap(models.Model):
     _inherit = "x_temp_consignment_hea"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")

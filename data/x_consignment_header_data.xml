@@ -4,11 +4,11 @@
     <field name="name">IMP - Consignment Details Seq.No</field>
     <field name="model_id" search="[('model', '=', 'x_consignment_header')]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+    <field name="code"><![CDATA[#record['name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
+if record.name == 'New':
  seq = env['ir.sequence'].next_by_code('consignment.det.seq')
- record.write({'x_name': seq})
+ record.write({'name': seq})
 
 
 
@@ -67,7 +67,7 @@ if record.x_studio_supplier_id.id:
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
@@ -98,7 +98,7 @@ if record.x_studio_bill_of_lading == False:
 
 dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)
 if dev_term:
-  despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+  despatch_account = env['x_imports_ledger_setup'].search([('accounting_company_id', '=', company.id)], limit=1)
   if despatch_account:
     if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
       raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
@@ -212,7 +212,7 @@ if con_line:
 
   for validate_unitprice in con_line:
 
-    if validate_unitprice.x_studio_unit_price == 0.0000:
+    if validate_unitprice.unit_price == 0.0000:
 
       raise UserError("Unit Price must be Specified in each Consignment Line!")
 
@@ -246,7 +246,7 @@ if delivery_term:
 
   for valid_terms in delivery_term:
 
-    header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.x_name)],limit=1)
+    header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms.name)],limit=1)
 
     if header_charges:
 
@@ -264,7 +264,7 @@ if delivery_term2:
 
   for valid_terms2 in delivery_term2:
 
-    header_charges2 = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms2.x_name)],limit=1)
+    header_charges2 = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_charge_group', '=', 'Charges'), ('x_studio_charge_name', '=', valid_terms2.name)],limit=1)
 
     if header_charges2:
 
@@ -704,11 +704,11 @@ if purchase_lines:
 
         if allocate_lines.x_studio_ledger_post == True:
 
-          cost_load = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name),('x_studio_debit_acc_type', '=', 'Item')],limit=1)
+          cost_load = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('name', '=', allocate_lines.x_studio_charge_name),('x_studio_debit_acc_type', '=', 'Item')],limit=1)
 
           ####01/07/2023
 
-          list_lines = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('x_name', '=', allocate_lines.x_studio_charge_name)]) 
+          list_lines = env['x_misc_charge_codes'].search([('x_studio_charge_group', '=', allocate_lines.x_studio_charge_group),('name', '=', allocate_lines.x_studio_charge_name)]) 
 
           ####01/07/2023
 
@@ -987,7 +987,7 @@ if record.id:
   header_charges = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_ledger_post', '=', True)],order='x_studio_charge_group asc')
   if header_charges:
     for post_charges in header_charges:
-      import_charges = env['x_import_charges'].search([('x_studio_charge_group', '=', post_charges.x_studio_charge_group), ('x_name', '=', post_charges.x_studio_charge_name), ('x_studio_post_to_ledger', '=', True), ('x_studio_company_id', '=', company.id)],limit=1)
+      import_charges = env['x_import_charges'].search([('x_studio_charge_group', '=', post_charges.x_studio_charge_group), ('name', '=', post_charges.x_studio_charge_name), ('x_studio_post_to_ledger', '=', True), ('accounting_company_id', '=', company.id)],limit=1)
       if import_charges:
         if import_charges.x_studio_ledger_account.id == 0:
           raise UserError('Ledger Account is not specified for the selected Charge/Duty/Tax' + ' (' + post_charges.x_studio_charge_name + ') ' + 'in Import Charges Setup.')
@@ -1013,7 +1013,7 @@ if record.id:
       else:
         raise UserError('Ledger Posting is Not Activated for the selected Charge/Duty/Tax' + ' (' + post_charges.x_studio_charge_name + ') ' + 'in Import Charges Setup.')
 
-  offset_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+  offset_account = env['x_imports_ledger_setup'].search([('accounting_company_id', '=', company.id)], limit=1)
   if offset_account:
     if offset_account.x_studio_purch_packing_slip_offset_account.id == 0:
       raise UserError('Packing Slip Offset Account must be Specified in Imports Ledger Setup')
@@ -1102,11 +1102,11 @@ if record.id:
     <field name="name">IMP - Consignment Details Seq.No</field>
     <field name="model_id" search="[('model', '=', 'x_consignment_header')]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+    <field name="code"><![CDATA[#record['name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
+if record.name == 'New':
  seq = env['ir.sequence'].next_by_code('consignment.det.seq')
- record.write({'x_name': seq})
+ record.write({'name': seq})
 
 
 
@@ -1162,7 +1162,7 @@ if record.x_studio_bill_of_lading == False:
 
 dev_term = env['x_delivery_terms'].search([('id', '=', record.x_studio_delivery_term.id),('x_studio_vendor_despatch', '=', True)],limit=1)
 if dev_term:
-  despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+  despatch_account = env['x_imports_ledger_setup'].search([('accounting_company_id', '=', company.id)], limit=1)
   if despatch_account:
     if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
       raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
@@ -1292,13 +1292,13 @@ else:
           'x_studio_supplier_id':validate_lines.partner_id.id,
           'x_studio_indent_no':validate_lines.order_id.x_studio_indent,
           'x_studio_product_id':validate_lines.product_id.id,
-          'x_studio_description':validate_lines.name or validate_lines.product_id.name,
-          'x_studio_quantity':validate_lines.product_qty,
+          'description':validate_lines.name or validate_lines.product_id.name,
+          'quantity':validate_lines.product_qty,
           'x_studio_weight':validate_lines.x_studio_weight,
           'x_studio_volume':validate_lines.x_studio_volume,
           'x_studio_delivery_remainder':validate_lines.product_qty - validate_lines.qty_received,
           'x_studio_consignment_remainder':validate_lines.product_qty - con_remainder,
-          'x_studio_unit_price':validate_lines.price_unit,
+          'unit_price':validate_lines.price_unit,
           'x_studio_concessional_rate':validate_lines.x_studio_concessional_rate,
           'x_currency_id':validate_lines.currency_id.id,
           'x_studio_subtotal':validate_lines.price_subtotal,
@@ -1459,7 +1459,7 @@ else:
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
   </record>
   <record id="server_action_2118_project_update_month_end_entries" model="ir.actions.server">
@@ -1594,11 +1594,11 @@ else:
     <field name="state">code</field>
     <field name="usage">base_automation</field>
     <field name="code"><![CDATA[
-#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+#record['name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
+if record.name == 'New':
  seq = env['ir.sequence'].next_by_code('consignment.det.seq')
- record.write({'x_name': seq})
+ record.write({'name': seq})
 
 
 
@@ -1645,7 +1645,7 @@ if cost_allocation:
 company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record['accounting_company_id'] = company.id
     ]]></field>
   </record>
   <record id="server_action_2890_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
@@ -1665,16 +1665,16 @@ if record.x_studio_supplier_id.id:
     ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_138_x_consignment_header_x_active" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_active"/>
+    <record id="default_138_x_consignment_header_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_139_x_consignment_header_x_studio_sequence" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_studio_sequence"/>
+    <record id="default_139_x_consignment_header_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__sequence"/>
       <field name="json_value">10</field>
     </record>
-    <record id="default_142_x_consignment_header_x_name" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__x_name"/>
+    <record id="default_142_x_consignment_header_name" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_header__name"/>
       <field name="json_value">"New"</field>
     </record>
     <record id="default_167_x_consignment_header_x_studio_allocate_header_ch" model="ir.default">

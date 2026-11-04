@@ -4,7 +4,7 @@
 
 ### `x_tariffmaster` — TariffMaster
 
-*Created by this repo.* Python: `models/x_tariffmaster.py`, `models/x_tariffmaster_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_tariffmaster.py`, `models/x_tariffmaster_gap.py`. Record name field: `name`.
 
 Other repos that use this model: `access right BugFix-Studio-Misc.access_g_tariff_master_x_tariffmaster_purchase_jin_procurement_end_user_import` (BugFix-Studio-Misc)<br>`access right BugFix-Studio-Misc.access_g_x_tariffmaster_x_tariffmaster_purchase_jin_pr_view_only` (BugFix-Studio-Misc)<br>`product.product.x_studio_many2one_field_AS0wC` (BugFix-Sales)<br>`product.product.x_studio_tariff_code` (BugFix-Sales)<br>`product.template.x_studio_tariff_code` (BugFix-Sales)<br>`x_tariff_date.x_studio_tariff_master_ids` (BugFix-Purchase)
 
@@ -48,17 +48,17 @@ A Tariff Master record is a customs tariff (HS) code with a description and comp
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag for tariff codes; defaults to active. | stored |  | `default BugFix-Stock.default_91_x_tariffmaster_x_active`<br>`view BugFix-Stock.ported_primary_2633_form_x_tariffmaster`<br>`view BugFix-Stock.view_2634_default_search_view_for_x_tariffmaster_e` |
-| `x_name` | Tarrif Code | char | Customs tariff (HS) code, shown in the tariff list, form and search. | stored |  | `view BugFix-Stock.ported_primary_2632_tree_x_tariffmaster`<br>`view BugFix-Stock.ported_primary_2633_form_x_tariffmaster`<br>`view BugFix-Stock.view_2634_default_search_view_for_x_tariffmaster_e` |
-| `x_studio_company_id` | Company | many2one → `res.company` | Company of the tariff code; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_572_jin_multi_company_tariffmaster`<br>`server action BugFix-Stock.sa_f5_x_tariffmaster_jin_company_id_in_tariffmaster`<br>`server action BugFix-Stock.server_action_2686_jin_company_id_in_tariffmaster`<br>`view BugFix-Stock.ported_view_2635_odoo_studio_default_form_view_for_x_tari`<br>`view BugFix-Stock.ported_view_2636_odoo_studio_default_list_view_for_x_tari` |
-| `x_studio_description` | Description | char | Description of the tariff code. | stored |  | `view BugFix-Stock.ported_view_2635_odoo_studio_default_form_view_for_x_tari`<br>`view BugFix-Stock.ported_view_2636_odoo_studio_default_list_view_for_x_tari` |
-| `x_studio_sequence` | Sequence | integer | Ordering number for tariff codes (list drag handle). | stored |  | `default BugFix-Stock.default_92_x_tariffmaster_x_studio_sequence`<br>`view BugFix-Stock.ported_primary_2632_tree_x_tariffmaster` |
+| `active` | Active | boolean | Archive flag for tariff codes; defaults to active. | stored |  | `default BugFix-Stock.default_91_x_tariffmaster_active`<br>`view BugFix-Stock.ported_primary_2633_form_x_tariffmaster`<br>`view BugFix-Stock.view_2634_default_search_view_for_x_tariffmaster_e` |
+| `name` | Tarrif Code | char | Customs tariff (HS) code, shown in the tariff list, form and search. | stored |  | `view BugFix-Stock.ported_primary_2632_tree_x_tariffmaster`<br>`view BugFix-Stock.ported_primary_2633_form_x_tariffmaster`<br>`view BugFix-Stock.view_2634_default_search_view_for_x_tariffmaster_e` |
+| `accounting_company_id` | Company | many2one → `res.company` | Company of the tariff code; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_572_jin_multi_company_tariffmaster`<br>`server action BugFix-Stock.sa_f5_x_tariffmaster_jin_company_id_in_tariffmaster`<br>`server action BugFix-Stock.server_action_2686_jin_company_id_in_tariffmaster`<br>`view BugFix-Stock.ported_view_2635_odoo_studio_default_form_view_for_x_tari`<br>`view BugFix-Stock.ported_view_2636_odoo_studio_default_list_view_for_x_tari` |
+| `description` | Description | char | Description of the tariff code. | stored |  | `view BugFix-Stock.ported_view_2635_odoo_studio_default_form_view_for_x_tari`<br>`view BugFix-Stock.ported_view_2636_odoo_studio_default_list_view_for_x_tari` |
+| `sequence` | Sequence | integer | Ordering number for tariff codes (list drag handle). | stored |  | `default BugFix-Stock.default_92_x_tariffmaster_sequence`<br>`view BugFix-Stock.ported_primary_2632_tree_x_tariffmaster` |
 
 **Server actions (2):**
 
 - **Execute Code** (`server_action_2686_jin_company_id_in_tariffmaster`, type `code`)
   - Function: Sets the Tariff Master record's Company to the user's current active company; run by the matching automation.
-  - Depends on: `model res.company` (base), `model x_tariffmaster`, `x_tariffmaster.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_tariffmaster`, `x_tariffmaster.accounting_company_id`
   - Used by: `automation BugFix-Stock.base_automation_320_jin_company_id_in_tariffmaster`
   <details><summary>code (5 lines)</summary>
 
@@ -66,12 +66,12 @@ A Tariff Master record is a customs tariff (HS) code with a description and comp
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 - **JIN - Company Id in TariffMaster** (`sa_f5_x_tariffmaster_jin_company_id_in_tariffmaster`, type `code`)
   - Function: Sets the Company of a Tariff Master record to the user's currently active company.
-  - Depends on: `model res.company` (base), `model x_tariffmaster`, `x_tariffmaster.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_tariffmaster`, `x_tariffmaster.accounting_company_id`
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (4 lines)</summary>
 
@@ -79,7 +79,7 @@ record["x_studio_company_id"] = company.id
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 **Automations (1):**
@@ -107,11 +107,11 @@ record["x_studio_company_id"] = company.id
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for x_tariffmaster | `ported_primary_2633_form_x_tariffmaster` | form | full form layout with 5 fields | Base Tariff Master form: archived ribbon, name title, two empty groups and chatter. | `x_tariffmaster.activity_ids`<br>`x_tariffmaster.message_follower_ids`<br>`x_tariffmaster.message_ids`<br>`x_tariffmaster.x_active`<br>`x_tariffmaster.x_name` | `view BugFix-Stock.ported_view_2635_odoo_studio_default_form_view_for_x_tari` |
-| Default list view for x_tariffmaster | `ported_primary_2632_tree_x_tariffmaster` | tree | full tree layout with 2 fields | Base list view of Tariff Masters showing a drag handle (sequence) and the name. | `x_tariffmaster.x_name`<br>`x_tariffmaster.x_studio_sequence` | `view BugFix-Stock.ported_view_2636_odoo_studio_default_list_view_for_x_tari` |
-| Default search view for x_tariffmaster | `view_2634_default_search_view_for_x_tariffmaster_e` | search | full search layout with 1 fields | Search view for Tariff Masters: search by name and an Archived filter. | `x_tariffmaster.x_active`<br>`x_tariffmaster.x_name` |  |
-| Odoo Studio: Default form view for x_tariffmaster customization | `ported_view_2635_odoo_studio_default_form_view_for_x_tari` | form | set string=Tarrif Code on `//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']`; inside `//group[@name='studio_group_f8209d_left']`: add field x_studio_description, field x_studio_company_id; after `//group[@name='studio_group_f8209d']`: add notebook | Customizes the Tariff Master form: labels name 'Tarrif Code', adds description and company, and an empty 'Date Range' tab (its field was dropped as orphan). | `view BugFix-Stock.ported_primary_2633_form_x_tariffmaster`<br>`x_tariffmaster.x_studio_company_id`<br>`x_tariffmaster.x_studio_description` |  |
-| Odoo Studio: Default list view for x_tariffmaster customization | `ported_view_2636_odoo_studio_default_list_view_for_x_tari` | tree | before `//field[@name='x_studio_sequence']`: add xpath, field x_studio_description, field x_studio_company_id; set column_invisible=1 on `//field[@name='x_studio_sequence']`; set required=1 on `//field[@name='x_name']` | Customizes the Tariff Master list: name (required) first, then description and optional company; hides the sequence handle. | `view BugFix-Stock.ported_primary_2632_tree_x_tariffmaster`<br>`x_tariffmaster.x_studio_company_id`<br>`x_tariffmaster.x_studio_description` |  |
+| Default form view for x_tariffmaster | `ported_primary_2633_form_x_tariffmaster` | form | full form layout with 5 fields | Base Tariff Master form: archived ribbon, name title, two empty groups and chatter. | `x_tariffmaster.activity_ids`<br>`x_tariffmaster.message_follower_ids`<br>`x_tariffmaster.message_ids`<br>`x_tariffmaster.active`<br>`x_tariffmaster.name` | `view BugFix-Stock.ported_view_2635_odoo_studio_default_form_view_for_x_tari` |
+| Default list view for x_tariffmaster | `ported_primary_2632_tree_x_tariffmaster` | tree | full tree layout with 2 fields | Base list view of Tariff Masters showing a drag handle (sequence) and the name. | `x_tariffmaster.name`<br>`x_tariffmaster.sequence` | `view BugFix-Stock.ported_view_2636_odoo_studio_default_list_view_for_x_tari` |
+| Default search view for x_tariffmaster | `view_2634_default_search_view_for_x_tariffmaster_e` | search | full search layout with 1 fields | Search view for Tariff Masters: search by name and an Archived filter. | `x_tariffmaster.active`<br>`x_tariffmaster.name` |  |
+| Odoo Studio: Default form view for x_tariffmaster customization | `ported_view_2635_odoo_studio_default_form_view_for_x_tari` | form | set string=Tarrif Code on `//form[1]/sheet[1]/div[1]/h1[1]/field[@name='name']`; inside `//group[@name='studio_group_f8209d_left']`: add field description, field accounting_company_id; after `//group[@name='studio_group_f8209d']`: add notebook | Customizes the Tariff Master form: labels name 'Tarrif Code', adds description and company, and an empty 'Date Range' tab (its field was dropped as orphan). | `view BugFix-Stock.ported_primary_2633_form_x_tariffmaster`<br>`x_tariffmaster.accounting_company_id`<br>`x_tariffmaster.description` |  |
+| Odoo Studio: Default list view for x_tariffmaster customization | `ported_view_2636_odoo_studio_default_list_view_for_x_tari` | tree | before `//field[@name='sequence']`: add xpath, field description, field accounting_company_id; set column_invisible=1 on `//field[@name='sequence']`; set required=1 on `//field[@name='name']` | Customizes the Tariff Master list: name (required) first, then description and optional company; hides the sequence handle. | `view BugFix-Stock.ported_primary_2632_tree_x_tariffmaster`<br>`x_tariffmaster.accounting_company_id`<br>`x_tariffmaster.description` |  |
 
 **Access rights (3):**
 
@@ -125,4 +125,4 @@ record["x_studio_company_id"] = company.id
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| JIN - Multi-Company - TariffMaster | `rule_572_jin_multi_company_tariffmaster` | For everyone (global rule): read/write/create/delete on TariffMaster only where `['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]`. | `model x_tariffmaster`<br>`x_tariffmaster.x_studio_company_id` |  |
+| JIN - Multi-Company - TariffMaster | `rule_572_jin_multi_company_tariffmaster` | For everyone (global rule): read/write/create/delete on TariffMaster only where `['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]`. | `model x_tariffmaster`<br>`x_tariffmaster.accounting_company_id` |  |

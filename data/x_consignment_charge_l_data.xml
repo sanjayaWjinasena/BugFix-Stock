@@ -7,7 +7,7 @@
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
@@ -18,7 +18,7 @@ record['x_studio_company_id'] = company.id]]></field>
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
   </record>
   <record id="automation_290_jin_company_id_in_consignment_charge_line" model="base.automation">
@@ -37,16 +37,16 @@ record['x_studio_company_id'] = company.id]]></field>
 company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record['accounting_company_id'] = company.id
     ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_163_x_consignment_charge_l_x_active" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_consignment_charge_l__x_active"/>
+    <record id="default_163_x_consignment_charge_l_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_charge_l__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_164_x_consignment_charge_l_x_studio_sequence" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_consignment_charge_l__x_studio_sequence"/>
+    <record id="default_164_x_consignment_charge_l_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_consignment_charge_l__sequence"/>
       <field name="json_value">10</field>
     </record>
     <record id="default_166_x_consignment_charge_l_x_studio_structure_no" model="ir.default">

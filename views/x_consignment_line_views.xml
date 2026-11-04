@@ -64,8 +64,8 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <tree>
-              <field name="x_studio_sequence" widget="handle"/>
-              <field name="x_name"/>
+              <field name="sequence" widget="handle"/>
+              <field name="name"/>
             </tree>
         </field>
     </record>
@@ -79,11 +79,11 @@
             <form>
               <header/>
               <sheet string="Consignment Line">
-                <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-                <field name="x_active" invisible="1"/>
+                <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+                <field name="active" invisible="1"/>
                 <div class="oe_title">
                             <h1>
-                                <field name="x_name" required="1" placeholder="Name..."/>
+                                <field name="name" required="1" placeholder="Name..."/>
                             </h1>
                         </div>
                 <group name="studio_group_0644e6">
@@ -104,12 +104,12 @@
         <field name="inherit_id" ref="BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line"/>
         <field name="arch" type="xml">
             <data>
-              <xpath expr="//field[@name='x_name']" position="attributes">
+              <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="invisible">1</attribute></xpath>
               <xpath expr="//group[@name='studio_group_0644e6_left']" position="inside">
                 <field name="x_studio_purchase_id"/>
                 <field name="x_studio_product_id"/>
-                <field name="x_studio_description" string="Description"/>
+                <field name="description" string="Description"/>
                 <field name="x_studio_warehouse" string="Warehouse"/>
                 <field name="x_studio_tariff_code" string="Tariff Code"/>
                 <field name="x_studio_consignment_header_id" string="Consignment Header Id" invisible="1"/>
@@ -117,7 +117,7 @@
               <xpath expr="//group[@name='studio_group_0644e6_right']" position="inside">
                 <field name="x_currency_id"/>
                 <field name="x_studio_invoice_qty" string="Invoice Qty."/>
-                <field name="x_studio_unit_price" string="Unit Price"/>
+                <field name="unit_price" string="Unit Price"/>
                 <field name="x_studio_amount" string="Amount"/>
                 <field name="x_studio_received_qty" string="Received Qty."/>
                 <field name="x_studio_status" string="Status"/>
@@ -141,19 +141,19 @@
                 <attribute name="edit">true</attribute>
                 <attribute name="editable">bottom</attribute>
               </xpath>
-              <xpath expr="//field[@name='x_studio_sequence']" position="before">
+              <xpath expr="//field[@name='sequence']" position="before">
                 <field name="x_studio_consignment_header_id" string="Consignment No" readonly="1"/>
                 <field name="x_studio_purchase_id" readonly="1"/>
                 <field name="x_studio_indent_no" string="Indent No"/>
                 <field name="x_studio_product_id" readonly="1"/>
-                <field name="x_studio_description" readonly="1"/>
+                <field name="description" readonly="1"/>
                 <field name="x_studio_tariff_code" readonly="1"/>
                 <field name="x_studio_warehouse" readonly="1"/>
                 <field name="x_studio_invoice_qty" readonly="1"/>
                 <field name="x_studio_received_qty" optional="hide" readonly="1"/>
-                <field name="x_studio_unit_price" readonly="1"/>
+                <field name="unit_price" readonly="1"/>
                 <field name="x_studio_amount" readonly="1"/>
-                <field optional="show" name="x_studio_company_id" string="Company" column_invisible="1"/>
+                <field optional="show" name="accounting_company_id" string="Company" column_invisible="1"/>
                 <field name="id"/>
                 <field optional="show" name="x_studio_many2many_field_ZvmKu" string="tot_tax_ex_cd_ids"/>
                 <field optional="show" name="x_studio_tot_charge_ids" string="tot_charge_ids" widget="many2many_tags"/>
@@ -171,9 +171,9 @@
                 <field name="x_currency_id" optional="hide" readonly="1"/>
                 <field name="x_studio_status" optional="hide" readonly="1"/>
               </xpath>
-              <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+              <xpath expr="//field[@name='sequence']" position="attributes">
                 <attribute name="column_invisible">1</attribute></xpath>
-              <xpath expr="//field[@name='x_name']" position="attributes">
+              <xpath expr="//field[@name='name']" position="attributes">
                 <attribute name="column_invisible">1</attribute></xpath>
             </data>
         </field>
@@ -184,9 +184,9 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search>
-  <field name="x_name"/>
+  <field name="name"/>
   <separator/>
-  <filter string="Archived" name="archived_x_consignment_line" domain="[['x_active', '=', False]]"/>
+  <filter string="Archived" name="archived_x_consignment_line" domain="[['active', '=', False]]"/>
   <separator/>
 </search>
       </field>

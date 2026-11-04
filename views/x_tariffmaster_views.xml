@@ -178,11 +178,11 @@
       <form>
         <header/>
         <sheet string="TariffMaster">
-          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-          <field name="x_active" invisible="1"/>
+          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+          <field name="active" invisible="1"/>
           <div class="oe_title">
                       <h1>
-                          <field name="x_name" required="1" placeholder="Name..."/>
+                          <field name="name" required="1" placeholder="Name..."/>
                       </h1>
                   </div>
           <group name="studio_group_f8209d">
@@ -205,12 +205,12 @@
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='x_name']" position="attributes">
+        <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='name']" position="attributes">
           <attribute name="string">Tarrif Code</attribute>
         </xpath>
         <xpath expr="//group[@name='studio_group_f8209d_left']" position="inside">
-          <field name="x_studio_description" string="Description"/>
-          <field name="x_studio_company_id" string="Company"/>
+          <field name="description" string="Description"/>
+          <field name="accounting_company_id" string="Company"/>
         </xpath>
         <xpath expr="//group[@name='studio_group_f8209d']" position="after">
           <notebook name="studio_notebook_T0Dw9">
@@ -227,8 +227,8 @@
     <field name="priority">16</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="x_studio_sequence" widget="handle"/>
-        <field name="x_name"/>
+        <field name="sequence" widget="handle"/>
+        <field name="name"/>
       </tree>
     </field>
   </record>
@@ -239,14 +239,14 @@
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//field[@name='x_studio_sequence']" position="before">
-          <xpath expr="//field[@name='x_name']" position="move"/>
-          <field name="x_studio_description"/>
-          <field name="x_studio_company_id" optional="show"/>
+        <xpath expr="//field[@name='sequence']" position="before">
+          <xpath expr="//field[@name='name']" position="move"/>
+          <field name="description"/>
+          <field name="accounting_company_id" optional="show"/>
         </xpath>
-        <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+        <xpath expr="//field[@name='sequence']" position="attributes">
           <attribute name="column_invisible">1</attribute></xpath>
-        <xpath expr="//field[@name='x_name']" position="attributes">
+        <xpath expr="//field[@name='name']" position="attributes">
           <attribute name="required">1</attribute></xpath>
       </data>
     </field>
@@ -257,9 +257,9 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search>
-  <field name="x_name"/>
+  <field name="name"/>
   <separator/>
-  <filter string="Archived" name="archived_x_tariffmaster" domain="[['x_active', '=', False]]"/>
+  <filter string="Archived" name="archived_x_tariffmaster" domain="[['active', '=', False]]"/>
   <separator/>
 </search>
       </field>

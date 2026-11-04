@@ -64,12 +64,12 @@
     <field name="state">code</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="code"><![CDATA[if record.x_name:
-  null_Mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.x_name)])
+    <field name="code"><![CDATA[if record.name:
+  null_Mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.name)])
   if not null_Mr_lines:
    raise UserError("Valid MR Lines Should Exists to Confirm!")
    
-  invalid_mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.x_name), ('x_studio_quantity', '<=', 0)])
+  invalid_mr_lines = env['x_mr_config'].search([('x_studio_many2one_field_6yqbk', '=', record.name), ('quantity', '<=', 0)])
   if invalid_mr_lines:
     raise UserError("Quantity of Individual MR Lines Should be Greater than Zero!")
     
@@ -181,7 +181,7 @@ else:
     <field name="state">code</field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
-    <field name="code"><![CDATA[record['x_name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')]]></field>
+    <field name="code"><![CDATA[record['name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')]]></field>
   </record>
   <record id="server_action_1650_pr_create_for_mr" model="ir.actions.server">
     <field name="name">PR create For MR</field>
@@ -193,9 +193,9 @@ else:
 
 for pr_line in record.x_studio_one2many_field_9DTZS:
 
-  pr_lines.append([0,0,{'x_studio_many2one_field_WAqP4':pr_line.x_studio_many2one_field_2LV9q.id,'x_studio_quantity':pr_line.x_studio_qty}])
+  pr_lines.append([0,0,{'x_studio_many2one_field_WAqP4':pr_line.x_studio_many2one_field_2LV9q.id,'quantity':pr_line.qty}])
 
-env['x_purchase_request'].create({'x_studio_mr_number':record.x_name,'x_studio_material_request_ref':record.id,'x_studio_type':record.x_studio_type, 'x_studio_order_lines_1':pr_lines})
+env['x_purchase_request'].create({'x_studio_mr_number':record.name,'x_studio_material_request_ref':record.id,'x_studio_type':record.x_studio_type, 'x_studio_order_lines_1':pr_lines})
 
 
 ]]></field>

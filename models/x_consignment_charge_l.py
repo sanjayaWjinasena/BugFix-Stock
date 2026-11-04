@@ -11,12 +11,12 @@ from odoo import fields, models
 
 class XConsignmentChargeL(models.Model):
     _name = "x_consignment_charge_l"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Consignment Charge Line"
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")
     x_studio_amount = fields.Float(string="Amount")
     x_studio_basis = fields.Selection(
         [("Percentage", "Percentage"), ("Fixed Per Document", "Fixed Per Document")],
@@ -32,7 +32,7 @@ class XConsignmentChargeL(models.Model):
         string="Charge Group",
     )
     x_studio_charge_name = fields.Char(string="Charge Name")
-    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    accounting_company_id = fields.Many2one("res.company", string="Company")
     x_studio_consignment_charge_header_id = fields.Many2one(
         "x_consignment_charge_h", string="Consignment Charge Header Id"
     )
@@ -43,15 +43,15 @@ class XConsignmentChargeL(models.Model):
     x_studio_indent_id = fields.Char(string="Indent_ID")
     x_studio_percent = fields.Float(string="Percent")
     x_studio_product = fields.Many2one("product.product", string="Product")
-    x_studio_quantity = fields.Float(string="Quantity")
-    x_studio_sequence = fields.Integer(string="Sequence")
+    quantity = fields.Float(string="Quantity")
+    sequence = fields.Integer(string="Sequence")
     x_studio_structure_no = fields.Integer(string="Structure No")
-    x_studio_unit_price = fields.Float(string="Unit Price")
+    unit_price = fields.Float(string="Unit Price")
 
 
 class XConsignmentChargeLGap(models.Model):
     _inherit = "x_consignment_charge_l"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")

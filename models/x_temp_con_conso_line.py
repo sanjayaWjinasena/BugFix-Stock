@@ -5,11 +5,11 @@ from odoo import fields, models
 
 class XTempConConsoLine(models.Model):
     _name = "x_temp_con_conso_line"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Con. Conso. Line"
 
-    x_name = fields.Char(string="Name")
+    name = fields.Char(string="Name")
     x_studio_consignment_id = fields.Many2one(
         "x_consignment_header", string="Consignment Id"
     )
@@ -18,7 +18,7 @@ class XTempConConsoLine(models.Model):
     x_studio_custom_clearance_no = fields.Char(string="Custom Clearance No")
     x_studio_invoice_date = fields.Date(string="Invoice Date")
     x_studio_select = fields.Boolean(string="Select")
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_shipment_start_date = fields.Date(string="Shipment Start Date")
     x_studio_shipping_mode = fields.Selection(
         [("Air", "Air"), ("Sea", "Sea"), ("Road", "Road"), ("Courier", "Courier")],
@@ -49,7 +49,7 @@ class XTempConConsoLine(models.Model):
 
 class XTempConConsoLineGap(models.Model):
     _inherit = "x_temp_con_conso_line"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")

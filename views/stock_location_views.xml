@@ -4,8 +4,8 @@
     <field name="name">Internal Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_users_internal_transfer', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_users_internal_transfer': active_id,'default_x_studio_users_internal_transfer': [active_id]}</field>
+    <field name="domain">[('users_internal_transfer', '=', active_id)]</field>
+    <field name="context">{'search_default_users_internal_transfer': active_id,'default_users_internal_transfer': [active_id]}</field>
   </record>
   <record id="aw_f4_stock_location_location" model="ir.actions.act_window">
     <field name="name">Location</field>
@@ -21,15 +21,15 @@
     <field name="name">Stock Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_users_stock_location', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_users_stock_location': active_id,'default_x_studio_users_stock_location': [active_id]}</field>
+    <field name="domain">[('users_stock_location', '=', active_id)]</field>
+    <field name="context">{'search_default_users_stock_location': active_id,'default_users_stock_location': [active_id]}</field>
   </record>
   <record id="action_2488_internal_locations" model="ir.actions.act_window">
     <field name="name">Internal Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_users_internal_transfer', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_users_internal_transfer': active_id,'default_x_studio_users_internal_transfer': [active_id]}</field>
+    <field name="domain">[('users_internal_transfer', '=', active_id)]</field>
+    <field name="context">{'search_default_users_internal_transfer': active_id,'default_users_internal_transfer': [active_id]}</field>
   </record>
   <record id="action_2470_location" model="ir.actions.act_window">
     <field name="name">Location</field>
@@ -45,8 +45,8 @@
     <field name="name">Stock Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_users_stock_location', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_users_stock_location': active_id,'default_x_studio_users_stock_location': [active_id]}</field>
+    <field name="domain">[('users_stock_location', '=', active_id)]</field>
+    <field name="context">{'search_default_users_stock_location': active_id,'default_users_stock_location': [active_id]}</field>
   </record>
     <record id="ported_view_2389_studio_stock_location_form" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.location.form customization</field>
@@ -61,15 +61,15 @@
                 <attribute name="edit">true</attribute>
               </xpath>
               <xpath expr="//field[@name='return_location']" position="after">
-                <field name="x_studio_repair_return_location" string="Repair Return Location"/>
-                <field name="x_studio_repair_factory_location" string="Repair Factory Location"/>
-                <field name="x_studio_finished_good_location"/>
-                <field name="x_studio_temp_location" string="Temp Location"/>
-                <field name="x_studio_return_receipt_location" string="Return Receipt Location" invisible="1"/>
-                <field name="x_studio_return_sequence" string="Return Sequence" invisible="1"/>
-                <field name="x_studio_many2many_field_7kpUe" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" string="Users (Cell Visibility)"/>
-                <field name="x_studio_users_internal_transfer" string="Users (Internal Transfer)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" invisible="True"/>
-                <field name="x_studio_users_stock_location" string="Users (Stock Location)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}"/>
+                <field name="repair_return_location" string="Repair Return Location"/>
+                <field name="repair_factory_location" string="Repair Factory Location"/>
+                <field name="finished_good_location"/>
+                <field name="temp_location" string="Temp Location"/>
+                <field name="return_receipt_location" string="Return Receipt Location" invisible="1"/>
+                <field name="return_sequence" string="Return Sequence" invisible="1"/>
+                <field name="many2many_field_7kpUe" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" string="Users (Cell Visibility)"/>
+                <field name="users_internal_transfer" string="Users (Internal Transfer)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}" invisible="True"/>
+                <field name="users_stock_location" string="Users (Stock Location)" widget="many2many_tags" options="{&quot;no_create&quot;: true, &quot;color_field&quot;: &quot;color&quot;}"/>
               </xpath>
             </data>
         </field>
@@ -89,10 +89,10 @@
                 <field name="barcode" optional="show"/>
               </xpath>
               <xpath expr="//field[@name='usage']" position="after">
-                <field name="x_studio_repair_return_location" optional="show"/>
-                <field name="x_studio_repair_factory_location" optional="show"/>
-                <field optional="show" name="x_studio_finished_good_location" string="Finished Good Location"/>
-                <field name="x_studio_temp_location" optional="show"/>
+                <field name="repair_return_location" optional="show"/>
+                <field name="repair_factory_location" optional="show"/>
+                <field optional="show" name="finished_good_location" string="Finished Good Location"/>
+                <field name="temp_location" optional="show"/>
                 <field name="id" optional="show"/>
               </xpath>
             </data>
@@ -102,8 +102,8 @@
     <field name="name">Internal Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_users_internal_transfer', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_users_internal_transfer': active_id,'default_x_studio_users_internal_transfer': [active_id]}</field>
+    <field name="domain">[('users_internal_transfer', '=', active_id)]</field>
+    <field name="context">{'search_default_users_internal_transfer': active_id,'default_users_internal_transfer': [active_id]}</field>
   </record>
   <record id="act_window_2470_location" model="ir.actions.act_window">
     <field name="name">Location</field>
@@ -119,7 +119,7 @@
     <field name="name">Stock Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_users_stock_location', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_users_stock_location': active_id,'default_x_studio_users_stock_location': [active_id]}</field>
+    <field name="domain">[('users_stock_location', '=', active_id)]</field>
+    <field name="context">{'search_default_users_stock_location': active_id,'default_users_stock_location': [active_id]}</field>
   </record>
 </odoo>

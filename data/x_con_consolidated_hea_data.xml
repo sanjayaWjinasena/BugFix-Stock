@@ -4,11 +4,11 @@
     <field name="name">Con. Consolidated Seq.No</field>
     <field name="model_id" search="[('model', '=', 'x_con_consolidated_hea')]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+    <field name="code"><![CDATA[#record['name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
+if record.name == 'New':
  seq = env['ir.sequence'].next_by_code('con.consolidated.seq')
- record.write({'x_name': seq})
+ record.write({'name': seq})
 
 
 
@@ -38,7 +38,7 @@ if record.x_name == 'New':
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
@@ -47,11 +47,11 @@ record['x_studio_company_id'] = company.id]]></field>
     <field name="name">Con. Consolidated Seq.No</field>
     <field name="model_id" search="[('model', '=', 'x_con_consolidated_hea')]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+    <field name="code"><![CDATA[#record['name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
+if record.name == 'New':
  seq = env['ir.sequence'].next_by_code('con.consolidated.seq')
- record.write({'x_name': seq})
+ record.write({'name': seq})
 
 
 
@@ -156,7 +156,7 @@ if record.x_name == 'New':
     <field name="code"><![CDATA[company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id]]></field>
+record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
   </record>
   <record id="automation_74_jin_consignment_consolidated_seq_no" model="base.automation">
@@ -186,11 +186,11 @@ record['x_studio_company_id'] = company.id]]></field>
     <field name="state">code</field>
     <field name="usage">base_automation</field>
     <field name="code"><![CDATA[
-#record['x_name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
+#record['name'] = env['ir.sequence'].next_by_code('purchase.request.seq')
 
-if record.x_name == 'New':
+if record.name == 'New':
  seq = env['ir.sequence'].next_by_code('con.consolidated.seq')
- record.write({'x_name': seq})
+ record.write({'name': seq})
 
 
 
@@ -222,20 +222,20 @@ if record.x_studio_status != 'Draft':
 company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
 company = env['res.company'].browse(company_id)
 
-record['x_studio_company_id'] = company.id
+record['accounting_company_id'] = company.id
     ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_200_x_con_consolidated_hea_x_active" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_active"/>
+    <record id="default_200_x_con_consolidated_hea_active" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_201_x_con_consolidated_hea_x_studio_sequence" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_studio_sequence"/>
+    <record id="default_201_x_con_consolidated_hea_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__sequence"/>
       <field name="json_value">10</field>
     </record>
-    <record id="default_204_x_con_consolidated_hea_x_name" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__x_name"/>
+    <record id="default_204_x_con_consolidated_hea_name" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_con_consolidated_hea__name"/>
       <field name="json_value">"New"</field>
     </record>
     <record id="default_205_x_con_consolidated_hea_x_studio_pipeline_status_bar" model="ir.default">

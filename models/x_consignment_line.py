@@ -11,19 +11,19 @@ class XConsignmentLine(models.Model):
     """Studio-ported custom model x_consignment_line."""
 
     _name = "x_consignment_line"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Consignment Line"
 
-    x_active = fields.Boolean(string="Active")
+    active = fields.Boolean(string="Active")
     x_currency_id = fields.Many2one("res.currency", string="Currency", readonly=True)
-    x_name = fields.Char(string="Name")
+    name = fields.Char(string="Name")
     x_studio_allocate_amount = fields.Float(string="Allocate Amount", readonly=True)
     x_studio_amount = fields.Float(
         string="Amount", readonly=True
     )  # was Monetary (no currency_field)
     x_studio_boolean_field_Gbd5Y = fields.Boolean(string="Valid Duty")
-    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    accounting_company_id = fields.Many2one("res.company", string="Company")
     x_studio_concessional_rate = fields.Boolean(string="Concessional Rate")
     x_studio_consignment_header_id = fields.Many2one(
         "x_consignment_header", string="Consignment No", ondelete="restrict"
@@ -42,7 +42,7 @@ class XConsignmentLine(models.Model):
     x_studio_delivery_remainder = fields.Float(
         string="Delivery Remainder", readonly=True
     )
-    x_studio_description = fields.Char(string="Description", readonly=True, store=False)
+    description = fields.Char(string="Description", readonly=True, store=False)
     x_studio_exchange_rate = fields.Float(string="Exchange Rate")
     x_studio_header_charges_allocated = fields.Boolean(
         string="Header Charges Allocated", readonly=True
@@ -68,7 +68,7 @@ class XConsignmentLine(models.Model):
         "purchase.order.line", string="Purchase Line Id"
     )
     x_studio_received_qty = fields.Float(string="Received Qty.", readonly=True)
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_status = fields.Selection(
         [
             ("Draft", "Draft"),
@@ -183,7 +183,7 @@ class XConsignmentLine(models.Model):
         "x_misc_charge_codes_id",
         string="tot_tax_ids",
     )
-    x_studio_unit_price = fields.Float(string="Unit Price")
+    unit_price = fields.Float(string="Unit Price")
     x_studio_valid_charge = fields.Boolean(string="Valid Charge")
     x_studio_valid_charge_cd = fields.Boolean(string="Valid Charge Cd")
     x_studio_valid_charge_ex = fields.Boolean(string="Valid Charge Ex")
@@ -205,10 +205,10 @@ class XConsignmentLine(models.Model):
 
 class XConsignmentLineGap(models.Model):
     _inherit = "x_consignment_line"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
+    active = fields.Boolean(string="Active")
     x_currency_id = fields.Many2one(
         comodel_name="res.currency", string="Currency", readonly=True
     )
-    x_name = fields.Char(string="Name")
+    name = fields.Char(string="Name")

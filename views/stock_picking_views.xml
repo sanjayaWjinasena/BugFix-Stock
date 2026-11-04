@@ -11,8 +11,8 @@
     <field name="name">Repair Trans.</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_created_from_help_ticket', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_created_from_help_ticket': active_id,'default_x_studio_created_from_help_ticket': active_id}</field>
+    <field name="domain">[('created_from_help_ticket', '=', active_id)]</field>
+    <field name="context">{'search_default_created_from_help_ticket': active_id,'default_created_from_help_ticket': active_id}</field>
   </record>
   <record id="aw_f4_stock_picking_stock_picking" model="ir.actions.act_window">
     <field name="name">stock.picking</field>
@@ -37,8 +37,8 @@
     <field name="name">Repair Trans.</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_created_from_help_ticket', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_created_from_help_ticket': active_id,'default_x_studio_created_from_help_ticket': active_id}</field>
+    <field name="domain">[('created_from_help_ticket', '=', active_id)]</field>
+    <field name="context">{'search_default_created_from_help_ticket': active_id,'default_created_from_help_ticket': active_id}</field>
   </record>
   <record id="action_2536_stock_picking" model="ir.actions.act_window">
     <field name="name">stock.picking</field>
@@ -122,11 +122,11 @@
                 <attribute name="groups">stock.group_stock_user</attribute>
               </xpath>
               <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="after">
-                <button type="action" name="%(stock.act_stock_return_picking)d" string="Dispatch" invisible="((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_fsm_task_done == False) and (x_studio_created_from_help_ticket != False)) or (((x_studio_fsm_task_done == False) and (x_studio_helpdesk_ticket_id != False)) or (((x_studio_cancelled == False) and ((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False))) or ((state != 'done') or ((x_studio_helpdesk_ticket_id == False) or ((x_studio_cash_full_payment_made == True) or ((x_studio_fully_paid_so == False) or (x_studio_picking_count == True)))))))))))"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1999_rr_re_return_validation)d" string="Retun Reject Reason" class="btn-primary" invisible="((x_studio_fsm_task_done == True) and (x_studio_created_from_help_ticket != False)) or (((x_studio_fsm_task_done == True) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or ((x_studio_helpdesk_ticket_id == False) or (x_studio_cancelled == True))))"/>
+                <button type="action" name="%(stock.act_stock_return_picking)d" string="Dispatch" invisible="((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (created_from_help_ticket != False))) or (((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (helpdesk_ticket_id != False))) or (((valid_factory_repair == False) and ((x_studio_factory_repair == True) and (created_from_help_ticket != False))) or (((valid_factory_repair == False) and ((x_studio_factory_repair == True) and (helpdesk_ticket_id != False))) or (((fsm_task_done == False) and (created_from_help_ticket != False)) or (((fsm_task_done == False) and (helpdesk_ticket_id != False)) or (((cancelled == False) and ((task_status == False) and (helpdesk_ticket_id != False))) or ((state != 'done') or ((helpdesk_ticket_id == False) or ((cash_full_payment_made == True) or ((fully_paid_so == False) or (x_studio_picking_count == True)))))))))))"/>
+                <button type="action" name="%(BugFix-Stock.server_action_1999_rr_re_return_validation)d" string="Retun Reject Reason" class="btn-primary" invisible="((fsm_task_done == True) and (created_from_help_ticket != False)) or (((fsm_task_done == True) and (helpdesk_ticket_id != False)) or ((state != 'done') or ((helpdesk_ticket_id == False) or (cancelled == True))))"/>
               </xpath>
               <xpath expr="//form[1]/header[1]/button[@name='%(stock.act_stock_return_picking)d'][2]" position="attributes">
-                <attribute name="invisible">(state != 'done') or (((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or (x_studio_helpdesk_ticket_id != False)))</attribute>
+                <attribute name="invisible">(state != 'done') or (((task_status == False) and (helpdesk_ticket_id != False)) or ((state != 'done') or (helpdesk_ticket_id != False)))</attribute>
               </xpath>
               <xpath expr="//button[@name='action_cancel']" position="attributes">
                 <attribute name="studio_approval">True</attribute>
@@ -155,7 +155,7 @@
               <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_id']" position="attributes">
                 <attribute name="domain">[]</attribute>
                 <attribute name="invisible">picking_type_code == 'incoming'</attribute>
-                <attribute name="readonly">(x_studio_type_of_operation != 'internal') or ((picking_type_code == 'internal') or (state not in ['draft']))</attribute>
+                <attribute name="readonly">(type_of_operation != 'internal') or ((picking_type_code == 'internal') or (state not in ['draft']))</attribute>
               </xpath>
               <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_dest_id']" position="attributes">
                 <attribute name="help">Destination Location.</attribute>
@@ -163,15 +163,15 @@
                 <attribute name="readonly">state not in ['draft']</attribute>
               </xpath>
               <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='location_dest_id']" position="after">
-                <field name="x_studio_need_approval" string="Need Approval" invisible="1"/>
-                <field name="x_studio_helpdesk_ticket_id" string="Helpdesk Ticket Id" invisible="x_studio_helpdesk_ticket_id == False"/>
-                <field name="x_studio_created_from_help_ticket" string="Created from Help Ticket" force_save="True" readonly="1" invisible="x_studio_created_from_help_ticket == False"/>
+                <field name="need_approval" string="Need Approval" invisible="1"/>
+                <field name="helpdesk_ticket_id" string="Helpdesk Ticket Id" invisible="helpdesk_ticket_id == False"/>
+                <field name="created_from_help_ticket" string="Created from Help Ticket" force_save="True" readonly="1" invisible="created_from_help_ticket == False"/>
                 <field name="x_studio_created_from_material_request_no" string="Created from Material Request No" force_save="True" readonly="1" invisible="x_studio_created_from_material_request_no == False"/>
-                <field name="x_studio_cancelled" string="Cancelled" invisible="1"/>
-                <field name="x_studio_task_status" string="Task Status" invisible="1"/>
+                <field name="cancelled" string="Cancelled" invisible="1"/>
+                <field name="task_status" string="Task Status" invisible="1"/>
               </xpath>
               <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/label[1]" position="before">
-                <field name="x_studio_sales_order" string="Sales Order" domain="[('partner_id', '=', partner_id)]" readonly="(partner_id == False) or (state != 'draft')"/>
+                <field name="sales_order" string="Sales Order" domain="[('partner_id', '=', partner_id)]" readonly="(partner_id == False) or (state != 'draft')"/>
               </xpath>
               <xpath expr="//field[@name='date_done']" position="after">
                 <field name="purchase_id" help="Purchase Order Number which goods are to be received from." invisible="purchase_id == False"/>
@@ -184,45 +184,45 @@
               </xpath>
               <xpath expr="//field[@name='origin']" position="attributes">
                 <attribute name="invisible">purchase_id != False</attribute>
-                <attribute name="readonly">(state in ['cancel', 'done']) or ((x_studio_sales_order != False) or (state in ['done', 'cancel']))</attribute>
+                <attribute name="readonly">(state in ['cancel', 'done']) or ((sales_order != False) or (state in ['done', 'cancel']))</attribute>
               </xpath>
               <xpath expr="//field[@name='origin']" position="after">
                 <field name="x_studio_journal_type" string="Journal Type" options="{&quot;no_create&quot;:true}" invisible="x_studio_movement_journal == False" readonly="False" required="x_studio_movement_journal == True" force_save="0"/>
                 <field name="x_studio_gl_account_status" string="G/L Account Status" force_save="True" readonly="1" invisible="x_studio_movement_journal == False"/>
                 <field name="x_studio_offset_account_updated" string="Offset Account Updated" force_save="True" readonly="1" invisible="1"/>
                 <field name="sale_id" force_save="True" readonly="1" invisible="sale_id == False"/>
-                <field name="x_studio_ticket_sales_order" string="Ticket Sales Order" invisible="x_studio_ticket_sales_order == False"/>
-                <field name="x_studio_repair_payment_made" string="Repair Payment Made" force_save="True" readonly="1" invisible="1"/>
-                <field name="x_studio_cash_full_payment_made" string="Cash Full Payment Made" invisible="1"/>
-                <field name="x_studio_quotation_type" string="Quotation Type" required="False" force_save="1" readonly="True"/>
-                <field name="x_studio_type_of_operation" string="Type of Operation"/>
+                <field name="ticket_sales_order" string="Ticket Sales Order" invisible="ticket_sales_order == False"/>
+                <field name="repair_payment_made" string="Repair Payment Made" force_save="True" readonly="1" invisible="1"/>
+                <field name="cash_full_payment_made" string="Cash Full Payment Made" invisible="1"/>
+                <field name="quotation_type" string="Quotation Type" required="False" force_save="1" readonly="True"/>
+                <field name="type_of_operation" string="Type of Operation"/>
                 <field name="x_studio_sequence_code" string="Sequence Code" invisible="1"/>
                 <field name="x_studio_movement_journal" string="Movement Journal" invisible="1"/>
                 <field name="x_studio_mj_in" string="MJ IN" invisible="1"/>
                 <field name="x_studio_mj_out" string="MJ OUT" invisible="1"/>
-                <field name="x_studio_valid_factory_repair" string="Valid Factory Repair" force_save="True" readonly="1" invisible="1"/>
-                <field name="x_studio_quotation_type_2" string="Quotation Type-2" invisible="1"/>
-                <field name="x_studio_analytic_account" string="Analytic Account" invisible="x_studio_quotation_type != 'Project'"/>
+                <field name="valid_factory_repair" string="Valid Factory Repair" force_save="True" readonly="1" invisible="1"/>
+                <field name="quotation_type_2" string="Quotation Type-2" invisible="1"/>
+                <field name="x_studio_analytic_account" string="Analytic Account" invisible="quotation_type != 'Project'"/>
                 <field name="x_studio_budget_created" string="Budget Created" invisible="1"/>
-                <field name="x_studio_repair_return_location" string="Repair Return Location" invisible="1"/>
-                <field name="x_studio_return_receipt_location" string="Return Receipt Location" invisible="1"/>
-                <field name="x_studio_return_sequence" string="Return Sequence" invisible="1"/>
+                <field name="repair_return_location" string="Repair Return Location" invisible="1"/>
+                <field name="return_receipt_location" string="Return Receipt Location" invisible="1"/>
+                <field name="return_sequence" string="Return Sequence" invisible="1"/>
                 <field name="x_studio_maintenance_request_" string="Maintenance Request #" invisible="1"/>
                 <field name="x_studio_transfer_approval" string="Transfer Approval" force_save="True" readonly="1" invisible="1"/>
                 <field name="x_studio_transfer_request_sent" string="Transfer Request Sent" force_save="True" readonly="1" invisible="1"/>
                 <field name="x_studio_transfer_approved" string="Transfer Approved" force_save="True" readonly="1" invisible="1"/>
                 <field name="x_studio_transfer_rejected" string="Transfer Rejected" force_save="True" readonly="1" invisible="1"/>
-                <field name="x_studio_valid_transfer_lines" string="Valid Transfer Lines" force_save="True" readonly="1" invisible="1"/>
+                <field name="valid_transfer_lines" string="Valid Transfer Lines" force_save="True" readonly="1" invisible="1"/>
               </xpath>
               <xpath expr="//field[@name='owner_id']" position="after">
-                <field name="x_studio_user_location_validation" string="User Location Validation" invisible="1"/>
+                <field name="user_location_validation" string="User Location Validation" invisible="1"/>
                 <field name="x_studio_user_location_validation_2" string="User Location Validation 2" force_save="True" readonly="1" invisible="1"/>
                 <field name="x_studio_picking_count" string="Picking Count" force_save="True" readonly="1" invisible="1"/>
-                <field name="x_studio_fsm_task_done" string="FSM Task Done" force_save="True" readonly="1" invisible="1"/>
-                <field name="x_studio_fully_paid_so" string="Fully Paid SO" invisible="1"/>
+                <field name="fsm_task_done" string="FSM Task Done" force_save="True" readonly="1" invisible="1"/>
+                <field name="fully_paid_so" string="Fully Paid SO" invisible="1"/>
                 <field name="x_studio_factory_repair" string="Factory Repair" force_save="True" readonly="1" invisible="1"/>
                 <field name="x_studio_received_at_centre" string="Received at Centre" invisible="1" force_save="True" readonly="1"/>
-                <field name="x_studio_validation" string="Validation" force_save="True" readonly="1" invisible="((x_studio_received_at_centre == True) and (x_studio_factory_repair == True)) or (x_studio_factory_repair != True)"/>
+                <field name="validation" string="Validation" force_save="True" readonly="1" invisible="((x_studio_received_at_centre == True) and (x_studio_factory_repair == True)) or (x_studio_factory_repair != True)"/>
               </xpath>
               <xpath expr="//field[@name='move_ids_without_package']" position="attributes">
                 <attribute name="readonly">(state == 'done' and is_locked) or (((x_studio_update_consignment == True) and (x_studio_pr_type == 'Import')) or ((is_locked == True) and (state == 'done')))</attribute>
@@ -249,8 +249,8 @@
     <field name="name">Repair Trans.</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
-    <field name="domain">[('x_studio_created_from_help_ticket', '=', active_id)]</field>
-    <field name="context">{'search_default_x_studio_created_from_help_ticket': active_id,'default_x_studio_created_from_help_ticket': active_id}</field>
+    <field name="domain">[('created_from_help_ticket', '=', active_id)]</field>
+    <field name="context">{'search_default_created_from_help_ticket': active_id,'default_created_from_help_ticket': active_id}</field>
   </record>
   <record id="act_window_2536_stock_picking" model="ir.actions.act_window">
     <field name="name">stock.picking</field>
@@ -280,15 +280,15 @@
       <field name="arch" type="xml">
         <data>
     
-    <xpath expr="//form" position="inside"><field name="x_studio_budget_created" invisible="1"/><field name="x_studio_cancelled" invisible="1"/><field name="x_studio_cash_full_payment_made" invisible="1"/><field name="x_studio_created_from_help_ticket" invisible="1"/><field name="x_studio_factory_repair" invisible="1"/><field name="x_studio_fsm_task_done" invisible="1"/><field name="x_studio_fully_paid_so" invisible="1"/><field name="x_studio_helpdesk_ticket_id" invisible="1"/><field name="x_studio_need_approval" invisible="1"/><field name="x_studio_picking_count" invisible="1"/><field name="x_studio_pr_type" invisible="1"/><field name="x_studio_quotation_type_2" invisible="1"/><field name="x_studio_received_at_centre" invisible="1"/><field name="x_studio_repair_payment_made" invisible="1"/><field name="x_studio_task_status" invisible="1"/><field name="x_studio_transfer_approved" invisible="1"/><field name="x_studio_transfer_rejected" invisible="1"/><field name="x_studio_update_consignment" invisible="1"/><field name="x_studio_valid_factory_repair" invisible="1"/><field name="x_studio_valid_transfer_lines" invisible="1"/></xpath><xpath expr="//header/button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
-      <attribute name="invisible">((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False)) or ((state != 'done') or (x_studio_helpdesk_ticket_id != False))</attribute></xpath>
+    <xpath expr="//form" position="inside"><field name="x_studio_budget_created" invisible="1"/><field name="cancelled" invisible="1"/><field name="cash_full_payment_made" invisible="1"/><field name="created_from_help_ticket" invisible="1"/><field name="x_studio_factory_repair" invisible="1"/><field name="fsm_task_done" invisible="1"/><field name="fully_paid_so" invisible="1"/><field name="helpdesk_ticket_id" invisible="1"/><field name="need_approval" invisible="1"/><field name="x_studio_picking_count" invisible="1"/><field name="x_studio_pr_type" invisible="1"/><field name="quotation_type_2" invisible="1"/><field name="x_studio_received_at_centre" invisible="1"/><field name="repair_payment_made" invisible="1"/><field name="task_status" invisible="1"/><field name="x_studio_transfer_approved" invisible="1"/><field name="x_studio_transfer_rejected" invisible="1"/><field name="x_studio_update_consignment" invisible="1"/><field name="valid_factory_repair" invisible="1"/><field name="valid_transfer_lines" invisible="1"/></xpath><xpath expr="//header/button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
+      <attribute name="invisible">((task_status == False) and (helpdesk_ticket_id != False)) or ((state != 'done') or (helpdesk_ticket_id != False))</attribute></xpath>
     
     <xpath expr="//header/button[@name='action_assign']" position="after">
       <!-- STRIPPED action button aid=1367 unresolvable -->
     </xpath>
     
     <xpath expr="//header/button[@name='%(stock.act_stock_return_picking)d']" position="before">
-      <button type="action" name="%(stock.act_stock_return_picking)d" string="Dispatch" invisible="((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_created_from_help_ticket != False))) or (((x_studio_valid_factory_repair == False) and ((x_studio_factory_repair == True) and (x_studio_helpdesk_ticket_id != False))) or (((x_studio_fsm_task_done == False) and (x_studio_created_from_help_ticket != False)) or (((x_studio_fsm_task_done == False) and (x_studio_helpdesk_ticket_id != False)) or (((x_studio_cancelled == False) and ((x_studio_task_status == False) and (x_studio_helpdesk_ticket_id != False))) or ((state != 'done') or ((x_studio_helpdesk_ticket_id == False) or ((x_studio_cash_full_payment_made == True) or ((x_studio_fully_paid_so == False) or (x_studio_picking_count == True)))))))))))"/>
+      <button type="action" name="%(stock.act_stock_return_picking)d" string="Dispatch" invisible="((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (created_from_help_ticket != False))) or (((x_studio_received_at_centre == False) and ((x_studio_factory_repair == True) and (helpdesk_ticket_id != False))) or (((valid_factory_repair == False) and ((x_studio_factory_repair == True) and (created_from_help_ticket != False))) or (((valid_factory_repair == False) and ((x_studio_factory_repair == True) and (helpdesk_ticket_id != False))) or (((fsm_task_done == False) and (created_from_help_ticket != False)) or (((fsm_task_done == False) and (helpdesk_ticket_id != False)) or (((cancelled == False) and ((task_status == False) and (helpdesk_ticket_id != False))) or ((state != 'done') or ((helpdesk_ticket_id == False) or ((cash_full_payment_made == True) or ((fully_paid_so == False) or (x_studio_picking_count == True)))))))))))"/>
     </xpath>
     
     <xpath expr="//header/button[@name='%(stock.act_stock_return_picking)d'][2]" position="before">
@@ -304,19 +304,19 @@
     <!-- STRIPPED xpath: numeric button ref unresolvable -->
     
     <xpath expr="//header/button[@name='button_validate']" position="attributes">
-      <!--attribute name="attrs">{'invisible': ['|','|','|','|','|','|','|','|',('x_studio_cancelled', '=', True),('x_studio_valid_transfer_lines', '=', False),('x_studio_transfer_rejected', '=', True),('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False),'&amp;',('x_studio_quotation_type_2', '=', 'Repair'),('x_studio_repair_payment_made', '=', False),'&amp;',('x_studio_pr_type', '=', 'Import'),('x_studio_update_consignment', '=', False),'&amp;',('x_studio_quotation_type_2', '=', 'Project'),('x_studio_budget_created', '=', False),'&amp;',('x_studio_need_approval', '=', True),('x_studio_transfer_approved', '=', False)]}</attribute-->
-      <attribute name="invisible">((x_studio_budget_created == False) and (x_studio_quotation_type_2 == 'Project')) or (((x_studio_update_consignment == False) and (x_studio_pr_type == 'Import')) or (((x_studio_repair_payment_made == False) and (x_studio_quotation_type_2 == 'Repair')) or ((show_validate == False) or ((state in ('waiting', 'confirmed')) or ((x_studio_transfer_rejected == True) or ((x_studio_valid_transfer_lines == False) or (x_studio_cancelled == True)))))))</attribute></xpath>
+      <!--attribute name="attrs">{'invisible': ['|','|','|','|','|','|','|','|',('cancelled', '=', True),('valid_transfer_lines', '=', False),('x_studio_transfer_rejected', '=', True),('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False),'&amp;',('quotation_type_2', '=', 'Repair'),('repair_payment_made', '=', False),'&amp;',('x_studio_pr_type', '=', 'Import'),('x_studio_update_consignment', '=', False),'&amp;',('quotation_type_2', '=', 'Project'),('x_studio_budget_created', '=', False),'&amp;',('need_approval', '=', True),('x_studio_transfer_approved', '=', False)]}</attribute-->
+      <attribute name="invisible">((x_studio_budget_created == False) and (quotation_type_2 == 'Project')) or (((x_studio_update_consignment == False) and (x_studio_pr_type == 'Import')) or (((repair_payment_made == False) and (quotation_type_2 == 'Repair')) or ((show_validate == False) or ((state in ('waiting', 'confirmed')) or ((x_studio_transfer_rejected == True) or ((valid_transfer_lines == False) or (cancelled == True)))))))</attribute></xpath>
     
     <!-- STRIPPED malformed xpath comment block -->
     
     <xpath expr="//header/button[@name='action_set_quantities_to_reservation']" position="attributes">
-      <attribute name="invisible">(immediate_transfer == True) or ((show_validate == False) or ((x_studio_helpdesk_ticket_id != False) or (x_studio_pr_type == 'Import')))</attribute></xpath>
+      <attribute name="invisible">(immediate_transfer == True) or ((show_validate == False) or ((helpdesk_ticket_id != False) or (x_studio_pr_type == 'Import')))</attribute></xpath>
     
     <xpath expr="//sheet/notebook/page/field[@name='move_ids_without_package']" position="attributes">
       <attribute name="readonly">((x_studio_update_consignment == True) and (x_studio_pr_type == 'Import')) or ((is_locked == True) and (state == 'done'))</attribute></xpath>
     
     <xpath expr="//header/button[@name='action_confirm']" position="attributes">
-      <!--attribute name="attrs">{'invisible': ['|',('show_mark_as_todo', '=', False),'&amp;',('x_studio_need_approval', '=', True),('x_studio_transfer_approved', '=', False)]}</attribute--> 
+      <!--attribute name="attrs">{'invisible': ['|',('show_mark_as_todo', '=', False),'&amp;',('need_approval', '=', True),('x_studio_transfer_approved', '=', False)]}</attribute--> 
       <attribute name="invisible">show_mark_as_todo == False</attribute></xpath>
   </data>
       </field>

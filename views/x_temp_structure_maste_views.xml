@@ -26,7 +26,7 @@
   <separator string="Applicable Indicators:"/>
     <newline/>
     <group>
-      <field name="x_name" options="{'no_open': true}" invisible="1" readonly="True"/>
+      <field name="name" options="{'no_open': true}" invisible="1" readonly="True"/>
       <!-- v118: x_studio_temp_structure_details_id moved to BugFix-Purchase (upstream_link_fields_views.xml) -->
     </group> 
     <newline/>

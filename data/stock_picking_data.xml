@@ -8,7 +8,7 @@
   so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
   if so:
       sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      payment = env['account.payment'].search([('sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
       if payment:
         for total in payment:
           sum_total += total.amount
@@ -27,7 +27,7 @@
     <field name="name">User Location Validation-TEST</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
+    <field name="code"><![CDATA[imp_header_charges = env['x_test02'].create({'name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
      
 
 ]]></field>
@@ -46,7 +46,7 @@
 
   
 
-  if record.x_studio_user_location_validation == True:
+  if record.user_location_validation == True:
 
     if record.x_studio_user_location_validation_2 == True:
 
@@ -58,9 +58,9 @@
 
     
 
-    if record.x_studio_type_of_operation == 'internal':
+    if record.type_of_operation == 'internal':
 
-      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
+      loc = env['stock.location'].search([('users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
 
       if loc:
 
@@ -92,7 +92,7 @@
 
     else:
 
-      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+      loc = env['stock.location'].search([('users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
 
       if loc:
 
@@ -212,14 +212,14 @@
     <field name="name">RR - Update Operation Type in Help Desk Repairs</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[if record.x_studio_repair_return_location == True:
+    <field name="code"><![CDATA[if record.repair_return_location == True:
   company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
   company = env['res.company'].browse(company_id)
   
   if company.id == 1:
-    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Returns')],limit=1)
+    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Returns')],limit=1)
   else:
-    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.x_studio_return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Receipts')],limit=1)
+    opt_type = env['stock.picking.type'].search([('default_location_dest_id', '=', record.return_receipt_location.id),('code', '=', 'incoming'),('name', '=', 'Receipts')],limit=1)
   
   if opt_type:
     record['picking_type_id'] = opt_type.id
@@ -238,7 +238,7 @@
   so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
   if so:
       sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      payment = env['account.payment'].search([('sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
       if payment:
         for total in payment:
           sum_total += total.amount
@@ -256,7 +256,7 @@
     <field name="name">User Location Validation-TEST</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
-    <field name="code"><![CDATA[imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
+    <field name="code"><![CDATA[imp_header_charges = env['x_test02'].create({'name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
      
 
 ]]></field>
@@ -274,7 +274,7 @@
 
   
 
-  if record.x_studio_user_location_validation == True:
+  if record.user_location_validation == True:
 
     if record.x_studio_user_location_validation_2 == True:
 
@@ -286,9 +286,9 @@
 
     
 
-    if record.x_studio_type_of_operation == 'internal':
+    if record.type_of_operation == 'internal':
 
-      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
+      loc = env['stock.location'].search([('users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
 
       if loc:
 
@@ -320,7 +320,7 @@
 
     else:
 
-      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+      loc = env['stock.location'].search([('users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
 
       if loc:
 
@@ -403,7 +403,7 @@
   company = env['res.company'].browse(company_id)
   
   if record.x_studio_movement_journal == True:
-    offset_account = env['x_journal_types'].search([('id', '=', record.x_studio_journal_type.id),('x_studio_company_id', '=', company.id)], limit=1)
+    offset_account = env['x_journal_types'].search([('id', '=', record.x_studio_journal_type.id),('accounting_company_id', '=', company.id)], limit=1)
     #offset_account = record.x_studio_journal_type.x_studio_offset_account
     if offset_account.x_studio_offset_account == False:
       raise UserError('Offset Account for the selected Journal Type must be Specified.')
@@ -425,7 +425,7 @@
             #lines = env['account.move.line'].search([('move_id', '=', account_move.id),('account_id', '=', record.journal_id.default_account_id.id)])
             #lines = env['account.move.line'].search([('move_id', '=', record.id),('account_id', '=', record.partner_id.property_account_receivable_id.id)])
             #for line in lines:
-              #line.write({'account_id':rug_account.x_studio_rug_account.id}) 
+              #line.write({'account_id':rug_account.rug_account.id}) 
             if account_move_lines:
               account_move_lines.write({'account_id':offset_account.x_studio_offset_account.id})   
     record.write({'x_studio_offset_account_updated': True, 'x_studio_gl_account_status': 'Updated'})
@@ -497,7 +497,7 @@
     if con_header.x_studio_vendor_dispatch == True:
       grand_total_amount = total_amount * con_header.x_studio_vendor_dispatch_exchange_rate
       if grand_total_amount > 0.0000:
-        despatch_account = env['x_imports_ledger_setup'].search([('x_studio_company_id', '=', company.id)], limit=1)
+        despatch_account = env['x_imports_ledger_setup'].search([('accounting_company_id', '=', company.id)], limit=1)
         if despatch_account:
           if despatch_account.x_studio_vendor_despatch_debit_account.id == 0 or despatch_account.x_studio_vendor_despatch_credit_account.id == 0:
             raise UserError('Vendor Despatch Accounts must be Specified in Imports Ledger Setup')
@@ -577,7 +577,7 @@ record['x_studio_consignment_no'] = False
   so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
   if so:
       sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      payment = env['account.payment'].search([('sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
       if payment:
         for total in payment:
           sum_total += total.amount
@@ -613,8 +613,8 @@ record['x_studio_consignment_no'] = False
     <field name="state">code</field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
-    <field name="code"><![CDATA[if record.x_studio_sales_order.id:
-  record['origin'] = record.x_studio_sales_order.name
+    <field name="code"><![CDATA[if record.sales_order.id:
+  record['origin'] = record.sales_order.name
 else:
   record['origin'] = ""
   
@@ -633,7 +633,7 @@ else:
     <field name="active" eval="True"/>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="trigger">on_change</field>
-    <field name="on_change_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_stock_picking__x_studio_sales_order')])]"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_stock_picking__sales_order')])]"/>
     <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1813_update_source_document_in_transfers')])]"/>
   </record>
   <record id="base_automation_199_proj_notify_transfer_completion" model="base.automation">
@@ -642,7 +642,7 @@ else:
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="filter_pre_domain">[('state', '!=', 'done')]</field>
-    <field name="filter_domain">[('sale_id.x_studio_quotation_type', '=', 'Project'), ('state', '=', 'done')]</field>
+    <field name="filter_domain">[('sale_id.quotation_type', '=', 'Project'), ('state', '=', 'done')]</field>
     <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2185_proj_notify_transfer_completion')])]"/>
   </record>
     <record id="approval_rule_56_transfer_action_open_label_layout_administration_access_righ" model="studio.approval.rule">
@@ -677,7 +677,7 @@ if record.state == 'done':
   so = env['sale.order'].search([('id', '=', record.sale_id.id),('state', '=', 'done'),('x_studio_order_payment_method', '=', 'Cash'), ('x_studio_grant_temporary_credit', '=', False)],limit=1)
   if so:
       sum_total = 0
-      payment = env['account.payment'].search([('x_studio_sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
+      payment = env['account.payment'].search([('sales_order', '=', record.sale_id.id),('state', '=', 'posted')])
       if payment:
         for total in payment:
           sum_total += total.amount
@@ -705,7 +705,7 @@ if user.id != 1:
 
   
 
-  if record.x_studio_user_location_validation == True:
+  if record.user_location_validation == True:
 
     if record.x_studio_user_location_validation_2 == True:
 
@@ -717,9 +717,9 @@ if user.id != 1:
 
     
 
-    if record.x_studio_type_of_operation == 'internal':
+    if record.type_of_operation == 'internal':
 
-      loc = env['stock.location'].search([('x_studio_users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
+      loc = env['stock.location'].search([('users_internal_transfer', '=', user.id),('active', '=', True),('company_id', '=', company.id)])
 
       if loc:
 
@@ -751,7 +751,7 @@ if user.id != 1:
 
     else:
 
-      loc = env['stock.location'].search([('x_studio_users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
+      loc = env['stock.location'].search([('users_stock_location', 'ilike', user.id),('active', '=', True),('company_id', '=', company.id)])
 
       if loc:
 
@@ -790,7 +790,7 @@ if user.id != 1:
     <field name="state">code</field>
     <field name="usage">base_automation</field>
     <field name="code"><![CDATA[
-imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
+imp_header_charges = env['x_test02'].create({'name':record.location_id.complete_name,'x_studio_name_1':record.location_dest_id.complete_name})  
      
 
 
@@ -833,8 +833,8 @@ imp_header_charges = env['x_test02'].create({'x_name':record.location_id.complet
     <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2489_user_location_validation_test')])]"/>
   </record>
     <data noupdate="1">
-    <record id="default_378_stock_picking_x_studio_validation" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_stock_picking__x_studio_validation"/>
+    <record id="default_378_stock_picking_validation" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_stock_picking__validation"/>
       <field name="json_value">"Receive at Centre should be completed to dispatch."</field>
     </record>
     <record id="default_392_stock_picking_x_studio_gl_account_status" model="ir.default">

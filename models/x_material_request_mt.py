@@ -5,13 +5,13 @@ from odoo import fields, models
 
 class XMaterialRequestMt(models.Model):
     _name = "x_material_request_mt"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Material Request MT"
 
-    x_color = fields.Integer(string="Color")
-    x_name = fields.Char(string="Description", required=True)
-    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    color = fields.Integer(string="Color")
+    name = fields.Char(string="Description", required=True)
+    accounting_company_id = fields.Many2one("res.company", string="Company")
     x_studio_created_by = fields.Char(string="Created by")
     x_studio_created_on = fields.Char(string="Created on")
     x_studio_currency_id = fields.Many2one("res.currency", string="Currency")
@@ -34,11 +34,11 @@ class XMaterialRequestMt(models.Model):
     x_studio_partner_email = fields.Char(string="Email")
     x_studio_partner_id = fields.Many2one("res.partner", string="Contact")
     x_studio_partner_phone = fields.Char(string="Phone")
-    x_studio_priority = fields.Boolean(string="High Priority")
+    custom_reports_priority = fields.Boolean(string="High Priority")
     x_studio_request_reference = fields.Char(string="Request Reference")
     x_studio_requested_by = fields.Char(string="Requested By")
     x_studio_requested_date = fields.Char(string="Requested Date")
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_stage_id = fields.Many2one(
         "x_material_request_mt_stage", string="Stage", required=True
     )
@@ -56,10 +56,10 @@ class XMaterialRequestMt(models.Model):
 
 class XMaterialRequestMtGap(models.Model):
     _inherit = "x_material_request_mt"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_color = fields.Integer(string="Color")
+    active = fields.Boolean(string="Active")
+    color = fields.Integer(string="Color")
     # STRIPPED x_material_request_mt_line_ids_7737e: O2M inverse lives in another repo
     # (load-order risk)
-    x_name = fields.Char(string="Description", required=True)
+    name = fields.Char(string="Description", required=True)

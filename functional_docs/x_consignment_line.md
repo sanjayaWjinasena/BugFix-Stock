@@ -4,7 +4,7 @@
 
 ### `x_consignment_line` — Consignment Line
 
-*Created by this repo.* Python: `models/x_consignment_line.py`, `models/x_consignment_line_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_consignment_line.py`, `models/x_consignment_line_gap.py`. Record name field: `name`.
 
 Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_consignment_line_x_consignment_line_purchase_jin_po_goods_receivers` (BugFix-Studio-Misc)<br>`access right BugFix-Studio-Misc.access_g_x_consignment_line_x_consignment_line_purchase_jin_procurement_end_user_import` (BugFix-Studio-Misc)<br>`purchase.order.line._compute_x_studio_consignment_remainder()` (BugFix-Purchase)<br>`server action BugFix-Accounting.server_action_1370_imp_update_consignment_pi` (BugFix-Accounting)<br>`server action BugFix-Accounting.srv_imp_update_consignment_pi` (BugFix-Accounting)<br>`server action BugFix-Purchase.action_consignment_vendor_dispatch` (BugFix-Purchase)<br>`server action BugFix-Purchase.server_action_2375_reverse_pr_status_in_po_2` (BugFix-Purchase)<br>`server action BugFix-Studio-Misc.server_action_2799_mst_odoo_data_clean_up` (BugFix-Studio-Misc)
 
@@ -48,18 +48,18 @@ A Consignment Line is one product from an import purchase order line shipped in 
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag for consignment lines; defaults to active. | stored |  | `default BugFix-Stock.default_140_x_consignment_line_x_active`<br>`view BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.view_2815_default_search_view_for_x_consignment_line_e` |
+| `active` | Active | boolean | Archive flag for consignment lines; defaults to active. | stored |  | `default BugFix-Stock.default_140_x_consignment_line_active`<br>`view BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.view_2815_default_search_view_for_x_consignment_line_e` |
 | `x_currency_id` | Currency | many2one → `res.currency` | Read-only currency of the consignment line; has a default value and is shown in the line form and list. | stored | `model res.currency` (base) | `default BugFix-Stock.default_146_x_consignment_line_x_currency_id`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
-| `x_name` | Name | char | Name of the consignment line. | stored |  | `view BugFix-Stock.ported_view_2813_default_list_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.view_2815_default_search_view_for_x_consignment_line_e` |
+| `name` | Name | char | Name of the consignment line. | stored |  | `view BugFix-Stock.ported_view_2813_default_list_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.view_2815_default_search_view_for_x_consignment_line_e` |
 | `x_studio_allocate_amount` | Allocate Amount | float | Read-only amount of header charges allocated to this line; not shown in any view in this repo. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_amount` | Amount | float | Read-only line amount (value of the invoiced quantity); shown in the consignment line form and list. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_boolean_field_Gbd5Y` | Valid Duty | boolean | Extra 'Valid Duty' checkbox left from Studio; not used by any view or logic. | stored |  |  |
-| `x_studio_company_id` | Company | many2one → `res.company` | Company of the consignment line; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_513_jin_multi_company_consignment_line`<br>`server action BugFix-Stock.sa_f5_x_consignment_line_jin_company_id_in_consignment_line`<br>`server action BugFix-Stock.server_action_2608_jin_company_id_in_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
+| `accounting_company_id` | Company | many2one → `res.company` | Company of the consignment line; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_513_jin_multi_company_consignment_line`<br>`server action BugFix-Stock.sa_f5_x_consignment_line_jin_company_id_in_consignment_line`<br>`server action BugFix-Stock.server_action_2608_jin_company_id_in_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_concessional_rate` | Concessional Rate | boolean | Checkbox marking that a concessional (reduced) duty rate applies to the line; not used by any view or logic in this repo. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_consignment_header_id` | Consignment No | many2one → `x_consignment_header` | Consignment this line belongs to (deletion of the consignment is restricted while lines exist). | stored | `model x_consignment_header` | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_cost_allocation_method` | Cost Allocation Method | selection: equal=Equal; by_quantity=By Quantity; by_current_cost_price=By Current Cost; by_weight=By Weight; by_volume=By Volume | Read-only cost allocation method for the line (Equal, By Quantity, By Current Cost, By Weight, By Volume); not shown in any view. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_delivery_remainder` | Delivery Remainder | float | Read-only quantity still to be delivered; recalculated by an automation as Original Delivery Remainder minus Invoice Qty. | stored |  | `server action BugFix-Stock.server_action_2098_imp_delivery_remainder_in_consignment_lines`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
-| `x_studio_description` | Description | char | Read-only product description of the line, used in the invoice quantity validation error messages; non-stored with no compute in this repo. | not stored |  | `server action BugFix-Stock.sa_f5_x_consignment_line_imp_invoice_qty_validation_in_consignment`<br>`server action BugFix-Stock.server_action_1304_imp_invoice_qty_validation_in_consignment`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
+| `description` | Description | char | Read-only product description of the line, used in the invoice quantity validation error messages; non-stored with no compute in this repo. | not stored |  | `server action BugFix-Stock.sa_f5_x_consignment_line_imp_invoice_qty_validation_in_consignment`<br>`server action BugFix-Stock.server_action_1304_imp_invoice_qty_validation_in_consignment`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_exchange_rate` | Exchange Rate | float | Exchange rate for the line; not used by any view or logic in this repo. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_header_charges_allocated` | Header Charges Allocated | boolean | Read-only flag showing header charges have been allocated to this line; not shown in any view. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_indent_no` | Indent No | char | Read-only indent (purchase order) number of the line; shown in the lines list. | stored |  | `view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
@@ -71,7 +71,7 @@ A Consignment Line is one product from an import purchase order line shipped in 
 | `x_studio_purchase_id` | Purchase Order | many2one → `purchase.order` | Purchase order the consignment line comes from. | stored | `model purchase.order` (purchase) | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_purchase_line_id` | Purchase Line Id | many2one → `purchase.order.line` | Purchase order line the consignment line comes from; used to check the invoiced quantity does not exceed the PO quantity. | stored | `model purchase.order.line` (purchase) | `server action BugFix-Stock.sa_f5_x_consignment_line_imp_invoice_qty_validation_in_consignment`<br>`server action BugFix-Stock.server_action_1304_imp_invoice_qty_validation_in_consignment`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_received_qty` | Received Qty. | float | Read-only quantity received for this line; shown in the consignment line form and list. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
-| `x_studio_sequence` | Sequence | integer | Ordering number for consignment lines (list drag handle). | stored |  | `default BugFix-Stock.default_141_x_consignment_line_x_studio_sequence`<br>`view BugFix-Stock.ported_view_2813_default_list_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
+| `sequence` | Sequence | integer | Ordering number for consignment lines (list drag handle). | stored |  | `default BugFix-Stock.default_141_x_consignment_line_sequence`<br>`view BugFix-Stock.ported_view_2813_default_list_view_for_x_consignment_line`<br>`view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_status` | Status | selection: Draft=Draft; In Transit=In Transit; Under Custom Clearance=Under Custom Clearance; Done=Done | Read-only status of the line: Draft, In Transit, Under Custom Clearance or Done. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_stock_move_id` | Stock Move Id | many2one → `stock.move` | Stock move linked to the consignment line; not used by any view or logic in this repo. | stored | `model stock.move` (stock) | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_tariff_code` | Tariff Code | many2one → `x_tariffmaster` | Read-only customs tariff code of the line, shown in the form and list; non-stored with no compute in this repo, so it is empty. | not stored | `model x_tariffmaster` | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
@@ -101,7 +101,7 @@ A Consignment Line is one product from an import purchase order line shipped in 
 | `x_studio_tot_tax_ex_cd_ids` | tot_tax_ex_cd_ids | many2many → `x_misc_charge_codes` | Misc charge codes making up the line's total tax (exclusive customs-duty variant 'Ex Cd'); shown in the consignment lines list. No logic in this repo fills it. Note: the list view shows `x_studio_many2many_field_ZvmKu`, which carries the same technical label. | stored | `model x_misc_charge_codes` | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_tot_tax_ex_ids` | tot_tax_ex_ids | many2many → `x_misc_charge_codes` | Misc charge codes making up the line's total tax (exclusive variant 'Ex'); shown in the consignment lines list. No logic in this repo fills it. | stored | `model x_misc_charge_codes` | `view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_tot_tax_ids` | tot_tax_ids | many2many → `x_misc_charge_codes` | Misc charge codes making up the line's total tax; shown in the consignment lines list. No logic in this repo fills it. | stored | `model x_misc_charge_codes` | `view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
-| `x_studio_unit_price` | Unit Price | float | Unit price of the product on the consignment line. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
+| `unit_price` | Unit Price | float | Unit price of the product on the consignment line. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header`<br>`view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line`<br>`view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
 | `x_studio_valid_charge` | Valid Charge | boolean | Validity flag for the line's charge calculation; not used by any view or logic in this repo. | stored |  | `view BugFix-Stock.ported_view_2816_studio_form_x_consignment_header` |
 | `x_studio_valid_charge_cd` | Valid Charge Cd | boolean | Validity flag for the line's charge calculation (Cd variant); not used by any view or logic in this repo. | stored |  |  |
 | `x_studio_valid_charge_ex` | Valid Charge Ex | boolean | Validity flag for the line's charge calculation (Ex variant); not used by any view or logic in this repo. | stored |  |  |
@@ -122,7 +122,7 @@ A Consignment Line is one product from an import purchase order line shipped in 
 
 - **Execute Code** (`server_action_1304_imp_invoice_qty_validation_in_consignment`, type `code`)
   - Function: Run by the Invoice Qty Validation automation: raises an error if a consignment line's Invoice Qty is negative or exceeds the PO line quantity minus invoice quantities on other consignment lines.
-  - Depends on: `model purchase.order.line` (purchase), `model x_consignment_line`, `x_consignment_line.x_studio_description`, `x_consignment_line.x_studio_invoice_qty`, `x_consignment_line.x_studio_purchase_line_id`
+  - Depends on: `model purchase.order.line` (purchase), `model x_consignment_line`, `x_consignment_line.description`, `x_consignment_line.x_studio_invoice_qty`, `x_consignment_line.x_studio_purchase_line_id`
   - Used by: `automation BugFix-Stock.automation_59_imp_invoice_qty_validation_in_consignment`
   <details><summary>code (20 lines)</summary>
 
@@ -131,7 +131,7 @@ if record.x_studio_invoice_qty:
     if record.x_studio_invoice_qty < 0.00:
         raise UserError(
             "Negative Quantities are not Allowed in Item No: "
-            + record.x_studio_description
+            + record.description
         )
 
     purch_line = env["purchase.order.line"].search(
@@ -160,13 +160,13 @@ if record.x_studio_invoice_qty:
     if record.x_studio_invoice_qty > result:
         raise UserError(
             "Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: "
-            + record.x_studio_description
+            + record.description
         )
 ```
   </details>
 - **Execute Code** (`server_action_2608_jin_company_id_in_consignment_line`, type `code`)
   - Function: Run by an automation: sets the Company of a Consignment Line to the user's active company.
-  - Depends on: `model res.company` (base), `model x_consignment_line`, `x_consignment_line.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_consignment_line`, `x_consignment_line.accounting_company_id`
   - Used by: `automation BugFix-Stock.automation_281_jin_company_id_in_consignment_line`
   <details><summary>code (5 lines)</summary>
 
@@ -174,7 +174,7 @@ if record.x_studio_invoice_qty:
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 - **IMP - Delivery Remainder in Consignment Lines** (`server_action_2098_imp_delivery_remainder_in_consignment_lines`, type `code`)
@@ -192,7 +192,7 @@ if record.x_studio_invoice_qty:
   </details>
 - **IMP - Invoice Qty. Validation in Consignment** (`sa_f5_x_consignment_line_imp_invoice_qty_validation_in_consignment`, type `code`)
   - Function: Validates a consignment line's Invoice Qty: raises an error if it is negative or exceeds the PO line quantity minus invoice quantities already on other consignment lines for the same PO line.
-  - Depends on: `model purchase.order.line` (purchase), `model x_consignment_line`, `x_consignment_line.x_studio_description`, `x_consignment_line.x_studio_invoice_qty`, `x_consignment_line.x_studio_purchase_line_id`
+  - Depends on: `model purchase.order.line` (purchase), `model x_consignment_line`, `x_consignment_line.description`, `x_consignment_line.x_studio_invoice_qty`, `x_consignment_line.x_studio_purchase_line_id`
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (19 lines)</summary>
 
@@ -201,7 +201,7 @@ if record.x_studio_invoice_qty:
     if record.x_studio_invoice_qty < 0.00:
         raise UserError(
             "Negative Quantities are not Allowed in Item No: "
-            + record.x_studio_description
+            + record.description
         )
 
     purch_line = env["purchase.order.line"].search(
@@ -230,13 +230,13 @@ if record.x_studio_invoice_qty:
     if record.x_studio_invoice_qty > result:
         raise UserError(
             "Quantity to Invoice Should not be exceeding the Consignment Remainder in Item No: "
-            + record.x_studio_description
+            + record.description
         )
 ```
   </details>
 - **JIN - Company Id in Consignment Line** (`sa_f5_x_consignment_line_jin_company_id_in_consignment_line`, type `code`)
   - Function: Sets the Company of a Consignment Line to the user's currently active company.
-  - Depends on: `model res.company` (base), `model x_consignment_line`, `x_consignment_line.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_consignment_line`, `x_consignment_line.accounting_company_id`
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (4 lines)</summary>
 
@@ -244,7 +244,7 @@ if record.x_studio_invoice_qty:
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 - **TEST IMP** (`server_action_1665_test_imp`, type `code`)
@@ -285,11 +285,11 @@ raise UserError(record.id)
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for x_consignment_line | `ported_view_2814_default_form_view_for_x_consignment_line` | form | full form layout with 2 fields | Base form of a Consignment Line: archived ribbon, required name title and two empty groups filled by the Studio customization view. | `x_consignment_line.x_active`<br>`x_consignment_line.x_name` | `view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line` |
-| Default list view for x_consignment_line | `ported_view_2813_default_list_view_for_x_consignment_line` | tree | full tree layout with 2 fields | Base list view of Consignment Lines showing a drag handle (sequence) and the name. | `x_consignment_line.x_name`<br>`x_consignment_line.x_studio_sequence` | `view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
-| Default search view for x_consignment_line | `view_2815_default_search_view_for_x_consignment_line_e` | search | full search layout with 1 fields | Search view for Consignment Lines: search by name and an Archived filter. | `x_consignment_line.x_active`<br>`x_consignment_line.x_name` |  |
-| Odoo Studio: Default form view for x_consignment_line customization | `ported_view_2817_studio_form_x_consignment_line` | form | set invisible=1 on `//field[@name='x_name']`; inside `//group[@name='studio_group_0644e6_left']`: add field x_studio_purchase_id, field x_studio_product_id, field x_studio_description, field x_studio_warehouse, field x_studio_tariff_code, field x_studio_consignment_header_id; inside `//group[@name='studio_group_0644e6_right']`: add field x_currency_id, field x_studio_invoice_qty, field x_studio_unit_price, field x_studio_amount, field x_studio_received_qty, field x_studio_status | Customizes the Consignment Line form: hides the name and shows PO, product, description, warehouse, tariff code, header, currency, invoice/received quantities, unit price, amount and status. | `view BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line`<br>`x_consignment_line.x_currency_id`<br>`x_consignment_line.x_studio_amount`<br>`x_consignment_line.x_studio_consignment_header_id`<br>`x_consignment_line.x_studio_description`<details><summary>+8 more</summary>`x_consignment_line.x_studio_invoice_qty`<br>`x_consignment_line.x_studio_product_id`<br>`x_consignment_line.x_studio_purchase_id`<br>`x_consignment_line.x_studio_received_qty`<br>`x_consignment_line.x_studio_status`<br>`x_consignment_line.x_studio_tariff_code`<br>`x_consignment_line.x_studio_unit_price`<br>`x_consignment_line.x_studio_warehouse`</details> |  |
-| Odoo Studio: Default list view for x_consignment_line customization | `ported_view_2818_studio_tree_x_consignment_line` | tree | set create=false, default_order=x_studio_consignment_header_id desc, delete=false, edit=true, editable=bottom on `//tree[1]`; before `//field[@name='x_studio_sequence']`: add field x_studio_consignment_header_id, field x_studio_purchase_id, field x_studio_indent_no, field x_studio_product_id, field x_studio_description, field x_studio_tariff_code, field x_studio_warehouse, field x_studio_invoice_qty, field x_studio_received_qty, field x_studio_unit_price, field x_studio_amount, field x_studio_company_id …; set column_invisible=1 on `//field[@name='x_studio_sequence']`; set column_invisible=1 on `//field[@name='x_name']` | Customizes the Consignment Line list: editable inline, no create/delete, sorted by header descending, showing header, PO, indent no, product, tariff, warehouse, quantities, price, amount and company; hides sequence and name. | `view BugFix-Stock.ported_view_2813_default_list_view_for_x_consignment_line`<br>`x_consignment_line.x_currency_id`<br>`x_consignment_line.x_studio_amount`<br>`x_consignment_line.x_studio_company_id`<br>`x_consignment_line.x_studio_consignment_header_id`<details><summary>+23 more</summary>`x_consignment_line.x_studio_description`<br>`x_consignment_line.x_studio_indent_no`<br>`x_consignment_line.x_studio_invoice_qty`<br>`x_consignment_line.x_studio_many2many_field_ZvmKu`<br>`x_consignment_line.x_studio_product_id`<br>`x_consignment_line.x_studio_purchase_id`<br>`x_consignment_line.x_studio_received_qty`<br>`x_consignment_line.x_studio_status`<br>`x_consignment_line.x_studio_tariff_code`<br>`x_consignment_line.x_studio_tot_charge_cd_ids`<br>`x_consignment_line.x_studio_tot_charge_ex_cd_ids`<br>`x_consignment_line.x_studio_tot_charge_ex_ids`<br>`x_consignment_line.x_studio_tot_charge_ids`<br>`x_consignment_line.x_studio_tot_duty_cd_ids`<br>`x_consignment_line.x_studio_tot_duty_ex_cd_ids`<br>`x_consignment_line.x_studio_tot_duty_ex_ids`<br>`x_consignment_line.x_studio_tot_duty_ids`<br>`x_consignment_line.x_studio_tot_tax_cd_ids`<br>`x_consignment_line.x_studio_tot_tax_ex_cd_ids`<br>`x_consignment_line.x_studio_tot_tax_ex_ids`<br>`x_consignment_line.x_studio_tot_tax_ids`<br>`x_consignment_line.x_studio_unit_price`<br>`x_consignment_line.x_studio_warehouse`</details> |  |
+| Default form view for x_consignment_line | `ported_view_2814_default_form_view_for_x_consignment_line` | form | full form layout with 2 fields | Base form of a Consignment Line: archived ribbon, required name title and two empty groups filled by the Studio customization view. | `x_consignment_line.active`<br>`x_consignment_line.name` | `view BugFix-Stock.ported_view_2817_studio_form_x_consignment_line` |
+| Default list view for x_consignment_line | `ported_view_2813_default_list_view_for_x_consignment_line` | tree | full tree layout with 2 fields | Base list view of Consignment Lines showing a drag handle (sequence) and the name. | `x_consignment_line.name`<br>`x_consignment_line.sequence` | `view BugFix-Stock.ported_view_2818_studio_tree_x_consignment_line` |
+| Default search view for x_consignment_line | `view_2815_default_search_view_for_x_consignment_line_e` | search | full search layout with 1 fields | Search view for Consignment Lines: search by name and an Archived filter. | `x_consignment_line.active`<br>`x_consignment_line.name` |  |
+| Odoo Studio: Default form view for x_consignment_line customization | `ported_view_2817_studio_form_x_consignment_line` | form | set invisible=1 on `//field[@name='name']`; inside `//group[@name='studio_group_0644e6_left']`: add field x_studio_purchase_id, field x_studio_product_id, field description, field x_studio_warehouse, field x_studio_tariff_code, field x_studio_consignment_header_id; inside `//group[@name='studio_group_0644e6_right']`: add field x_currency_id, field x_studio_invoice_qty, field unit_price, field x_studio_amount, field x_studio_received_qty, field x_studio_status | Customizes the Consignment Line form: hides the name and shows PO, product, description, warehouse, tariff code, header, currency, invoice/received quantities, unit price, amount and status. | `view BugFix-Stock.ported_view_2814_default_form_view_for_x_consignment_line`<br>`x_consignment_line.x_currency_id`<br>`x_consignment_line.x_studio_amount`<br>`x_consignment_line.x_studio_consignment_header_id`<br>`x_consignment_line.description`<details><summary>+8 more</summary>`x_consignment_line.x_studio_invoice_qty`<br>`x_consignment_line.x_studio_product_id`<br>`x_consignment_line.x_studio_purchase_id`<br>`x_consignment_line.x_studio_received_qty`<br>`x_consignment_line.x_studio_status`<br>`x_consignment_line.x_studio_tariff_code`<br>`x_consignment_line.unit_price`<br>`x_consignment_line.x_studio_warehouse`</details> |  |
+| Odoo Studio: Default list view for x_consignment_line customization | `ported_view_2818_studio_tree_x_consignment_line` | tree | set create=false, default_order=x_studio_consignment_header_id desc, delete=false, edit=true, editable=bottom on `//tree[1]`; before `//field[@name='sequence']`: add field x_studio_consignment_header_id, field x_studio_purchase_id, field x_studio_indent_no, field x_studio_product_id, field description, field x_studio_tariff_code, field x_studio_warehouse, field x_studio_invoice_qty, field x_studio_received_qty, field unit_price, field x_studio_amount, field accounting_company_id …; set column_invisible=1 on `//field[@name='sequence']`; set column_invisible=1 on `//field[@name='name']` | Customizes the Consignment Line list: editable inline, no create/delete, sorted by header descending, showing header, PO, indent no, product, tariff, warehouse, quantities, price, amount and company; hides sequence and name. | `view BugFix-Stock.ported_view_2813_default_list_view_for_x_consignment_line`<br>`x_consignment_line.x_currency_id`<br>`x_consignment_line.x_studio_amount`<br>`x_consignment_line.accounting_company_id`<br>`x_consignment_line.x_studio_consignment_header_id`<details><summary>+23 more</summary>`x_consignment_line.description`<br>`x_consignment_line.x_studio_indent_no`<br>`x_consignment_line.x_studio_invoice_qty`<br>`x_consignment_line.x_studio_many2many_field_ZvmKu`<br>`x_consignment_line.x_studio_product_id`<br>`x_consignment_line.x_studio_purchase_id`<br>`x_consignment_line.x_studio_received_qty`<br>`x_consignment_line.x_studio_status`<br>`x_consignment_line.x_studio_tariff_code`<br>`x_consignment_line.x_studio_tot_charge_cd_ids`<br>`x_consignment_line.x_studio_tot_charge_ex_cd_ids`<br>`x_consignment_line.x_studio_tot_charge_ex_ids`<br>`x_consignment_line.x_studio_tot_charge_ids`<br>`x_consignment_line.x_studio_tot_duty_cd_ids`<br>`x_consignment_line.x_studio_tot_duty_ex_cd_ids`<br>`x_consignment_line.x_studio_tot_duty_ex_ids`<br>`x_consignment_line.x_studio_tot_duty_ids`<br>`x_consignment_line.x_studio_tot_tax_cd_ids`<br>`x_consignment_line.x_studio_tot_tax_ex_cd_ids`<br>`x_consignment_line.x_studio_tot_tax_ex_ids`<br>`x_consignment_line.x_studio_tot_tax_ids`<br>`x_consignment_line.unit_price`<br>`x_consignment_line.x_studio_warehouse`</details> |  |
 
 **Access rights (3):**
 
@@ -303,4 +303,4 @@ raise UserError(record.id)
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| JIN - Multi-Company - Consignment Line | `rule_513_jin_multi_company_consignment_line` | For everyone (global rule): read/write/create/delete on Consignment Line only where `['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]`. | `model x_consignment_line`<br>`x_consignment_line.x_studio_company_id` |  |
+| JIN - Multi-Company - Consignment Line | `rule_513_jin_multi_company_consignment_line` | For everyone (global rule): read/write/create/delete on Consignment Line only where `['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]`. | `model x_consignment_line`<br>`x_consignment_line.accounting_company_id` |  |

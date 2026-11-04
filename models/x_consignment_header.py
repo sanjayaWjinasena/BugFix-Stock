@@ -11,13 +11,13 @@ class XConsignmentHeader(models.Model):
     """Studio-ported custom model x_consignment_header."""
 
     _name = "x_consignment_header"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Consignment Header"
 
-    x_active = fields.Boolean(string="Active")
-    x_color = fields.Integer(string="Color")
-    x_name = fields.Char(string="Invoice Reference")
+    active = fields.Boolean(string="Active")
+    color = fields.Integer(string="Color")
+    name = fields.Char(string="Invoice Reference")
     x_studio_account_charge = fields.Many2one(
         "account.account", string="Account Charge"
     )
@@ -32,7 +32,7 @@ class XConsignmentHeader(models.Model):
     x_studio_cargo_arrival_notice_filename = fields.Char(
         string="Filename for x_studio_binary_field_M4Ehh"
     )
-    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    accounting_company_id = fields.Many2one("res.company", string="Company")
     x_studio_con_validated = fields.Boolean(string="Con. Validated")
     x_studio_confirm_invoice = fields.Boolean(string="Confirm Invoice")
     x_studio_consignment_line_ids = fields.One2many(
@@ -61,7 +61,7 @@ class XConsignmentHeader(models.Model):
     )
     x_studio_custom_clearance_no = fields.Char(string="Custom Clearance No")
     x_studio_custom_cleared_date = fields.Date(string="Custom Cleared Date")
-    x_studio_description = fields.Char(string="Description")
+    description = fields.Char(string="Description")
     x_studio_header_charges_allocated = fields.Boolean(
         string="Header Charges Allocated"
     )
@@ -74,7 +74,7 @@ class XConsignmentHeader(models.Model):
     x_studio_packing_list_filename = fields.Char(
         string="Filename for x_studio_binary_field_xDIyn"
     )
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_shipment_start_date = fields.Date(string="Shipment Start Date")
     x_studio_shipping_mode = fields.Selection(
         [("Air", "Air"), ("Sea", "Sea"), ("Road", "Road"), ("Courier", "Courier")],
@@ -144,8 +144,8 @@ class XConsignmentHeader(models.Model):
 
 class XConsignmentHeaderGap(models.Model):
     _inherit = "x_consignment_header"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_color = fields.Integer(string="Color")
-    x_name = fields.Char(string="Invoice Reference")
+    active = fields.Boolean(string="Active")
+    color = fields.Integer(string="Color")
+    name = fields.Char(string="Invoice Reference")

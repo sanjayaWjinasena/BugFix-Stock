@@ -35,11 +35,11 @@
       <form>
         <header/>
         <sheet string="Consignment Charge Line">
-          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-          <field name="x_active" invisible="1"/>
+          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+          <field name="active" invisible="1"/>
           <div class="oe_title">
                       <h1>
-                          <field name="x_name" required="1" placeholder="Name..."/>
+                          <field name="name" required="1" placeholder="Name..."/>
                       </h1>
                   </div>
           <group name="studio_group_da7bc0">
@@ -85,8 +85,8 @@
     <field name="priority">16</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="x_studio_sequence" widget="handle"/>
-        <field name="x_name"/>
+        <field name="sequence" widget="handle"/>
+        <field name="name"/>
       </tree>
     </field>
   </record>
@@ -103,21 +103,21 @@
           <attribute name="edit">false</attribute>
           <attribute name="editable">bottom</attribute>
         </xpath>
-        <xpath expr="//field[@name='x_studio_sequence']" position="attributes">
+        <xpath expr="//field[@name='sequence']" position="attributes">
           <attribute name="column_invisible">1</attribute></xpath>
-        <xpath expr="//field[@name='x_studio_sequence']" position="after">
+        <xpath expr="//field[@name='sequence']" position="after">
           <field optional="show" name="x_studio_indent_id" string="Indent_ID"/>
           <field name="x_studio_consignment_id" optional="show"/>
           <field name="x_studio_product"/>
           <field name="x_studio_charge_group"/>
           <field name="x_studio_charge_name"/>
-          <field optional="show" name="x_studio_quantity" string="Quantity"/>
-          <field optional="show" name="x_studio_unit_price" string="Unit Price"/>
+          <field optional="show" name="quantity" string="Quantity"/>
+          <field optional="show" name="unit_price" string="Unit Price"/>
           <field name="x_studio_percent"/>
           <field name="x_studio_amount"/>
-          <field optional="show" name="x_studio_company_id" string="Company" column_invisible="1"/>
+          <field optional="show" name="accounting_company_id" string="Company" column_invisible="1"/>
         </xpath>
-        <xpath expr="//field[@name='x_name']" position="attributes">
+        <xpath expr="//field[@name='name']" position="attributes">
           <attribute name="column_invisible">1</attribute></xpath>
       </data>
     </field>
@@ -128,9 +128,9 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search>
-  <field name="x_name"/>
+  <field name="name"/>
   <separator/>
-  <filter string="Archived" name="archived_x_consignment_charge_l" domain="[['x_active', '=', False]]"/>
+  <filter string="Archived" name="archived_x_consignment_charge_l" domain="[['active', '=', False]]"/>
   <separator/>
 </search>
       </field>

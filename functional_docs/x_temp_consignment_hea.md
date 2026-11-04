@@ -4,7 +4,7 @@
 
 ### `x_temp_consignment_hea` — Temp Consignment Header
 
-*Created by this repo.* Python: `models/x_temp_consignment_hea.py`, `models/x_temp_consignment_hea_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_temp_consignment_hea.py`, `models/x_temp_consignment_hea_gap.py`. Record name field: `name`.
 
 Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_temp_consignment_hea_x_temp_consignment_hea_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
 
@@ -48,10 +48,10 @@ The temporary wizard record behind Copy Import Order Lines, opened from a consig
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag for the temporary 'Copy PO Lines' wizard header; has a default. | stored |  | `default BugFix-Stock.default_148_x_temp_consignment_hea_x_active` |
-| `x_name` | Name | char | Name of the temporary Copy PO Lines record. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
+| `active` | Active | boolean | Archive flag for the temporary 'Copy PO Lines' wizard header; has a default. | stored |  | `default BugFix-Stock.default_148_x_temp_consignment_hea_active` |
+| `name` | Name | char | Name of the temporary Copy PO Lines record. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_select_all` | Select All | boolean | Checkbox in the Copy PO Lines wizard; used by the Select All / Clear All actions to tick or untick every PO line. | stored |  | `server action BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines`<br>`view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
-| `x_studio_sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_149_x_temp_consignment_hea_x_studio_sequence` |
+| `sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_149_x_temp_consignment_hea_sequence` |
 | `x_studio_temp_consignment_header_id` | Temp Consignment Header Id | many2one → `x_consignment_header` | Consignment the selected PO lines will be copied into by the 'Apply Selected PO Lines' action. | stored | `model x_consignment_header` | `server action BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment`<br>`view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_temp_consignment_line_ids` | Temp Consignment Line Ids | one2many → `x_temp_consignment_lin` | Candidate PO lines listed in the Copy PO Lines wizard for selection. | stored | `model x_temp_consignment_lin` | `server action BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment`<br>`view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 
@@ -101,10 +101,10 @@ for valid_line in record.x_studio_temp_consignment_line_ids:
                 "x_studio_consignment_header_id": record.x_studio_temp_consignment_header_id.id,
                 "x_studio_purchase_id": valid_line.x_studio_purchase_id.id,
                 "x_studio_product_id": valid_line.x_studio_product_id.id,
-                "x_studio_description": valid_line.x_studio_description,
+                "description": valid_line.description,
                 "x_studio_payment_method": valid_line.x_studio_payment_method.id,
                 "x_studio_tariff_code": valid_line.x_studio_product_id.x_studio_tariff_code.id,
-                "x_studio_unit_price": valid_line.x_studio_unit_price,
+                "unit_price": valid_line.unit_price,
                 "x_currency_id": valid_line.x_currency_id.id,
                 "x_studio_delivery_remainder": valid_line.x_studio_delivery_remainder,
                 "x_studio_original_delivery_remainder": valid_line.x_studio_delivery_remainder,
@@ -202,7 +202,7 @@ if record.id:
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| IMP Copy PO Line to Consignment | `ported_primary_2905_form_x_temp_consignment_hea` | form | full form layout with 21 fields | 'Copy Import Order Lines' wizard form: Select All / Clear All buttons and an editable list of PO lines to tick (PO, vendor, indent, product, quantities, weight, volume, remainders, prices, dates) for copying into a consignment. | `server action BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment`<br>`x_temp_consignment_hea.x_name`<br>`x_temp_consignment_hea.x_studio_select_all`<details><summary>+19 more</summary>`x_temp_consignment_hea.x_studio_temp_consignment_header_id`<br>`x_temp_consignment_hea.x_studio_temp_consignment_line_ids`<br>`x_temp_consignment_lin.x_studio_concessional_rate`<br>`x_temp_consignment_lin.x_studio_consignment_remainder`<br>`x_temp_consignment_lin.x_studio_delivery_date`<br>`x_temp_consignment_lin.x_studio_delivery_remainder`<br>`x_temp_consignment_lin.x_studio_description`<br>`x_temp_consignment_lin.x_studio_indent_no`<br>`x_temp_consignment_lin.x_studio_product_id`<br>`x_temp_consignment_lin.x_studio_purchase_id`<br>`x_temp_consignment_lin.x_studio_purchase_line_id`<br>`x_temp_consignment_lin.x_studio_quantity`<br>`x_temp_consignment_lin.x_studio_select`<br>`x_temp_consignment_lin.x_studio_subtotal`<br>`x_temp_consignment_lin.x_studio_supplier_id`<br>`x_temp_consignment_lin.x_studio_unit_price`<br>`x_temp_consignment_lin.x_studio_uom_id`<br>`x_temp_consignment_lin.x_studio_volume`<br>`x_temp_consignment_lin.x_studio_weight`</details> | `view BugFix-Purchase.view_x_temp_consignment_hea_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.ported_view_3018_odoo_studio_imp_copy_po_line_to_consignm` |
+| IMP Copy PO Line to Consignment | `ported_primary_2905_form_x_temp_consignment_hea` | form | full form layout with 21 fields | 'Copy Import Order Lines' wizard form: Select All / Clear All buttons and an editable list of PO lines to tick (PO, vendor, indent, product, quantities, weight, volume, remainders, prices, dates) for copying into a consignment. | `server action BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment`<br>`x_temp_consignment_hea.name`<br>`x_temp_consignment_hea.x_studio_select_all`<details><summary>+19 more</summary>`x_temp_consignment_hea.x_studio_temp_consignment_header_id`<br>`x_temp_consignment_hea.x_studio_temp_consignment_line_ids`<br>`x_temp_consignment_lin.x_studio_concessional_rate`<br>`x_temp_consignment_lin.x_studio_consignment_remainder`<br>`x_temp_consignment_lin.x_studio_delivery_date`<br>`x_temp_consignment_lin.x_studio_delivery_remainder`<br>`x_temp_consignment_lin.description`<br>`x_temp_consignment_lin.x_studio_indent_no`<br>`x_temp_consignment_lin.x_studio_product_id`<br>`x_temp_consignment_lin.x_studio_purchase_id`<br>`x_temp_consignment_lin.x_studio_purchase_line_id`<br>`x_temp_consignment_lin.quantity`<br>`x_temp_consignment_lin.x_studio_select`<br>`x_temp_consignment_lin.x_studio_subtotal`<br>`x_temp_consignment_lin.x_studio_supplier_id`<br>`x_temp_consignment_lin.unit_price`<br>`x_temp_consignment_lin.x_studio_uom_id`<br>`x_temp_consignment_lin.x_studio_volume`<br>`x_temp_consignment_lin.x_studio_weight`</details> | `view BugFix-Purchase.view_x_temp_consignment_hea_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.ported_view_3018_odoo_studio_imp_copy_po_line_to_consignm` |
 | Odoo Studio: IMP Copy PO Line to Consignment customization | `ported_view_3018_odoo_studio_imp_copy_po_line_to_consignm` | form |  | Empty customization of the Copy PO Line wizard; its only change was moved to BugFix-Purchase, so it has no effect. | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |  |
 
 **Access rights (3):**

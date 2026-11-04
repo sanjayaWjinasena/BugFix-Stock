@@ -4,7 +4,7 @@
 
 ### `x_con_consolidated_lin` — Con. Consolidated Line
 
-*Created by this repo.* Python: `models/x_con_consolidated_lin.py`, `models/x_con_consolidated_lin_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_con_consolidated_lin.py`, `models/x_con_consolidated_lin_gap.py`. Record name field: `name`.
 
 Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_con_consolidated_line_x_con_consolidated_lin_purchase_jin_procurement_end_user_` (BugFix-Studio-Misc)<br>`server action BugFix-Purchase.server_action_2375_reverse_pr_status_in_po_2` (BugFix-Purchase)<br>`server action BugFix-Studio-Misc.server_action_2799_mst_odoo_data_clean_up` (BugFix-Studio-Misc)
 
@@ -48,16 +48,16 @@ A Consolidated Line is one consignment included in a consolidation, holding the 
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag for consolidation lines; defaults to active. | stored |  | `default BugFix-Stock.default_202_x_con_consolidated_lin_x_active`<br>`view BugFix-Stock.ported_primary_3071_form_x_con_consolidated_lin`<br>`view BugFix-Stock.view_3072_default_search_view_for_x_con_consolidated_lin_e` |
-| `x_name` | Name | char | Name of the consolidation line. | stored |  | `view BugFix-Stock.ported_primary_3070_tree_x_con_consolidated_lin`<br>`view BugFix-Stock.ported_primary_3071_form_x_con_consolidated_lin`<br>`view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.view_3072_default_search_view_for_x_con_consolidated_lin_e` |
-| `x_studio_company_id` | Company | many2one → `res.company` | Company of the consolidation line; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_515_jin_multi_company_consolidated_line`<br>`server action BugFix-Stock.sa_f5_x_con_consolidated_lin_jin_company_id_in_consolidated_line`<br>`server action BugFix-Stock.server_action_2611_jin_company_id_in_consolidated_line`<br>`view BugFix-Stock.ported_view_5564_odoo_studio_default_list_view_for_x_con_` |
+| `active` | Active | boolean | Archive flag for consolidation lines; defaults to active. | stored |  | `default BugFix-Stock.default_202_x_con_consolidated_lin_active`<br>`view BugFix-Stock.ported_primary_3071_form_x_con_consolidated_lin`<br>`view BugFix-Stock.view_3072_default_search_view_for_x_con_consolidated_lin_e` |
+| `name` | Name | char | Name of the consolidation line. | stored |  | `view BugFix-Stock.ported_primary_3070_tree_x_con_consolidated_lin`<br>`view BugFix-Stock.ported_primary_3071_form_x_con_consolidated_lin`<br>`view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.view_3072_default_search_view_for_x_con_consolidated_lin_e` |
+| `accounting_company_id` | Company | many2one → `res.company` | Company of the consolidation line; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_515_jin_multi_company_consolidated_line`<br>`server action BugFix-Stock.sa_f5_x_con_consolidated_lin_jin_company_id_in_consolidated_line`<br>`server action BugFix-Stock.server_action_2611_jin_company_id_in_consolidated_line`<br>`view BugFix-Stock.ported_view_5564_odoo_studio_default_list_view_for_x_con_` |
 | `x_studio_consignment_id` | Consignment Id | many2one → `x_consignment_header` | Consignment included in this consolidation line; made available again when the line is deleted. | stored | `model x_consignment_header` | `server action BugFix-Stock.sa_f5_x_con_consolidated_lin_imp_con_lines_make_available_in_delete`<br>`server action BugFix-Stock.server_action_1424_imp_con_lines_make_available_in_delete`<br>`view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_consolidated_header_id` | Consolidated Header Id | many2one → `x_con_consolidated_hea` | Parent consolidation header of the line (deletion of the header is restricted while lines exist). | stored | `model x_con_consolidated_hea` | `server action BugFix-Stock.sa_f5_x_con_consolidated_lin_imp_con_lines_make_available_in_delete`<br>`server action BugFix-Stock.server_action_1424_imp_con_lines_make_available_in_delete`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_container_no` | Container No | char | Container number copied from the consignment. | stored |  | `view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_currency_id` | Currency | many2one → `res.currency` | Currency of the consignment line; has a default value. | stored | `model res.currency` (base) | `default BugFix-Stock.default_228_x_con_consolidated_lin_x_studio_currency_id`<br>`default BugFix-Stock.default_429_x_con_consolidated_lin_x_studio_currency_id`<br>`view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_custom_clearance_no` | Custom Clearance No | char | Customs clearance number of the consignment. | stored |  | `view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_invoice_date` | Invoice Date | date | Supplier invoice date of the consignment. | stored |  | `view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
-| `x_studio_sequence` | Sequence | integer | Ordering number for consolidation lines (list drag handle). | stored |  | `default BugFix-Stock.default_203_x_con_consolidated_lin_x_studio_sequence`<br>`view BugFix-Stock.ported_primary_3070_tree_x_con_consolidated_lin`<br>`view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_` |
+| `sequence` | Sequence | integer | Ordering number for consolidation lines (list drag handle). | stored |  | `default BugFix-Stock.default_203_x_con_consolidated_lin_sequence`<br>`view BugFix-Stock.ported_primary_3070_tree_x_con_consolidated_lin`<br>`view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_shipment_start_date` | Shipment Start Date | date | Shipment start date of the consignment. | stored |  | `view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_shipping_mode_1` | Shipping Mode | selection: Air=Air; Sea=Sea; Road=Road; Courier=Courier | Shipping mode of the consignment: Air, Sea, Road or Courier. | stored |  | `view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
 | `x_studio_status` | Status | selection: Draft=Draft; Consignment=Confirmed; In Transit=In Transit; Under Custom Clearance=Under Custom Clearance; Done=Done; TP Invoice=TP Invoice | Status of the consignment in the line: Draft, Confirmed, In Transit, Under Custom Clearance, Done or TP Invoice. | stored |  | `view BugFix-Stock.ported_view_3073_odoo_studio_default_form_view_for_x_con_`<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
@@ -101,7 +101,7 @@ if record.id:
   </details>
 - **Execute Code** (`server_action_2611_jin_company_id_in_consolidated_line`, type `code`)
   - Function: Run by an automation: sets the Company of a Consolidated Line to the user's active company.
-  - Depends on: `model res.company` (base), `model x_con_consolidated_lin`, `x_con_consolidated_lin.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_con_consolidated_lin`, `x_con_consolidated_lin.accounting_company_id`
   - Used by: `automation BugFix-Stock.automation_283_jin_company_id_in_consolidated_line`
   <details><summary>code (5 lines)</summary>
 
@@ -109,7 +109,7 @@ if record.id:
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 - **IMP - Con. Lines Make Available in Delete** (`sa_f5_x_con_consolidated_lin_imp_con_lines_make_available_in_delete`, type `code`)
@@ -147,7 +147,7 @@ if record.id:
   </details>
 - **JIN - Company Id in Consolidated Line** (`sa_f5_x_con_consolidated_lin_jin_company_id_in_consolidated_line`, type `code`)
   - Function: Sets the Company of a Consolidated Line to the user's currently active company.
-  - Depends on: `model res.company` (base), `model x_con_consolidated_lin`, `x_con_consolidated_lin.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_con_consolidated_lin`, `x_con_consolidated_lin.accounting_company_id`
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (4 lines)</summary>
 
@@ -155,7 +155,7 @@ if record.id:
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 **Automations (2):**
@@ -176,11 +176,11 @@ record["x_studio_company_id"] = company.id
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for x_con_consolidated_lin | `ported_primary_3071_form_x_con_consolidated_lin` | form | full form layout with 5 fields | Base form of a Consolidated Line: archived ribbon, name title, two empty groups filled by the Studio customization, and chatter. | `x_con_consolidated_lin.activity_ids`<br>`x_con_consolidated_lin.message_follower_ids`<br>`x_con_consolidated_lin.message_ids`<br>`x_con_consolidated_lin.x_active`<br>`x_con_consolidated_lin.x_name` | `view BugFix-Purchase.view_x_con_consolidated_lin_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
-| Default list view for x_con_consolidated_lin | `ported_primary_3070_tree_x_con_consolidated_lin` | tree | full tree layout with 2 fields | Base list view of Consolidated Lines showing a drag handle (sequence) and the name. | `x_con_consolidated_lin.x_name`<br>`x_con_consolidated_lin.x_studio_sequence` | `view BugFix-Stock.ported_view_5564_odoo_studio_default_list_view_for_x_con_` |
-| Default search view for x_con_consolidated_lin | `view_3072_default_search_view_for_x_con_consolidated_lin_e` | search | full search layout with 1 fields | Search view for Consolidated Lines: search by name and an Archived filter. | `x_con_consolidated_lin.x_active`<br>`x_con_consolidated_lin.x_name` |  |
-| Odoo Studio: Default form view for x_con_consolidated_lin customization | `ported_view_3074_odoo_studio_default_form_view_for_x_con_` | form | set invisible=1, required= on `//field[@name='x_name']`; inside `//group[@name='studio_group_759e62_left']`: add field x_studio_supplier_id, field x_studio_currency_id, field x_studio_shipment_start_date, field x_studio_invoice_date, field x_studio_supplier_invoice_no, field x_studio_consignment_id, field x_studio_consolidated_header_id; inside `//group[@name='studio_group_759e62_right']`: add field x_studio_container_no, field x_studio_shipping_mode_1, field x_studio_custom_clearance_no, field x_studio_status | Customizes the Consolidated Line form: hides the name and shows read-only vendor, currency, dates, supplier invoice no, container, shipping mode, clearance no and status (consignment and header links hidden). | `view BugFix-Stock.ported_primary_3071_form_x_con_consolidated_lin`<br>`x_con_consolidated_lin.x_studio_consignment_id`<br>`x_con_consolidated_lin.x_studio_consolidated_header_id`<br>`x_con_consolidated_lin.x_studio_container_no`<br>`x_con_consolidated_lin.x_studio_currency_id`<details><summary>+7 more</summary>`x_con_consolidated_lin.x_studio_custom_clearance_no`<br>`x_con_consolidated_lin.x_studio_invoice_date`<br>`x_con_consolidated_lin.x_studio_shipment_start_date`<br>`x_con_consolidated_lin.x_studio_shipping_mode_1`<br>`x_con_consolidated_lin.x_studio_status`<br>`x_con_consolidated_lin.x_studio_supplier_id`<br>`x_con_consolidated_lin.x_studio_supplier_invoice_no`</details> |  |
-| Odoo Studio: Default list view for x_con_consolidated_lin customization | `ported_view_5564_odoo_studio_default_list_view_for_x_con_` | tree | after `//field[@name='x_name']`: add field x_studio_company_id | Adds a hidden Company column after the name in the Consolidated Lines list. | `view BugFix-Stock.ported_primary_3070_tree_x_con_consolidated_lin`<br>`x_con_consolidated_lin.x_studio_company_id` |  |
+| Default form view for x_con_consolidated_lin | `ported_primary_3071_form_x_con_consolidated_lin` | form | full form layout with 5 fields | Base form of a Consolidated Line: archived ribbon, name title, two empty groups filled by the Studio customization, and chatter. | `x_con_consolidated_lin.activity_ids`<br>`x_con_consolidated_lin.message_follower_ids`<br>`x_con_consolidated_lin.message_ids`<br>`x_con_consolidated_lin.active`<br>`x_con_consolidated_lin.name` | `view BugFix-Purchase.view_x_con_consolidated_lin_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.ported_view_3074_odoo_studio_default_form_view_for_x_con_` |
+| Default list view for x_con_consolidated_lin | `ported_primary_3070_tree_x_con_consolidated_lin` | tree | full tree layout with 2 fields | Base list view of Consolidated Lines showing a drag handle (sequence) and the name. | `x_con_consolidated_lin.name`<br>`x_con_consolidated_lin.sequence` | `view BugFix-Stock.ported_view_5564_odoo_studio_default_list_view_for_x_con_` |
+| Default search view for x_con_consolidated_lin | `view_3072_default_search_view_for_x_con_consolidated_lin_e` | search | full search layout with 1 fields | Search view for Consolidated Lines: search by name and an Archived filter. | `x_con_consolidated_lin.active`<br>`x_con_consolidated_lin.name` |  |
+| Odoo Studio: Default form view for x_con_consolidated_lin customization | `ported_view_3074_odoo_studio_default_form_view_for_x_con_` | form | set invisible=1, required= on `//field[@name='name']`; inside `//group[@name='studio_group_759e62_left']`: add field x_studio_supplier_id, field x_studio_currency_id, field x_studio_shipment_start_date, field x_studio_invoice_date, field x_studio_supplier_invoice_no, field x_studio_consignment_id, field x_studio_consolidated_header_id; inside `//group[@name='studio_group_759e62_right']`: add field x_studio_container_no, field x_studio_shipping_mode_1, field x_studio_custom_clearance_no, field x_studio_status | Customizes the Consolidated Line form: hides the name and shows read-only vendor, currency, dates, supplier invoice no, container, shipping mode, clearance no and status (consignment and header links hidden). | `view BugFix-Stock.ported_primary_3071_form_x_con_consolidated_lin`<br>`x_con_consolidated_lin.x_studio_consignment_id`<br>`x_con_consolidated_lin.x_studio_consolidated_header_id`<br>`x_con_consolidated_lin.x_studio_container_no`<br>`x_con_consolidated_lin.x_studio_currency_id`<details><summary>+7 more</summary>`x_con_consolidated_lin.x_studio_custom_clearance_no`<br>`x_con_consolidated_lin.x_studio_invoice_date`<br>`x_con_consolidated_lin.x_studio_shipment_start_date`<br>`x_con_consolidated_lin.x_studio_shipping_mode_1`<br>`x_con_consolidated_lin.x_studio_status`<br>`x_con_consolidated_lin.x_studio_supplier_id`<br>`x_con_consolidated_lin.x_studio_supplier_invoice_no`</details> |  |
+| Odoo Studio: Default list view for x_con_consolidated_lin customization | `ported_view_5564_odoo_studio_default_list_view_for_x_con_` | tree | after `//field[@name='name']`: add field accounting_company_id | Adds a hidden Company column after the name in the Consolidated Lines list. | `view BugFix-Stock.ported_primary_3070_tree_x_con_consolidated_lin`<br>`x_con_consolidated_lin.accounting_company_id` |  |
 
 **Access rights (5):**
 
@@ -196,4 +196,4 @@ record["x_studio_company_id"] = company.id
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| JIN - Multi-Company - Consolidated Line | `rule_515_jin_multi_company_consolidated_line` | For everyone (global rule): read/write/create/delete on Con. Consolidated Line only where `['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]`. | `model x_con_consolidated_lin`<br>`x_con_consolidated_lin.x_studio_company_id` |  |
+| JIN - Multi-Company - Consolidated Line | `rule_515_jin_multi_company_consolidated_line` | For everyone (global rule): read/write/create/delete on Con. Consolidated Line only where `['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]`. | `model x_con_consolidated_lin`<br>`x_con_consolidated_lin.accounting_company_id` |  |

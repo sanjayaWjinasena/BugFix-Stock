@@ -10,13 +10,13 @@
         <field name="arch" type="xml">
             <data>
               <xpath expr="//field[@name='ticket_id']" position="after">
-                <field name="x_studio_repair_rug" invisible="1"/> 
-                <field name="x_studio_repair_normal_with_serial_no" invisible="1"/>
-                <field name="x_studio_repair_normal_without_serial_no" invisible="1"/>
+                <field name="repair_rug" invisible="1"/> 
+                <field name="repair_normal_with_serial_no" invisible="1"/>
+                <field name="repair_normal_without_serial_no" invisible="1"/>
               </xpath> 
     
               <xpath expr="//field[@name='picking_id']" position="attributes">
-                <attribute name="readonly">(x_studio_repair_normal_without_serial_no != False) or ((x_studio_repair_normal_with_serial_no != False) or (x_studio_repair_rug != False))</attribute><attribute name="required">ticket_id != False</attribute></xpath> 
+                <attribute name="readonly">(repair_normal_without_serial_no != False) or ((repair_normal_with_serial_no != False) or (repair_rug != False))</attribute><attribute name="required">ticket_id != False</attribute></xpath> 
             </data>
         </field>
     </record>
@@ -30,18 +30,18 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='location_id']" position="before">
-                  <!--field name="x_studio_suggested_location_id" attrs="{'invisible': [('x_studio_repair_normal_without_serial_no', '=', True)]}"/--> 
-                  <field name="x_studio_suggested_location_id" invisible="company_id != 1"/>
-                  <field name="x_studio_suggested_location_id_1" invisible="company_id != 2"/>
+                  <!--field name="suggested_location_id" attrs="{'invisible': [('repair_normal_without_serial_no', '=', True)]}"/--> 
+                  <field name="suggested_location_id" invisible="company_id != 1"/>
+                  <field name="suggested_location_id_1" invisible="company_id != 2"/>
                 </xpath> 
     
                 <xpath expr="//footer/button[@name='create_returns']" position="after">
-                  <!--button type="action" name="%(BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" attrs="{'invisible': ['|',('ticket_id', '=', False),('x_studio_repair_normal_without_serial_no', '=', True)]}"></button-->
+                  <!--button type="action" name="%(BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" attrs="{'invisible': ['|',('ticket_id', '=', False),('repair_normal_without_serial_no', '=', True)]}"></button-->
                   <button type="action" name="%(BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" invisible="ticket_id == False"/>
                 </xpath>
     
                 <!--xpath expr="//footer/button[@name='create_returns']" position="attributes">
-                <attribute name="attrs">{'readonly': ['|',('x_studio_repair_rug', '=', True),('x_studio_repair_normal_with_serial_no', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': ['|',('repair_rug', '=', True),('repair_normal_with_serial_no', '=', True)]}</attribute>
                 </xpath--> 
     
               </data>

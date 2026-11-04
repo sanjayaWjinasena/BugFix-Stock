@@ -18,17 +18,17 @@ This repo adds repair return support to the Return wizard: flags for RUG repairs
 
 | Field | Label | Type | Function | How it gets its value | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| `x_studio_repair_normal_with_serial_no` | Repair – Normal with Serial No | boolean | Read-only flag on the Return wizard for normal repairs with a serial number; used by the 'Auto Select Product for RUG Repairs' action. Non-stored with no compute here. | not stored |  | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`view BugFix-Stock.ported_view_4617_studio_stock_return_picking_form` |
-| `x_studio_repair_normal_without_serial_no` | Repair – Normal without Serial No | boolean | Read-only flag on the Return wizard for normal repairs without a serial number; shown on the wizard form. | stored |  | `view BugFix-Stock.ported_view_4617_studio_stock_return_picking_form` |
-| `x_studio_repair_rug` | Repair – RUG | boolean | Read-only flag on the Return wizard indicating a RUG repair return; used by the 'Auto Select Product for RUG Repairs' action. Non-stored with no compute here. | not stored |  | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`view BugFix-Stock.ported_view_4617_studio_stock_return_picking_form` |
-| `x_studio_suggested_location_id` | Suggested Location | many2one → `stock.location` | Suggested return location on the Return wizard, set by the RUG repair return actions. | stored | `model stock.location` (stock) | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk`<br>`view BugFix-Stock.ported_view_4619_studio_stock_return_picking_form_2` |
-| `x_studio_suggested_location_id_1` | Suggested Location (Company 2) | many2one → `stock.location` | Suggested return location for the second company on the Return wizard, set by the RUG repair return actions. | stored | `model stock.location` (stock) | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk`<br>`view BugFix-Stock.ported_view_4619_studio_stock_return_picking_form_2` |
+| `repair_normal_with_serial_no` | Repair – Normal with Serial No | boolean | Read-only flag on the Return wizard for normal repairs with a serial number; used by the 'Auto Select Product for RUG Repairs' action. Non-stored with no compute here. | not stored |  | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`view BugFix-Stock.ported_view_4617_studio_stock_return_picking_form` |
+| `repair_normal_without_serial_no` | Repair – Normal without Serial No | boolean | Read-only flag on the Return wizard for normal repairs without a serial number; shown on the wizard form. | stored |  | `view BugFix-Stock.ported_view_4617_studio_stock_return_picking_form` |
+| `repair_rug` | Repair – RUG | boolean | Read-only flag on the Return wizard indicating a RUG repair return; used by the 'Auto Select Product for RUG Repairs' action. Non-stored with no compute here. | not stored |  | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`view BugFix-Stock.ported_view_4617_studio_stock_return_picking_form` |
+| `suggested_location_id` | Suggested Location | many2one → `stock.location` | Suggested return location on the Return wizard, set by the RUG repair return actions. | stored | `model stock.location` (stock) | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk`<br>`view BugFix-Stock.ported_view_4619_studio_stock_return_picking_form_2` |
+| `suggested_location_id_1` | Suggested Location (Company 2) | many2one → `stock.location` | Suggested return location for the second company on the Return wizard, set by the RUG repair return actions. | stored | `model stock.location` (stock) | `server action BugFix-Stock.sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1991_rr_auto_select_product_for_rug_repairs_3`<br>`server action BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk`<br>`view BugFix-Stock.ported_view_4619_studio_stock_return_picking_form_2` |
 
 **Server actions (3):**
 
 - **Execute Code** (`server_action_1991_rr_auto_select_product_for_rug_repairs_3`, type `code`)
   - Function: On a ticket-linked return for RUG or serial-numbered repairs, raises an error unless the Return Location equals the Suggested Return Location (company-specific field for company 1 vs others); run by the matching automation.
-  - Depends on: `model helpdesk.ticket` (helpdesk), `model res.company` (base), `model stock.return.picking` (stock), `stock.return.picking.location_id` (stock), `stock.return.picking.ticket_id` (helpdesk_stock)<details><summary>+4 more</summary>`stock.return.picking.x_studio_repair_normal_with_serial_no`, `stock.return.picking.x_studio_repair_rug`, `stock.return.picking.x_studio_suggested_location_id_1`, `stock.return.picking.x_studio_suggested_location_id`</details>
+  - Depends on: `model helpdesk.ticket` (helpdesk), `model res.company` (base), `model stock.return.picking` (stock), `stock.return.picking.location_id` (stock), `stock.return.picking.ticket_id` (helpdesk_stock)<details><summary>+4 more</summary>`stock.return.picking.repair_normal_with_serial_no`, `stock.return.picking.repair_rug`, `stock.return.picking.suggested_location_id_1`, `stock.return.picking.suggested_location_id`</details>
   - Used by: `automation BugFix-Stock.base_automation_174_rr_auto_select_product_for_rug_repairs_3`
   <details><summary>code (16 lines)</summary>
 
@@ -38,8 +38,8 @@ if record.ticket_id:
     company = env["res.company"].browse(company_id)
 
     if (
-        record.x_studio_repair_rug == True
-        or record.x_studio_repair_normal_with_serial_no == True
+        record.repair_rug == True
+        or record.repair_normal_with_serial_no == True
     ):
         if company.id == 1:
             ticket = env["helpdesk.ticket"].search(
@@ -47,7 +47,7 @@ if record.ticket_id:
                 limit=1,
             )
             if ticket:
-                if record.location_id.id != record.x_studio_suggested_location_id.id:
+                if record.location_id.id != record.suggested_location_id.id:
                     raise UserError(
                         "Return Location should be equal to Suggested Return Location."
                     )
@@ -57,7 +57,7 @@ if record.ticket_id:
                 limit=1,
             )
             if ticket:
-                if record.location_id.id != record.x_studio_suggested_location_id_1.id:
+                if record.location_id.id != record.suggested_location_id_1.id:
                     raise UserError(
                         "Return Location should be equal to Suggested Return Location."
                     )
@@ -65,7 +65,7 @@ if record.ticket_id:
   </details>
 - **RR - Auto Select Product for RUG Repairs-3** (`sa_f5_stock_return_picking_rr_auto_select_product_for_rug_repairs_3`, type `code`)
   - Function: On a return wizard linked to a helpdesk ticket and flagged as RUG or serial-number repair, raises an error unless the return location equals the Suggested Return Location (a different suggested-location field is checked for company 1 vs other companies). Despite its name it selects no product.
-  - Depends on: `model helpdesk.ticket` (helpdesk), `model res.company` (base), `model stock.return.picking` (stock), `stock.return.picking.location_id` (stock), `stock.return.picking.ticket_id` (helpdesk_stock)<details><summary>+4 more</summary>`stock.return.picking.x_studio_repair_normal_with_serial_no`, `stock.return.picking.x_studio_repair_rug`, `stock.return.picking.x_studio_suggested_location_id_1`, `stock.return.picking.x_studio_suggested_location_id`</details>
+  - Depends on: `model helpdesk.ticket` (helpdesk), `model res.company` (base), `model stock.return.picking` (stock), `stock.return.picking.location_id` (stock), `stock.return.picking.ticket_id` (helpdesk_stock)<details><summary>+4 more</summary>`stock.return.picking.repair_normal_with_serial_no`, `stock.return.picking.repair_rug`, `stock.return.picking.suggested_location_id_1`, `stock.return.picking.suggested_location_id`</details>
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (15 lines)</summary>
 
@@ -75,8 +75,8 @@ if record.ticket_id:
     company = env["res.company"].browse(company_id)
 
     if (
-        record.x_studio_repair_rug == True
-        or record.x_studio_repair_normal_with_serial_no == True
+        record.repair_rug == True
+        or record.repair_normal_with_serial_no == True
     ):
         if company.id == 1:
             ticket = env["helpdesk.ticket"].search(
@@ -84,7 +84,7 @@ if record.ticket_id:
                 limit=1,
             )
             if ticket:
-                if record.location_id.id != record.x_studio_suggested_location_id.id:
+                if record.location_id.id != record.suggested_location_id.id:
                     raise UserError(
                         "Return Location should be equal to Suggested Return Location."
                     )
@@ -94,7 +94,7 @@ if record.ticket_id:
                 limit=1,
             )
             if ticket:
-                if record.location_id.id != record.x_studio_suggested_location_id_1.id:
+                if record.location_id.id != record.suggested_location_id_1.id:
                     raise UserError(
                         "Return Location should be equal to Suggested Return Location."
                     )
@@ -102,7 +102,7 @@ if record.ticket_id:
   </details>
 - **RR - RUG Return from Help desk** (`server_action_1997_rr_rug_return_from_help_desk`, type `code`)
   - Function: Button on the return wizard for RUG returns from a helpdesk ticket: validates user virtual/source locations, suggested return location and qty 1 per line, then creates a receipt transfer with a move and serial-numbered move line for the ticket product, links it to the ticket and opens it.
-  - Depends on: `model helpdesk.ticket` (helpdesk), `model procurement.group` (stock), `model res.company` (base), `model stock.location` (stock), `model stock.move.line` (stock)<details><summary>+12 more</summary>`model stock.move` (stock), `model stock.picking.type` (stock), `model stock.picking` (stock), `model stock.return.picking` (stock), `stock.return.picking.location_id` (stock), `stock.return.picking.partner_id` (helpdesk_stock), `stock.return.picking.picking_id` (stock), `stock.return.picking.product_return_moves` (stock), `stock.return.picking.sale_order_id` (helpdesk_stock), `stock.return.picking.ticket_id` (helpdesk_stock), `stock.return.picking.x_studio_suggested_location_id_1`, `stock.return.picking.x_studio_suggested_location_id`</details>
+  - Depends on: `model helpdesk.ticket` (helpdesk), `model procurement.group` (stock), `model res.company` (base), `model stock.location` (stock), `model stock.move.line` (stock)<details><summary>+12 more</summary>`model stock.move` (stock), `model stock.picking.type` (stock), `model stock.picking` (stock), `model stock.return.picking` (stock), `stock.return.picking.location_id` (stock), `stock.return.picking.partner_id` (helpdesk_stock), `stock.return.picking.picking_id` (stock), `stock.return.picking.product_return_moves` (stock), `stock.return.picking.sale_order_id` (helpdesk_stock), `stock.return.picking.ticket_id` (helpdesk_stock), `stock.return.picking.suggested_location_id_1`, `stock.return.picking.suggested_location_id`</details>
   - Used by: `view BugFix-Stock.ported_view_4619_studio_stock_return_picking_form_2`
   <details><summary>code (56 lines)</summary>
 
@@ -113,27 +113,27 @@ if record.id:
 
     if company.id == 1:
         if (
-            record.ticket_id.x_studio_virtual_location == False
-            or record.ticket_id.x_studio_source_location == False
+            record.ticket_id.virtual_location == False
+            or record.ticket_id.source_location == False
         ):
             raise UserError(
                 "Virtual & Source Locations must be setup for Current Logged in User."
             )
 
-        if record.location_id.id != record.x_studio_suggested_location_id.id:
+        if record.location_id.id != record.suggested_location_id.id:
             raise UserError(
                 "Return Location should be equal to Suggested Return Location."
             )
     else:
         if (
-            record.ticket_id.x_studio_virtual_location_1 == False
-            or record.ticket_id.x_studio_source_location_1 == False
+            record.ticket_id.virtual_location_1 == False
+            or record.ticket_id.source_location_1 == False
         ):
             raise UserError(
                 "Virtual & Source Locations must be setup for Current Logged in User."
             )
 
-        if record.location_id.id != record.x_studio_suggested_location_id_1.id:
+        if record.location_id.id != record.suggested_location_id_1.id:
             raise UserError(
                 "Return Location should be equal to Suggested Return Location."
             )
@@ -150,7 +150,7 @@ if record.id:
                     (
                         "default_location_dest_id",
                         "=",
-                        record.ticket_id.x_studio_return_receipt_location.id,
+                        record.ticket_id.return_receipt_location.id,
                     ),
                     ("code", "=", "incoming"),
                     ("name", "=", "Returns"),
@@ -164,7 +164,7 @@ if record.id:
                     (
                         "default_location_dest_id",
                         "=",
-                        record.ticket_id.x_studio_return_receipt_location.id,
+                        record.ticket_id.return_receipt_location.id,
                     ),
                     ("code", "=", "incoming"),
                     ("name", "=", "Receipts"),
@@ -174,10 +174,10 @@ if record.id:
             )
 
         if opt_type:
-            # prod_move = env['stock.picking'].create({'x_studio_created_from_help_ticket':record.ticket_id.id,'picking_type_id':opt_type.id,'location_id':source_loc.id,'location_dest_id':record.location_id.id,'origin':('Return of '+ record.picking_id.name),'partner_id':record.partner_id.id})
+            # prod_move = env['stock.picking'].create({'created_from_help_ticket':record.ticket_id.id,'picking_type_id':opt_type.id,'location_id':source_loc.id,'location_dest_id':record.location_id.id,'origin':('Return of '+ record.picking_id.name),'partner_id':record.partner_id.id})
             prod_move = env["stock.picking"].create(
                 {
-                    "x_studio_helpdesk_ticket_id": record.ticket_id.id,
+                    "helpdesk_ticket_id": record.ticket_id.id,
                     "picking_type_id": opt_type.id,
                     "location_id": source_loc.id,
                     "location_dest_id": record.location_id.id,
@@ -219,7 +219,7 @@ if record.id:
                         "product_uom_id": record.ticket_id.product_id.uom_id.id,
                         "location_id": update_prod_move.location_id.id,
                         "location_dest_id": update_prod_move.location_dest_id.id,
-                        "lot_id": record.ticket_id.x_studio_serial_no.id,
+                        "lot_id": record.ticket_id.serial_no.id,
                         "qty_done": 1.00,
                         "company_id": company.id,
                     }
@@ -257,8 +257,8 @@ if record.id:
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Odoo Studio: Return customization | `ported_view_4617_studio_stock_return_picking_form` | form | after `//field[@name='ticket_id']`: add field x_studio_repair_rug, field x_studio_repair_normal_with_serial_no, field x_studio_repair_normal_without_serial_no; set readonly=(x_studio_repair_normal_without_serial_no != False) or ((x_studio_repair_normal_with_serial_no != False) or (x_studio_repair_rug != False)), required=ticket_id != False on `//field[@name='picking_id']` | On the helpdesk Return wizard adds hidden repair-type flags, makes the source transfer read-only for repair returns and required when a ticket is set. | `stock.return.picking.x_studio_repair_normal_with_serial_no`<br>`stock.return.picking.x_studio_repair_normal_without_serial_no`<br>`stock.return.picking.x_studio_repair_rug`<br>`view helpdesk_stock.view_stock_return_picking_form_inherit_helpdesk_stock` (helpdesk_stock) |  |
-| Odoo Studio: Return lines customization-2 | `ported_view_4619_studio_stock_return_picking_form_2` | form | before `//field[@name='location_id']`: add field x_studio_suggested_location_id, field x_studio_suggested_location_id_1; after `//footer/button[@name='create_returns']`: add button 'Return' | On the Return wizard adds the Suggested Return Location (company-specific field for company 1 or 2) and a 'Return' button for ticket returns. Button uses hardcoded action id 2006, which may not exist on a fresh install. | `server action BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk`<br>`stock.return.picking.company_id` (stock)<br>`stock.return.picking.ticket_id` (helpdesk_stock)<br>`stock.return.picking.x_studio_suggested_location_id_1`<br>`stock.return.picking.x_studio_suggested_location_id`<details><summary>+1 more</summary>`view stock.view_stock_return_picking_form` (stock)</details> |  |
+| Odoo Studio: Return customization | `ported_view_4617_studio_stock_return_picking_form` | form | after `//field[@name='ticket_id']`: add field repair_rug, field repair_normal_with_serial_no, field repair_normal_without_serial_no; set readonly=(repair_normal_without_serial_no != False) or ((repair_normal_with_serial_no != False) or (repair_rug != False)), required=ticket_id != False on `//field[@name='picking_id']` | On the helpdesk Return wizard adds hidden repair-type flags, makes the source transfer read-only for repair returns and required when a ticket is set. | `stock.return.picking.repair_normal_with_serial_no`<br>`stock.return.picking.repair_normal_without_serial_no`<br>`stock.return.picking.repair_rug`<br>`view helpdesk_stock.view_stock_return_picking_form_inherit_helpdesk_stock` (helpdesk_stock) |  |
+| Odoo Studio: Return lines customization-2 | `ported_view_4619_studio_stock_return_picking_form_2` | form | before `//field[@name='location_id']`: add field suggested_location_id, field suggested_location_id_1; after `//footer/button[@name='create_returns']`: add button 'Return' | On the Return wizard adds the Suggested Return Location (company-specific field for company 1 or 2) and a 'Return' button for ticket returns. Button uses hardcoded action id 2006, which may not exist on a fresh install. | `server action BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk`<br>`stock.return.picking.company_id` (stock)<br>`stock.return.picking.ticket_id` (helpdesk_stock)<br>`stock.return.picking.suggested_location_id_1`<br>`stock.return.picking.suggested_location_id`<details><summary>+1 more</summary>`view stock.view_stock_return_picking_form` (stock)</details> |  |
 
 **Access rights (1):**
 

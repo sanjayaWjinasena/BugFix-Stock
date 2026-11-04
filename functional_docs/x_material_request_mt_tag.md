@@ -4,7 +4,7 @@
 
 ### `x_material_request_mt_tag` — Material Request MT Tags
 
-*Created by this repo.* Python: `models/x_material_request_mt_tag.py`, `models/x_material_request_mt_tag_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_material_request_mt_tag.py`, `models/x_material_request_mt_tag_gap.py`. Record name field: `name`.
 
 **Summary:**
 
@@ -22,8 +22,8 @@ A tag for the Material Request MT app, with a name and a colour. Users maintain 
 | `id` | ID | integer | Unique database ID of the record (automatic). | stored |  |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_color` | Color | integer | Color index of the tag. | stored |  | `view BugFix-Stock.view_8777_default_list_view_for_x_material_request_mt_tag_e` |
-| `x_name` | Name | char | Name of the material request tag. | stored; required |  | `view BugFix-Stock.view_8777_default_list_view_for_x_material_request_mt_tag_e`<br>`view BugFix-Stock.view_8778_default_form_view_for_x_material_request_mt_tag_e`<br>`view BugFix-Stock.view_8779_default_search_view_for_x_material_request_mt_tag_e` |
+| `color` | Color | integer | Color index of the tag. | stored |  | `view BugFix-Stock.view_8777_default_list_view_for_x_material_request_mt_tag_e` |
+| `name` | Name | char | Name of the material request tag. | stored; required |  | `view BugFix-Stock.view_8777_default_list_view_for_x_material_request_mt_tag_e`<br>`view BugFix-Stock.view_8778_default_form_view_for_x_material_request_mt_tag_e`<br>`view BugFix-Stock.view_8779_default_search_view_for_x_material_request_mt_tag_e` |
 
 **Window actions (1):**
 
@@ -35,9 +35,9 @@ A tag for the Material Request MT app, with a name and a colour. Users maintain 
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for x_material_request_mt_tag | `view_8778_default_form_view_for_x_material_request_mt_tag_e` | form | full form layout with 1 fields | Form for a Material Request (MT) tag: just the tag name. | `x_material_request_mt_tag.x_name` |  |
-| Default list view for x_material_request_mt_tag | `view_8777_default_list_view_for_x_material_request_mt_tag_e` | tree | full tree layout with 2 fields | Inline-editable list of Material Request (MT) tags with name and color. | `x_material_request_mt_tag.x_color`<br>`x_material_request_mt_tag.x_name` |  |
-| Default search view for x_material_request_mt_tag | `view_8779_default_search_view_for_x_material_request_mt_tag_e` | search | full search layout with 1 fields | Search Material Request (MT) tags by name. | `x_material_request_mt_tag.x_name` |  |
+| Default form view for x_material_request_mt_tag | `view_8778_default_form_view_for_x_material_request_mt_tag_e` | form | full form layout with 1 fields | Form for a Material Request (MT) tag: just the tag name. | `x_material_request_mt_tag.name` |  |
+| Default list view for x_material_request_mt_tag | `view_8777_default_list_view_for_x_material_request_mt_tag_e` | tree | full tree layout with 2 fields | Inline-editable list of Material Request (MT) tags with name and color. | `x_material_request_mt_tag.color`<br>`x_material_request_mt_tag.name` |  |
+| Default search view for x_material_request_mt_tag | `view_8779_default_search_view_for_x_material_request_mt_tag_e` | search | full search layout with 1 fields | Search Material Request (MT) tags by name. | `x_material_request_mt_tag.name` |  |
 
 **Access rights (2):**
 

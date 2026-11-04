@@ -5,12 +5,12 @@ from odoo import api, fields, models
 
 class XMaterialRequest(models.Model):
     _name = "x_material_request"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "X Material Request"
 
-    x_active = fields.Boolean(string="Active", default=True)
-    x_name = fields.Char(string="Request Reference")
+    active = fields.Boolean(string="Active", default=True)
+    name = fields.Char(string="Request Reference")
     x_studio_done = fields.Boolean(
         string="Done", compute="_compute_done", store=True, readonly=True
     )
@@ -52,7 +52,7 @@ class XMaterialRequest(models.Model):
         [("status1", "Create MR"), ("status2", "Create PR")],
         string="Pipeline status bar",
     )
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_test = fields.Char(string="Test")
     x_studio_type = fields.Selection(
         [("Local", "Local"), ("Import", "Import")], string="Type"

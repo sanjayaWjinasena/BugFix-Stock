@@ -4,7 +4,7 @@
 
 ### `x_temp_consignment_lin` — Temp Consignment Line
 
-*Created by this repo.* Python: `models/x_temp_consignment_lin.py`, `models/x_temp_consignment_lin_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_temp_consignment_lin.py`, `models/x_temp_consignment_lin_gap.py`. Record name field: `name`.
 
 Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_temp_consignment_lin_x_temp_consignment_lin_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
 
@@ -48,25 +48,25 @@ A temporary candidate line in the Copy Import Order Lines wizard, holding one im
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag for temporary PO lines in the Copy PO Lines wizard; has a default. | stored |  | `default BugFix-Stock.default_150_x_temp_consignment_lin_x_active` |
+| `active` | Active | boolean | Archive flag for temporary PO lines in the Copy PO Lines wizard; has a default. | stored |  | `default BugFix-Stock.default_150_x_temp_consignment_lin_active` |
 | `x_currency_id` | Currency | many2one → `res.currency` | Currency of the candidate PO line; has a default value. | stored | `model res.currency` (base) | `default BugFix-Stock.default_152_x_temp_consignment_lin_x_currency_id` |
-| `x_name` | Name | char | Name of the temporary PO line record. | stored |  |  |
+| `name` | Name | char | Name of the temporary PO line record. | stored |  |  |
 | `x_studio_concessional_rate` | Concessional Rate | boolean | Concessional duty rate flag of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_consignment_remainder` | Consignment Remainder | float | PO quantity still not assigned to a consignment for this candidate line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_delivery_date` | Delivery Date | datetime | Expected delivery date of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_delivery_remainder` | Delivery Remainder | float | Quantity still to be delivered for the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
-| `x_studio_description` | Description | text | Description of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
+| `description` | Description | text | Description of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_indent_no` | Indent No | char | Indent (purchase order) number of the candidate line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_product_id` | Product | many2one → `product.product` | Product of the candidate PO line. | stored | `model product.product` (product) | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_purchase_id` | Order Reference | many2one → `purchase.order` | Purchase order of the candidate line. | stored | `model purchase.order` (purchase) | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_purchase_line_id` | Purchase Line Id | many2one → `purchase.order.line` | Purchase order line represented by this candidate line. | stored | `model purchase.order.line` (purchase) | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
-| `x_studio_quantity` | Quantity | float | Quantity of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
+| `quantity` | Quantity | float | Quantity of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_select` | Select | boolean | Tick box in the Copy PO Lines wizard; ticked lines are copied to the consignment by the 'Apply Selected PO Lines' action. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
-| `x_studio_sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_151_x_temp_consignment_lin_x_studio_sequence` |
+| `sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_151_x_temp_consignment_lin_sequence` |
 | `x_studio_subtotal` | Subtotal | float | Subtotal value of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_supplier_id` | Vendor | many2one → `res.partner` | Vendor of the candidate PO line. | stored | `model res.partner` (base) | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_temp_consignment_header_id` | Temp Consignment Header Id | many2one → `x_temp_consignment_hea` | Copy PO Lines wizard record this candidate line belongs to. | stored | `model x_temp_consignment_hea` |  |
-| `x_studio_unit_price` | Unit Price | float | Unit price of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
+| `unit_price` | Unit Price | float | Unit price of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_uom_id` | UOM | many2one → `uom.uom` | Unit of measure of the candidate PO line. | stored | `model uom.uom` (uom) | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_volume` | Volume | float | Volume of the candidate PO line's goods. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |
 | `x_studio_weight` | Weight | float | Weight of the candidate PO line's goods. | stored |  | `view BugFix-Stock.ported_primary_2905_form_x_temp_consignment_hea` |

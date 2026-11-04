@@ -4,7 +4,7 @@
 
 ### `x_temp_structure_maste` — Temp Structure Master
 
-*Created by this repo.* Python: `models/x_temp_structure_maste.py`, `models/x_temp_structure_maste_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_temp_structure_maste.py`, `models/x_temp_structure_maste_gap.py`. Record name field: `name`.
 
 **Summary:**
 
@@ -46,9 +46,9 @@ The temporary wizard record behind Apply Structure Formula. It lists charge line
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_structure_maste_x_active_true` |
-| `x_name` | Name | char | Name of the temporary Apply Formula wizard record. | stored |  | `view BugFix-Stock.view_2705_imp_apply_formula_e` |
-| `x_studio_sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_126_x_temp_structure_maste_x_studio_sequence` |
+| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_structure_maste_x_active_true` |
+| `name` | Name | char | Name of the temporary Apply Formula wizard record. | stored |  | `view BugFix-Stock.view_2705_imp_apply_formula_e` |
+| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_126_x_temp_structure_maste_sequence` |
 | `x_studio_temp_structure_details` | Temp Structure Details | one2many → `x_temp_structure_detai` | Charge lines offered in the Apply Formula wizard; the selected ones are appended to the structure detail's formula. | stored | `model x_temp_structure_detai` | `server action BugFix-Stock.server_action_1204_imp_apply_formula`<br>`view BugFix-Stock.view_2705_imp_apply_formula_e` |
 
 **Server actions (1):**
@@ -107,7 +107,7 @@ if record.id:
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| IMP Apply Formula | `view_2705_imp_apply_formula_e` | form | full form layout with 2 fields | 'Apply Structure Formula' wizard with a list of charge indicators and an Apply button (runs IMP - Apply Formula). Its list columns (charge name, group) were stripped by the porter, so the list shows no columns. | `server action account_auto_transfer.ir_cron_auto_transfer_ir_actions_server` (account_auto_transfer)<br>`x_temp_structure_maste.x_name`<br>`x_temp_structure_maste.x_studio_temp_structure_details` | `view BugFix-Purchase.view_x_temp_structure_maste_form_upstream_link_fields` (BugFix-Purchase) |
+| IMP Apply Formula | `view_2705_imp_apply_formula_e` | form | full form layout with 2 fields | 'Apply Structure Formula' wizard with a list of charge indicators and an Apply button (runs IMP - Apply Formula). Its list columns (charge name, group) were stripped by the porter, so the list shows no columns. | `server action account_auto_transfer.ir_cron_auto_transfer_ir_actions_server` (account_auto_transfer)<br>`x_temp_structure_maste.name`<br>`x_temp_structure_maste.x_studio_temp_structure_details` | `view BugFix-Purchase.view_x_temp_structure_maste_form_upstream_link_fields` (BugFix-Purchase) |
 
 **Access rights (2):**
 

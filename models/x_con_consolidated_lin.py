@@ -11,13 +11,13 @@ from odoo import fields, models
 
 class XConConsolidatedLin(models.Model):
     _name = "x_con_consolidated_lin"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Con. Consolidated Line"
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
-    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")
+    accounting_company_id = fields.Many2one("res.company", string="Company")
     x_studio_consignment_id = fields.Many2one(
         "x_consignment_header", string="Consignment Id"
     )
@@ -28,7 +28,7 @@ class XConConsolidatedLin(models.Model):
     x_studio_currency_id = fields.Many2one("res.currency", string="Currency")
     x_studio_custom_clearance_no = fields.Char(string="Custom Clearance No")
     x_studio_invoice_date = fields.Date(string="Invoice Date")
-    x_studio_sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer(string="Sequence")
     x_studio_shipment_start_date = fields.Date(string="Shipment Start Date")
     x_studio_shipping_mode_1 = fields.Selection(
         [("Air", "Air"), ("Sea", "Sea"), ("Road", "Road"), ("Courier", "Courier")],
@@ -51,7 +51,7 @@ class XConConsolidatedLin(models.Model):
 
 class XConConsolidatedLinGap(models.Model):
     _inherit = "x_con_consolidated_lin"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_name = fields.Char(string="Name")
+    active = fields.Boolean(string="Active")
+    name = fields.Char(string="Name")

@@ -5,13 +5,13 @@ from odoo import fields, models
 
 class XMaterialRequestTes(models.Model):
     _name = "x_material_request_tes"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Material Request Test"
 
-    x_color = fields.Integer(string="Color")
-    x_name = fields.Char(string="Description", required=True)
-    x_studio_company_id = fields.Many2one("res.company", string="Company")
+    color = fields.Integer(string="Color")
+    name = fields.Char(string="Description", required=True)
+    accounting_company_id = fields.Many2one("res.company", string="Company")
     x_studio_currency_id = fields.Many2one("res.currency", string="Currency")
     x_studio_date = fields.Date(string="Date")
     x_studio_date_start = fields.Datetime(string="Start Date")
@@ -25,8 +25,8 @@ class XMaterialRequestTes(models.Model):
     x_studio_partner_email = fields.Char(string="Email")
     x_studio_partner_id = fields.Many2one("res.partner", string="Contact")
     x_studio_partner_phone = fields.Char(string="Phone")
-    x_studio_priority = fields.Boolean(string="High Priority")
-    x_studio_sequence = fields.Integer(string="Sequence")
+    custom_reports_priority = fields.Boolean(string="High Priority")
+    sequence = fields.Integer(string="Sequence")
     x_studio_user_id = fields.Many2one("res.users", string="Responsible")
     x_studio_value = fields.Monetary(
         string="Value", currency_field="x_studio_currency_id"
@@ -42,13 +42,13 @@ class XMaterialRequestTes(models.Model):
 
 class XMaterialRequestTesGap(models.Model):
     _inherit = "x_material_request_tes"
-    _rec_name = "x_name"  # Clear-DB Studio model: records are named by x_name
+    _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    x_active = fields.Boolean(string="Active")
-    x_color = fields.Integer(string="Color")
+    active = fields.Boolean(string="Active")
+    color = fields.Integer(string="Color")
     # STRIPPED x_material_request_tes_line_ids_661d3: O2M inverse lives in another repo
     # (load-order risk)
-    x_name = fields.Char(string="Description", required=True)
+    name = fields.Char(string="Description", required=True)
     x_studio_stage_id = fields.Many2one(
         comodel_name="x_material_request_tes_stage", string="Stage", required=True
     )

@@ -4,7 +4,7 @@
 
 ### `x_consignment_charge_l` — Consignment Charge Line
 
-*Created by this repo.* Python: `models/x_consignment_charge_l.py`, `models/x_consignment_charge_l_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_consignment_charge_l.py`, `models/x_consignment_charge_l_gap.py`. Record name field: `name`.
 
 Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_consignment_charge_l_x_consignment_charge_l_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)<br>`server action BugFix-Studio-Misc.server_action_2799_mst_odoo_data_clean_up` (BugFix-Studio-Misc)
 
@@ -48,29 +48,29 @@ A Consignment Charge Line is the part of a consignment charge, duty or tax alloc
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag for consignment line charges; defaults to active. | stored |  | `default BugFix-Stock.default_163_x_consignment_charge_l_x_active`<br>`view BugFix-Stock.ported_primary_2938_form_x_consignment_charge_l`<br>`view BugFix-Stock.view_2939_default_search_view_for_x_consignment_charge_l_e` |
-| `x_name` | Name | char | Name of the consignment line charge record. | stored |  | `view BugFix-Stock.ported_primary_2937_tree_x_consignment_charge_l`<br>`view BugFix-Stock.ported_primary_2938_form_x_consignment_charge_l`<br>`view BugFix-Stock.view_2939_default_search_view_for_x_consignment_charge_l_e` |
+| `active` | Active | boolean | Archive flag for consignment line charges; defaults to active. | stored |  | `default BugFix-Stock.default_163_x_consignment_charge_l_active`<br>`view BugFix-Stock.ported_primary_2938_form_x_consignment_charge_l`<br>`view BugFix-Stock.view_2939_default_search_view_for_x_consignment_charge_l_e` |
+| `name` | Name | char | Name of the consignment line charge record. | stored |  | `view BugFix-Stock.ported_primary_2937_tree_x_consignment_charge_l`<br>`view BugFix-Stock.ported_primary_2938_form_x_consignment_charge_l`<br>`view BugFix-Stock.view_2939_default_search_view_for_x_consignment_charge_l_e` |
 | `x_studio_amount` | Amount | float | Charge amount allocated to the consignment line/product. | stored |  | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
 | `x_studio_basis` | Basis | selection: Percentage=Percentage; Fixed Per Document=Fixed Per Document | How the line charge is calculated: Percentage or Fixed Per Document. | stored |  | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons` |
 | `x_studio_charge_group` | Charge Group | selection: None=None; Charges=Charges; Duty=Duty; Taxes=Taxes | Group of the line charge: None, Charges, Duty or Taxes. | stored |  | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
 | `x_studio_charge_name` | Charge Name | char | Name of the charge applied to the line. | stored |  | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
-| `x_studio_company_id` | Company | many2one → `res.company` | Company of the line charge; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_522_jin_multi_company_consignment_charge_line`<br>`server action BugFix-Stock.sa_f5_x_consignment_charge_l_jin_company_id_in_consignment_charge_line`<br>`server action BugFix-Stock.server_action_2618_jin_company_id_in_consignment_charge_line`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
+| `accounting_company_id` | Company | many2one → `res.company` | Company of the line charge; set to the current company on create and used by the multi-company record rule. | stored | `model res.company` (base) | `record rule BugFix-Stock.rule_522_jin_multi_company_consignment_charge_line`<br>`server action BugFix-Stock.sa_f5_x_consignment_charge_l_jin_company_id_in_consignment_charge_line`<br>`server action BugFix-Stock.server_action_2618_jin_company_id_in_consignment_charge_line`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
 | `x_studio_consignment_charge_header_id` | Consignment Charge Header Id | many2one → `x_consignment_charge_h` | Header charge this line charge was allocated from. | stored | `model x_consignment_charge_h` | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons` |
 | `x_studio_consignment_id` | Consignment Id | many2one → `x_consignment_header` | Consignment this line charge belongs to; used to filter the Line Charges action. | stored | `model x_consignment_header` | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons`<br>`window action BugFix-Stock.action_1319_line_charges` |
 | `x_studio_formula` | Formula | char | Text formula describing how the line charge is calculated. | stored |  | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons` |
 | `x_studio_indent_id` | Indent_ID | char | Indent (purchase order) identifier the charge relates to. | stored |  | `view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
 | `x_studio_percent` | Percent | float | Percentage rate of the charge. | stored |  | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
 | `x_studio_product` | Product | many2one → `product.product` | Product the charge is allocated to. | stored | `model product.product` (product) | `view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons`<br>`view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
-| `x_studio_quantity` | Quantity | float | Quantity of the product the charge applies to. | stored |  | `view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
-| `x_studio_sequence` | Sequence | integer | Ordering number for line charges (list drag handle). | stored |  | `default BugFix-Stock.default_164_x_consignment_charge_l_x_studio_sequence`<br>`view BugFix-Stock.ported_primary_2937_tree_x_consignment_charge_l` |
+| `quantity` | Quantity | float | Quantity of the product the charge applies to. | stored |  | `view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
+| `sequence` | Sequence | integer | Ordering number for line charges (list drag handle). | stored |  | `default BugFix-Stock.default_164_x_consignment_charge_l_sequence`<br>`view BugFix-Stock.ported_primary_2937_tree_x_consignment_charge_l` |
 | `x_studio_structure_no` | Structure No | integer | Charge structure number; has a default value. | stored |  | `default BugFix-Stock.default_166_x_consignment_charge_l_x_studio_structure_no`<br>`view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons` |
-| `x_studio_unit_price` | Unit Price | float | Unit price of the product the charge applies to. | stored |  | `view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
+| `unit_price` | Unit Price | float | Unit price of the product the charge applies to. | stored |  | `view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
 
 **Server actions (2):**
 
 - **Execute Code** (`server_action_2618_jin_company_id_in_consignment_charge_line`, type `code`)
   - Function: Run by an automation: sets the Company of a Consignment Charge Line to the user's active company.
-  - Depends on: `model res.company` (base), `model x_consignment_charge_l`, `x_consignment_charge_l.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_consignment_charge_l`, `x_consignment_charge_l.accounting_company_id`
   - Used by: `automation BugFix-Stock.automation_290_jin_company_id_in_consignment_charge_line`
   <details><summary>code (5 lines)</summary>
 
@@ -78,12 +78,12 @@ A Consignment Charge Line is the part of a consignment charge, duty or tax alloc
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 - **JIN - Company Id in Consignment Charge Line** (`sa_f5_x_consignment_charge_l_jin_company_id_in_consignment_charge_line`, type `code`)
   - Function: Sets the Company of a Consignment Charge Line to the user's currently active company.
-  - Depends on: `model res.company` (base), `model x_consignment_charge_l`, `x_consignment_charge_l.x_studio_company_id`
+  - Depends on: `model res.company` (base), `model x_consignment_charge_l`, `x_consignment_charge_l.accounting_company_id`
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (4 lines)</summary>
 
@@ -91,7 +91,7 @@ record["x_studio_company_id"] = company.id
 company_id = env.context.get("allowed_company_ids", [env.user.company_id.id])[0]
 company = env["res.company"].browse(company_id)
 
-record["x_studio_company_id"] = company.id
+record["accounting_company_id"] = company.id
 ```
   </details>
 **Automations (1):**
@@ -114,11 +114,11 @@ record["x_studio_company_id"] = company.id
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for x_consignment_charge_l | `ported_primary_2938_form_x_consignment_charge_l` | form | full form layout with 5 fields | Base form of a Consignment Charge Line: archived ribbon, name title, two empty groups filled by the Studio customization, and chatter. | `x_consignment_charge_l.activity_ids`<br>`x_consignment_charge_l.message_follower_ids`<br>`x_consignment_charge_l.message_ids`<br>`x_consignment_charge_l.x_active`<br>`x_consignment_charge_l.x_name` | `view BugFix-Purchase.view_x_consignment_charge_l_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons` |
-| Default list view for x_consignment_charge_l | `ported_primary_2937_tree_x_consignment_charge_l` | tree | full tree layout with 2 fields | Base list view of Consignment Charge Lines showing a drag handle (sequence) and the name. | `x_consignment_charge_l.x_name`<br>`x_consignment_charge_l.x_studio_sequence` | `view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
-| Default search view for x_consignment_charge_l | `view_2939_default_search_view_for_x_consignment_charge_l_e` | search | full search layout with 1 fields | Search view for Consignment Charge Lines: search by name and an Archived filter. | `x_consignment_charge_l.x_active`<br>`x_consignment_charge_l.x_name` |  |
+| Default form view for x_consignment_charge_l | `ported_primary_2938_form_x_consignment_charge_l` | form | full form layout with 5 fields | Base form of a Consignment Charge Line: archived ribbon, name title, two empty groups filled by the Studio customization, and chatter. | `x_consignment_charge_l.activity_ids`<br>`x_consignment_charge_l.message_follower_ids`<br>`x_consignment_charge_l.message_ids`<br>`x_consignment_charge_l.active`<br>`x_consignment_charge_l.name` | `view BugFix-Purchase.view_x_consignment_charge_l_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.ported_view_2941_odoo_studio_default_form_view_for_x_cons` |
+| Default list view for x_consignment_charge_l | `ported_primary_2937_tree_x_consignment_charge_l` | tree | full tree layout with 2 fields | Base list view of Consignment Charge Lines showing a drag handle (sequence) and the name. | `x_consignment_charge_l.name`<br>`x_consignment_charge_l.sequence` | `view BugFix-Stock.ported_view_2942_odoo_studio_default_list_view_for_x_cons` |
+| Default search view for x_consignment_charge_l | `view_2939_default_search_view_for_x_consignment_charge_l_e` | search | full search layout with 1 fields | Search view for Consignment Charge Lines: search by name and an Archived filter. | `x_consignment_charge_l.active`<br>`x_consignment_charge_l.name` |  |
 | Odoo Studio: Default form view for x_consignment_charge_l customization | `ported_view_2941_odoo_studio_default_form_view_for_x_cons` | form | inside `//group[@name='studio_group_da7bc0_left']`: add field x_studio_product, field x_studio_charge_group, field x_studio_charge_name, field x_studio_percent, field x_studio_amount, field x_studio_basis, field x_studio_formula; inside `//group[@name='studio_group_da7bc0_right']`: add field x_studio_consignment_id, field x_studio_consignment_charge_header_id, field x_studio_structure_no | Customizes the Consignment Charge Line form: shows product, charge group, charge name, percent and amount (basis and formula hidden), plus consignment, charge header and structure no. | `view BugFix-Stock.ported_primary_2938_form_x_consignment_charge_l`<br>`x_consignment_charge_l.x_studio_amount`<br>`x_consignment_charge_l.x_studio_basis`<br>`x_consignment_charge_l.x_studio_charge_group`<br>`x_consignment_charge_l.x_studio_charge_name`<details><summary>+6 more</summary>`x_consignment_charge_l.x_studio_consignment_charge_header_id`<br>`x_consignment_charge_l.x_studio_consignment_id`<br>`x_consignment_charge_l.x_studio_formula`<br>`x_consignment_charge_l.x_studio_percent`<br>`x_consignment_charge_l.x_studio_product`<br>`x_consignment_charge_l.x_studio_structure_no`</details> |  |
-| Odoo Studio: Default list view for x_consignment_charge_l customization | `ported_view_2942_odoo_studio_default_list_view_for_x_cons` | tree | set create=false, delete=false, edit=false, editable=bottom on `//tree[1]`; set column_invisible=1 on `//field[@name='x_studio_sequence']`; after `//field[@name='x_studio_sequence']`: add field x_studio_indent_id, field x_studio_consignment_id, field x_studio_product, field x_studio_charge_group, field x_studio_charge_name, field x_studio_quantity, field x_studio_unit_price, field x_studio_percent, field x_studio_amount, field x_studio_company_id; set column_invisible=1 on `//field[@name='x_name']` | Customizes the Consignment Charge Line list: no create/edit/delete, showing indent, consignment, product, charge group and name, quantity, unit price, percent, amount and company; hides sequence and name. | `view BugFix-Stock.ported_primary_2937_tree_x_consignment_charge_l`<br>`x_consignment_charge_l.x_studio_amount`<br>`x_consignment_charge_l.x_studio_charge_group`<br>`x_consignment_charge_l.x_studio_charge_name`<br>`x_consignment_charge_l.x_studio_company_id`<details><summary>+6 more</summary>`x_consignment_charge_l.x_studio_consignment_id`<br>`x_consignment_charge_l.x_studio_indent_id`<br>`x_consignment_charge_l.x_studio_percent`<br>`x_consignment_charge_l.x_studio_product`<br>`x_consignment_charge_l.x_studio_quantity`<br>`x_consignment_charge_l.x_studio_unit_price`</details> |  |
+| Odoo Studio: Default list view for x_consignment_charge_l customization | `ported_view_2942_odoo_studio_default_list_view_for_x_cons` | tree | set create=false, delete=false, edit=false, editable=bottom on `//tree[1]`; set column_invisible=1 on `//field[@name='sequence']`; after `//field[@name='sequence']`: add field x_studio_indent_id, field x_studio_consignment_id, field x_studio_product, field x_studio_charge_group, field x_studio_charge_name, field quantity, field unit_price, field x_studio_percent, field x_studio_amount, field accounting_company_id; set column_invisible=1 on `//field[@name='name']` | Customizes the Consignment Charge Line list: no create/edit/delete, showing indent, consignment, product, charge group and name, quantity, unit price, percent, amount and company; hides sequence and name. | `view BugFix-Stock.ported_primary_2937_tree_x_consignment_charge_l`<br>`x_consignment_charge_l.x_studio_amount`<br>`x_consignment_charge_l.x_studio_charge_group`<br>`x_consignment_charge_l.x_studio_charge_name`<br>`x_consignment_charge_l.accounting_company_id`<details><summary>+6 more</summary>`x_consignment_charge_l.x_studio_consignment_id`<br>`x_consignment_charge_l.x_studio_indent_id`<br>`x_consignment_charge_l.x_studio_percent`<br>`x_consignment_charge_l.x_studio_product`<br>`x_consignment_charge_l.quantity`<br>`x_consignment_charge_l.unit_price`</details> |  |
 
 **Access rights (3):**
 
@@ -132,4 +132,4 @@ record["x_studio_company_id"] = company.id
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| JIN - Multi-Company - Consignment Charge Line | `rule_522_jin_multi_company_consignment_charge_line` | For everyone (global rule): read/write/create/delete on Consignment Charge Line only where `['|', ('x_studio_company_id', 'in', company_ids), ('x_studio_company_id', '=', False)]`. | `model x_consignment_charge_l`<br>`x_consignment_charge_l.x_studio_company_id` |  |
+| JIN - Multi-Company - Consignment Charge Line | `rule_522_jin_multi_company_consignment_charge_line` | For everyone (global rule): read/write/create/delete on Consignment Charge Line only where `['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]`. | `model x_consignment_charge_l`<br>`x_consignment_charge_l.accounting_company_id` |  |

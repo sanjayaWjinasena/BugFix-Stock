@@ -18,11 +18,11 @@
       <form>
         <header/>
         <sheet string="Con. Consolidated Line">
-          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="x_active == True"/>
-          <field name="x_active" invisible="1"/>
+          <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+          <field name="active" invisible="1"/>
           <div class="oe_title">
                       <h1>
-                          <field name="x_name" required="1" placeholder="Name..."/>
+                          <field name="name" required="1" placeholder="Name..."/>
                       </h1>
                   </div>
           <group name="studio_group_759e62">
@@ -45,7 +45,7 @@
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//field[@name='x_name']" position="attributes">
+        <xpath expr="//field[@name='name']" position="attributes">
           <attribute name="invisible">1</attribute><attribute name="required"/></xpath>
         <xpath expr="//group[@name='studio_group_759e62_left']" position="inside">
           <field name="x_studio_supplier_id" string="Vendor" force_save="True" readonly="1"/>
@@ -71,8 +71,8 @@
     <field name="priority">16</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="x_studio_sequence" widget="handle"/>
-        <field name="x_name"/>
+        <field name="sequence" widget="handle"/>
+        <field name="name"/>
       </tree>
     </field>
   </record>
@@ -83,8 +83,8 @@
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//field[@name='x_name']" position="after">
-          <field optional="show" name="x_studio_company_id" string="Company" column_invisible="1"/>
+        <xpath expr="//field[@name='name']" position="after">
+          <field optional="show" name="accounting_company_id" string="Company" column_invisible="1"/>
         </xpath>
       </data>
     </field>
@@ -95,9 +95,9 @@
       <field name="type">search</field>
       <field name="arch" type="xml">
         <search>
-  <field name="x_name"/>
+  <field name="name"/>
   <separator/>
-  <filter string="Archived" name="archived_x_con_consolidated_lin" domain="[['x_active', '=', False]]"/>
+  <filter string="Archived" name="archived_x_con_consolidated_lin" domain="[['active', '=', False]]"/>
   <separator/>
 </search>
       </field>

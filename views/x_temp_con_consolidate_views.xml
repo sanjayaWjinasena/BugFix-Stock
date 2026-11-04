@@ -9,7 +9,7 @@
   <separator string="Applicable Line:"/>
     <newline/>
     <group>
-      <field name="x_name" options="{'no_open': true}" invisible="1" readonly="True"/>
+      <field name="name" options="{'no_open': true}" invisible="1" readonly="True"/>
       <field name="x_studio_consolidated_header_id" options="{'no_open': true}" invisible="1" readonly="True"/>
       <field name="x_studio_select_all" options="{'no_open': true}" invisible="1" readonly="True"/>
     </group> 

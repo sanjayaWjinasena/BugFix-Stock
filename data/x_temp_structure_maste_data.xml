@@ -2,7 +2,7 @@
 <odoo>
     <data noupdate="1">
   <record id="default_final_bugfix_stock_field_x_temp_structure_maste_x_active_true" model="ir.default">
-    <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_maste__x_active"/>
+    <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_maste__active"/>
     <field name="json_value">true</field>
   </record>
     </data>
@@ -62,8 +62,8 @@ if record.id:
 ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_126_x_temp_structure_maste_x_studio_sequence" model="ir.default">
-      <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_maste__x_studio_sequence"/>
+    <record id="default_126_x_temp_structure_maste_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_x_temp_structure_maste__sequence"/>
       <field name="json_value">10</field>
     </record>
     </data>

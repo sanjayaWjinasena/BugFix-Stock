@@ -4,7 +4,7 @@
 
 ### `x_temp_structure_detai` — Temp Structure Details
 
-*Created by this repo.* Python: `models/x_temp_structure_detai.py`, `models/x_temp_structure_detai_gap.py`. Record name field: `x_name`.
+*Created by this repo.* Python: `models/x_temp_structure_detai.py`, `models/x_temp_structure_detai_gap.py`. Record name field: `name`.
 
 **Summary:**
 
@@ -46,12 +46,12 @@ A temporary line in the Apply Structure Formula wizard, holding one charge name 
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `x_active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_structure_detai_x_active_true` |
-| `x_name` | Name | char | Name of the temporary structure detail line. | stored |  |  |
+| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_structure_detai_x_active_true` |
+| `name` | Name | char | Name of the temporary structure detail line. | stored |  |  |
 | `x_studio_charge_group` | Charge Group | selection: None=None; Charges=Charges; Duty=Duty; Taxes=Taxes; Assessable Value=Assessable Value | Charge group of the structure line: None, Charges, Duty, Taxes or Assessable Value. | stored |  |  |
 | `x_studio_charge_name` | Charge Name | char | Charge name; when the line is selected, the Apply Formula action appends '[Charge Name]' to the structure formula. | stored |  |  |
 | `x_studio_select` | Select | boolean | Tick box in the Apply Formula wizard; selected charges are added to the formula (at least one is required). | stored |  |  |
-| `x_studio_sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_124_x_temp_structure_detai_x_studio_sequence` |
+| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_124_x_temp_structure_detai_sequence` |
 | `x_studio_temp_structure_master_id` | Temp Structure Master Id | many2one → `x_temp_structure_maste` | Apply Formula wizard record this line belongs to. | stored | `model x_temp_structure_maste` |  |
 
 **Access rights (2):**
