@@ -59,6 +59,17 @@ class StockPicking(models.Model):
     x_x_studio_create_from_transfer_1__account_move_count = fields.Integer(string='Create From Transfer count', store=False)
     x_x_studio_created_from_transfer__account_move_count = fields.Integer(string='Created From Transfer count', store=False)
 
+    def _get_view(self, view_id=None, view_type='form', **options):
+        # Bug sheet Inventory row 9 (26/Oct): "Type of Operation" comes from the operation type
+        # and must not be changed on a transfer. Both fields that show it (picking_type_code and
+        # x_studio_type_of_operation, related to picking_type_id.code) were editable on the form,
+        # and saving a change would rewrite the operation type itself.
+        arch, view = super()._get_view(view_id, view_type, **options)
+        if view_type == 'form':
+            for fld in arch.xpath("//field[@name='picking_type_code' or @name='x_studio_type_of_operation']"):
+                fld.set('readonly', '1')
+        return arch, view
+
     def _action_done(self):
         res = super()._action_done()
         for picking in self.filtered(lambda p: p.state == 'done' and p.x_studio_movement_journal):
