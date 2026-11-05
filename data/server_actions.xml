@@ -358,6 +358,10 @@ if purchase_lines:
     ##########################################################-Calculate Structure Formulas-  Begin-###########################################################  
 
     header_lines_formula = env['x_consignment_charge_h'].search([('x_studio_consignment_id', '=', record.id), ('x_studio_structure_master_id', '=', record.x_studio_structure_name.id), ('x_studio_charge_group', '!=', 'Charges')],order='x_studio_structure_no asc') 
+    # Calculate in dependency order, whatever the structure step numbers are (Clear-DB had Excise before PAL):
+    # base duties (CID, EIC, PAL, ...) -> Excise -> VAT-on-GL / SSCL. A charge not in the structure or without a tariff rate stays 0.
+    dep_rank = {'Excise': 2, 'VAT-on-GL': 3, 'SSCL': 3}
+    header_lines_formula = header_lines_formula.sorted(key=lambda h: (dep_rank.get(h.x_studio_charge_name, 1), h.x_studio_structure_no or 0))
 
     if header_lines_formula:
 
