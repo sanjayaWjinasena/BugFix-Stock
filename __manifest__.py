@@ -2,7 +2,7 @@
 {
     # upgrade-testing branch: data files below are commented out - this branch installs functions only, no data is seeded.
     'name': 'Jinasena : Module : Inventory',
-    'version': '17.0.0.0.132',
+    'version': '17.0.0.0.133',
     'summary': 'Studio-to-Python port for BugFix-Stock',
     'author': 'Jinasena Agricultural Machinery (Pvt) Ltd.',
     'category': 'Inventory',
@@ -360,6 +360,7 @@
         # 'views/stock_picking_hide_dev_extras.xml' moved up to load before
         # stock_studio_ported_v3.xml (see note above).
         'data/dashboard_replacements.xml',
+        'views/product_template_tracking_column.xml',
     ],
     'post_init_hook': 'post_init_hook',
 'installable': True,
