@@ -9,7 +9,7 @@ class XMaterialRequestMtStage(models.Model):
     _description = "Material Request MT Stages"
 
     name = fields.Char(string="Stage Name", required=True)
-    sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer()
 
 
 class XMaterialRequestMtStageGap(models.Model):

@@ -6,4 +6,4 @@ class StockPickingType(models.Model):
 
     mj_in = fields.Boolean(string="MJ IN")
     mj_out = fields.Boolean(string="MJ OUT")
-    movement_journal = fields.Boolean(string="Movement Journal")
+    movement_journal = fields.Boolean()

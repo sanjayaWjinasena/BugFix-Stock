@@ -15,34 +15,32 @@ class XConsignmentHeader(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Consignment Header"
 
-    active = fields.Boolean(string="Active")
-    color = fields.Integer(string="Color")
+    active = fields.Boolean()
+    color = fields.Integer()
     name = fields.Char(string="Invoice Reference")
-    account_charge = fields.Many2one(
-        "account.account", string="Account Charge"
-    )
-    account_duty = fields.Many2one("account.account", string="Account Duty")
-    account_tax = fields.Many2one("account.account", string="Account Tax")
-    allocate_header_charges = fields.Boolean(string="Allocate Header Charges")
+    account_charge = fields.Many2one("account.account")
+    account_duty = fields.Many2one("account.account")
+    account_tax = fields.Many2one("account.account")
+    allocate_header_charges = fields.Boolean()
     bill_of_lading = fields.Binary(string="Bill of Lading")
     bill_of_lading_filename = fields.Char(
         string="Filename for x_studio_binary_field_LzgTH"
     )
-    cargo_arrival_notice = fields.Binary(string="Cargo Arrival Notice")
+    cargo_arrival_notice = fields.Binary()
     cargo_arrival_notice_filename = fields.Char(
         string="Filename for x_studio_binary_field_M4Ehh"
     )
     accounting_company_id = fields.Many2one("res.company", string="Company")
     con_validated = fields.Boolean(string="Con. Validated")
-    confirm_invoice = fields.Boolean(string="Confirm Invoice")
+    confirm_invoice = fields.Boolean()
     consignment_line_ids = fields.One2many(
         "consignment_line",
         "consignment_header_id",
         string="Consignment Line Ids",
     )
-    consolidated = fields.Boolean(string="Consolidated")
-    consolidation_confirmed = fields.Boolean(string="Consolidation Confirmed")
-    container_no = fields.Char(string="Container No")
+    consolidated = fields.Boolean()
+    consolidation_confirmed = fields.Boolean()
+    container_no = fields.Char()
     cost_allocation_method = fields.Selection(
         [
             ("equal", "Equal"),
@@ -51,34 +49,26 @@ class XConsignmentHeader(models.Model):
             ("by_weight", "By Weight"),
             ("by_volume", "By Volume"),
         ],
-        string="Cost Allocation Method",
     )
-    create_header_charges = fields.Boolean(string="Create Header Charges")
+    create_header_charges = fields.Boolean()
     accounting_currency_id = fields.Many2one("res.currency", string="Currency")
-    custom_clearance = fields.Boolean(string="Custom Clearance")
-    custom_clearance_exchange_rate = fields.Float(
-        string="Custom Clearance Exchange Rate"
-    )
-    custom_clearance_no = fields.Char(string="Custom Clearance No")
-    custom_cleared_date = fields.Date(string="Custom Cleared Date")
-    description = fields.Char(string="Description")
-    header_charges_allocated = fields.Boolean(
-        string="Header Charges Allocated"
-    )
+    custom_clearance = fields.Boolean()
+    custom_clearance_exchange_rate = fields.Float()
+    custom_clearance_no = fields.Char()
+    custom_cleared_date = fields.Date()
+    description = fields.Char()
+    header_charges_allocated = fields.Boolean()
     accounting_invoice_date = fields.Date(string="Supplier's Invoice Date (Bill Date)")
-    lines_copied = fields.Boolean(string="Lines Copied")
-    offset_account = fields.Many2one(
-        "account.account", string="Offset Account"
-    )
-    packing_list = fields.Binary(string="Packing List")
+    lines_copied = fields.Boolean()
+    offset_account = fields.Many2one("account.account")
+    packing_list = fields.Binary()
     packing_list_filename = fields.Char(
         string="Filename for x_studio_binary_field_xDIyn"
     )
-    sequence = fields.Integer(string="Sequence")
-    shipment_start_date = fields.Date(string="Shipment Start Date")
+    sequence = fields.Integer()
+    shipment_start_date = fields.Date()
     shipping_mode = fields.Selection(
         [("Air", "Air"), ("Sea", "Sea"), ("Road", "Road"), ("Courier", "Courier")],
-        string="Shipping Mode",
     )
     status = fields.Selection(
         [
@@ -90,7 +80,6 @@ class XConsignmentHeader(models.Model):
             ("Done", "Done"),
             ("TP Invoice", "TP Invoice"),
         ],
-        string="Status",
     )
     status_bar = fields.Selection(
         [
@@ -102,7 +91,6 @@ class XConsignmentHeader(models.Model):
             ("Done", "Done"),
             ("TP Invoice", "TP Invoice"),
         ],
-        string="Status Bar",
     )
     supplier_document = fields.Binary(string="Purchase Invoice")
     supplier_document_filename = fields.Char(
@@ -112,18 +100,12 @@ class XConsignmentHeader(models.Model):
     supplier_invoice_number = fields.Char(
         string="Supplier's Invoice No (Bill Reference)"
     )
-    total_allocate_amount = fields.Float(
-        string="Total Allocate Amount", readonly=True
-    )
-    total_amount = fields.Float(string="Total Amount", readonly=True)
-    total_amount_cost_allocation_method = fields.Float(
-        string="Total Amount Cost Allocation Method", readonly=True
-    )
+    total_allocate_amount = fields.Float(readonly=True)
+    total_amount = fields.Float(readonly=True)
+    total_amount_cost_allocation_method = fields.Float(readonly=True)
     vend_dispatch_status = fields.Text(string="Vend. Dispatch Status")
-    vendor_dispatch = fields.Boolean(string="Vendor Dispatch")
-    vendor_dispatch_exchange_rate = fields.Float(
-        string="Vendor Dispatch Exchange Rate"
-    )
+    vendor_dispatch = fields.Boolean()
+    vendor_dispatch_exchange_rate = fields.Float()
     voucher_date = fields.Date(string="Vendor Dispatch Voucher Date")
     con_no__x_tp_invoice_header_count = fields.Integer(
         string="Created From Consignment No count", store=False
@@ -146,6 +128,6 @@ class XConsignmentHeaderGap(models.Model):
     _inherit = "consignment_header"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
-    color = fields.Integer(string="Color")
+    active = fields.Boolean()
+    color = fields.Integer()
     name = fields.Char(string="Invoice Reference")

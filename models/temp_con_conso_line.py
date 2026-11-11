@@ -9,20 +9,17 @@ class XTempConConsoLine(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Con. Conso. Line"
 
-    name = fields.Char(string="Name")
-    consignment_id = fields.Many2one(
-        "consignment_header", string="Consignment Id"
-    )
-    container_no = fields.Char(string="Container No")
+    name = fields.Char()
+    consignment_id = fields.Many2one("consignment_header", string="Consignment Id")
+    container_no = fields.Char()
     accounting_currency_id = fields.Many2one("res.currency", string="Currency")
-    custom_clearance_no = fields.Char(string="Custom Clearance No")
+    custom_clearance_no = fields.Char()
     accounting_invoice_date = fields.Date(string="Invoice Date")
     accounting_select = fields.Boolean(string="Select")
-    sequence = fields.Integer(string="Sequence")
-    shipment_start_date = fields.Date(string="Shipment Start Date")
+    sequence = fields.Integer()
+    shipment_start_date = fields.Date()
     shipping_mode = fields.Selection(
         [("Air", "Air"), ("Sea", "Sea"), ("Road", "Road"), ("Courier", "Courier")],
-        string="Shipping Mode",
     )
     status = fields.Selection(
         [
@@ -33,10 +30,9 @@ class XTempConConsoLine(models.Model):
             ("Done", "Done"),
             ("TP Invoice", "TP Invoice"),
         ],
-        string="Status",
     )
     supplier_id = fields.Many2one("res.partner", string="Vendor")
-    supplier_invoice_no = fields.Char(string="Supplier Invoice No")
+    supplier_invoice_no = fields.Char()
     temp_consolidated_header_id = fields.Many2one(
         "temp_con_consolidate",
         string="Temp Consolidated Header Id",
@@ -51,5 +47,5 @@ class XTempConConsoLineGap(models.Model):
     _inherit = "temp_con_conso_line"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
-    name = fields.Char(string="Name")
+    active = fields.Boolean()
+    name = fields.Char()

@@ -9,8 +9,8 @@ class XTempStructureMaste(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Structure Master"
 
-    name = fields.Char(string="Name")
-    sequence = fields.Integer(string="Sequence")
+    name = fields.Char()
+    sequence = fields.Integer()
 
     # TODO: skipped fields (unresolvable comodel or O2M inverse):
     # temp_structure_details (one2many rel='temp_structure_detai' needs
@@ -22,10 +22,9 @@ class XTempStructureMasteGap(models.Model):
     _inherit = "temp_structure_maste"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
-    name = fields.Char(string="Name")
+    active = fields.Boolean()
+    name = fields.Char()
     temp_structure_details = fields.One2many(
         comodel_name="temp_structure_detai",
         inverse_name="temp_structure_master_id",
-        string="Temp Structure Details",
     )

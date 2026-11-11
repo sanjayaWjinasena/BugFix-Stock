@@ -15,40 +15,38 @@ class XTempConsignmentLin(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Consignment Line"
 
-    active = fields.Boolean(string="Active")
-    currency_id = fields.Many2one("res.currency", string="Currency")
-    name = fields.Char(string="Name")
-    concessional_rate = fields.Boolean(string="Concessional Rate")
-    consignment_remainder = fields.Float(string="Consignment Remainder")
-    delivery_date = fields.Datetime(string="Delivery Date")
-    delivery_remainder = fields.Float(string="Delivery Remainder")
-    description = fields.Text(string="Description")
-    indent_no = fields.Char(string="Indent No")
-    product_id = fields.Many2one("product.product", string="Product")
+    active = fields.Boolean()
+    currency_id = fields.Many2one("res.currency")
+    name = fields.Char()
+    concessional_rate = fields.Boolean()
+    consignment_remainder = fields.Float()
+    delivery_date = fields.Datetime()
+    delivery_remainder = fields.Float()
+    description = fields.Text()
+    indent_no = fields.Char()
+    product_id = fields.Many2one("product.product")
     accounting_purchase_id = fields.Many2one("purchase.order", string="Order Reference")
-    purchase_line_id = fields.Many2one(
-        "purchase.order.line", string="Purchase Line Id"
-    )
-    quantity = fields.Float(string="Quantity")
+    purchase_line_id = fields.Many2one("purchase.order.line", string="Purchase Line Id")
+    quantity = fields.Float()
     accounting_select = fields.Boolean(string="Select")
-    sequence = fields.Integer(string="Sequence")
-    subtotal = fields.Float(string="Subtotal")  # was Monetary
+    sequence = fields.Integer()
+    subtotal = fields.Float()  # was Monetary
     supplier_id = fields.Many2one("res.partner", string="Vendor")
     temp_consignment_header_id = fields.Many2one(
         "temp_consignment_hea",
         string="Temp Consignment Header Id",
         ondelete="cascade",
     )
-    unit_price = fields.Float(string="Unit Price")
+    unit_price = fields.Float()
     uom_id = fields.Many2one("uom.uom", string="UOM")
-    volume = fields.Float(string="Volume")
-    weight = fields.Float(string="Weight")
+    volume = fields.Float()
+    weight = fields.Float()
 
 
 class XTempConsignmentLinGap(models.Model):
     _inherit = "temp_consignment_lin"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
-    currency_id = fields.Many2one(comodel_name="res.currency", string="Currency")
-    name = fields.Char(string="Name")
+    active = fields.Boolean()
+    currency_id = fields.Many2one(comodel_name="res.currency")
+    name = fields.Char()

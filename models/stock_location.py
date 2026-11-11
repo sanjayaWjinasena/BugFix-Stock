@@ -4,8 +4,8 @@ from odoo import fields, models
 class StockLocation(models.Model):
     _inherit = "stock.location"
 
-    color = fields.Integer(string="Color")
-    finished_good_location = fields.Boolean(string="Finished Good Location")
+    color = fields.Integer()
+    finished_good_location = fields.Boolean()
     many2many_field_7kpUe = fields.Many2many(
         "res.users",
         "stock_location_x_studio_many2many_field_7kpUe_rel",
@@ -13,13 +13,11 @@ class StockLocation(models.Model):
         "res_users_id",
         string="Users (Cell Visibility)",
     )
-    repair_factory_location = fields.Boolean(string="Repair Factory Location")
-    repair_return_location = fields.Boolean(string="Repair Return Location")
-    return_receipt_location = fields.Many2one(
-        "stock.location", string="Return Receipt Location"
-    )
-    return_sequence = fields.Many2one("ir.sequence", string="Return Sequence")
-    temp_location = fields.Boolean(string="Temp Location")
+    repair_factory_location = fields.Boolean()
+    repair_return_location = fields.Boolean()
+    return_receipt_location = fields.Many2one("stock.location")
+    return_sequence = fields.Many2one("ir.sequence")
+    temp_location = fields.Boolean()
     users_internal_transfer = fields.Many2many(
         "res.users",
         "stock_location_x_studio_users_internal_transfer_rel",
@@ -39,4 +37,4 @@ class StockLocation(models.Model):
 class StockLocationGap(models.Model):
     _inherit = "stock.location"
 
-    color = fields.Integer(string="Color")
+    color = fields.Integer()

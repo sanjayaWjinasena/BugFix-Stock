@@ -15,21 +15,19 @@ class XConConsolidatedLin(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Con. Consolidated Line"
 
-    active = fields.Boolean(string="Active")
-    name = fields.Char(string="Name")
+    active = fields.Boolean()
+    name = fields.Char()
     accounting_company_id = fields.Many2one("res.company", string="Company")
-    consignment_id = fields.Many2one(
-        "consignment_header", string="Consignment Id"
-    )
+    consignment_id = fields.Many2one("consignment_header", string="Consignment Id")
     consolidated_header_id = fields.Many2one(
         "con_consolidated_hea", string="Consolidated Header Id", ondelete="restrict"
     )
-    container_no = fields.Char(string="Container No")
+    container_no = fields.Char()
     accounting_currency_id = fields.Many2one("res.currency", string="Currency")
-    custom_clearance_no = fields.Char(string="Custom Clearance No")
+    custom_clearance_no = fields.Char()
     accounting_invoice_date = fields.Date(string="Invoice Date")
-    sequence = fields.Integer(string="Sequence")
-    shipment_start_date = fields.Date(string="Shipment Start Date")
+    sequence = fields.Integer()
+    shipment_start_date = fields.Date()
     shipping_mode_1 = fields.Selection(
         [("Air", "Air"), ("Sea", "Sea"), ("Road", "Road"), ("Courier", "Courier")],
         string="Shipping Mode",
@@ -43,15 +41,14 @@ class XConConsolidatedLin(models.Model):
             ("Done", "Done"),
             ("TP Invoice", "TP Invoice"),
         ],
-        string="Status",
     )
     supplier_id = fields.Many2one("res.partner", string="Vendor")
-    supplier_invoice_no = fields.Char(string="Supplier Invoice No")
+    supplier_invoice_no = fields.Char()
 
 
 class XConConsolidatedLinGap(models.Model):
     _inherit = "con_consolidated_lin"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
-    name = fields.Char(string="Name")
+    active = fields.Boolean()
+    name = fields.Char()

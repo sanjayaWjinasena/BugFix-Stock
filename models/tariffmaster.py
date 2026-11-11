@@ -39,11 +39,11 @@ class XTariffmaster(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "TariffMaster"
 
-    active = fields.Boolean(string="Active")
+    active = fields.Boolean()
     name = fields.Char(string="Tarrif Code")
     accounting_company_id = fields.Many2one("res.company", string="Company")
-    description = fields.Char(string="Description")
-    sequence = fields.Integer(string="Sequence")
+    description = fields.Char()
+    sequence = fields.Integer()
 
     # tariff_master_ids field NOT shipped — permanent skip.
     #
@@ -76,7 +76,7 @@ class XTariffmasterGap(models.Model):
     _inherit = "tariffmaster"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
+    active = fields.Boolean()
     name = fields.Char(string="Tarrif Code")
     # STRIPPED tariff_master_ids: O2M inverse lives in another repo (load-order
     # risk)

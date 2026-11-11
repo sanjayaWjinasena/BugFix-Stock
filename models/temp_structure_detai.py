@@ -9,7 +9,7 @@ class XTempStructureDetai(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Structure Details"
 
-    name = fields.Char(string="Name")
+    name = fields.Char()
     charge_group = fields.Selection(
         [
             ("None", "None"),
@@ -18,11 +18,10 @@ class XTempStructureDetai(models.Model):
             ("Taxes", "Taxes"),
             ("Assessable Value", "Assessable Value"),
         ],
-        string="Charge Group",
     )
-    charge_name = fields.Char(string="Charge Name")
+    charge_name = fields.Char()
     accounting_select = fields.Boolean(string="Select")
-    sequence = fields.Integer(string="Sequence")
+    sequence = fields.Integer()
     temp_structure_master_id = fields.Many2one(
         "temp_structure_maste", string="Temp Structure Master Id", ondelete="cascade"
     )
@@ -35,5 +34,5 @@ class XTempStructureDetaiGap(models.Model):
     _inherit = "temp_structure_detai"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
-    name = fields.Char(string="Name")
+    active = fields.Boolean()
+    name = fields.Char()

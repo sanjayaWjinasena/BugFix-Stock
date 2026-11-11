@@ -22,11 +22,9 @@ class XMrConfig(models.Model):
     _rec_name = "name"
     _order = "sequence asc, id asc"
 
-    active = fields.Boolean(string="Active", default=True, copy=True)
-    currency_id = fields.Many2one(
-        "res.currency", string="Currency", ondelete="set null", copy=True
-    )
-    name = fields.Char(string="Name", copy=True)
+    active = fields.Boolean(default=True, copy=True)
+    currency_id = fields.Many2one("res.currency", ondelete="set null", copy=True)
+    name = fields.Char(copy=True)
     available_qty_to_transfer = fields.Float(
         string="Available Qty. to Transfer",
         store=False,
@@ -94,27 +92,24 @@ class XMrConfig(models.Model):
         compute="_compute_on_hand_qty_2",
         readonly=True,
     )
-    product = fields.Many2one(
-        "product.product", string="Product", ondelete="set null", copy=True
-    )
-    qty = fields.Integer(string="Qty", copy=True)
+    product = fields.Many2one("product.product", ondelete="set null", copy=True)
+    qty = fields.Integer(copy=True)
     qty_1 = fields.Integer(copy=True)
     qty_to_transfer = fields.Float(string="Qty. to Transfer", copy=True)
     qty_transfered = fields.Float(string="Qty. Transferred", copy=True)
-    quantity = fields.Float(string="Quantity", copy=True)
+    quantity = fields.Float(copy=True)
     requested_by = fields.Many2one(
         "res.users", string="Requested by", ondelete="set null", copy=True
     )
-    sequence = fields.Integer(string="Sequence", copy=True)
+    sequence = fields.Integer(copy=True)
     status = fields.Selection(
         string="Status",
         related="many2one_field_6yqbk.selection_field_BupKG",
         readonly=True,
     )
-    text = fields.Char(string="Text", copy=True)
+    text = fields.Char(copy=True)
     text_1 = fields.Char(string="Notes", copy=True)
     transfer_remainder = fields.Float(
-        string="Transfer Remainder",
         store=False,
         compute="_compute_transfer_remainder",
         readonly=True,
@@ -141,9 +136,7 @@ class XMrConfig(models.Model):
         related="product.uom_id.display_name",
         readonly=True,
     )
-    uom_2 = fields.Char(
-        string="UOM", related="product.uom_id.name", readonly=True
-    )
+    uom_2 = fields.Char(string="UOM", related="product.uom_id.name", readonly=True)
     warehouse = fields.Many2one(
         "stock.location",
         string="Warehouse",
@@ -169,9 +162,7 @@ class XMrConfig(models.Model):
                 else:
                     onhand_qty = rec.on_hand_qty_2
             else:
-                if (
-                    rec.quantity - rec.qty_transfered
-                ) <= rec.on_hand_qty_2:
+                if (rec.quantity - rec.qty_transfered) <= rec.on_hand_qty_2:
                     onhand_qty = (rec.quantity - rec.qty_transfered) - (
                         rec.quantity - rec.on_hand_qty_2
                     )

@@ -9,10 +9,10 @@ class XTempConsignmentHea(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Temp Consignment Header"
 
-    active = fields.Boolean(string="Active")
-    name = fields.Char(string="Name")
-    select_all = fields.Boolean(string="Select All")
-    sequence = fields.Integer(string="Sequence")
+    active = fields.Boolean()
+    name = fields.Char()
+    select_all = fields.Boolean()
+    sequence = fields.Integer()
     temp_consignment_header_id = fields.Many2one(
         "consignment_header", string="Temp Consignment Header Id"
     )
@@ -27,5 +27,5 @@ class XTempConsignmentHeaGap(models.Model):
     _inherit = "temp_consignment_hea"
     _rec_name = "name"  # Clear-DB Studio model: records are named by name
 
-    active = fields.Boolean(string="Active")
-    name = fields.Char(string="Name")
+    active = fields.Boolean()
+    name = fields.Char()
