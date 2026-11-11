@@ -29,8 +29,9 @@ class StockPicking(models.Model):
     maintenance_request_ = fields.Many2one(
         "maintenance.request", string="Maintenance Request #"
     )
-    # Clear-DB: related to the operation type (stored, readonly). The port had dropped related=, so the
-    # Movement Journal flags stayed False and the Journal Type field never showed on Movement Journal transfers.
+    # Clear-DB: related to the operation type (stored, readonly). The port had dropped
+    # related=, so the Movement Journal flags stayed False and the Journal Type field
+    # never showed on Movement Journal transfers.
     mj_in = fields.Boolean(
         string="MJ IN",
         related="picking_type_id.mj_in",
@@ -124,8 +125,8 @@ class StockPicking(models.Model):
         return res
 
     def _apply_movement_journal_offset_account(self):
-        """Post the valuation of a Movement IN/OUT to the offset account of the Journal Type
-        (replaces the interim Received / Delivered account line)."""
+        """Post the valuation of a Movement IN/OUT to the offset account of the Journal
+        Type (replaces the interim Received / Delivered account line)."""
         self.ensure_one()
         offset = self.journal_type.offset_account
         if not offset or not (self.mj_in or self.mj_out):
