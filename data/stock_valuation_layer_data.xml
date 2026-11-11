@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="server_action_1141_update_product_cost_work_center_cost" model="ir.actions.server">
+  <record id="action_update_product_cost_work_center_cost" model="ir.actions.server">
     <field name="name">Update Product Cost - Work Center Cost</field>
     <field name="model_id" search="[('model', '=', 'stock.valuation.layer')]"/>
     <field name="state">code</field>
     <field name="usage">base_automation</field>
     <field name="code"><![CDATA[]]></field>
   </record>
-  <record id="server_action_1138_work_center_costing_model_create_journal_entries" model="ir.actions.server">
+  <record id="action_work_center_costing_model_create_journal_entries" model="ir.actions.server">
     <field name="name">Work Center Costing Model - Create Journal Entries</field>
     <field name="model_id" search="[('model', '=', 'stock.valuation.layer')]"/>
     <field name="state">code</field>
@@ -136,7 +136,7 @@
 
 ]]></field>
   </record>
-  <record id="server_action_2566_work_center_costing_model_create_journal_entries_original" model="ir.actions.server">
+  <record id="action_work_center_costing_model_create_journal_entries_original" model="ir.actions.server">
     <field name="name">Work Center Costing Model - Create Journal Entries - Original</field>
     <field name="model_id" search="[('model', '=', 'stock.valuation.layer')]"/>
     <field name="state">code</field>
@@ -244,7 +244,7 @@
     <field name="model_id" ref="stock_account.model_stock_valuation_layer"/>
     <field name="trigger">on_create_or_write</field>
   </record>
-  <record id="base_automation_255_work_center_costing_model_create_journal_entries_original" model="base.automation">
+  <record id="automation_work_center_costing_model_create_journal_entries_original" model="base.automation">
     <field name="name">Work Center Costing Model - Create Journal Entries - Original</field>
     <field name="active" eval="False"/>
     <field name="model_id" ref="stock_account.model_stock_valuation_layer"/>

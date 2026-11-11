@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <!-- STRIPPED act_window_2813_stock_landed_cos: model out-of-deps for BugFix-Stock: stock.landed.cost (owned by mrp_landed_costs) -->
-<record id="act_window_2814_stock_landed_cost_line" model="ir.actions.act_window">
+<record id="action_stock_landed_cost_line" model="ir.actions.act_window">
     <field name="name">stock.landed.cost.line</field>
     <field name="res_model">stock.landed.cost.lines</field>
     <field name="view_mode">tree,form</field>

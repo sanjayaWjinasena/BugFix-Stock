@@ -6,7 +6,7 @@
 
 *Created by this repo.* Python: `models/temp_consignment_hea.py`, `models/x_temp_consignment_hea_gap.py`. Record name field: `name`.
 
-Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_temp_consignment_hea_x_temp_consignment_hea_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
+Other repos that use this model: `access right BugFix-Studio-Misc.access_g_temp_consignment_hea_temp_consignment_hea_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
 
 **Summary:**
 
@@ -48,19 +48,19 @@ The temporary wizard record behind Copy Import Order Lines, opened from a consig
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `active` | Active | boolean | Archive flag for the temporary 'Copy PO Lines' wizard header; has a default. | stored |  | `default BugFix-Stock.default_148_x_temp_consignment_hea_active` |
-| `name` | Name | char | Name of the temporary Copy PO Lines record. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `select_all` | Select All | boolean | Checkbox in the Copy PO Lines wizard; used by the Select All / Clear All actions to tick or untick every PO line. | stored |  | `server action BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines`<br>`view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_149_x_temp_consignment_hea_sequence` |
-| `temp_consignment_header_id` | Temp Consignment Header Id | many2one → `consignment_header` | Consignment the selected PO lines will be copied into by the 'Apply Selected PO Lines' action. | stored | `model consignment_header` | `server action BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment`<br>`view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `temp_consignment_line_ids` | Temp Consignment Line Ids | one2many → `temp_consignment_lin` | Candidate PO lines listed in the Copy PO Lines wizard for selection. | stored | `model temp_consignment_lin` | `server action BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment`<br>`view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
+| `active` | Active | boolean | Archive flag for the temporary 'Copy PO Lines' wizard header; has a default. | stored |  | `default BugFix-Stock.default_temp_consignment_hea_active` |
+| `name` | Name | char | Name of the temporary Copy PO Lines record. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `select_all` | Select All | boolean | Checkbox in the Copy PO Lines wizard; used by the Select All / Clear All actions to tick or untick every PO line. | stored |  | `server action BugFix-Stock.action_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.action_imp_clear_all_in_copy_po_lines`<br>`view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_temp_consignment_hea_sequence` |
+| `temp_consignment_header_id` | Temp Consignment Header Id | many2one → `consignment_header` | Consignment the selected PO lines will be copied into by the 'Apply Selected PO Lines' action. | stored | `model consignment_header` | `server action BugFix-Stock.action_imp_apply_selected_po_lines_to_consignment`<br>`view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `temp_consignment_line_ids` | Temp Consignment Line Ids | one2many → `temp_consignment_lin` | Candidate PO lines listed in the Copy PO Lines wizard for selection. | stored | `model temp_consignment_lin` | `server action BugFix-Stock.action_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.action_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.action_imp_apply_selected_po_lines_to_consignment`<br>`view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
 
 **Server actions (3):**
 
-- **IMP - Apply Selected PO Lines to Consignment** (`server_action_1302_imp_apply_selected_po_lines_to_consignment`, type `code`)
+- **IMP - Apply Selected PO Lines to Consignment** (`action_imp_apply_selected_po_lines_to_consignment`, type `code`)
   - Function: Button on the Copy PO Lines wizard: creates consignment lines from the selected PO lines (requires at least one, all with the same structure, and LC posted/paid for LC payment methods), marks the consignment Lines Copied with that structure, then deletes the wizard record.
   - Depends on: `model consignment_header`, `model consignment_line`, `model lc_header` (BugFix-Accounting), `model temp_consignment_hea`, `temp_consignment_hea.temp_consignment_header_id`<details><summary>+1 more</summary>`temp_consignment_hea.temp_consignment_line_ids`</details>
-  - Used by: `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea`
+  - Used by: `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea`
   <details><summary>code (61 lines)</summary>
 
 ```python
@@ -136,10 +136,10 @@ if temp_rec:
     temp_rec.unlink()
 ```
   </details>
-- **IMP - Clear All in Copy PO Lines** (`server_action_1301_imp_clear_all_in_copy_po_lines`, type `code`)
+- **IMP - Clear All in Copy PO Lines** (`action_imp_clear_all_in_copy_po_lines`, type `code`)
   - Function: Clear All button on the Copy PO Lines wizard: unticks Select on every wizard line and Select All, then reopens the same wizard popup.
   - Depends on: `model temp_consignment_hea`, `temp_consignment_hea.select_all`, `temp_consignment_hea.temp_consignment_line_ids`
-  - Used by: `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea`
+  - Used by: `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea`
   <details><summary>code (15 lines)</summary>
 
 ```python
@@ -160,10 +160,10 @@ if record.id:
     }
 ```
   </details>
-- **IMP - Select All in Copy PO Lines** (`server_action_1298_imp_select_all_in_copy_po_lines`, type `code`)
+- **IMP - Select All in Copy PO Lines** (`action_imp_select_all_in_copy_po_lines`, type `code`)
   - Function: Select All button on the Copy PO Lines wizard: ticks Select on every wizard line and Select All, then reopens the same wizard popup.
   - Depends on: `model temp_consignment_hea`, `temp_consignment_hea.select_all`, `temp_consignment_hea.temp_consignment_line_ids`
-  - Used by: `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea`
+  - Used by: `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea`
   <details><summary>code (16 lines)</summary>
 
 ```python
@@ -189,26 +189,26 @@ if record.id:
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Temp Consignment Header | `action_1259_temp_consignment_header` | Opens **Temp Consignment Header** records (tree,form). | `model temp_consignment_hea` | `menu BugFix-Stock.menu_779_temp_consignment_header`<br>`menu BugFix-Studio-Misc.menu_f6f_temp_consignment_header` (BugFix-Studio-Misc) |
-| Temp Consignment Header | `action_2851_temp_consignment_header` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` |  |
-| Temp Consignment Header | `action_1299_temp_consignment_header` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` |  |
-| Temp Consignment Header | `action_1260_temp_consignment_header` | Opens **Temp Consignment Header** records (tree,form). | `model temp_consignment_hea` |  |
-| Temp Consignment Header | `action_1357_temp_consignment_header` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` |  |
-| Temp Consignment Header | `action_2861_temp_consignment_header` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` | `menu BugFix-Stock.menu_f6_temp_consignment_header_1`<br>`menu BugFix-Stock.menu_f6_temp_consignment_header` |
-| Temp Consignment Header | `action_1261_temp_consignment_header` | Opens **Temp Consignment Header** records (tree,form). | `model temp_consignment_hea` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_imports_temp_consignment_header` (BugFix-Studio-Misc) |
-| temp Consignment Header | `action_1295_temp_consignment_header` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp_consignment_header` (BugFix-Studio-Misc) |
+| Temp Consignment Header | `action_temp_consignment_header` | Opens **Temp Consignment Header** records (tree,form). | `model temp_consignment_hea` | `menu BugFix-Stock.menu_temp_consignment_header_2`<br>`menu BugFix-Studio-Misc.menu_temp_consignment_header` (BugFix-Studio-Misc) |
+| Temp Consignment Header | `action_temp_consignment_header_7` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` |  |
+| Temp Consignment Header | `action_temp_consignment_header_5` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` |  |
+| Temp Consignment Header | `action_temp_consignment_header_2` | Opens **Temp Consignment Header** records (tree,form). | `model temp_consignment_hea` |  |
+| Temp Consignment Header | `action_temp_consignment_header_6` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` |  |
+| Temp Consignment Header | `action_temp_consignment_header_8` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` | `menu BugFix-Stock.menu_temp_consignment_header_1`<br>`menu BugFix-Stock.menu_temp_consignment_header` |
+| Temp Consignment Header | `action_temp_consignment_header_3` | Opens **Temp Consignment Header** records (tree,form). | `model temp_consignment_hea` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_imports_temp_consignment_header` (BugFix-Studio-Misc) |
+| temp Consignment Header | `action_temp_consignment_header_4` | Opens **Temp Consignment Header** records (form). | `model temp_consignment_hea` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp_consignment_header` (BugFix-Studio-Misc) |
 
 **Views (2):**
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| IMP Copy PO Line to Consignment | `ported_primary_2905_form_temp_consignment_hea` | form | full form layout with 21 fields | 'Copy Import Order Lines' wizard form: Select All / Clear All buttons and an editable list of PO lines to tick (PO, vendor, indent, product, quantities, weight, volume, remainders, prices, dates) for copying into a consignment. | `server action BugFix-Stock.server_action_1298_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1301_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1302_imp_apply_selected_po_lines_to_consignment`<br>`temp_consignment_hea.name`<br>`temp_consignment_hea.select_all`<details><summary>+19 more</summary>`temp_consignment_hea.temp_consignment_header_id`<br>`temp_consignment_hea.temp_consignment_line_ids`<br>`temp_consignment_lin.concessional_rate`<br>`temp_consignment_lin.consignment_remainder`<br>`temp_consignment_lin.delivery_date`<br>`temp_consignment_lin.delivery_remainder`<br>`temp_consignment_lin.description`<br>`temp_consignment_lin.indent_no`<br>`temp_consignment_lin.product_id`<br>`temp_consignment_lin.accounting_purchase_id`<br>`temp_consignment_lin.purchase_line_id`<br>`temp_consignment_lin.quantity`<br>`temp_consignment_lin.accounting_select`<br>`temp_consignment_lin.subtotal`<br>`temp_consignment_lin.supplier_id`<br>`temp_consignment_lin.unit_price`<br>`temp_consignment_lin.uom_id`<br>`temp_consignment_lin.volume`<br>`temp_consignment_lin.weight`</details> | `view BugFix-Purchase.view_x_temp_consignment_hea_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.ported_view_3018_odoo_studio_imp_copy_po_line_to_consignm` |
-| Odoo Studio: IMP Copy PO Line to Consignment customization | `ported_view_3018_odoo_studio_imp_copy_po_line_to_consignm` | form |  | Empty customization of the Copy PO Line wizard; its only change was moved to BugFix-Purchase, so it has no effect. | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |  |
+| IMP Copy PO Line to Consignment | `view_ported_primary_form_temp_consignment_hea` | form | full form layout with 21 fields | 'Copy Import Order Lines' wizard form: Select All / Clear All buttons and an editable list of PO lines to tick (PO, vendor, indent, product, quantities, weight, volume, remainders, prices, dates) for copying into a consignment. | `server action BugFix-Stock.action_imp_select_all_in_copy_po_lines`<br>`server action BugFix-Stock.action_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.action_imp_apply_selected_po_lines_to_consignment`<br>`temp_consignment_hea.name`<br>`temp_consignment_hea.select_all`<details><summary>+19 more</summary>`temp_consignment_hea.temp_consignment_header_id`<br>`temp_consignment_hea.temp_consignment_line_ids`<br>`temp_consignment_lin.concessional_rate`<br>`temp_consignment_lin.consignment_remainder`<br>`temp_consignment_lin.delivery_date`<br>`temp_consignment_lin.delivery_remainder`<br>`temp_consignment_lin.description`<br>`temp_consignment_lin.indent_no`<br>`temp_consignment_lin.product_id`<br>`temp_consignment_lin.accounting_purchase_id`<br>`temp_consignment_lin.purchase_line_id`<br>`temp_consignment_lin.quantity`<br>`temp_consignment_lin.accounting_select`<br>`temp_consignment_lin.subtotal`<br>`temp_consignment_lin.supplier_id`<br>`temp_consignment_lin.unit_price`<br>`temp_consignment_lin.uom_id`<br>`temp_consignment_lin.volume`<br>`temp_consignment_lin.weight`</details> | `view BugFix-Purchase.view_temp_consignment_hea_form_upstream_link_fields` (BugFix-Purchase)<br>`view BugFix-Stock.view_imp_copy_po_line_to_consignment_inherit` |
+| Odoo Studio: IMP Copy PO Line to Consignment customization | `view_imp_copy_po_line_to_consignment_inherit` | form |  | Empty customization of the Copy PO Line wizard; its only change was moved to BugFix-Purchase, so it has no effect. | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |  |
 
 **Access rights (3):**
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Temp Consignment Header group_system | `access_1295_temp_consignment_header_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Consignment Header records. | `group base.group_system` (base)<br>`model temp_consignment_hea` |  |
-| Temp Consignment Header group_user | `access_1296_temp_consignment_header_group_user` | Gives **User types / Internal User** read access to Temp Consignment Header records. | `group base.group_user` (base)<br>`model temp_consignment_hea` |  |
-| temp_consignment_hea user access | `access_x_temp_consignment_hea_user` | Gives **User types / Internal User** read/write/create/delete access to Temp Consignment Header records. | `group base.group_user` (base)<br>`model temp_consignment_hea` |  |
+| Temp Consignment Header group_system | `access_temp_consignment_header_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Consignment Header records. | `group base.group_system` (base)<br>`model temp_consignment_hea` |  |
+| Temp Consignment Header group_user | `access_temp_consignment_header_group_user` | Gives **User types / Internal User** read access to Temp Consignment Header records. | `group base.group_user` (base)<br>`model temp_consignment_hea` |  |
+| temp_consignment_hea user access | `access_temp_consignment_hea_user` | Gives **User types / Internal User** read/write/create/delete access to Temp Consignment Header records. | `group base.group_user` (base)<br>`model temp_consignment_hea` |  |

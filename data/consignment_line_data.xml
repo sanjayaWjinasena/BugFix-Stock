@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="sa_f5_x_consignment_line_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
+  <record id="action_consignment_line_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Invoice Qty. Validation in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_line')]"/>
     <field name="state">code</field>
@@ -27,7 +27,7 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_x_consignment_line_jin_company_id_in_consignment_line" model="ir.actions.server">
+  <record id="action_consignment_line_jin_company_id_in_consignment_line" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consignment Line</field>
     <field name="model_id" search="[('model', '=', 'consignment_line')]"/>
     <field name="state">code</field>
@@ -38,7 +38,7 @@ record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="server_action_2098_imp_delivery_remainder_in_consignment_lines" model="ir.actions.server">
+  <record id="action_imp_delivery_remainder_in_consignment_lines" model="ir.actions.server">
     <field name="name">IMP - Delivery Remainder in Consignment Lines</field>
     <field name="model_id" search="[('model', '=', 'consignment_line')]"/>
     <field name="state">code</field>
@@ -48,7 +48,7 @@ record['accounting_company_id'] = company.id]]></field>
   ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1304_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
+  <record id="action_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Invoice Qty. Validation in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_line')]"/>
     <field name="state">code</field>
@@ -74,7 +74,7 @@ record['accounting_company_id'] = company.id]]></field>
   ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_2608_jin_company_id_in_consignment_line" model="ir.actions.server">
+  <record id="action_jin_company_id_in_consignment_line" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consignment Line</field>
     <field name="model_id" search="[('model', '=', 'consignment_line')]"/>
     <field name="state">code</field>
@@ -96,16 +96,16 @@ record['accounting_company_id'] = company.id]]></field>
     <field name="model_id" search="[('model', '=', 'consignment_line')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_1304_imp_invoice_qty_validation_in_consignment')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_imp_invoice_qty_validation_in_consignment')])]"/>
   </record>
-  <record id="automation_281_jin_company_id_in_consignment_line" model="base.automation">
+  <record id="automation_jin_company_id_in_consignment_line" model="base.automation">
     <field name="name">JIN - Company Id in Consignment Line</field>
     <field name="model_id" search="[('model', '=', 'consignment_line')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_2608_jin_company_id_in_consignment_line')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_jin_company_id_in_consignment_line')])]"/>
   </record>
-  <record id="server_action_1304_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
+  <record id="action_imp_invoice_qty_validation_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Invoice Qty. Validation in Consignment</field>
     <field name="model_id" ref="BugFix-Stock.model_consignment_line"/>
     <field name="state">code</field>
@@ -133,7 +133,7 @@ if record.invoice_qty:
   
     ]]></field>
   </record>
-  <record id="server_action_2608_jin_company_id_in_consignment_line" model="ir.actions.server">
+  <record id="action_jin_company_id_in_consignment_line" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consignment Line</field>
     <field name="model_id" ref="BugFix-Stock.model_consignment_line"/>
     <field name="state">code</field>
@@ -145,25 +145,25 @@ company = env['res.company'].browse(company_id)
 record['accounting_company_id'] = company.id
     ]]></field>
   </record>
-  <record id="base_automation_181_imp_delivery_remainder_in_consignment_lines" model="base.automation">
+  <record id="automation_imp_delivery_remainder_in_consignment_lines" model="base.automation">
     <field name="name">IMP - Delivery Remainder in Consignment Lines</field>
     <field name="active" eval="False"/>
     <field name="model_id" ref="BugFix-Stock.model_consignment_line"/>
     <field name="trigger">on_create_or_write</field>
   </record>
     <data noupdate="1">
-    <record id="default_140_x_consignment_line_active" model="ir.default">
+    <record id="default_consignment_line_active" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_line__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_141_x_consignment_line_sequence" model="ir.default">
+    <record id="default_consignment_line_sequence" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_line__sequence"/>
       <field name="json_value">10</field>
     </record>
-    <!-- DROPPED default_143_x_consignment_header_shipping_mode: selection value 'Air' not in field allowed set -->
-<!-- DROPPED default_144_x_consignment_header_status: selection value 'Draft' not in field allowed set -->
-<!-- DROPPED default_145_x_consignment_header_status_bar: selection value 'Draft' not in field allowed set -->
-<record id="default_146_x_consignment_line_currency_id" model="ir.default">
+    <!-- DROPPED default_consignment_header_shipping_mode: selection value 'Air' not in field allowed set -->
+<!-- DROPPED default_consignment_header_status: selection value 'Draft' not in field allowed set -->
+<!-- DROPPED default_consignment_header_status_bar: selection value 'Draft' not in field allowed set -->
+<record id="default_consignment_line_currency_id" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_line__currency_id"/>
       <field name="json_value">145</field>
     </record>

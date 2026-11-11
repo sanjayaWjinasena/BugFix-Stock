@@ -16,7 +16,7 @@ This repo only ships an access right and a multi-company record rule for scrap o
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| stock.scrap | `access_6860_stock_scrap` | Gives **Sales / Jin - Sales - POS Users** read access to Scrap records. | `group BugFix-Approvals.group_132_jin_sales_pos_users` (BugFix-Approvals)<br>`model stock.scrap` (stock) |  |
+| stock.scrap | `access_stock_scrap` | Gives **Sales / Jin - Sales - POS Users** read access to Scrap records. | `group BugFix-Approvals.group_jin_sales_pos_users` (BugFix-Approvals)<br>`model stock.scrap` (stock) |  |
 
 **Record rules (1):**
 

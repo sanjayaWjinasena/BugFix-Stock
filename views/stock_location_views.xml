@@ -24,31 +24,31 @@
     <field name="domain">[('users_stock_location', '=', active_id)]</field>
     <field name="context">{'search_default_users_stock_location': active_id,'default_users_stock_location': [active_id]}</field>
   </record>
-  <record id="action_2488_internal_locations" model="ir.actions.act_window">
+  <record id="action_internal_locations" model="ir.actions.act_window">
     <field name="name">Internal Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('users_internal_transfer', '=', active_id)]</field>
     <field name="context">{'search_default_users_internal_transfer': active_id,'default_users_internal_transfer': [active_id]}</field>
   </record>
-  <record id="action_2470_location" model="ir.actions.act_window">
+  <record id="action_location" model="ir.actions.act_window">
     <field name="name">Location</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2407_stock_location" model="ir.actions.act_window">
+  <record id="action_stock_location" model="ir.actions.act_window">
     <field name="name">stock.location</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2487_stock_locations" model="ir.actions.act_window">
+  <record id="action_stock_locations" model="ir.actions.act_window">
     <field name="name">Stock Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('users_stock_location', '=', active_id)]</field>
     <field name="context">{'search_default_users_stock_location': active_id,'default_users_stock_location': [active_id]}</field>
   </record>
-    <record id="ported_view_2389_studio_stock_location_form" model="ir.ui.view">
+    <record id="view_stock_location_form_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.location.form customization</field>
         <field name="model">stock.location</field>
         <field name="type">form</field>
@@ -74,7 +74,7 @@
             </data>
         </field>
     </record>
-    <record id="ported_view_4616_studio_stock_location_tree" model="ir.ui.view">
+    <record id="view_stock_location_tree_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.location.tree customization</field>
         <field name="model">stock.location</field>
         <field name="type">tree</field>
@@ -98,24 +98,24 @@
             </data>
         </field>
     </record>
-  <record id="act_window_2488_internal_locations" model="ir.actions.act_window">
+  <record id="action_internal_locations_2" model="ir.actions.act_window">
     <field name="name">Internal Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('users_internal_transfer', '=', active_id)]</field>
     <field name="context">{'search_default_users_internal_transfer': active_id,'default_users_internal_transfer': [active_id]}</field>
   </record>
-  <record id="act_window_2470_location" model="ir.actions.act_window">
+  <record id="action_location_2" model="ir.actions.act_window">
     <field name="name">Location</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="act_window_2407_stock_location" model="ir.actions.act_window">
+  <record id="action_stock_location_2" model="ir.actions.act_window">
     <field name="name">stock.location</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="act_window_2487_stock_locations" model="ir.actions.act_window">
+  <record id="action_stock_locations_2" model="ir.actions.act_window">
     <field name="name">Stock Locations</field>
     <field name="res_model">stock.location</field>
     <field name="view_mode">tree,form</field>

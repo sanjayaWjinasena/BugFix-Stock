@@ -16,7 +16,7 @@ This repo only ships an access right and a multi-company record rule for reorder
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| stock.warehouse.orderpoint | `access_6856_stock_warehouse_orderpoint` | Gives **Sales / Jin - Sales - POS Users** read access to Minimum Inventory Rule records. | `group BugFix-Approvals.group_132_jin_sales_pos_users` (BugFix-Approvals)<br>`model stock.warehouse.orderpoint` (stock) |  |
+| stock.warehouse.orderpoint | `access_stock_warehouse_orderpoint` | Gives **Sales / Jin - Sales - POS Users** read access to Minimum Inventory Rule records. | `group BugFix-Approvals.group_jin_sales_pos_users` (BugFix-Approvals)<br>`model stock.warehouse.orderpoint` (stock) |  |
 
 **Record rules (1):**
 

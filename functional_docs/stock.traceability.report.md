@@ -16,5 +16,5 @@ This repo only ships access rights for the traceability report, including one fo
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Inv - Administrator | `access_6271_inv___administrator` | Gives **Inventory / Administrator** read/write/create/delete access to Traceability Report records. | `group stock.group_stock_manager` (stock)<br>`model stock.traceability.report` (stock) |  |
-| User | `access_6094_user` | Gives **Inventory / User** read access to Traceability Report records. | `group stock.group_stock_user` (stock)<br>`model stock.traceability.report` (stock) |  |
+| Inv - Administrator | `access_inv_administrator_2` | Gives **Inventory / Administrator** read/write/create/delete access to Traceability Report records. | `group stock.group_stock_manager` (stock)<br>`model stock.traceability.report` (stock) |  |
+| User | `access_user_3` | Gives **Inventory / User** read access to Traceability Report records. | `group stock.group_stock_user` (stock)<br>`model stock.traceability.report` (stock) |  |

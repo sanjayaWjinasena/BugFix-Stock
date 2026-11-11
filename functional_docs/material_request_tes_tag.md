@@ -22,8 +22,8 @@ A tag for the Material Request Test app, with a name and a colour. Purpose not e
 | `id` | ID | integer | Unique database ID of the record (automatic). | stored |  |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `color` | Color | integer | Color index of a Material Request Test tag, used to color the tag badge; shown in the tag list view. | stored |  | `view BugFix-Stock.view_8723_default_list_view_for_x_material_request_tes_tag_e` |
-| `name` | Name | char | Name of a Material Request Test tag, entered by the user; shown in the tag list, form and search views. | stored; required |  | `view BugFix-Stock.view_8723_default_list_view_for_x_material_request_tes_tag_e`<br>`view BugFix-Stock.view_8724_default_form_view_for_x_material_request_tes_tag_e`<br>`view BugFix-Stock.view_8725_default_search_view_for_x_material_request_tes_tag_e` |
+| `color` | Color | integer | Color index of a Material Request Test tag, used to color the tag badge; shown in the tag list view. | stored |  | `view BugFix-Stock.view_material_request_tes_tag_list` |
+| `name` | Name | char | Name of a Material Request Test tag, entered by the user; shown in the tag list, form and search views. | stored; required |  | `view BugFix-Stock.view_material_request_tes_tag_list`<br>`view BugFix-Stock.view_material_request_tes_tag_form`<br>`view BugFix-Stock.view_material_request_tes_tag_search` |
 
 **Window actions (1):**
 
@@ -35,9 +35,9 @@ A tag for the Material Request Test app, with a name and a colour. Purpose not e
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for material_request_tes_tag | `view_8724_default_form_view_for_x_material_request_tes_tag_e` | form | full form layout with 1 fields | Form for a Material Request Test tag: just the tag name. | `material_request_tes_tag.name` |  |
-| Default list view for material_request_tes_tag | `view_8723_default_list_view_for_x_material_request_tes_tag_e` | tree | full tree layout with 2 fields | Inline-editable list of Material Request Test tags with name and color. | `material_request_tes_tag.color`<br>`material_request_tes_tag.name` |  |
-| Default search view for material_request_tes_tag | `view_8725_default_search_view_for_x_material_request_tes_tag_e` | search | full search layout with 1 fields | Search Material Request Test tags by name. | `material_request_tes_tag.name` |  |
+| Default form view for material_request_tes_tag | `view_material_request_tes_tag_form` | form | full form layout with 1 fields | Form for a Material Request Test tag: just the tag name. | `material_request_tes_tag.name` |  |
+| Default list view for material_request_tes_tag | `view_material_request_tes_tag_list` | tree | full tree layout with 2 fields | Inline-editable list of Material Request Test tags with name and color. | `material_request_tes_tag.color`<br>`material_request_tes_tag.name` |  |
+| Default search view for material_request_tes_tag | `view_material_request_tes_tag_search` | search | full search layout with 1 fields | Search Material Request Test tags by name. | `material_request_tes_tag.name` |  |
 
 **Access rights (2):**
 

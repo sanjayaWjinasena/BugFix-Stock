@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <!-- 75 act_windows ports for BugFix-Stock (auto-generated from Clear-DB snapshot) -->
-  <record id="action_1661_consignment_lines" model="ir.actions.act_window">
+  <record id="action_consignment_lines" model="ir.actions.act_window">
     <field name="name">CONSIGNMENT LINES</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2863_consignment_line_consignment_line" model="ir.actions.act_window">
+  <record id="action_consignment_line_consignment_line_2" model="ir.actions.act_window">
     <field name="name">Consignment Line (consignment_line)</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2853_consignment_line_consignment_line" model="ir.actions.act_window">
+  <record id="action_consignment_line_consignment_line" model="ir.actions.act_window">
     <field name="name">Consignment Line (consignment_line)</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_1664_consignment_lines" model="ir.actions.act_window">
+  <record id="action_consignment_lines_2" model="ir.actions.act_window">
     <field name="name">Consignment Lines</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2857_consignment_lines" model="ir.actions.act_window">
+  <record id="action_consignment_lines_4" model="ir.actions.act_window">
     <field name="name">Consignment Lines</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_1257_purchase_invoice_line" model="ir.actions.act_window">
+  <record id="action_purchase_invoice_line" model="ir.actions.act_window">
     <field name="name">Purchase Invoice Line</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_1663_purchase_invoice_line" model="ir.actions.act_window">
+  <record id="action_purchase_invoice_line_2" model="ir.actions.act_window">
     <field name="name">Purchase Invoice Line</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_1662_purchase_invoice_lines" model="ir.actions.act_window">
+  <record id="action_purchase_invoice_lines" model="ir.actions.act_window">
     <field name="name">Purchase Invoice Lines</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2886_purchase_invoice_lines" model="ir.actions.act_window">
+  <record id="action_purchase_invoice_lines_3" model="ir.actions.act_window">
     <field name="name">Purchase Invoice Lines</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2053_purchase_invoice_lines" model="ir.actions.act_window">
+  <record id="action_purchase_invoice_lines_2" model="ir.actions.act_window">
     <field name="name">Purchase Invoice Lines</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2801_consignment_line" model="ir.actions.act_window">
+  <record id="action_consignment_line" model="ir.actions.act_window">
     <field name="name">consignment_line</field>
     <field name="res_model">consignment_line</field>
     <field name="view_mode">tree,form</field>
   </record>
-    <record id="ported_view_2813_default_list_view_for_consignment_line" model="ir.ui.view">
+    <record id="view_consignment_line_list" model="ir.ui.view">
         <field name="name">Default list view for consignment_line</field>
         <field name="model">consignment_line</field>
         <field name="type">tree</field>
@@ -69,7 +69,7 @@
             </tree>
         </field>
     </record>
-    <record id="ported_view_2814_default_form_view_for_consignment_line" model="ir.ui.view">
+    <record id="view_consignment_line_form" model="ir.ui.view">
         <field name="name">Default form view for consignment_line</field>
         <field name="model">consignment_line</field>
         <field name="type">form</field>
@@ -95,13 +95,13 @@
             </form>
         </field>
     </record>
-    <record id="ported_view_2817_studio_form_consignment_line" model="ir.ui.view">
+    <record id="view_default_form_view_for_consignment_line_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: Default form view for consignment_line customization</field>
         <field name="model">consignment_line</field>
         <field name="type">form</field>
         <field name="priority">99</field>
         <field name="mode">extension</field>
-        <field name="inherit_id" ref="BugFix-Stock.ported_view_2814_default_form_view_for_consignment_line"/>
+        <field name="inherit_id" ref="BugFix-Stock.view_consignment_line_form"/>
         <field name="arch" type="xml">
             <data>
               <xpath expr="//field[@name='name']" position="attributes">
@@ -125,13 +125,13 @@
             </data>
         </field>
     </record>
-    <record id="ported_view_2818_studio_tree_consignment_line" model="ir.ui.view">
+    <record id="view_default_list_view_for_consignment_line_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: Default list view for consignment_line customization</field>
         <field name="model">consignment_line</field>
         <field name="type">tree</field>
         <field name="priority">99</field>
         <field name="mode">extension</field>
-        <field name="inherit_id" ref="BugFix-Stock.ported_view_2813_default_list_view_for_consignment_line"/>
+        <field name="inherit_id" ref="BugFix-Stock.view_consignment_line_list"/>
         <field name="arch" type="xml">
             <data>
               <xpath expr="//tree[1]" position="attributes">
@@ -178,7 +178,7 @@
             </data>
         </field>
     </record>
-    <record id="view_2815_default_search_view_for_x_consignment_line_e" model="ir.ui.view">
+    <record id="view_consignment_line_search" model="ir.ui.view">
       <field name="name">Default search view for consignment_line</field>
       <field name="model">consignment_line</field>
       <field name="type">search</field>

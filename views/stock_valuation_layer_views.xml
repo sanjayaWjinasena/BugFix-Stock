@@ -5,7 +5,7 @@
     <field name="res_model">stock.valuation.layer</field>
     <field name="view_mode">tree,form,pivot</field>
   </record>
-  <record id="act_window_2809_stock_valuation_layer" model="ir.actions.act_window">
+  <record id="action_stock_valuation_layer" model="ir.actions.act_window">
     <field name="name">stock.valuation.layer</field>
     <field name="res_model">stock.valuation.layer</field>
     <field name="view_mode">tree,form,pivot</field>
@@ -22,7 +22,7 @@
                 </p>
             </field>
   </record>
-    <record id="ported_view_2585_studio_stock_valuation_layer_tree" model="ir.ui.view">
+    <record id="view_stock_valuation_layer_tree_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.valuation.layer.tree customization</field>
         <field name="model">stock.valuation.layer</field>
         <field name="type">tree</field>
@@ -54,7 +54,7 @@
             </data>
         </field>
     </record>
-  <record id="act_window_2809_stock_valuation_layer" model="ir.actions.act_window">
+  <record id="action_stock_valuation_layer" model="ir.actions.act_window">
     <field name="name">stock.valuation.layer</field>
     <field name="res_model">stock.valuation.layer</field>
     <field name="view_mode">tree,form,pivot</field>

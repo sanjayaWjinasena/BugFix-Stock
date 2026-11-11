@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="act_window_1203_ttt_structure_master" model="ir.actions.act_window">
+  <record id="action_ttt_structure_master" model="ir.actions.act_window">
     <field name="name">ttt structure master</field>
     <field name="res_model">temp_structure_maste</field>
     <field name="view_mode">form</field>
@@ -17,7 +17,7 @@
                 </p>
             </field>
   </record>
-    <record id="view_2705_imp_apply_formula_e" model="ir.ui.view">
+    <record id="view_imp_apply_formula" model="ir.ui.view">
       <field name="name">IMP Apply Formula</field>
       <field name="model">temp_structure_maste</field>
       <field name="type">form</field>
@@ -40,7 +40,7 @@
     </group>
     <newline/>
     <footer>
-      <button name="%(BugFix-Stock.server_action_1204_imp_apply_formula)d" string="Apply" type="action" class="oe_highlight"/>
+      <button name="%(BugFix-Stock.action_imp_apply_formula)d" string="Apply" type="action" class="oe_highlight"/>
       <button special="cancel" string="Cancel" class="oe_link"/>
     </footer>
 </form>

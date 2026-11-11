@@ -16,4 +16,4 @@ This repo only ships an access right for the Run Scheduler Manually wizard. It a
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| access.stock.scheduler.compute | `access_7077_access_stock_scheduler_compute` | Gives **Inventory / Administrator** read/write/create/delete access to Run Scheduler Manually records. | `group stock.group_stock_manager` (stock)<br>`model stock.scheduler.compute` (stock) |  |
+| access.stock.scheduler.compute | `access_stock_scheduler_compute` | Gives **Inventory / Administrator** read/write/create/delete access to Run Scheduler Manually records. | `group stock.group_stock_manager` (stock)<br>`model stock.scheduler.compute` (stock) |  |

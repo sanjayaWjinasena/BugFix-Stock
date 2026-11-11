@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="server_action_2440_mr_request_approval_notify_user" model="ir.actions.server">
+  <record id="action_mr_request_approval_notify_user" model="ir.actions.server">
     <field name="name">MR Request Approval - Notify User</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">next_activity</field>
@@ -13,7 +13,7 @@
     <field name="activity_summary">Approve RUG Repair</field>
     <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
   </record>
-  <record id="server_action_2443_mr_request_approve_confirm_notify_user" model="ir.actions.server">
+  <record id="action_mr_request_approve_confirm_notify_user" model="ir.actions.server">
     <field name="name">MR Request Approve Confirm - Notify User</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">next_activity</field>
@@ -26,7 +26,7 @@
     <field name="activity_summary">Approve RUG Repair</field>
     <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
   </record>
-  <record id="server_action_2444_approve_mr_status_update" model="ir.actions.server">
+  <record id="action_approve_mr_status_update" model="ir.actions.server">
     <field name="name">Approve MR - Status Update</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">object_write</field>
@@ -38,7 +38,7 @@
     <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
     <field name="value">Approved</field>
   </record>
-  <record id="server_action_2400_reject_mr" model="ir.actions.server">
+  <record id="action_reject_mr" model="ir.actions.server">
     <field name="name">Reject MR</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">object_write</field>
@@ -50,7 +50,7 @@
     <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
     <field name="value">Rejected</field>
   </record>
-  <record id="server_action_2441_request_approval_mr_update_status" model="ir.actions.server">
+  <record id="action_request_approval_mr_update_status" model="ir.actions.server">
     <field name="name">Request Approval MR - Update Status</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">object_write</field>
@@ -62,7 +62,7 @@
     <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
     <field name="value">To Be Approved</field>
   </record>
-  <record id="server_action_2391_reset_mr" model="ir.actions.server">
+  <record id="action_reset_mr" model="ir.actions.server">
     <field name="name">Reset MR</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">object_write</field>
@@ -74,7 +74,7 @@
     <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
     <field name="value">Draft</field>
   </record>
-  <record id="server_action_2388_confirm_mr" model="ir.actions.server">
+  <record id="action_confirm_mr" model="ir.actions.server">
     <field name="name">Confirm MR</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">code</field>
@@ -92,7 +92,7 @@
 record.write({'selection_field_BupKG': 'Confirmed'}) 
 ]]></field>
   </record>
-  <record id="server_action_2406_create_material_transfer" model="ir.actions.server">
+  <record id="action_create_material_transfer" model="ir.actions.server">
     <field name="name">Create Material Transfer</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">code</field>
@@ -174,7 +174,7 @@ else:
 
 ]]></field>
   </record>
-  <record id="server_action_2410_mr_validate_delete" model="ir.actions.server">
+  <record id="action_mr_validate_delete" model="ir.actions.server">
     <field name="name">MR Validate Delete</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">code</field>
@@ -191,7 +191,7 @@ else:
 
 ]]></field>
   </record>
-  <record id="server_action_1563_material_req_gen" model="ir.actions.server">
+  <record id="action_material_req_gen" model="ir.actions.server">
     <field name="name">Material Req GEN</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">code</field>
@@ -199,7 +199,7 @@ else:
     <field name="binding_view_types">list,form</field>
     <field name="code"><![CDATA[record['name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')]]></field>
   </record>
-  <record id="server_action_1650_pr_create_for_mr" model="ir.actions.server">
+  <record id="action_pr_create_for_mr" model="ir.actions.server">
     <field name="name">PR create For MR</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">code</field>
@@ -216,7 +216,7 @@ env['purchase_request'].create({'mr_number':record.name,'material_request_ref':r
 
 ]]></field>
   </record>
-  <record id="server_action_1652_pr_non_create_for_mr" model="ir.actions.server">
+  <record id="action_pr_non_create_for_mr" model="ir.actions.server">
     <field name="name">PR-non create For MR</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">code</field>
@@ -228,21 +228,21 @@ env['pr_non_inventory'].create({'material_request_ref':record.id, 'one2many_fiel
 
 ]]></field>
   </record>
-  <record id="server_action_2397_approve_mr" model="ir.actions.server">
+  <record id="action_approve_mr" model="ir.actions.server">
     <field name="name">Approve MR</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">multi</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2444_approve_mr_status_update'), ref('BugFix-Stock.server_action_2443_mr_request_approve_confirm_notify_user')])]"/>
+    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.action_approve_mr_status_update'), ref('BugFix-Stock.action_mr_request_approve_confirm_notify_user')])]"/>
   </record>
-  <record id="server_action_2394_request_approval_mr" model="ir.actions.server">
+  <record id="action_request_approval_mr" model="ir.actions.server">
     <field name="name">Request Approval MR</field>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="state">multi</field>
     <field name="usage">ir_actions_server</field>
     <field name="binding_view_types">list,form</field>
-    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2440_mr_request_approval_notify_user'), ref('BugFix-Stock.server_action_2441_request_approval_mr_update_status')])]"/>
+    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.action_mr_request_approval_notify_user'), ref('BugFix-Stock.action_request_approval_mr_update_status')])]"/>
   </record>
   <record id="base_automation_95_material_req_gen" model="base.automation">
     <field name="name">Material Req GEN</field>
@@ -250,13 +250,13 @@ env['pr_non_inventory'].create({'material_request_ref':record.id, 'one2many_fiel
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="trigger_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_material_request__create_date')])]"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1563_material_req_gen')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.action_material_req_gen')])]"/>
   </record>
-  <record id="base_automation_230_mr_validate_delete" model="base.automation">
+  <record id="automation_mr_validate_delete" model="base.automation">
     <field name="name">MR Validate Delete</field>
     <field name="active" eval="True"/>
     <field name="model_id" search="[('model', '=', 'material_request')]"/>
     <field name="trigger">on_unlink</field>
-    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2410_mr_validate_delete')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.action_mr_validate_delete')])]"/>
   </record>
 </odoo>

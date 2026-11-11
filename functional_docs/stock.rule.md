@@ -6,7 +6,7 @@
 
 *Extends a model created by `stock`.*
 
-Other repos that use this model: `server action BugFix-Studio-Misc.server_action_2831_mst_odoo_data_clean_up_001` (BugFix-Studio-Misc)<br>`window action BugFix-Studio-Misc.act_window_2835_stock_rule_d7` (BugFix-Studio-Misc)
+Other repos that use this model: `server action BugFix-Studio-Misc.server_action_2831_mst_odoo_data_clean_up_001` (BugFix-Studio-Misc)<br>`window action BugFix-Studio-Misc.action_stock_rule_d7` (BugFix-Studio-Misc)
 
 **Summary:**
 
@@ -18,13 +18,13 @@ This repo adds an optional Warehouse column to the stock rules list, a window ac
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| stock.rule | `act_window_2835_stock_rule` | Opens **Stock Rule** records (tree,form). | `model stock.rule` (stock) | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_stock_rule` (BugFix-Studio-Misc) |
+| stock.rule | `action_stock_rule` | Opens **Stock Rule** records (tree,form). | `model stock.rule` (stock) | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_stock_rule` (BugFix-Studio-Misc) |
 
 **Views (1):**
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Odoo Studio: stock.rule.tree customization | `ported_view_6071_odoo_studio_stock_rule_tree_customizatio` | tree | after `//field[@name='location_dest_id']`: add field warehouse_id | Adds an optional Warehouse column to the stock Rules list. | `stock.rule.warehouse_id` (stock)<br>`view stock.view_stock_rule_tree` (stock) |  |
+| Odoo Studio: stock.rule.tree customization | `view_stock_rule_tree_inherit` | tree | after `//field[@name='location_dest_id']`: add field warehouse_id | Adds an optional Warehouse column to the stock Rules list. | `stock.rule.warehouse_id` (stock)<br>`view stock.view_stock_rule_tree` (stock) |  |
 
 **Record rules (1):**
 

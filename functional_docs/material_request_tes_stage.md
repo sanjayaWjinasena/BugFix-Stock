@@ -22,8 +22,8 @@ A stage of the Material Request Test app, with a name and a sequence for orderin
 | `id` | ID | integer | Unique database ID of the record (automatic). | stored |  |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `name` | Stage Name | char | Name of a Material Request Test stage, entered by the user; shown in the stage list, form and search views. | stored; required |  | `view BugFix-Stock.view_8720_default_list_view_for_x_material_request_tes_stage_e`<br>`view BugFix-Stock.view_8721_default_form_view_for_x_material_request_tes_stage_e`<br>`view BugFix-Stock.view_8722_default_search_view_for_x_material_request_tes_stage_e` |
-| `sequence` | Sequence | integer | Integer sort order of a Material Request Test stage; entered by the user and shown in the stage list view. | stored |  | `view BugFix-Stock.view_8720_default_list_view_for_x_material_request_tes_stage_e` |
+| `name` | Stage Name | char | Name of a Material Request Test stage, entered by the user; shown in the stage list, form and search views. | stored; required |  | `view BugFix-Stock.view_material_request_tes_stage_list`<br>`view BugFix-Stock.view_material_request_tes_stage_form`<br>`view BugFix-Stock.view_material_request_tes_stage_search` |
+| `sequence` | Sequence | integer | Integer sort order of a Material Request Test stage; entered by the user and shown in the stage list view. | stored |  | `view BugFix-Stock.view_material_request_tes_stage_list` |
 
 **Window actions (1):**
 
@@ -35,9 +35,9 @@ A stage of the Material Request Test app, with a name and a sequence for orderin
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for material_request_tes_stage | `view_8721_default_form_view_for_x_material_request_tes_stage_e` | form | full form layout with 1 fields | Form for a Material Request Test stage: just the stage name. | `material_request_tes_stage.name` |  |
-| Default list view for material_request_tes_stage | `view_8720_default_list_view_for_x_material_request_tes_stage_e` | tree | full tree layout with 2 fields | Inline-editable, reorderable list of Material Request Test stages. | `material_request_tes_stage.name`<br>`material_request_tes_stage.sequence` |  |
-| Default search view for material_request_tes_stage | `view_8722_default_search_view_for_x_material_request_tes_stage_e` | search | full search layout with 1 fields | Search Material Request Test stages by name. | `material_request_tes_stage.name` |  |
+| Default form view for material_request_tes_stage | `view_material_request_tes_stage_form` | form | full form layout with 1 fields | Form for a Material Request Test stage: just the stage name. | `material_request_tes_stage.name` |  |
+| Default list view for material_request_tes_stage | `view_material_request_tes_stage_list` | tree | full tree layout with 2 fields | Inline-editable, reorderable list of Material Request Test stages. | `material_request_tes_stage.name`<br>`material_request_tes_stage.sequence` |  |
+| Default search view for material_request_tes_stage | `view_material_request_tes_stage_search` | search | full search layout with 1 fields | Search Material Request Test stages by name. | `material_request_tes_stage.name` |  |
 
 **Access rights (2):**
 

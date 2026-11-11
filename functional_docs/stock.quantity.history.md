@@ -16,4 +16,4 @@ This repo only ships an access right for the Jin - Administrator group on the st
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Jin - Administrator | `access_7079_jin___administrator` | Gives **Inventory / Administrator** read/write/create/delete access to Stock Quantity History records. | `group stock.group_stock_manager` (stock)<br>`model stock.quantity.history` (stock) |  |
+| Jin - Administrator | `access_jin_administrator_3` | Gives **Inventory / Administrator** read/write/create/delete access to Stock Quantity History records. | `group stock.group_stock_manager` (stock)<br>`model stock.quantity.history` (stock) |  |

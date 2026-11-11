@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="ported_view_4892_studio_stock_landed_cost_form" model="ir.ui.view">
+    <record id="view_stock_landed_cost_form_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.landed.cost.form customization</field>
         <field name="model">stock.landed.cost</field>
         <field name="type">form</field>

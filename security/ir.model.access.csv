@@ -1,71 +1,71 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_x_consignment_header_user,consignment_header user access,model_consignment_header,base.group_user,1,1,1,1
-access_x_consignment_line_user,consignment_line user access,model_consignment_line,base.group_user,1,1,1,1
-access_x_journal_types_user,journal_types user access,model_journal_types,base.group_user,1,1,1,1
-access_x_material_request_user,material_request user access,model_material_request,base.group_user,1,1,1,1
-access_x_misc_charge_codes_user,misc_charge_codes user access,model_misc_charge_codes,base.group_user,1,1,1,1
-access_x_tariffmaster_user,tariffmaster user access,model_tariffmaster,base.group_user,1,1,1,1
-access_x_con_consolidated_hea_user,con_consolidated_hea user access,model_con_consolidated_hea,base.group_user,1,1,1,1
-access_x_con_consolidated_lin_user,con_consolidated_lin user access,model_con_consolidated_lin,base.group_user,1,1,1,1
-access_x_consignment_charge_h_user,consignment_charge_h user access,model_consignment_charge_h,base.group_user,1,1,1,1
-access_x_consignment_charge_l_user,consignment_charge_l user access,model_consignment_charge_l,base.group_user,1,1,1,1
-access_x_temp_consignment_hea_user,temp_consignment_hea user access,model_temp_consignment_hea,base.group_user,1,1,1,1
-access_x_temp_consignment_lin_user,temp_consignment_lin user access,model_temp_consignment_lin,base.group_user,1,1,1,1
-access_6873_jin___administrator,Jin - Administrator,stock.model_stock_backorder_confirmation,stock.group_stock_manager,1,1,1,1
-access_6876_stock_backorder_confirmation,stock.backorder.confirmation,stock.model_stock_backorder_confirmation,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,1,0
-access_6872_jin___administrator,Jin - Administrator,stock.model_stock_backorder_confirmation_line,stock.group_stock_manager,1,1,1,1
-access_6877_stock_backorder_confirmation_line,stock.backorder.confirmation.line,stock.model_stock_backorder_confirmation_line,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,1,0
-access_7201_administrator,Administrator,BugFix-Stock.model_stock_lot,mrp.group_mrp_manager,1,1,1,1
-access_7202_jin___administrator,Jin - Administrator,BugFix-Stock.model_stock_lot,stock.group_stock_manager,1,1,1,1
-access_6087_user,User,BugFix-Stock.model_stock_lot,helpdesk.group_helpdesk_user,1,1,1,0
-access_7004_stock_move,Stock Move,BugFix-Stock.model_stock_move,BugFix-Approvals.group_112_jin_po_approvers_po_amount_500_000,1,1,1,0
-access_6853_stock_move,stock.move,BugFix-Stock.model_stock_move,BugFix-Approvals.group_132_jin_sales_pos_users,1,1,1,0
-access_6088_user,User,BugFix-Stock.model_stock_move,helpdesk.group_helpdesk_user,1,1,1,0
-access_6266_inv___administrator,Inv - Administrator,mrp.model_stock_quant,stock.group_stock_manager,1,1,1,1
-access_7079_jin___administrator,Jin - Administrator,stock.model_stock_quantity_history,stock.group_stock_manager,1,1,1,1
-access_6272_inv___administrator,Inv - Administrator,BugFix-Stock.model_stock_return_picking,stock.group_stock_manager,1,1,1,1
-access_6274_inv___administrator,Inv - Administrator,stock.model_stock_return_picking_line,stock.group_stock_manager,1,1,1,1
-access_7077_access_stock_scheduler_compute,access.stock.scheduler.compute,stock.model_stock_scheduler_compute,stock.group_stock_manager,1,1,1,1
-access_6860_stock_scrap,stock.scrap,mrp.model_stock_scrap,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,0,0
-access_6271_inv___administrator,Inv - Administrator,mrp.model_stock_traceability_report,stock.group_stock_manager,1,1,1,1
-access_6094_user,User,mrp.model_stock_traceability_report,stock.group_stock_user,1,0,0,0
-access_6856_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,BugFix-Approvals.group_132_jin_sales_pos_users,1,0,0,0
-access_1379_con__consolidated_header_group_user,Con. Consolidated Header group_user,BugFix-Stock.model_con_consolidated_hea,base.group_user,1,0,0,0
-access_1378_con__consolidated_header_group_system,Con. Consolidated Header group_system,BugFix-Stock.model_con_consolidated_hea,base.group_system,1,1,1,1
-access_1381_con__consolidated_line_group_user,Con. Consolidated Line group_user,BugFix-Stock.model_con_consolidated_lin,base.group_user,1,0,0,0
-access_1380_con__consolidated_line_group_system,Con. Consolidated Line group_system,BugFix-Stock.model_con_consolidated_lin,base.group_system,1,1,1,1
-access_1336_consignment_charge_line_group_user,Consignment Charge Line group_user,BugFix-Stock.model_consignment_charge_l,base.group_user,1,0,0,0
-access_1335_consignment_charge_line_group_system,Consignment Charge Line group_system,BugFix-Stock.model_consignment_charge_l,base.group_system,1,1,1,1
-access_1292_consignment_header_group_user,Consignment Header group_user,BugFix-Stock.model_consignment_header,base.group_user,1,0,0,0
-access_1291_consignment_header_group_system,Consignment Header group_system,BugFix-Stock.model_consignment_header,base.group_system,1,1,1,1
-access_1294_consignment_line_group_user,Consignment Line group_user,BugFix-Stock.model_consignment_line,base.group_user,1,0,0,0
-access_1293_consignment_line_group_system,Consignment Line group_system,BugFix-Stock.model_consignment_line,base.group_system,1,1,1,1
-access_8292_material_request_mt_group_user,Material Request MT group_user,BugFix-Stock.model_material_request_mt,base.group_user,1,1,1,0
-access_8291_material_request_mt_group_system,Material Request MT group_system,BugFix-Stock.model_material_request_mt,base.group_system,1,1,1,1
-access_8296_material_request_mt_stages_group_user,Material Request MT Stages group_user,BugFix-Stock.model_material_request_mt_stage,base.group_user,1,1,1,0
-access_8295_material_request_mt_stages_group_system,Material Request MT Stages group_system,BugFix-Stock.model_material_request_mt_stage,base.group_system,1,1,1,1
-access_8298_material_request_mt_tags_group_user,Material Request MT Tags group_user,BugFix-Stock.model_material_request_mt_tag,base.group_user,1,1,1,0
-access_8297_material_request_mt_tags_group_system,Material Request MT Tags group_system,BugFix-Stock.model_material_request_mt_tag,base.group_system,1,1,1,1
+access_consignment_header_user,consignment_header user access,model_consignment_header,base.group_user,1,1,1,1
+access_consignment_line_user,consignment_line user access,model_consignment_line,base.group_user,1,1,1,1
+access_journal_types_user,journal_types user access,model_journal_types,base.group_user,1,1,1,1
+access_material_request_user,material_request user access,model_material_request,base.group_user,1,1,1,1
+access_misc_charge_codes_user,misc_charge_codes user access,model_misc_charge_codes,base.group_user,1,1,1,1
+access_tariffmaster_user,tariffmaster user access,model_tariffmaster,base.group_user,1,1,1,1
+access_con_consolidated_hea_user,con_consolidated_hea user access,model_con_consolidated_hea,base.group_user,1,1,1,1
+access_con_consolidated_lin_user,con_consolidated_lin user access,model_con_consolidated_lin,base.group_user,1,1,1,1
+access_consignment_charge_h_user,consignment_charge_h user access,model_consignment_charge_h,base.group_user,1,1,1,1
+access_consignment_charge_l_user,consignment_charge_l user access,model_consignment_charge_l,base.group_user,1,1,1,1
+access_temp_consignment_hea_user,temp_consignment_hea user access,model_temp_consignment_hea,base.group_user,1,1,1,1
+access_temp_consignment_lin_user,temp_consignment_lin user access,model_temp_consignment_lin,base.group_user,1,1,1,1
+access_jin_administrator_2,Jin - Administrator,stock.model_stock_backorder_confirmation,stock.group_stock_manager,1,1,1,1
+access_stock_backorder_confirmation,stock.backorder.confirmation,stock.model_stock_backorder_confirmation,BugFix-Approvals.group_jin_sales_pos_users,1,0,1,0
+access_jin_administrator,Jin - Administrator,stock.model_stock_backorder_confirmation_line,stock.group_stock_manager,1,1,1,1
+access_stock_backorder_confirmation_line,stock.backorder.confirmation.line,stock.model_stock_backorder_confirmation_line,BugFix-Approvals.group_jin_sales_pos_users,1,0,1,0
+access_administrator,Administrator,BugFix-Stock.model_stock_lot,mrp.group_mrp_manager,1,1,1,1
+access_jin_administrator_4,Jin - Administrator,BugFix-Stock.model_stock_lot,stock.group_stock_manager,1,1,1,1
+access_user,User,BugFix-Stock.model_stock_lot,helpdesk.group_helpdesk_user,1,1,1,0
+access_stock_move_2,Stock Move,BugFix-Stock.model_stock_move,BugFix-Approvals.group_jin_po_approvers_po_amount,1,1,1,0
+access_stock_move,stock.move,BugFix-Stock.model_stock_move,BugFix-Approvals.group_jin_sales_pos_users,1,1,1,0
+access_user_2,User,BugFix-Stock.model_stock_move,helpdesk.group_helpdesk_user,1,1,1,0
+access_inv_administrator,Inv - Administrator,mrp.model_stock_quant,stock.group_stock_manager,1,1,1,1
+access_jin_administrator_3,Jin - Administrator,stock.model_stock_quantity_history,stock.group_stock_manager,1,1,1,1
+access_inv_administrator_3,Inv - Administrator,BugFix-Stock.model_stock_return_picking,stock.group_stock_manager,1,1,1,1
+access_inv_administrator_4,Inv - Administrator,stock.model_stock_return_picking_line,stock.group_stock_manager,1,1,1,1
+access_stock_scheduler_compute,access.stock.scheduler.compute,stock.model_stock_scheduler_compute,stock.group_stock_manager,1,1,1,1
+access_stock_scrap,stock.scrap,mrp.model_stock_scrap,BugFix-Approvals.group_jin_sales_pos_users,1,0,0,0
+access_inv_administrator_2,Inv - Administrator,mrp.model_stock_traceability_report,stock.group_stock_manager,1,1,1,1
+access_user_3,User,mrp.model_stock_traceability_report,stock.group_stock_user,1,0,0,0
+access_stock_warehouse_orderpoint,stock.warehouse.orderpoint,mrp.model_stock_warehouse_orderpoint,BugFix-Approvals.group_jin_sales_pos_users,1,0,0,0
+access_con_consolidated_header_group_user_2,Con. Consolidated Header group_user,BugFix-Stock.model_con_consolidated_hea,base.group_user,1,0,0,0
+access_con_consolidated_header_group_system_2,Con. Consolidated Header group_system,BugFix-Stock.model_con_consolidated_hea,base.group_system,1,1,1,1
+access_con_consolidated_line_group_user_2,Con. Consolidated Line group_user,BugFix-Stock.model_con_consolidated_lin,base.group_user,1,0,0,0
+access_con_consolidated_line_group_system_2,Con. Consolidated Line group_system,BugFix-Stock.model_con_consolidated_lin,base.group_system,1,1,1,1
+access_consignment_charge_line_group_user,Consignment Charge Line group_user,BugFix-Stock.model_consignment_charge_l,base.group_user,1,0,0,0
+access_consignment_charge_line_group_system,Consignment Charge Line group_system,BugFix-Stock.model_consignment_charge_l,base.group_system,1,1,1,1
+access_consignment_header_group_user,Consignment Header group_user,BugFix-Stock.model_consignment_header,base.group_user,1,0,0,0
+access_consignment_header_group_system,Consignment Header group_system,BugFix-Stock.model_consignment_header,base.group_system,1,1,1,1
+access_consignment_line_group_user,Consignment Line group_user,BugFix-Stock.model_consignment_line,base.group_user,1,0,0,0
+access_consignment_line_group_system,Consignment Line group_system,BugFix-Stock.model_consignment_line,base.group_system,1,1,1,1
+access_material_request_mt_group_user,Material Request MT group_user,BugFix-Stock.model_material_request_mt,base.group_user,1,1,1,0
+access_material_request_mt_group_system,Material Request MT group_system,BugFix-Stock.model_material_request_mt,base.group_system,1,1,1,1
+access_material_request_mt_stages_group_user,Material Request MT Stages group_user,BugFix-Stock.model_material_request_mt_stage,base.group_user,1,1,1,0
+access_material_request_mt_stages_group_system,Material Request MT Stages group_system,BugFix-Stock.model_material_request_mt_stage,base.group_system,1,1,1,1
+access_material_request_mt_tags_group_user,Material Request MT Tags group_user,BugFix-Stock.model_material_request_mt_tag,base.group_user,1,1,1,0
+access_material_request_mt_tags_group_system,Material Request MT Tags group_system,BugFix-Stock.model_material_request_mt_tag,base.group_system,1,1,1,1
 access_8268_material_request_test_group_user,Material Request Test group_user,BugFix-Stock.model_material_request_tes,base.group_user,1,1,1,0
 access_8267_material_request_test_group_system,Material Request Test group_system,BugFix-Stock.model_material_request_tes,base.group_system,1,1,1,1
-access_1221_tariffmaster_group_user,TariffMaster group_user,BugFix-Stock.model_tariffmaster,base.group_user,0,0,0,0
-access_1220_tariffmaster_group_system,TariffMaster group_system,BugFix-Stock.model_tariffmaster,base.group_system,1,1,1,1
-access_1385_temp_con__conso__line_group_user,Temp Con. Conso. Line group_user,BugFix-Stock.model_temp_con_conso_line,base.group_user,1,0,0,0
-access_1384_temp_con__conso__line_group_system,Temp Con. Conso. Line group_system,BugFix-Stock.model_temp_con_conso_line,base.group_system,1,1,1,1
-access_1383_temp_con__consolidated_header_group_user,Temp Con. Consolidated Header group_user,BugFix-Stock.model_temp_con_consolidate,base.group_user,1,0,0,0
-access_1382_temp_con__consolidated_header_group_system,Temp Con. Consolidated Header group_system,BugFix-Stock.model_temp_con_consolidate,base.group_system,1,1,1,1
-access_1296_temp_consignment_header_group_user,Temp Consignment Header group_user,BugFix-Stock.model_temp_consignment_hea,base.group_user,1,0,0,0
-access_1295_temp_consignment_header_group_system,Temp Consignment Header group_system,BugFix-Stock.model_temp_consignment_hea,base.group_system,1,1,1,1
-access_1298_temp_consignment_line_group_user,Temp Consignment Line group_user,BugFix-Stock.model_temp_consignment_lin,base.group_user,1,0,0,0
-access_1297_temp_consignment_line_group_system,Temp Consignment Line group_system,BugFix-Stock.model_temp_consignment_lin,base.group_system,1,1,1,1
-access_1246_temp_structure_details_group_user,Temp Structure Details group_user,BugFix-Stock.model_temp_structure_detai,base.group_user,1,0,0,0
-access_1245_temp_structure_details_group_system,Temp Structure Details group_system,BugFix-Stock.model_temp_structure_detai,base.group_system,1,1,1,1
-access_1248_temp_structure_master_group_user,Temp Structure Master group_user,BugFix-Stock.model_temp_structure_maste,base.group_user,1,0,0,0
-access_1247_temp_structure_master_group_system,Temp Structure Master group_system,BugFix-Stock.model_temp_structure_maste,base.group_system,1,1,1,1
-access_1379_con_consolidated_header_group_user,Con. Consolidated Header group_user,BugFix-Stock.model_con_consolidated_hea,base.group_user,1,0,0,0
-access_1378_con_consolidated_header_group_system,Con. Consolidated Header group_system,BugFix-Stock.model_con_consolidated_hea,base.group_system,1,1,1,1
-access_1381_con_consolidated_line_group_user,Con. Consolidated Line group_user,BugFix-Stock.model_con_consolidated_lin,base.group_user,1,0,0,0
-access_1380_con_consolidated_line_group_system,Con. Consolidated Line group_system,BugFix-Stock.model_con_consolidated_lin,base.group_system,1,1,1,1
+access_tariffmaster_group_user,TariffMaster group_user,BugFix-Stock.model_tariffmaster,base.group_user,0,0,0,0
+access_tariffmaster_group_system,TariffMaster group_system,BugFix-Stock.model_tariffmaster,base.group_system,1,1,1,1
+access_temp_con_conso_line_group_user,Temp Con. Conso. Line group_user,BugFix-Stock.model_temp_con_conso_line,base.group_user,1,0,0,0
+access_temp_con_conso_line_group_system,Temp Con. Conso. Line group_system,BugFix-Stock.model_temp_con_conso_line,base.group_system,1,1,1,1
+access_temp_con_consolidated_header_group_user,Temp Con. Consolidated Header group_user,BugFix-Stock.model_temp_con_consolidate,base.group_user,1,0,0,0
+access_temp_con_consolidated_header_group_system,Temp Con. Consolidated Header group_system,BugFix-Stock.model_temp_con_consolidate,base.group_system,1,1,1,1
+access_temp_consignment_header_group_user,Temp Consignment Header group_user,BugFix-Stock.model_temp_consignment_hea,base.group_user,1,0,0,0
+access_temp_consignment_header_group_system,Temp Consignment Header group_system,BugFix-Stock.model_temp_consignment_hea,base.group_system,1,1,1,1
+access_temp_consignment_line_group_user,Temp Consignment Line group_user,BugFix-Stock.model_temp_consignment_lin,base.group_user,1,0,0,0
+access_temp_consignment_line_group_system,Temp Consignment Line group_system,BugFix-Stock.model_temp_consignment_lin,base.group_system,1,1,1,1
+access_temp_structure_details_group_user,Temp Structure Details group_user,BugFix-Stock.model_temp_structure_detai,base.group_user,1,0,0,0
+access_temp_structure_details_group_system,Temp Structure Details group_system,BugFix-Stock.model_temp_structure_detai,base.group_system,1,1,1,1
+access_temp_structure_master_group_user,Temp Structure Master group_user,BugFix-Stock.model_temp_structure_maste,base.group_user,1,0,0,0
+access_temp_structure_master_group_system,Temp Structure Master group_system,BugFix-Stock.model_temp_structure_maste,base.group_system,1,1,1,1
+access_con_consolidated_header_group_user,Con. Consolidated Header group_user,BugFix-Stock.model_con_consolidated_hea,base.group_user,1,0,0,0
+access_con_consolidated_header_group_system,Con. Consolidated Header group_system,BugFix-Stock.model_con_consolidated_hea,base.group_system,1,1,1,1
+access_con_consolidated_line_group_user,Con. Consolidated Line group_user,BugFix-Stock.model_con_consolidated_lin,base.group_user,1,0,0,0
+access_con_consolidated_line_group_system,Con. Consolidated Line group_system,BugFix-Stock.model_con_consolidated_lin,base.group_system,1,1,1,1
 access_8272_material_request_test_stages_group_user,Material Request Test Stages group_user,BugFix-Stock.model_material_request_tes_stage,base.group_user,1,1,1,0
 access_8271_material_request_test_stages_group_system,Material Request Test Stages group_system,BugFix-Stock.model_material_request_tes_stage,base.group_system,1,1,1,1
 access_8274_material_request_test_tags_group_user,Material Request Test Tags group_user,BugFix-Stock.model_material_request_tes_tag,base.group_user,1,1,1,0

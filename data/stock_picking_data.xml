@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="sa_f5_stock_picking_sls_validate_payment_in_shipment" model="ir.actions.server">
+  <record id="action_stock_picking_sls_validate_payment_in_shipment" model="ir.actions.server">
     <field name="name">SLS - Validate Payment in Shipment</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -34,7 +34,7 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_stock_picking_user_location_validation" model="ir.actions.server">
+  <record id="action_stock_picking_user_location_validation" model="ir.actions.server">
     <field name="name">User Location Validation</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -126,7 +126,7 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="server_action_1999_rr_re_return_validation" model="ir.actions.server">
+  <record id="action_rr_re_return_validation" model="ir.actions.server">
     <field name="name">RR - Re_return Validation</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -141,7 +141,7 @@
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_2204_rr_request_transfer_approval" model="ir.actions.server">
+  <record id="action_rr_request_transfer_approval" model="ir.actions.server">
     <field name="name">RR - Request Transfer Approval</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">multi</field>
@@ -162,7 +162,7 @@
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_2205_rr_transfer_approval" model="ir.actions.server">
+  <record id="action_rr_transfer_approval" model="ir.actions.server">
     <field name="name">RR - Transfer Approval</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">object_write</field>
@@ -171,7 +171,7 @@
     <field name="evaluation_type">value</field>
     <field name="update_boolean_value">true</field>
   </record>
-  <record id="server_action_2201_rr_transfer_approval_request_sent" model="ir.actions.server">
+  <record id="action_rr_transfer_approval_request_sent" model="ir.actions.server">
     <field name="name">RR - Transfer Approval Request Sent</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">object_write</field>
@@ -180,14 +180,14 @@
     <field name="evaluation_type">value</field>
     <field name="update_boolean_value">true</field>
   </record>
-  <record id="server_action_2207_rr_transfer_rejection" model="ir.actions.server">
+  <record id="action_rr_transfer_rejection" model="ir.actions.server">
     <field name="name">RR - Transfer Rejection</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
     <field name="code"><![CDATA[record.write({"state": 'cancel', "transfer_rejected": 'Yes'})]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_2203_rr_transfer_request_approval_notify_user" model="ir.actions.server">
+  <record id="action_rr_transfer_request_approval_notify_user" model="ir.actions.server">
     <field name="name">RR - Transfer Request Approval - Notify User</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">next_activity</field>
@@ -211,7 +211,7 @@
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1996_rr_update_operation_type_in_help_desk_repairs" model="ir.actions.server">
+  <record id="action_rr_update_operation_type_in_help_desk_repairs" model="ir.actions.server">
     <field name="name">RR - Update Operation Type in Help Desk Repairs</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -233,7 +233,7 @@
  ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1438_sls_validate_payment_in_shipment" model="ir.actions.server">
+  <record id="action_sls_validate_payment_in_shipment" model="ir.actions.server">
     <field name="name">SLS - Validate Payment in Shipment</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -265,7 +265,7 @@
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_2474_user_location_validation" model="ir.actions.server">
+  <record id="action_user_location_validation" model="ir.actions.server">
     <field name="name">User Location Validation</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -356,7 +356,7 @@
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1367_imp_update_consignment_final" model="ir.actions.server">
+  <record id="action_imp_update_consignment_final" model="ir.actions.server">
     <field name="name">IMP - Update Consignment - Final</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -388,7 +388,7 @@
 
   record['update_consignment'] = True]]></field>
   </record>
-  <record id="server_action_2181_proj_show_validate_block_errors" model="ir.actions.server">
+  <record id="action_proj_show_validate_block_errors" model="ir.actions.server">
     <field name="name">PROJ - Show Validate Block Errors</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -396,7 +396,7 @@
     <field name="code"><![CDATA[if record.id:
   raise UserError('Create the budget for the selected project sales order to proceed.')]]></field>
   </record>
-  <record id="server_action_2448_movement_journals_update_offset_account" model="ir.actions.server">
+  <record id="action_movement_journals_update_offset_account" model="ir.actions.server">
     <field name="name">Movement Journals - Update Offset Account</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -435,7 +435,7 @@
   
 #stock_move_id   ]]></field>
   </record>
-  <record id="server_action_2185_proj_notify_transfer_completion" model="ir.actions.server">
+  <record id="action_proj_notify_transfer_completion" model="ir.actions.server">
     <field name="name">PROJ - Notify Transfer Completion</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">next_activity</field>
@@ -446,7 +446,7 @@
     <field name="activity_summary">Project Transfer Completed</field>
     <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
   </record>
-  <record id="server_action_1358_imp_update_consignment" model="ir.actions.server">
+  <record id="action_imp_update_consignment" model="ir.actions.server">
     <field name="name">IMP - Update Consignment</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -558,7 +558,7 @@
       
   record['update_consignment'] = True]]></field>
   </record>
-  <record id="server_action_1360_imp_update_consignment_partial_grn" model="ir.actions.server">
+  <record id="action_imp_update_consignment_partial_grn" model="ir.actions.server">
     <field name="name">IMP - Update Consignment - Partial GRN</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -570,7 +570,7 @@ record['consignment_no'] = False
 
 ]]></field>
   </record>
-  <record id="server_action_1774_sls_validate_payment_in_xxx" model="ir.actions.server">
+  <record id="action_sls_validate_payment_in_xxx" model="ir.actions.server">
     <field name="name">SLS - Validate Payment in xxx</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -592,7 +592,7 @@ record['consignment_no'] = False
 
 ]]></field>
   </record>
-  <record id="server_action_1697_supplier_invoice_no_update_in_import_pos" model="ir.actions.server">
+  <record id="action_supplier_invoice_no_update_in_import_pos" model="ir.actions.server">
     <field name="name">Supplier Invoice No Update in Import POs</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -610,7 +610,7 @@ record['consignment_no'] = False
 
 ]]></field>
   </record>
-  <record id="server_action_1813_update_source_document_in_transfers" model="ir.actions.server">
+  <record id="action_update_source_document_in_transfers" model="ir.actions.server">
     <field name="name">Update Source Document in Transfers</field>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="state">code</field>
@@ -623,30 +623,30 @@ else:
   
   ]]></field>
   </record>
-  <record id="base_automation_104_supplier_invoice_no_update_in_import_pos" model="base.automation">
+  <record id="automation_supplier_invoice_no_update_in_import_pos" model="base.automation">
     <field name="name">Supplier Invoice No Update in Import POs</field>
     <field name="active" eval="True"/>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="trigger">on_change</field>
     <field name="on_change_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_stock_picking__consignment_no')])]"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1697_supplier_invoice_no_update_in_import_pos')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.action_supplier_invoice_no_update_in_import_pos')])]"/>
   </record>
-  <record id="base_automation_148_update_source_document_in_transfers" model="base.automation">
+  <record id="automation_update_source_document_in_transfers" model="base.automation">
     <field name="name">Update Source Document in Transfers</field>
     <field name="active" eval="True"/>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="trigger">on_change</field>
     <field name="on_change_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_stock_picking__sales_order')])]"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1813_update_source_document_in_transfers')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.action_update_source_document_in_transfers')])]"/>
   </record>
-  <record id="base_automation_199_proj_notify_transfer_completion" model="base.automation">
+  <record id="automation_proj_notify_transfer_completion" model="base.automation">
     <field name="name">PROJ - Notify Transfer Completion</field>
     <field name="active" eval="True"/>
     <field name="model_id" search="[('model', '=', 'stock.picking')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="filter_pre_domain">[('state', '!=', 'done')]</field>
     <field name="filter_domain">[('sale_id.quotation_type', '=', 'Project'), ('state', '=', 'done')]</field>
-    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2185_proj_notify_transfer_completion')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.action_proj_notify_transfer_completion')])]"/>
   </record>
     <record id="approval_rule_56_transfer_action_open_label_layout_administration_access_righ" model="studio.approval.rule">
       <field name="name">Transfer/action_open_label_layout (Administration / Access Rights) (56)</field>
@@ -663,14 +663,14 @@ else:
       <field name="group_id" ref="base.group_user"/>
       <field name="notification_order">1</field>
     </record>
-    <record id="approval_rule_102_transfer_action_cancel_inventory_jin_administrator_102" model="studio.approval.rule">
+    <record id="approval_rule_transfer_action_cancel_inventory_jin_administrator" model="studio.approval.rule">
       <field name="name">Transfer/action_cancel (Inventory / Jin - Administrator) (102)</field>
       <field name="model_id" ref="stock.model_stock_picking"/>
       <field name="method">action_cancel</field>
       <field name="group_id" ref="stock.group_stock_manager"/>
       <field name="notification_order">1</field>
     </record>
-  <record id="server_action_1438_sls_validate_payment_in_shipment" model="ir.actions.server">
+  <record id="action_sls_validate_payment_in_shipment" model="ir.actions.server">
     <field name="name">SLS - Validate Payment in Shipment</field>
     <field name="model_id" ref="stock.model_stock_picking"/>
     <field name="state">code</field>
@@ -694,7 +694,7 @@ if record.state == 'done':
 
     ]]></field>
   </record>
-  <record id="server_action_2474_user_location_validation" model="ir.actions.server">
+  <record id="action_user_location_validation" model="ir.actions.server">
     <field name="name">User Location Validation</field>
     <field name="model_id" ref="stock.model_stock_picking"/>
     <field name="state">code</field>
@@ -811,21 +811,21 @@ imp_header_charges = env['x_test02'].create({'name':record.location_id.complete_
     <field name="active" eval="False"/>
     <field name="model_id" ref="stock.model_stock_picking"/>
     <field name="trigger">on_write</field>
-    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1438_sls_validate_payment_in_shipment')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.action_sls_validate_payment_in_shipment')])]"/>
   </record>
-  <record id="base_automation_177_rr_update_operation_type_in_help_desk_repairs" model="base.automation">
+  <record id="automation_rr_update_operation_type_in_help_desk_repairs" model="base.automation">
     <field name="name">RR - Update Operation Type in Help Desk Repairs</field>
     <field name="active" eval="False"/>
     <field name="model_id" ref="stock.model_stock_picking"/>
     <field name="trigger">on_create</field>
   </record>
-  <record id="base_automation_246_user_location_validation" model="base.automation">
+  <record id="automation_user_location_validation" model="base.automation">
     <field name="name">User Location Validation</field>
     <field name="active" eval="False"/>
     <field name="model_id" ref="stock.model_stock_picking"/>
     <field name="trigger">on_create_or_write</field>
     <field name="filter_domain">["|","|","|",["state","=","draft"],["state","=","waiting"],["state","=","confirmed"],["state","=","assigned"]]</field>
-    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2474_user_location_validation')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.action_user_location_validation')])]"/>
   </record>
   <record id="base_automation_247_user_location_validation_test" model="base.automation">
     <field name="name">User Location Validation-TEST</field>
@@ -836,11 +836,11 @@ imp_header_charges = env['x_test02'].create({'name':record.location_id.complete_
     <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2489_user_location_validation_test')])]"/>
   </record>
     <data noupdate="1">
-    <record id="default_378_stock_picking_validation" model="ir.default">
+    <record id="default_stock_picking_validation" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_stock_picking__validation"/>
       <field name="json_value">"Receive at Centre should be completed to dispatch."</field>
     </record>
-    <record id="default_392_stock_picking_gl_account_status" model="ir.default">
+    <record id="default_stock_picking_gl_account_status" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_stock_picking__gl_account_status"/>
       <field name="json_value">"Pending"</field>
     </record>

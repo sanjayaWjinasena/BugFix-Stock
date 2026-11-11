@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="sa_f5_x_consignment_header_imp_consignment_details_seq_no" model="ir.actions.server">
+  <record id="action_consignment_header_imp_consignment_details_seq_no" model="ir.actions.server">
     <field name="name">IMP - Consignment Details Seq.No</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -16,7 +16,7 @@ if record.name == 'New':
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_x_consignment_header_imp_restrict_delete_in_consignment" model="ir.actions.server">
+  <record id="action_consignment_header_imp_restrict_delete_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Restrict Delete in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -31,7 +31,7 @@ if record.name == 'New':
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_x_consignment_header_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
+  <record id="action_consignment_header_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Update Cost Allocation Method in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -45,7 +45,7 @@ if cost_allocation:
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_x_consignment_header_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
+  <record id="action_consignment_header_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Update Supplier Currency in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -60,7 +60,7 @@ if record.supplier_id.id:
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_x_consignment_header_jin_company_id_in_consignment_header" model="ir.actions.server">
+  <record id="action_consignment_header_jin_company_id_in_consignment_header" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consignment Header</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -71,7 +71,7 @@ record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="server_action_3647_consignment_vendor_dispatch_bugfix_purchase" model="ir.actions.server">
+  <record id="action_consignment_vendor_dispatch_bugfix_purchase" model="ir.actions.server">
     <field name="name">Consignment Vendor Dispatch (BugFix-Purchase)</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -162,7 +162,7 @@ else:
         ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1318_imp_allocate_consignment_header_charges" model="ir.actions.server">
+  <record id="action_imp_allocate_consignment_header_charges" model="ir.actions.server">
     <field name="name">IMP - Allocate Consignment Header Charges</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -899,7 +899,7 @@ action = {
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1303_imp_clear_po_lines_from_consignment" model="ir.actions.server">
+  <record id="action_imp_clear_po_lines_from_consignment" model="ir.actions.server">
     <field name="name">IMP - Clear PO Lines from Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -912,7 +912,7 @@ action = {
 record['lines_copied'] = False]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1365_imp_confirm_purchase_invoice" model="ir.actions.server">
+  <record id="action_imp_confirm_purchase_invoice" model="ir.actions.server">
     <field name="name">IMP - Confirm Purchase Invoice</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -950,7 +950,7 @@ record['lines_copied'] = False]]></field>
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1321_imp_consignment_custom_duty" model="ir.actions.server">
+  <record id="action_imp_consignment_custom_duty" model="ir.actions.server">
     <field name="name">IMP - Consignment Custom Duty</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1098,7 +1098,7 @@ if record.id:
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1258_imp_consignment_details_seq_no" model="ir.actions.server">
+  <record id="action_imp_consignment_details_seq_no" model="ir.actions.server">
     <field name="name">IMP - Consignment Details Seq.No</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1113,7 +1113,7 @@ if record.name == 'New':
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1313_imp_consignment_port_receipt" model="ir.actions.server">
+  <record id="action_imp_consignment_port_receipt" model="ir.actions.server">
     <field name="name">IMP - Consignment Port Receipt</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1126,7 +1126,7 @@ if record.name == 'New':
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1305_imp_consignment_vendor_despatch" model="ir.actions.server">
+  <record id="action_imp_consignment_vendor_despatch" model="ir.actions.server">
     <field name="name">IMP - Consignment Vendor Despatch</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1227,7 +1227,7 @@ else:
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1377_imp_copy_charges_to_tp_invoice" model="ir.actions.server">
+  <record id="action_imp_copy_charges_to_tp_invoice" model="ir.actions.server">
     <field name="name">IMP - Copy Charges to TP Invoice</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1268,7 +1268,7 @@ else:
             }]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1263_imp_copy_po_lines_to_consignment" model="ir.actions.server">
+  <record id="action_imp_copy_po_lines_to_consignment" model="ir.actions.server">
     <field name="name">IMP - Copy PO Lines to Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1319,7 +1319,7 @@ else:
             }]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1316_imp_create_consignment_header_charges" model="ir.actions.server">
+  <record id="action_imp_create_consignment_header_charges" model="ir.actions.server">
     <field name="name">IMP - Create Consignment Header Charges</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1358,7 +1358,7 @@ action = {
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_2199_imp_reset_header_charges_consignment" model="ir.actions.server">
+  <record id="action_imp_reset_header_charges_consignment" model="ir.actions.server">
     <field name="name">IMP - Reset Header Charges - Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1397,7 +1397,7 @@ action = {
 ]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1324_imp_restrict_delete_in_consignment" model="ir.actions.server">
+  <record id="action_imp_restrict_delete_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Restrict Delete in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1411,7 +1411,7 @@ action = {
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1454_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
+  <record id="action_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Update Cost Allocation Method in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1424,7 +1424,7 @@ if cost_allocation:
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_2890_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
+  <record id="action_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Update Supplier Currency in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1438,7 +1438,7 @@ if record.supplier_id.id:
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1456_imp_validate_consolidation_in_consignment" model="ir.actions.server">
+  <record id="action_imp_validate_consolidation_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Validate Consolidation in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1452,7 +1452,7 @@ else:
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_2607_jin_company_id_in_consignment_header" model="ir.actions.server">
+  <record id="action_jin_company_id_in_consignment_header" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consignment Header</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1462,7 +1462,7 @@ company = env['res.company'].browse(company_id)
 record['accounting_company_id'] = company.id]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_2118_project_update_month_end_entries" model="ir.actions.server">
+  <record id="action_project_update_month_end_entries" model="ir.actions.server">
     <field name="name">Project - Update Month End Entries</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="state">code</field>
@@ -1558,37 +1558,37 @@ else:
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_1258_imp_consignment_details_seq_no')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_imp_consignment_details_seq_no')])]"/>
   </record>
   <record id="automation_62_imp_restrict_delete_in_consignment" model="base.automation">
     <field name="name">IMP - Restrict Delete in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="trigger">on_unlink</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_1324_imp_restrict_delete_in_consignment')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_imp_restrict_delete_in_consignment')])]"/>
   </record>
   <record id="automation_86_imp_update_cost_allocation_method_in_consignment" model="base.automation">
     <field name="name">IMP - Update Cost Allocation Method in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="trigger">on_change</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_1454_imp_update_cost_allocation_method_in_consignment')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_imp_update_cost_allocation_method_in_consignment')])]"/>
   </record>
-  <record id="automation_280_jin_company_id_in_consignment_header" model="base.automation">
+  <record id="automation_jin_company_id_in_consignment_header" model="base.automation">
     <field name="name">JIN - Company Id in Consignment Header</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_2607_jin_company_id_in_consignment_header')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_jin_company_id_in_consignment_header')])]"/>
   </record>
-  <record id="automation_339_imp_update_supplier_currency_in_consignment" model="base.automation">
+  <record id="automation_imp_update_supplier_currency_in_consignment" model="base.automation">
     <field name="name">IMP - Update Supplier Currency in Consignment</field>
     <field name="model_id" search="[('model', '=', 'consignment_header')]"/>
     <field name="trigger">on_change</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_2890_imp_update_supplier_currency_in_consignment')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_imp_update_supplier_currency_in_consignment')])]"/>
   </record>
-  <record id="server_action_1258_imp_consignment_details_seq_no" model="ir.actions.server">
+  <record id="action_imp_consignment_details_seq_no" model="ir.actions.server">
     <field name="name">IMP - Consignment Details Seq.No</field>
     <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="state">code</field>
@@ -1605,7 +1605,7 @@ if record.name == 'New':
 
     ]]></field>
   </record>
-  <record id="server_action_1324_imp_restrict_delete_in_consignment" model="ir.actions.server">
+  <record id="action_imp_restrict_delete_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Restrict Delete in Consignment</field>
     <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="state">code</field>
@@ -1621,7 +1621,7 @@ if record.status != 'Draft':
 
     ]]></field>
   </record>
-  <record id="server_action_1454_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
+  <record id="action_imp_update_cost_allocation_method_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Update Cost Allocation Method in Consignment</field>
     <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="state">code</field>
@@ -1636,7 +1636,7 @@ if cost_allocation:
 
     ]]></field>
   </record>
-  <record id="server_action_2607_jin_company_id_in_consignment_header" model="ir.actions.server">
+  <record id="action_jin_company_id_in_consignment_header" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consignment Header</field>
     <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="state">code</field>
@@ -1648,7 +1648,7 @@ company = env['res.company'].browse(company_id)
 record['accounting_company_id'] = company.id
     ]]></field>
   </record>
-  <record id="server_action_2890_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
+  <record id="action_imp_update_supplier_currency_in_consignment" model="ir.actions.server">
     <field name="name">IMP - Update Supplier Currency in Consignment</field>
     <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="state">code</field>
@@ -1665,40 +1665,40 @@ if record.supplier_id.id:
     ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_138_x_consignment_header_active" model="ir.default">
+    <record id="default_consignment_header_active" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_139_x_consignment_header_sequence" model="ir.default">
+    <record id="default_consignment_header_sequence" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__sequence"/>
       <field name="json_value">10</field>
     </record>
-    <record id="default_142_x_consignment_header_name" model="ir.default">
+    <record id="default_consignment_header_name" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__name"/>
       <field name="json_value">"New"</field>
     </record>
-    <record id="default_167_x_consignment_header_x_studio_allocate_header_ch" model="ir.default">
+    <record id="default_consignment_header_allocate_header_ch" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__allocate_header_charges"/>
       <field name="json_value">"1"</field>
     </record>
-    <record id="default_168_x_consignment_header_x_studio_create_header_char" model="ir.default">
+    <record id="default_consignment_header_create_header_char" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__create_header_charges"/>
       <field name="json_value">"1"</field>
     </record>
-    <!-- DROPPED default_392_stock_picking_gl_account_status: selection value 'Pending' not in field allowed set -->
-<record id="default_425_x_consignment_header_accounting_currency_id" model="ir.default">
+    <!-- DROPPED default_stock_picking_gl_account_status: selection value 'Pending' not in field allowed set -->
+<record id="default_consignment_header_accounting_currency_id" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__accounting_currency_id"/>
       <field name="json_value">145</field>
     </record>
-    <record id="default_145_x_consignment_header_status_bar" model="ir.default">
+    <record id="default_consignment_header_status_bar" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__status_bar"/>
       <field name="json_value">"Draft"</field>
     </record>
-    <record id="default_143_x_consignment_header_shipping_mode" model="ir.default">
+    <record id="default_consignment_header_shipping_mode" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__shipping_mode"/>
       <field name="json_value">"Air"</field>
     </record>
-    <record id="default_144_x_consignment_header_status" model="ir.default">
+    <record id="default_consignment_header_status" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_consignment_header__status"/>
       <field name="json_value">"Draft"</field>
     </record>

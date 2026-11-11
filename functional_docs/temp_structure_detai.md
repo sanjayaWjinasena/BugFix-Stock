@@ -46,17 +46,17 @@ A temporary line in the Apply Structure Formula wizard, holding one charge name 
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_structure_detai_x_active_true` |
+| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_temp_structure_detai_active_true` |
 | `name` | Name | char | Name of the temporary structure detail line. | stored |  |  |
 | `charge_group` | Charge Group | selection: None=None; Charges=Charges; Duty=Duty; Taxes=Taxes; Assessable Value=Assessable Value | Charge group of the structure line: None, Charges, Duty, Taxes or Assessable Value. | stored |  |  |
 | `charge_name` | Charge Name | char | Charge name; when the line is selected, the Apply Formula action appends '[Charge Name]' to the structure formula. | stored |  |  |
 | `accounting_select` | Select | boolean | Tick box in the Apply Formula wizard; selected charges are added to the formula (at least one is required). | stored |  |  |
-| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_124_x_temp_structure_detai_sequence` |
+| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_temp_structure_detai_sequence` |
 | `temp_structure_master_id` | Temp Structure Master Id | many2one → `temp_structure_maste` | Apply Formula wizard record this line belongs to. | stored | `model temp_structure_maste` |  |
 
 **Access rights (2):**
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Temp Structure Details group_system | `access_1245_temp_structure_details_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Structure Details records. | `group base.group_system` (base)<br>`model temp_structure_detai` |  |
-| Temp Structure Details group_user | `access_1246_temp_structure_details_group_user` | Gives **User types / Internal User** read access to Temp Structure Details records. | `group base.group_user` (base)<br>`model temp_structure_detai` |  |
+| Temp Structure Details group_system | `access_temp_structure_details_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Structure Details records. | `group base.group_system` (base)<br>`model temp_structure_detai` |  |
+| Temp Structure Details group_user | `access_temp_structure_details_group_user` | Gives **User types / Internal User** read access to Temp Structure Details records. | `group base.group_user` (base)<br>`model temp_structure_detai` |  |

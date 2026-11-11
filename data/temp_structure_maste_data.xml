@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-  <record id="default_final_bugfix_stock_field_x_temp_structure_maste_x_active_true" model="ir.default">
+  <record id="default_final_bugfix_stock_field_temp_structure_maste_active_true" model="ir.default">
     <field name="field_id" ref="BugFix-Stock.field_temp_structure_maste__active"/>
     <field name="json_value">true</field>
   </record>
     </data>
-  <record id="server_action_1204_imp_apply_formula" model="ir.actions.server">
+  <record id="action_imp_apply_formula" model="ir.actions.server">
     <field name="name">IMP - Apply Formula</field>
     <field name="model_id" search="[('model', '=', 'temp_structure_maste')]"/>
     <field name="state">code</field>
@@ -62,7 +62,7 @@ if record.id:
 ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_126_x_temp_structure_maste_sequence" model="ir.default">
+    <record id="default_temp_structure_maste_sequence" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_temp_structure_maste__sequence"/>
       <field name="json_value">10</field>
     </record>

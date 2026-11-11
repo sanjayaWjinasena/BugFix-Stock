@@ -9,11 +9,11 @@
       <field name="field_id" ref="BugFix-Stock.field_stock_lot__starting_serial_no"/>
       <field name="json_value">"0"</field>
     </record>
-    <record id="default_359_stock_lot_no_of_days_2" model="ir.default">
+    <record id="default_stock_lot_no_of_days_2" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_stock_lot__no_of_days_2"/>
       <field name="json_value">"0"</field>
     </record>
-    <record id="default_362_stock_lot_currency_id" model="ir.default">
+    <record id="default_stock_lot_currency_id" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_stock_lot__currency_id"/>
       <field name="json_value">145</field>
     </record>

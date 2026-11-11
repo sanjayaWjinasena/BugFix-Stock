@@ -6,7 +6,7 @@
 
 *Created by this repo.* Python: `models/temp_consignment_lin.py`, `models/x_temp_consignment_lin_gap.py`. Record name field: `name`.
 
-Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_temp_consignment_lin_x_temp_consignment_lin_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
+Other repos that use this model: `access right BugFix-Studio-Misc.access_g_temp_consignment_lin_temp_consignment_lin_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
 
 **Summary:**
 
@@ -48,47 +48,47 @@ A temporary candidate line in the Copy Import Order Lines wizard, holding one im
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `active` | Active | boolean | Archive flag for temporary PO lines in the Copy PO Lines wizard; has a default. | stored |  | `default BugFix-Stock.default_150_x_temp_consignment_lin_active` |
-| `currency_id` | Currency | many2one → `res.currency` | Currency of the candidate PO line; has a default value. | stored | `model res.currency` (base) | `default BugFix-Stock.default_152_x_temp_consignment_lin_currency_id` |
+| `active` | Active | boolean | Archive flag for temporary PO lines in the Copy PO Lines wizard; has a default. | stored |  | `default BugFix-Stock.default_temp_consignment_lin_active` |
+| `currency_id` | Currency | many2one → `res.currency` | Currency of the candidate PO line; has a default value. | stored | `model res.currency` (base) | `default BugFix-Stock.default_temp_consignment_lin_currency_id` |
 | `name` | Name | char | Name of the temporary PO line record. | stored |  |  |
-| `concessional_rate` | Concessional Rate | boolean | Concessional duty rate flag of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `consignment_remainder` | Consignment Remainder | float | PO quantity still not assigned to a consignment for this candidate line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `delivery_date` | Delivery Date | datetime | Expected delivery date of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `delivery_remainder` | Delivery Remainder | float | Quantity still to be delivered for the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `description` | Description | text | Description of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `indent_no` | Indent No | char | Indent (purchase order) number of the candidate line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `product_id` | Product | many2one → `product.product` | Product of the candidate PO line. | stored | `model product.product` (product) | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `accounting_purchase_id` | Order Reference | many2one → `purchase.order` | Purchase order of the candidate line. | stored | `model purchase.order` (purchase) | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `purchase_line_id` | Purchase Line Id | many2one → `purchase.order.line` | Purchase order line represented by this candidate line. | stored | `model purchase.order.line` (purchase) | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `quantity` | Quantity | float | Quantity of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `accounting_select` | Select | boolean | Tick box in the Copy PO Lines wizard; ticked lines are copied to the consignment by the 'Apply Selected PO Lines' action. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_151_x_temp_consignment_lin_sequence` |
-| `subtotal` | Subtotal | float | Subtotal value of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `supplier_id` | Vendor | many2one → `res.partner` | Vendor of the candidate PO line. | stored | `model res.partner` (base) | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
+| `concessional_rate` | Concessional Rate | boolean | Concessional duty rate flag of the candidate PO line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `consignment_remainder` | Consignment Remainder | float | PO quantity still not assigned to a consignment for this candidate line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `delivery_date` | Delivery Date | datetime | Expected delivery date of the candidate PO line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `delivery_remainder` | Delivery Remainder | float | Quantity still to be delivered for the candidate PO line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `description` | Description | text | Description of the candidate PO line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `indent_no` | Indent No | char | Indent (purchase order) number of the candidate line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `product_id` | Product | many2one → `product.product` | Product of the candidate PO line. | stored | `model product.product` (product) | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `accounting_purchase_id` | Order Reference | many2one → `purchase.order` | Purchase order of the candidate line. | stored | `model purchase.order` (purchase) | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `purchase_line_id` | Purchase Line Id | many2one → `purchase.order.line` | Purchase order line represented by this candidate line. | stored | `model purchase.order.line` (purchase) | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `quantity` | Quantity | float | Quantity of the candidate PO line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `accounting_select` | Select | boolean | Tick box in the Copy PO Lines wizard; ticked lines are copied to the consignment by the 'Apply Selected PO Lines' action. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `sequence` | Sequence | integer | Ordering number with a default; not shown in any view. | stored |  | `default BugFix-Stock.default_temp_consignment_lin_sequence` |
+| `subtotal` | Subtotal | float | Subtotal value of the candidate PO line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `supplier_id` | Vendor | many2one → `res.partner` | Vendor of the candidate PO line. | stored | `model res.partner` (base) | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
 | `temp_consignment_header_id` | Temp Consignment Header Id | many2one → `temp_consignment_hea` | Copy PO Lines wizard record this candidate line belongs to. | stored | `model temp_consignment_hea` |  |
-| `unit_price` | Unit Price | float | Unit price of the candidate PO line. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `uom_id` | UOM | many2one → `uom.uom` | Unit of measure of the candidate PO line. | stored | `model uom.uom` (uom) | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `volume` | Volume | float | Volume of the candidate PO line's goods. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
-| `weight` | Weight | float | Weight of the candidate PO line's goods. | stored |  | `view BugFix-Stock.ported_primary_2905_form_temp_consignment_hea` |
+| `unit_price` | Unit Price | float | Unit price of the candidate PO line. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `uom_id` | UOM | many2one → `uom.uom` | Unit of measure of the candidate PO line. | stored | `model uom.uom` (uom) | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `volume` | Volume | float | Volume of the candidate PO line's goods. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
+| `weight` | Weight | float | Weight of the candidate PO line's goods. | stored |  | `view BugFix-Stock.view_ported_primary_form_temp_consignment_hea` |
 
 **Window actions (9):**
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Consignment Lines | `action_2847_consignment_lines` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
-| TEMP CONN LINE | `action_1656_temp_conn_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp_conn_line` (BugFix-Studio-Misc) |
-| TEMP123 | `action_1657_temp123` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp123` (BugFix-Studio-Misc) |
+| Consignment Lines | `action_consignment_lines_3` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
+| TEMP CONN LINE | `action_temp_conn_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp_conn_line` (BugFix-Studio-Misc) |
+| TEMP123 | `action_temp123` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp123` (BugFix-Studio-Misc) |
 | TEST66 | `action_1658_test66` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
-| Temp Consignment Line | `action_1262_temp_consignment_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Stock.menu_778_temp_consignment_line`<br>`menu BugFix-Studio-Misc.menu_f6r2_test_app_05_imports_temp_consignment_line` (BugFix-Studio-Misc)<br>`menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp_consignment_line` (BugFix-Studio-Misc) |
-| Temp Consignment Line | `action_1300_temp_consignment_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
-| Temp Consignment Line | `action_1356_temp_consignment_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Stock.menu_f6_temp_consignment_line` |
-| Temp Consignment Line | `action_2850_temp_consignment_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
-| Temp Consignment Line | `action_2860_temp_consignment_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
+| Temp Consignment Line | `action_temp_consignment_line` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Stock.menu_temp_consignment_line_2`<br>`menu BugFix-Studio-Misc.menu_f6r2_test_app_05_imports_temp_consignment_line` (BugFix-Studio-Misc)<br>`menu BugFix-Studio-Misc.menu_f6r2_test_app_05_temp_consignment_line` (BugFix-Studio-Misc) |
+| Temp Consignment Line | `action_temp_consignment_line_2` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
+| Temp Consignment Line | `action_temp_consignment_line_3` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` | `menu BugFix-Stock.menu_temp_consignment_line` |
+| Temp Consignment Line | `action_temp_consignment_line_4` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
+| Temp Consignment Line | `action_temp_consignment_line_5` | Opens **Temp Consignment Line** records (tree,form). | `model temp_consignment_lin` |  |
 
 **Access rights (3):**
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Temp Consignment Line group_system | `access_1297_temp_consignment_line_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Consignment Line records. | `group base.group_system` (base)<br>`model temp_consignment_lin` |  |
-| Temp Consignment Line group_user | `access_1298_temp_consignment_line_group_user` | Gives **User types / Internal User** read access to Temp Consignment Line records. | `group base.group_user` (base)<br>`model temp_consignment_lin` |  |
-| temp_consignment_lin user access | `access_x_temp_consignment_lin_user` | Gives **User types / Internal User** read/write/create/delete access to Temp Consignment Line records. | `group base.group_user` (base)<br>`model temp_consignment_lin` |  |
+| Temp Consignment Line group_system | `access_temp_consignment_line_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Consignment Line records. | `group base.group_system` (base)<br>`model temp_consignment_lin` |  |
+| Temp Consignment Line group_user | `access_temp_consignment_line_group_user` | Gives **User types / Internal User** read access to Temp Consignment Line records. | `group base.group_user` (base)<br>`model temp_consignment_lin` |  |
+| temp_consignment_lin user access | `access_temp_consignment_lin_user` | Gives **User types / Internal User** read/write/create/delete access to Temp Consignment Line records. | `group base.group_user` (base)<br>`model temp_consignment_lin` |  |

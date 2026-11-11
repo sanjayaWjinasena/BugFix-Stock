@@ -26,38 +26,38 @@
     <field name="domain">[('created_from_material_request_no', '=', active_id)]</field>
     <field name="context">{'search_default_created_from_material_request_no': active_id,'default_created_from_material_request_no': active_id}</field>
   </record>
-  <record id="action_1714_new_button" model="ir.actions.act_window">
+  <record id="action_new_button" model="ir.actions.act_window">
     <field name="name">New Button</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('maintenance_request_', '=', active_id)]</field>
     <field name="context">{'search_default_maintenance_request_': active_id,'default_maintenance_request_': active_id}</field>
   </record>
-  <record id="action_2008_repair_trans" model="ir.actions.act_window">
+  <record id="action_repair_trans" model="ir.actions.act_window">
     <field name="name">Repair Trans.</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('created_from_help_ticket', '=', active_id)]</field>
     <field name="context">{'search_default_created_from_help_ticket': active_id,'default_created_from_help_ticket': active_id}</field>
   </record>
-  <record id="action_2536_stock_picking" model="ir.actions.act_window">
+  <record id="action_stock_picking_2" model="ir.actions.act_window">
     <field name="name">stock.picking</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">kanban,tree,form,calendar,map</field>
   </record>
-  <record id="action_1978_stock_picking" model="ir.actions.act_window">
+  <record id="action_stock_picking" model="ir.actions.act_window">
     <field name="name">stock.picking</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">kanban,tree,form,calendar,map</field>
   </record>
-  <record id="action_2409_transfers" model="ir.actions.act_window">
+  <record id="action_transfers" model="ir.actions.act_window">
     <field name="name">Transfers</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('created_from_material_request_no', '=', active_id)]</field>
     <field name="context">{'search_default_created_from_material_request_no': active_id,'default_created_from_material_request_no': active_id}</field>
   </record>
-  <record id="act_window_2017_picking" model="ir.actions.act_window">
+  <record id="action_picking" model="ir.actions.act_window">
     <field name="name">Picking</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">form</field>
@@ -66,7 +66,7 @@
             'force_detailed_view': True,
         }</field>
   </record>
-    <record id="ported_view_5299_studio_stock_picking_tree" model="ir.ui.view">
+    <record id="view_stock_picking_tree_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.picking.tree customization</field>
         <field name="model">stock.picking</field>
         <field name="type">tree</field>
@@ -85,7 +85,7 @@
             </data>
         </field>
     </record>
-    <record id="ported_view_2387_studio_stock_picking_form" model="ir.ui.view">
+    <record id="view_stock_picking_form_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.picking.form customization</field>
         <field name="model">stock.picking</field>
         <field name="type">form</field>
@@ -99,7 +99,7 @@
                 <attribute name="help">'Verify if the required products are available in stock. '</attribute>
               </xpath>
               <xpath expr="//button[@name='action_assign']" position="after">
-                <button type="action" name="%(BugFix-Stock.server_action_1367_imp_update_consignment_final)d" string="Update Consignment" class="btn-primary" invisible="(state == 'cancel') or (((update_consignment == True) and (pr_type == 'Import')) or ((pr_type == False) or (pr_type == 'Local')))"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_update_consignment_final)d" string="Update Consignment" class="btn-primary" invisible="(state == 'cancel') or (((update_consignment == True) and (pr_type == 'Import')) or ((pr_type == False) or (pr_type == 'Local')))"/>
               </xpath>
               <!-- Kapila -->
               <xpath expr="//form[1]/header[1]/button[@name='action_confirm']" position="attributes">
@@ -123,7 +123,7 @@
               </xpath>
               <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="after">
                 <button type="action" name="%(stock.act_stock_return_picking)d" string="Dispatch" invisible="((received_at_centre == False) and ((factory_repair == True) and (created_from_help_ticket != False))) or (((received_at_centre == False) and ((factory_repair == True) and (helpdesk_ticket_id != False))) or (((valid_factory_repair == False) and ((factory_repair == True) and (created_from_help_ticket != False))) or (((valid_factory_repair == False) and ((factory_repair == True) and (helpdesk_ticket_id != False))) or (((fsm_task_done == False) and (created_from_help_ticket != False)) or (((fsm_task_done == False) and (helpdesk_ticket_id != False)) or (((cancelled == False) and ((task_status == False) and (helpdesk_ticket_id != False))) or ((state != 'done') or ((helpdesk_ticket_id == False) or ((cash_full_payment_made == True) or ((fully_paid_so == False) or (picking_count == True)))))))))))"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1999_rr_re_return_validation)d" string="Retun Reject Reason" class="btn-primary" invisible="((fsm_task_done == True) and (created_from_help_ticket != False)) or (((fsm_task_done == True) and (helpdesk_ticket_id != False)) or ((state != 'done') or ((helpdesk_ticket_id == False) or (cancelled == True))))"/>
+                <button type="action" name="%(BugFix-Stock.action_rr_re_return_validation)d" string="Retun Reject Reason" class="btn-primary" invisible="((fsm_task_done == True) and (created_from_help_ticket != False)) or (((fsm_task_done == True) and (helpdesk_ticket_id != False)) or ((state != 'done') or ((helpdesk_ticket_id == False) or (cancelled == True))))"/>
               </xpath>
               <xpath expr="//form[1]/header[1]/button[@name='%(stock.act_stock_return_picking)d'][2]" position="attributes">
                 <attribute name="invisible">(state != 'done') or (((task_status == False) and (helpdesk_ticket_id != False)) or ((state != 'done') or (helpdesk_ticket_id != False)))</attribute>
@@ -132,10 +132,10 @@
                 <attribute name="studio_approval">True</attribute>
               </xpath>
               <xpath expr="//button[@name='%(stock.action_stock_report)d']" position="after">
-                <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.act_1362_vend_dispatch_reversal)d" studio-view-group-names="User" studio-view-group-ids="81" invisible="created_from_transfer__account_move_count == 0">
+                <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.action_vend_dispatch_reversal)d" studio-view-group-names="User" studio-view-group-ids="81" invisible="created_from_transfer__account_move_count == 0">
                   <field widget="statinfo" name="created_from_transfer__account_move_count" string="Vend. Dispatch Reversal" studio-view-group-names="User" studio-view-group-ids="81"/>
                 </button>
-                <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.act_1363_custom_clearance_reversal)d" studio-view-group-names="User" studio-view-group-ids="81" invisible="create_from_transfer_1__account_move_count == 0">
+                <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.action_custom_clearance_reversal)d" studio-view-group-names="User" studio-view-group-ids="81" invisible="create_from_transfer_1__account_move_count == 0">
                   <field widget="statinfo" name="create_from_transfer_1__account_move_count" string="Custom Clearance Reversal" studio-view-group-names="User" studio-view-group-ids="81"/>
                 </button>
               </xpath>
@@ -238,38 +238,38 @@
             </data>
         </field>
     </record>
-  <record id="act_window_1714_new_button" model="ir.actions.act_window">
+  <record id="action_new_button_2" model="ir.actions.act_window">
     <field name="name">New Button</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('maintenance_request_', '=', active_id)]</field>
     <field name="context">{'search_default_maintenance_request_': active_id,'default_maintenance_request_': active_id}</field>
   </record>
-  <record id="act_window_2008_repair_trans" model="ir.actions.act_window">
+  <record id="action_repair_trans_2" model="ir.actions.act_window">
     <field name="name">Repair Trans.</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('created_from_help_ticket', '=', active_id)]</field>
     <field name="context">{'search_default_created_from_help_ticket': active_id,'default_created_from_help_ticket': active_id}</field>
   </record>
-  <record id="act_window_2536_stock_picking" model="ir.actions.act_window">
+  <record id="action_stock_picking_4" model="ir.actions.act_window">
     <field name="name">stock.picking</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">kanban,tree,form,calendar,map</field>
   </record>
-  <record id="act_window_1978_stock_picking" model="ir.actions.act_window">
+  <record id="action_stock_picking_3" model="ir.actions.act_window">
     <field name="name">stock.picking</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">kanban,tree,form,calendar,map</field>
   </record>
-  <record id="act_window_2409_transfers" model="ir.actions.act_window">
+  <record id="action_transfers_2" model="ir.actions.act_window">
     <field name="name">Transfers</field>
     <field name="res_model">stock.picking</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('created_from_material_request_no', '=', active_id)]</field>
     <field name="context">{'search_default_created_from_material_request_no': active_id,'default_created_from_material_request_no': active_id}</field>
   </record>
-    <record id="view_4732_odoo_studio_stock_picking_form_button_e" model="ir.ui.view">
+    <record id="view_stock_picking_form_button" model="ir.ui.view">
       <field name="name">Odoo Studio: stock.picking.form_button</field>
       <field name="model">stock.picking</field>
       <field name="type">form</field>

@@ -22,26 +22,26 @@ A tag for the Material Request MT app, with a name and a colour. Users maintain 
 | `id` | ID | integer | Unique database ID of the record (automatic). | stored |  |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `color` | Color | integer | Color index of the tag. | stored |  | `view BugFix-Stock.view_8777_default_list_view_for_x_material_request_mt_tag_e` |
-| `name` | Name | char | Name of the material request tag. | stored; required |  | `view BugFix-Stock.view_8777_default_list_view_for_x_material_request_mt_tag_e`<br>`view BugFix-Stock.view_8778_default_form_view_for_x_material_request_mt_tag_e`<br>`view BugFix-Stock.view_8779_default_search_view_for_x_material_request_mt_tag_e` |
+| `color` | Color | integer | Color index of the tag. | stored |  | `view BugFix-Stock.view_material_request_mt_tag_list` |
+| `name` | Name | char | Name of the material request tag. | stored; required |  | `view BugFix-Stock.view_material_request_mt_tag_list`<br>`view BugFix-Stock.view_material_request_mt_tag_form`<br>`view BugFix-Stock.view_material_request_mt_tag_search` |
 
 **Window actions (1):**
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Material Request MT Tags | `act_window_3386_material_request_mt_tags` | Opens **Material Request MT Tags** records (tree,form). | `model material_request_mt_tag` | `menu BugFix-Stock.menu_1749_material_request_mt_tags`<br>`menu BugFix-Stock.menu_f6_material_request_mt_tags` |
+| Material Request MT Tags | `action_material_request_mt_tags` | Opens **Material Request MT Tags** records (tree,form). | `model material_request_mt_tag` | `menu BugFix-Stock.menu_material_request_mt_tags_2`<br>`menu BugFix-Stock.menu_material_request_mt_tags` |
 
 **Views (3):**
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Default form view for material_request_mt_tag | `view_8778_default_form_view_for_x_material_request_mt_tag_e` | form | full form layout with 1 fields | Form for a Material Request (MT) tag: just the tag name. | `material_request_mt_tag.name` |  |
-| Default list view for material_request_mt_tag | `view_8777_default_list_view_for_x_material_request_mt_tag_e` | tree | full tree layout with 2 fields | Inline-editable list of Material Request (MT) tags with name and color. | `material_request_mt_tag.color`<br>`material_request_mt_tag.name` |  |
-| Default search view for material_request_mt_tag | `view_8779_default_search_view_for_x_material_request_mt_tag_e` | search | full search layout with 1 fields | Search Material Request (MT) tags by name. | `material_request_mt_tag.name` |  |
+| Default form view for material_request_mt_tag | `view_material_request_mt_tag_form` | form | full form layout with 1 fields | Form for a Material Request (MT) tag: just the tag name. | `material_request_mt_tag.name` |  |
+| Default list view for material_request_mt_tag | `view_material_request_mt_tag_list` | tree | full tree layout with 2 fields | Inline-editable list of Material Request (MT) tags with name and color. | `material_request_mt_tag.color`<br>`material_request_mt_tag.name` |  |
+| Default search view for material_request_mt_tag | `view_material_request_mt_tag_search` | search | full search layout with 1 fields | Search Material Request (MT) tags by name. | `material_request_mt_tag.name` |  |
 
 **Access rights (2):**
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Material Request MT Tags group_system | `access_8297_material_request_mt_tags_group_system` | Gives **Administration / Settings** read/write/create/delete access to Material Request MT Tags records. | `group base.group_system` (base)<br>`model material_request_mt_tag` |  |
-| Material Request MT Tags group_user | `access_8298_material_request_mt_tags_group_user` | Gives **User types / Internal User** read/write/create access to Material Request MT Tags records. | `group base.group_user` (base)<br>`model material_request_mt_tag` |  |
+| Material Request MT Tags group_system | `access_material_request_mt_tags_group_system` | Gives **Administration / Settings** read/write/create/delete access to Material Request MT Tags records. | `group base.group_system` (base)<br>`model material_request_mt_tag` |  |
+| Material Request MT Tags group_user | `access_material_request_mt_tags_group_user` | Gives **User types / Internal User** read/write/create access to Material Request MT Tags records. | `group base.group_user` (base)<br>`model material_request_mt_tag` |  |

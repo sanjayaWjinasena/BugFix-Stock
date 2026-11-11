@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="action_1410_con_consolidated_header" model="ir.actions.act_window">
+  <record id="action_con_consolidated_header" model="ir.actions.act_window">
     <field name="name">Con. Consolidated Header</field>
     <field name="res_model">con_consolidated_hea</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2054_consolidated_consignments" model="ir.actions.act_window">
+  <record id="action_consolidated_consignments" model="ir.actions.act_window">
     <field name="name">Consolidated Consignments</field>
     <field name="res_model">con_consolidated_hea</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2888_consolidated_consignments" model="ir.actions.act_window">
+  <record id="action_consolidated_consignments_2" model="ir.actions.act_window">
     <field name="name">Consolidated Consignments</field>
     <field name="res_model">con_consolidated_hea</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="ported_primary_3068_form_con_consolidated_hea" model="ir.ui.view">
+  <record id="view_con_consolidated_hea_form" model="ir.ui.view">
     <field name="name">Default form view for con_consolidated_hea</field>
     <field name="model">con_consolidated_hea</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
       <form>
         <header>  
-          <button type="action" name="%(BugFix-Stock.server_action_1413_imp_copy_consignment_lines_to_consolidation)d" string="Copy PI Header" class="btn-primary" invisible="status not in ['Draft']"/>
-          <button type="action" name="%(BugFix-Stock.server_action_1414_imp_clear_consignment_lines_from_consolidation)d" string="Clear PI Header" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
-          <button type="action" name="%(BugFix-Stock.server_action_1421_imp_confirm_consolidation)d" string="Confirm" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
+          <button type="action" name="%(BugFix-Stock.action_imp_copy_consignment_lines_to_consolidation)d" string="Copy PI Header" class="btn-primary" invisible="status not in ['Draft']"/>
+          <button type="action" name="%(BugFix-Stock.action_imp_clear_consignment_lines_from_consolidation)d" string="Clear PI Header" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
+          <button type="action" name="%(BugFix-Stock.action_imp_confirm_consolidation)d" string="Confirm" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
         </header>
         <header/>
         <sheet string="Con. Consolidated Header">
@@ -49,14 +49,14 @@
       </form>
     </field>
   </record>
-  <record id="ported_view_3073_odoo_studio_default_form_view_for_x_con_" model="ir.ui.view">
+  <record id="view_default_form_view_for_con_consolidated_hea_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for con_consolidated_hea customization</field>
     <field name="model">con_consolidated_hea</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3068_form_con_consolidated_hea"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_con_consolidated_hea_form"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
-        <xpath expr="//button[@name='%(BugFix-Stock.server_action_1414_imp_clear_consignment_lines_from_consolidation)d']" position="after">
+        <xpath expr="//button[@name='%(BugFix-Stock.action_imp_clear_consignment_lines_from_consolidation)d']" position="after">
           <field widget="statusbar" name="pipeline_status_bar" string="Pipeline Status Bar"/>
         </xpath>
         <xpath expr="//form[1]/sheet[1]/div[1]/h1[1]/field[@name='name']" position="attributes">
@@ -97,7 +97,7 @@
       </data>
     </field>
   </record>
-  <record id="ported_primary_3067_tree_con_consolidated_hea" model="ir.ui.view">
+  <record id="view_con_consolidated_hea_list" model="ir.ui.view">
     <field name="name">Default list view for con_consolidated_hea</field>
     <field name="model">con_consolidated_hea</field>
     <field name="priority">16</field>
@@ -108,10 +108,10 @@
       </tree>
     </field>
   </record>
-  <record id="ported_view_3075_odoo_studio_default_list_view_for_x_con_" model="ir.ui.view">
+  <record id="view_default_list_view_for_con_consolidated_hea_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default list view for con_consolidated_hea customization</field>
     <field name="model">con_consolidated_hea</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3067_tree_con_consolidated_hea"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_con_consolidated_hea_list"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
@@ -133,7 +133,7 @@
       </data>
     </field>
   </record>
-    <record id="view_3069_default_search_view_for_x_con_consolidated_hea_e" model="ir.ui.view">
+    <record id="view_con_consolidated_hea_search" model="ir.ui.view">
       <field name="name">Default search view for con_consolidated_hea</field>
       <field name="model">con_consolidated_hea</field>
       <field name="type">search</field>

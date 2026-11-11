@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="act_window_2095_stock_location_route" model="ir.actions.act_window">
+  <record id="action_stock_location_route" model="ir.actions.act_window">
     <field name="name">stock.location.route</field>
     <field name="res_model">stock.route</field>
     <field name="view_mode">tree,form</field>
@@ -17,7 +17,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2494_inventory_routes" model="ir.actions.act_window">
+  <record id="action_inventory_routes" model="ir.actions.act_window">
     <field name="name">Inventory routes</field>
     <field name="res_model">stock.route</field>
     <field name="view_mode">tree,form</field>
@@ -34,7 +34,7 @@
                 </p>
             </field>
   </record>
-    <record id="ported_view_4866_studio_stock_route_tree" model="ir.ui.view">
+    <record id="view_stock_location_route_tree_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.location.route.tree customization</field>
         <field name="model">stock.route</field>
         <field name="type">tree</field>

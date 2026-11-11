@@ -16,4 +16,4 @@ This repo only ships an access right for the Inv - Administrator group on return
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Inv - Administrator | `access_6274_inv___administrator` | Gives **Inventory / Administrator** read/write/create/delete access to Return Picking Line records. | `group stock.group_stock_manager` (stock)<br>`model stock.return.picking.line` (stock) |  |
+| Inv - Administrator | `access_inv_administrator_4` | Gives **Inventory / Administrator** read/write/create/delete access to Return Picking Line records. | `group stock.group_stock_manager` (stock)<br>`model stock.return.picking.line` (stock) |  |

@@ -6,7 +6,7 @@
 
 *Created by this repo.* Python: `models/temp_con_consolidate.py`, `models/x_temp_con_consolidate_gap.py`. Record name field: `name`.
 
-Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_temp_con_consolidate_x_temp_con_consolidate_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
+Other repos that use this model: `access right BugFix-Studio-Misc.access_g_temp_con_consolidate_temp_con_consolidate_purchase_jin_procurement_end_user_i` (BugFix-Studio-Misc)
 
 **Summary:**
 
@@ -48,16 +48,16 @@ The temporary wizard record behind Copy PI Lines to Consolidation, opened from a
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_con_consolidate_x_active_true` |
-| `name` | Name | char | Name of the temporary consolidation wizard record. | stored |  | `view BugFix-Stock.view_3085_imp_copy_pi_line_to_consolidation_e` |
-| `con_lines` | Con. Lines | one2many → `temp_con_conso_line` | Candidate consignments listed in the consolidation wizard; ticked ones are applied to the consolidation. | stored | `model temp_con_conso_line` | `server action BugFix-Stock.server_action_1420_imp_apply_selected_pi_lines_to_consolidation`<br>`view BugFix-Stock.view_3085_imp_copy_pi_line_to_consolidation_e` |
-| `consolidated_header_id` | Consolidated Header Id | many2one → `con_consolidated_hea` | Consolidation that selected consignments will be added to by the wizard's select/clear/apply actions. | stored | `model con_consolidated_hea` | `server action BugFix-Stock.server_action_1417_imp_select_all_in_copy_pi_lines`<br>`server action BugFix-Stock.server_action_1419_imp_clear_all_in_copy_po_lines`<br>`server action BugFix-Stock.server_action_1420_imp_apply_selected_pi_lines_to_consolidation`<br>`view BugFix-Stock.view_3085_imp_copy_pi_line_to_consolidation_e` |
-| `select_all` | Select All | boolean | Select-all checkbox shown in the Copy PI Lines to Consolidation wizard. | stored |  | `view BugFix-Stock.view_3085_imp_copy_pi_line_to_consolidation_e` |
-| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_208_x_temp_con_consolidate_sequence` |
+| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_temp_con_consolidate_active_true` |
+| `name` | Name | char | Name of the temporary consolidation wizard record. | stored |  | `view BugFix-Stock.view_imp_copy_pi_line_to_consolidation` |
+| `con_lines` | Con. Lines | one2many → `temp_con_conso_line` | Candidate consignments listed in the consolidation wizard; ticked ones are applied to the consolidation. | stored | `model temp_con_conso_line` | `server action BugFix-Stock.action_imp_apply_selected_pi_lines_to_consolidation`<br>`view BugFix-Stock.view_imp_copy_pi_line_to_consolidation` |
+| `consolidated_header_id` | Consolidated Header Id | many2one → `con_consolidated_hea` | Consolidation that selected consignments will be added to by the wizard's select/clear/apply actions. | stored | `model con_consolidated_hea` | `server action BugFix-Stock.action_imp_select_all_in_copy_pi_lines`<br>`server action BugFix-Stock.action_imp_clear_all_in_copy_po_lines_2`<br>`server action BugFix-Stock.action_imp_apply_selected_pi_lines_to_consolidation`<br>`view BugFix-Stock.view_imp_copy_pi_line_to_consolidation` |
+| `select_all` | Select All | boolean | Select-all checkbox shown in the Copy PI Lines to Consolidation wizard. | stored |  | `view BugFix-Stock.view_imp_copy_pi_line_to_consolidation` |
+| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_temp_con_consolidate_sequence` |
 
 **Server actions (3):**
 
-- **IMP - Apply Selected PI Lines to Consolidation** (`server_action_1420_imp_apply_selected_pi_lines_to_consolidation`, type `code`)
+- **IMP - Apply Selected PI Lines to Consolidation** (`action_imp_apply_selected_pi_lines_to_consolidation`, type `code`)
   - Function: Copies the selected lines of the temporary consolidation wizard into Consolidated lines, marks those consignments Consolidated and the header Lines Copied, errors if none selected, then deletes the wizard record.
   - Depends on: `model con_consolidated_hea`, `model con_consolidated_lin`, `model consignment_header`, `model temp_con_consolidate`, `temp_con_consolidate.con_lines`<details><summary>+1 more</summary>`temp_con_consolidate.consolidated_header_id`</details>
   - Used by: — (not linked to a button, menu or automation)
@@ -113,7 +113,7 @@ if temp_rec:
     temp_rec.unlink()
 ```
   </details>
-- **IMP - Clear All in Copy PO Lines** (`server_action_1419_imp_clear_all_in_copy_po_lines`, type `code`)
+- **IMP - Clear All in Copy PO Lines** (`action_imp_clear_all_in_copy_po_lines_2`, type `code`)
   - Function: Reopens the Copy PIs consolidation wizard with all consignment lines unselected (Select All off).
   - Depends on: `model temp_con_conso_line`, `model temp_con_consolidate`, `temp_con_consolidate.consolidated_header_id`
   - Used by: — (not linked to a button, menu or automation)
@@ -172,7 +172,7 @@ if record.id:
     }
 ```
   </details>
-- **IMP - Select All in Copy PI Lines** (`server_action_1417_imp_select_all_in_copy_pi_lines`, type `code`)
+- **IMP - Select All in Copy PI Lines** (`action_imp_select_all_in_copy_pi_lines`, type `code`)
   - Function: Reopens the Copy PIs consolidation wizard with all consignment lines selected (Select All on).
   - Depends on: `model temp_con_conso_line`, `model temp_con_consolidate`, `temp_con_consolidate.consolidated_header_id`
   - Used by: — (not linked to a button, menu or automation)
@@ -235,11 +235,11 @@ if record.id:
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| IMP Copy PI Line to Consolidation | `view_3085_imp_copy_pi_line_to_consolidation_e` | form | full form layout with 4 fields | 'Copy Purchase Invoice Lines' wizard: Select All / Clear All and Apply buttons over a list of consignment lines. All list columns were stripped by the porter (checked against the wrong model), so the list shows no columns. | `client action stock_barcode_mrp.stock_barcode_mo_client_action` (stock_barcode_mrp)<br>`window action sale.product_template_action` (sale)<br>`window action stock_barcode_mrp.mrp_action_kanban` (stock_barcode_mrp)<br>`temp_con_consolidate.name`<br>`temp_con_consolidate.con_lines`<details><summary>+2 more</summary>`temp_con_consolidate.consolidated_header_id`<br>`temp_con_consolidate.select_all`</details> |  |
+| IMP Copy PI Line to Consolidation | `view_imp_copy_pi_line_to_consolidation` | form | full form layout with 4 fields | 'Copy Purchase Invoice Lines' wizard: Select All / Clear All and Apply buttons over a list of consignment lines. All list columns were stripped by the porter (checked against the wrong model), so the list shows no columns. | `client action stock_barcode_mrp.stock_barcode_mo_client_action` (stock_barcode_mrp)<br>`window action sale.product_template_action` (sale)<br>`window action stock_barcode_mrp.mrp_action_kanban` (stock_barcode_mrp)<br>`temp_con_consolidate.name`<br>`temp_con_consolidate.con_lines`<details><summary>+2 more</summary>`temp_con_consolidate.consolidated_header_id`<br>`temp_con_consolidate.select_all`</details> |  |
 
 **Access rights (2):**
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Temp Con. Consolidated Header group_system | `access_1382_temp_con__consolidated_header_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Con. Consolidated Header records. | `group base.group_system` (base)<br>`model temp_con_consolidate` |  |
-| Temp Con. Consolidated Header group_user | `access_1383_temp_con__consolidated_header_group_user` | Gives **User types / Internal User** read access to Temp Con. Consolidated Header records. | `group base.group_user` (base)<br>`model temp_con_consolidate` |  |
+| Temp Con. Consolidated Header group_system | `access_temp_con_consolidated_header_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Con. Consolidated Header records. | `group base.group_system` (base)<br>`model temp_con_consolidate` |  |
+| Temp Con. Consolidated Header group_user | `access_temp_con_consolidated_header_group_user` | Gives **User types / Internal User** read access to Temp Con. Consolidated Header records. | `group base.group_user` (base)<br>`model temp_con_consolidate` |  |

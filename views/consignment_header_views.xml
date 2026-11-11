@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="action_2852_consignment_header_consignment_header" model="ir.actions.act_window">
+  <record id="action_consignment_header_consignment_header" model="ir.actions.act_window">
     <field name="name">Consignment Header (consignment_header)</field>
     <field name="res_model">consignment_header</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="action_2862_consignment_header_consignment_header" model="ir.actions.act_window">
+  <record id="action_consignment_header_consignment_header_2" model="ir.actions.act_window">
     <field name="name">Consignment Header (consignment_header)</field>
     <field name="res_model">consignment_header</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="action_1323_imports_01" model="ir.actions.act_window">
+  <record id="action_imports_01" model="ir.actions.act_window">
     <field name="name">Imports - 01</field>
     <field name="res_model">consignment_header</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_1256_purchase_invoice_header" model="ir.actions.act_window">
+  <record id="action_purchase_invoice_header" model="ir.actions.act_window">
     <field name="name">Purchase Invoice Header</field>
     <field name="res_model">consignment_header</field>
     <field name="view_mode">tree,form,kanban</field>
   </record>
-  <record id="action_2052_purchase_invoices" model="ir.actions.act_window">
+  <record id="action_purchase_invoices" model="ir.actions.act_window">
     <field name="name">Purchase Invoices</field>
     <field name="res_model">consignment_header</field>
     <field name="view_mode">tree,kanban,form</field>
   </record>
-  <record id="action_2887_purchase_invoices" model="ir.actions.act_window">
+  <record id="action_purchase_invoices_3" model="ir.actions.act_window">
     <field name="name">Purchase Invoices</field>
     <field name="res_model">consignment_header</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="action_2800_consignment_header" model="ir.actions.act_window">
+  <record id="action_consignment_header" model="ir.actions.act_window">
     <field name="name">consignment_header</field>
     <field name="res_model">consignment_header</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-    <record id="ported_view_2810_default_list_view_for_consignment_header" model="ir.ui.view">
+    <record id="view_consignment_header_list" model="ir.ui.view">
         <field name="name">Default list view for consignment_header</field>
         <field name="model">consignment_header</field>
         <field name="type">tree</field>
@@ -48,13 +48,13 @@
             </tree>
         </field>
     </record>
-    <record id="ported_view_2819_studio_tree_consignment_header" model="ir.ui.view">
+    <record id="view_default_list_view_for_consignment_header_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: Default list view for consignment_header customization</field>
         <field name="model">consignment_header</field>
         <field name="type">tree</field>
         <field name="priority">99</field>
         <field name="mode">extension</field>
-        <field name="inherit_id" ref="BugFix-Stock.ported_view_2810_default_list_view_for_consignment_header"/>
+        <field name="inherit_id" ref="BugFix-Stock.view_consignment_header_list"/>
         <field name="arch" type="xml">
             <data>
               <xpath expr="//tree[1]" position="attributes">
@@ -84,7 +84,7 @@
     </record>
   <!-- v118: delivery_term / structure_name (x2) / payment_method on the
        consignment_header form moved to BugFix-Purchase views/upstream_link_fields_views.xml. -->
-    <record id="ported_view_2811_default_form_view_for_consignment_header" model="ir.ui.view">
+    <record id="view_consignment_header_form" model="ir.ui.view">
         <field name="name">Default form view for consignment_header</field>
         <field name="model">consignment_header</field>
         <field name="type">form</field>
@@ -93,17 +93,17 @@
         <field name="arch" type="xml">
             <form>
               <header>  
-                <button type="action" name="%(BugFix-Stock.server_action_1263_imp_copy_po_lines_to_consignment)d" string="Copy PO Lines" class="btn-primary" invisible="status not in ['Draft']"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1303_imp_clear_po_lines_from_consignment)d" string="Clear PO Lines" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1365_imp_confirm_purchase_invoice)d" string="Confirm Invoice" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1456_imp_validate_consolidation_in_consignment)d" string="Validate Consolidation" class="btn-primary" invisible="status not in ['Consignment']"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1305_imp_consignment_vendor_despatch)d" string="Vendor Dispatch" class="btn-primary" invisible="status not in ['Consolidated']"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1313_imp_consignment_port_receipt)d" string="Port Receipt" class="btn-primary" invisible="status not in ['In Transit']"/>
-                <button type="action" name="%(BugFix-Stock.server_action_2199_imp_reset_header_charges_consignment)d" string="Reset Header Charges" class="btn-primary" invisible="((allocate_header_charges == True) and (create_header_charges == True)) or ((header_charges_allocated == False) or (status in ['Done', 'TP Invoice']))"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1316_imp_create_consignment_header_charges)d" string="Create Header Charges" class="btn-primary" invisible="(create_header_charges == False) or (status not in ['Under Custom Clearance'])"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1318_imp_allocate_consignment_header_charges)d" string="Allocate Header Charges" class="btn-primary" confirm="Are you sure you want to allocate header charges?" invisible="((allocate_header_charges == True) and (create_header_charges == True)) or ((allocate_header_charges == False) or (status not in ['Under Custom Clearance']))"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1321_imp_consignment_custom_duty)d" string="Custom Duty" class="btn-primary" invisible="((allocate_header_charges == True) and (create_header_charges == True)) or ((allocate_header_charges == True) or (status not in ['Under Custom Clearance']))"/>
-                <button type="action" name="%(BugFix-Stock.server_action_1377_imp_copy_charges_to_tp_invoice)d" string="Process TP Invoice" class="btn-primary" invisible="status not in ['Done', 'TP Invoice']"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_copy_po_lines_to_consignment)d" string="Copy PO Lines" class="btn-primary" invisible="status not in ['Draft']"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_clear_po_lines_from_consignment)d" string="Clear PO Lines" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_confirm_purchase_invoice)d" string="Confirm Invoice" class="btn-primary" invisible="(status not in ['Draft']) or (lines_copied == False)"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_validate_consolidation_in_consignment)d" string="Validate Consolidation" class="btn-primary" invisible="status not in ['Consignment']"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_consignment_vendor_despatch)d" string="Vendor Dispatch" class="btn-primary" invisible="status not in ['Consolidated']"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_consignment_port_receipt)d" string="Port Receipt" class="btn-primary" invisible="status not in ['In Transit']"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_reset_header_charges_consignment)d" string="Reset Header Charges" class="btn-primary" invisible="((allocate_header_charges == True) and (create_header_charges == True)) or ((header_charges_allocated == False) or (status in ['Done', 'TP Invoice']))"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_create_consignment_header_charges)d" string="Create Header Charges" class="btn-primary" invisible="(create_header_charges == False) or (status not in ['Under Custom Clearance'])"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_allocate_consignment_header_charges)d" string="Allocate Header Charges" class="btn-primary" confirm="Are you sure you want to allocate header charges?" invisible="((allocate_header_charges == True) and (create_header_charges == True)) or ((allocate_header_charges == False) or (status not in ['Under Custom Clearance']))"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_consignment_custom_duty)d" string="Custom Duty" class="btn-primary" invisible="((allocate_header_charges == True) and (create_header_charges == True)) or ((allocate_header_charges == True) or (status not in ['Under Custom Clearance']))"/>
+                <button type="action" name="%(BugFix-Stock.action_imp_copy_charges_to_tp_invoice)d" string="Process TP Invoice" class="btn-primary" invisible="status not in ['Done', 'TP Invoice']"/>
               </header>
               <header/>
               <sheet string="Consignment Header">
@@ -130,30 +130,30 @@
             </form>
         </field>
     </record>
-    <record id="ported_view_2816_studio_form_consignment_header" model="ir.ui.view">
+    <record id="view_default_form_view_for_consignment_header_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: Default form view for consignment_header customization</field>
         <field name="model">consignment_header</field>
         <field name="type">form</field>
         <field name="priority">99</field>
         <field name="mode">extension</field>
-        <field name="inherit_id" ref="BugFix-Stock.ported_view_2811_default_form_view_for_consignment_header"/>
+        <field name="inherit_id" ref="BugFix-Stock.view_consignment_header_form"/>
         <field name="arch" type="xml">
             <data>
-              <xpath expr="//button[@name='%(BugFix-Stock.server_action_1303_imp_clear_po_lines_from_consignment)d']" position="after">
+              <xpath expr="//button[@name='%(BugFix-Stock.action_imp_clear_po_lines_from_consignment)d']" position="after">
                 <field widget="statusbar" name="status_bar" string="Status Bar" force_save="True" readonly="1"/>
               </xpath>
               <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
                 <div name="button_box" class="oe_button_box">
-                  <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.act_1306_vendor_despatch)d" invisible="created_from_consignment__account_move_count == 0">
+                  <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.action_vendor_despatch)d" invisible="created_from_consignment__account_move_count == 0">
                     <field widget="statinfo" name="created_from_consignment__account_move_count" string="Vendor Despatch"/>
                   </button>
-                  <button class="oe_stat_button" icon="fa-briefcase" type="action" name="%(BugFix-Stock.action_1317_header_charges)d" invisible="consignment_id__x_consignment_charge_h_count == 0">
+                  <button class="oe_stat_button" icon="fa-briefcase" type="action" name="%(BugFix-Stock.action_header_charges)d" invisible="consignment_id__x_consignment_charge_h_count == 0">
                     <field widget="statinfo" name="consignment_id__x_consignment_charge_h_count" string="Header Charges"/>
                   </button>
-                  <button class="oe_stat_button" icon="fa-briefcase" type="action" name="%(BugFix-Stock.action_1319_line_charges)d" invisible="consignment_id__x_consignment_charge_l_count == 0">
+                  <button class="oe_stat_button" icon="fa-briefcase" type="action" name="%(BugFix-Stock.action_line_charges)d" invisible="consignment_id__x_consignment_charge_l_count == 0">
                     <field widget="statinfo" name="consignment_id__x_consignment_charge_l_count" string="Line Charges"/>
                   </button>
-                  <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.act_1322_custom_clearance)d" invisible="created_from_consignment_1__account_move_count == 0">
+                  <button class="oe_stat_button" icon="fa-folder-open" type="action" name="%(BugFix-Stock.action_custom_clearance)d" invisible="created_from_consignment_1__account_move_count == 0">
                     <field widget="statinfo" name="created_from_consignment_1__account_move_count" string="Custom Clearance"/>
                   </button>
                   </div>
@@ -320,7 +320,7 @@
         </field>
     </record>
     <!-- STRIPPED dashboard view id=view_2948_default_dashboard_view_for_ir_model_905_e -->
-<record id="view_2949_default_kanban_view_for_ir_model_905_e" model="ir.ui.view">
+<record id="view_consignment_header_kanban" model="ir.ui.view">
       <field name="name">Default kanban view for ir.model(905,)</field>
       <field name="model">consignment_header</field>
       <field name="type">kanban</field>
@@ -349,7 +349,7 @@
 </kanban>
       </field>
     </record>
-    <record id="view_2812_default_search_view_for_x_consignment_header_e" model="ir.ui.view">
+    <record id="view_consignment_header_search" model="ir.ui.view">
       <field name="name">Default search view for consignment_header</field>
       <field name="model">consignment_header</field>
       <field name="type">search</field>
@@ -362,11 +362,11 @@
 </search>
       </field>
     </record>
-    <record id="view_9609_bugfix_purchase_x_consignment_header_form_rewire_vendor_disp_e" model="ir.ui.view">
+    <record id="view_bugfix_purchase_consignment_header_form_rewire_vendor_disp" model="ir.ui.view">
       <field name="name">bugfix_purchase.consignment_header.form.rewire.vendor.dispatch</field>
       <field name="model">consignment_header</field>
       <field name="type">form</field>
-      <field name="inherit_id" ref="BugFix-Stock.ported_view_2811_default_form_view_for_consignment_header"/>
+      <field name="inherit_id" ref="BugFix-Stock.view_consignment_header_form"/>
       <field name="mode">extension</field>
       <field name="arch" type="xml">
         <data><!-- Odoo 17 strict arch validation requires every field used
@@ -384,7 +384,7 @@
       </field>
     </record>
     <data noupdate="1">
-    <record id="action_x_consignment_header_analysis" model="ir.actions.act_window">
+    <record id="action_consignment_header_analysis" model="ir.actions.act_window">
       <field name="name">Consignment Header Analysis</field>
       <field name="res_model">consignment_header</field>
       <field name="view_mode">graph,pivot</field>

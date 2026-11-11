@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="act_window_2835_stock_rule" model="ir.actions.act_window">
+  <record id="action_stock_rule" model="ir.actions.act_window">
     <field name="name">stock.rule</field>
     <field name="res_model">stock.rule</field>
     <field name="view_mode">tree,form</field>
@@ -20,7 +20,7 @@
   <!-- v118: delivery_term (x2) / structure_details_line_ids / structure_master_id /
        payment_method / structure_name nodes moved to BugFix-Purchase
        views/upstream_link_fields_views.xml. -->
-  <record id="ported_view_6071_odoo_studio_stock_rule_tree_customizatio" model="ir.ui.view">
+  <record id="view_stock_rule_tree_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: stock.rule.tree customization</field>
     <field name="model">stock.rule</field>
     <field name="inherit_id" ref="stock.view_stock_rule_tree"/>

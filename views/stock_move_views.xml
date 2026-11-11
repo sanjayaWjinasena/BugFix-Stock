@@ -10,17 +10,17 @@
     <field name="res_model">stock.move</field>
     <field name="view_mode">kanban,tree,form,pivot,graph</field>
   </record>
-  <record id="action_1757_stock_move" model="ir.actions.act_window">
+  <record id="action_stock_move_2" model="ir.actions.act_window">
     <field name="name">Stock.Move</field>
     <field name="res_model">stock.move</field>
     <field name="view_mode">kanban,tree,form,pivot,graph</field>
   </record>
-  <record id="action_1065_stock_move" model="ir.actions.act_window">
+  <record id="action_stock_move" model="ir.actions.act_window">
     <field name="name">stock.move</field>
     <field name="res_model">stock.move</field>
     <field name="view_mode">kanban,tree,form,pivot,graph</field>
   </record>
-    <record id="ported_view_2579_studio_stock_move_tree2" model="ir.ui.view">
+    <record id="view_stock_move_tree2_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.move.tree2 customization</field>
         <field name="model">stock.move</field>
         <field name="type">tree</field>
@@ -48,17 +48,17 @@
             </data>
         </field>
     </record>
-  <record id="act_window_1757_stock_move" model="ir.actions.act_window">
+  <record id="action_stock_move_4" model="ir.actions.act_window">
     <field name="name">Stock.Move</field>
     <field name="res_model">stock.move</field>
     <field name="view_mode">kanban,tree,form,pivot,graph</field>
   </record>
-  <record id="act_window_1065_stock_move" model="ir.actions.act_window">
+  <record id="action_stock_move_3" model="ir.actions.act_window">
     <field name="name">stock.move</field>
     <field name="res_model">stock.move</field>
     <field name="view_mode">kanban,tree,form,pivot,graph</field>
   </record>
-    <record id="view_6051_odoo_studio_stock_picking_move_tree_customization_e" model="ir.ui.view">
+    <record id="view_stock_picking_move_tree_inherit" model="ir.ui.view">
       <field name="name">Odoo Studio: stock.picking.move.tree customization</field>
       <field name="model">stock.move</field>
       <field name="type">tree</field>

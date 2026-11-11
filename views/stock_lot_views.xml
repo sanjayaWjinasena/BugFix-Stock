@@ -5,12 +5,12 @@
     <field name="res_model">stock.lot</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2225_inventory_holding_days" model="ir.actions.act_window">
+  <record id="action_inventory_holding_days" model="ir.actions.act_window">
     <field name="name">Inventory Holding Days</field>
     <field name="res_model">stock.lot</field>
     <field name="view_mode">tree,form</field>
   </record>
-    <record id="ported_view_2597_studio_stock_production_lot_tree" model="ir.ui.view">
+    <record id="view_stock_production_lot_tree_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: stock.production.lot.tree customization</field>
         <field name="model">stock.lot</field>
         <field name="type">tree</field>
@@ -39,7 +39,7 @@
             </data>
         </field>
     </record>
-  <record id="act_window_2225_inventory_holding_days" model="ir.actions.act_window">
+  <record id="action_inventory_holding_days_2" model="ir.actions.act_window">
     <field name="name">Inventory Holding Days</field>
     <field name="res_model">stock.lot</field>
     <field name="view_mode">tree,form</field>

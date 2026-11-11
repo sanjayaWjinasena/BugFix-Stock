@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="act_window_1562_material_request" model="ir.actions.act_window">
+  <record id="action_material_request" model="ir.actions.act_window">
     <field name="name">Material Request</field>
     <field name="res_model">material_request</field>
     <field name="view_mode">tree,form</field>
@@ -17,7 +17,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_1647_material_requests" model="ir.actions.act_window">
+  <record id="action_material_requests" model="ir.actions.act_window">
     <field name="name">Material Requests</field>
     <field name="res_model">material_request</field>
     <field name="view_mode">tree,form</field>
@@ -25,7 +25,7 @@
     <field name="context">{'search_default_many2one_field_THFu6': active_id,'default_many2one_field_THFu6': active_id}</field>
     <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create new document</p></field>
   </record>
-  <record id="act_window_1648_material_requests" model="ir.actions.act_window">
+  <record id="action_material_requests_2" model="ir.actions.act_window">
     <field name="name">Material Requests</field>
     <field name="res_model">material_request</field>
     <field name="view_mode">tree,form</field>
@@ -33,7 +33,7 @@
     <field name="context">{'search_default_many2one_field_THFu6': active_id,'default_many2one_field_THFu6': active_id}</field>
     <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create new document</p></field>
   </record>
-  <record id="act_window_2810_material_request" model="ir.actions.act_window">
+  <record id="action_material_request_2" model="ir.actions.act_window">
     <field name="name">material_request</field>
     <field name="res_model">material_request</field>
     <field name="view_mode">tree,form</field>
@@ -50,19 +50,19 @@
                 </p>
             </field>
   </record>
-  <record id="ported_primary_3243_form_material_request" model="ir.ui.view">
+  <record id="view_material_request_form" model="ir.ui.view">
     <field name="name">Default form view for material_request</field>
     <field name="model">material_request</field>
     <field name="priority">16</field>
     <field name="arch" type="xml">
       <form>
         <header>  
-          <button type="action" name="%(BugFix-Stock.server_action_2391_reset_mr)d" string="Reset" invisible="(created_from_material_request_no_stock_picking_count != 0) or (selection_field_BupKG not in ['Confirmed', 'To Be Approved', 'Approved', 'Rejected'])"/>
-          <button type="action" name="%(BugFix-Stock.server_action_2388_confirm_mr)d" string="Confirm" class="btn-primary" invisible="selection_field_BupKG not in ['Draft']"/>
-          <button type="action" name="%(BugFix-Stock.server_action_2394_request_approval_mr)d" string="Request approval" class="btn-primary" invisible="selection_field_BupKG not in ['Confirmed']"/>
-          <button type="action" name="%(BugFix-Stock.server_action_2397_approve_mr)d" string="Approve" class="btn-primary" invisible="selection_field_BupKG not in ['To Be Approved']"/>
-          <button type="action" name="%(BugFix-Stock.server_action_2400_reject_mr)d" string="Reject" class="btn-primary" invisible="(created_from_material_request_no_stock_picking_count != 0) or (selection_field_BupKG not in ['To Be Approved', 'Approved'])"/>
-          <button type="action" name="%(BugFix-Stock.server_action_2406_create_material_transfer)d" string="Create Transfer" class="btn-primary" invisible="selection_field_BupKG not in ['Approved']"/>
+          <button type="action" name="%(BugFix-Stock.action_reset_mr)d" string="Reset" invisible="(created_from_material_request_no_stock_picking_count != 0) or (selection_field_BupKG not in ['Confirmed', 'To Be Approved', 'Approved', 'Rejected'])"/>
+          <button type="action" name="%(BugFix-Stock.action_confirm_mr)d" string="Confirm" class="btn-primary" invisible="selection_field_BupKG not in ['Draft']"/>
+          <button type="action" name="%(BugFix-Stock.action_request_approval_mr)d" string="Request approval" class="btn-primary" invisible="selection_field_BupKG not in ['Confirmed']"/>
+          <button type="action" name="%(BugFix-Stock.action_approve_mr)d" string="Approve" class="btn-primary" invisible="selection_field_BupKG not in ['To Be Approved']"/>
+          <button type="action" name="%(BugFix-Stock.action_reject_mr)d" string="Reject" class="btn-primary" invisible="(created_from_material_request_no_stock_picking_count != 0) or (selection_field_BupKG not in ['To Be Approved', 'Approved'])"/>
+          <button type="action" name="%(BugFix-Stock.action_create_material_transfer)d" string="Create Transfer" class="btn-primary" invisible="selection_field_BupKG not in ['Approved']"/>
         </header>
         <header/>
         <sheet string="Material Request">
@@ -87,10 +87,10 @@
       </form>
     </field>
   </record>
-  <record id="ported_view_3245_odoo_studio_default_form_view_for_x_mate" model="ir.ui.view">
+  <record id="view_default_form_view_for_material_request_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for material_request customization</field>
     <field name="model">material_request</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3243_form_material_request"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_material_request_form"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
@@ -99,12 +99,12 @@
             <field name="created_from_material_request_no_stock_picking_count" invisible="1"/>
           </xpath>
 
-        <xpath expr="//button[@name='%(BugFix-Stock.server_action_2400_reject_mr)d']" position="after">
+        <xpath expr="//button[@name='%(BugFix-Stock.action_reject_mr)d']" position="after">
           <field widget="statusbar" name="selection_field_BupKG" string="State" force_save="True" readonly="1"/>
         </xpath>
         <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
           <div name="button_box" class="oe_button_box">
-            <button class="oe_stat_button" icon="fa-shopping-basket" type="action" name="%(BugFix-Stock.action_2409_transfers)d" invisible="created_from_material_request_no_stock_picking_count == 0">
+            <button class="oe_stat_button" icon="fa-shopping-basket" type="action" name="%(BugFix-Stock.action_transfers)d" invisible="created_from_material_request_no_stock_picking_count == 0">
               <field widget="statinfo" name="created_from_material_request_no_stock_picking_count" string="Transfers"/>
             </button>
           </div>
@@ -182,7 +182,7 @@
       </data>
     </field>
   </record>
-  <record id="ported_primary_3242_tree_material_request" model="ir.ui.view">
+  <record id="view_material_request_list" model="ir.ui.view">
     <field name="name">Default list view for material_request</field>
     <field name="model">material_request</field>
     <field name="priority">16</field>
@@ -193,10 +193,10 @@
       </tree>
     </field>
   </record>
-  <record id="ported_view_5300_odoo_studio_default_list_view_for_x_mate" model="ir.ui.view">
+  <record id="view_default_list_view_for_material_request_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default list view for material_request customization</field>
     <field name="model">material_request</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3242_tree_material_request"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_material_request_list"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>

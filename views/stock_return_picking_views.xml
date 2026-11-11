@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="ported_view_4617_studio_stock_return_picking_form" model="ir.ui.view">
+    <record id="view_return_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: Return customization</field>
         <field name="model">stock.return.picking</field>
         <field name="type">form</field>
@@ -20,7 +20,7 @@
             </data>
         </field>
     </record>
-    <record id="ported_view_4619_studio_stock_return_picking_form_2" model="ir.ui.view">
+    <record id="view_return_lines_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: Return lines customization-2</field>
         <field name="model">stock.return.picking</field>
         <field name="type">form</field>
@@ -36,8 +36,8 @@
                 </xpath> 
     
                 <xpath expr="//footer/button[@name='create_returns']" position="after">
-                  <!--button type="action" name="%(BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" attrs="{'invisible': ['|',('ticket_id', '=', False),('repair_normal_without_serial_no', '=', True)]}"></button-->
-                  <button type="action" name="%(BugFix-Stock.server_action_1997_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" invisible="ticket_id == False"/>
+                  <!--button type="action" name="%(BugFix-Stock.action_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" attrs="{'invisible': ['|',('ticket_id', '=', False),('repair_normal_without_serial_no', '=', True)]}"></button-->
+                  <button type="action" name="%(BugFix-Stock.action_rr_rug_return_from_help_desk)d" string="Return" class="btn-primary" invisible="ticket_id == False"/>
                 </xpath>
     
                 <!--xpath expr="//footer/button[@name='create_returns']" position="attributes">

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="action_1411_con_consolidated_line" model="ir.actions.act_window">
+  <record id="action_con_consolidated_line" model="ir.actions.act_window">
     <field name="name">Con. Consolidated Line</field>
     <field name="res_model">con_consolidated_lin</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2610_con_consolidated_lin" model="ir.actions.act_window">
+  <record id="action_con_consolidated_lin" model="ir.actions.act_window">
     <field name="name">con_consolidated_lin</field>
     <field name="res_model">con_consolidated_lin</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="ported_primary_3071_form_con_consolidated_lin" model="ir.ui.view">
+  <record id="view_con_consolidated_lin_form" model="ir.ui.view">
     <field name="name">Default form view for con_consolidated_lin</field>
     <field name="model">con_consolidated_lin</field>
     <field name="priority">16</field>
@@ -38,10 +38,10 @@
       </form>
     </field>
   </record>
-  <record id="ported_view_3074_odoo_studio_default_form_view_for_x_con_" model="ir.ui.view">
+  <record id="view_default_form_view_for_con_consolidated_lin_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for con_consolidated_lin customization</field>
     <field name="model">con_consolidated_lin</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3071_form_con_consolidated_lin"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_con_consolidated_lin_form"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
@@ -65,7 +65,7 @@
       </data>
     </field>
   </record>
-  <record id="ported_primary_3070_tree_con_consolidated_lin" model="ir.ui.view">
+  <record id="view_con_consolidated_lin_list" model="ir.ui.view">
     <field name="name">Default list view for con_consolidated_lin</field>
     <field name="model">con_consolidated_lin</field>
     <field name="priority">16</field>
@@ -76,10 +76,10 @@
       </tree>
     </field>
   </record>
-  <record id="ported_view_5564_odoo_studio_default_list_view_for_x_con_" model="ir.ui.view">
+  <record id="view_default_list_view_for_con_consolidated_lin_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default list view for con_consolidated_lin customization</field>
     <field name="model">con_consolidated_lin</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3070_tree_con_consolidated_lin"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_con_consolidated_lin_list"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
@@ -89,7 +89,7 @@
       </data>
     </field>
   </record>
-    <record id="view_3072_default_search_view_for_x_con_consolidated_lin_e" model="ir.ui.view">
+    <record id="view_con_consolidated_lin_search" model="ir.ui.view">
       <field name="name">Default search view for con_consolidated_lin</field>
       <field name="model">con_consolidated_lin</field>
       <field name="type">search</field>

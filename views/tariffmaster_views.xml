@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="act_window_1159_tariffmaster" model="ir.actions.act_window">
+  <record id="action_tariffmaster" model="ir.actions.act_window">
     <field name="name">TariffMaster</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -17,7 +17,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2038_tariffs_master" model="ir.actions.act_window">
+  <record id="action_tariffs_master" model="ir.actions.act_window">
     <field name="name">Tariffs Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -34,7 +34,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2041_tariff_master" model="ir.actions.act_window">
+  <record id="action_tariff_master" model="ir.actions.act_window">
     <field name="name">Tariff Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -51,7 +51,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2044_tariff" model="ir.actions.act_window">
+  <record id="action_tariff" model="ir.actions.act_window">
     <field name="name">Tariff</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -68,7 +68,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2045_tariff_master" model="ir.actions.act_window">
+  <record id="action_tariff_master_2" model="ir.actions.act_window">
     <field name="name">Tariff Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -85,7 +85,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2048_tariff_master" model="ir.actions.act_window">
+  <record id="action_tariff_master_3" model="ir.actions.act_window">
     <field name="name">Tariff Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -102,7 +102,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2049_tariff_master" model="ir.actions.act_window">
+  <record id="action_tariff_master_4" model="ir.actions.act_window">
     <field name="name">Tariff Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -119,7 +119,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2057_tariff_master" model="ir.actions.act_window">
+  <record id="action_tariff_master_5" model="ir.actions.act_window">
     <field name="name">Tariff Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -136,7 +136,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2069_tariff_master" model="ir.actions.act_window">
+  <record id="action_tariff_master_6" model="ir.actions.act_window">
     <field name="name">Tariff Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -153,7 +153,7 @@
                 </p>
             </field>
   </record>
-  <record id="act_window_2867_tariff_master" model="ir.actions.act_window">
+  <record id="action_tariff_master_7" model="ir.actions.act_window">
     <field name="name">Tariff Master</field>
     <field name="res_model">tariffmaster</field>
     <field name="view_mode">tree,form</field>
@@ -170,7 +170,7 @@
                 </p>
             </field>
   </record>
-  <record id="ported_primary_2633_form_tariffmaster" model="ir.ui.view">
+  <record id="view_tariffmaster_form" model="ir.ui.view">
     <field name="name">Default form view for tariffmaster</field>
     <field name="model">tariffmaster</field>
     <field name="priority">16</field>
@@ -198,10 +198,10 @@
       </form>
     </field>
   </record>
-  <record id="ported_view_2635_odoo_studio_default_form_view_for_x_tari" model="ir.ui.view">
+  <record id="view_default_form_view_for_tariffmaster_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default form view for tariffmaster customization</field>
     <field name="model">tariffmaster</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_2633_form_tariffmaster"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_tariffmaster_form"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
@@ -221,7 +221,7 @@
       </data>
     </field>
   </record>
-  <record id="ported_primary_2632_tree_tariffmaster" model="ir.ui.view">
+  <record id="view_tariffmaster_list" model="ir.ui.view">
     <field name="name">Default list view for tariffmaster</field>
     <field name="model">tariffmaster</field>
     <field name="priority">16</field>
@@ -232,10 +232,10 @@
       </tree>
     </field>
   </record>
-  <record id="ported_view_2636_odoo_studio_default_list_view_for_x_tari" model="ir.ui.view">
+  <record id="view_default_list_view_for_tariffmaster_inherit" model="ir.ui.view">
     <field name="name">Odoo Studio: Default list view for tariffmaster customization</field>
     <field name="model">tariffmaster</field>
-    <field name="inherit_id" ref="BugFix-Stock.ported_primary_2632_tree_tariffmaster"/>
+    <field name="inherit_id" ref="BugFix-Stock.view_tariffmaster_list"/>
     <field name="priority">99</field>
     <field name="arch" type="xml">
       <data>
@@ -251,7 +251,7 @@
       </data>
     </field>
   </record>
-    <record id="view_2634_default_search_view_for_x_tariffmaster_e" model="ir.ui.view">
+    <record id="view_tariffmaster_search" model="ir.ui.view">
       <field name="name">Default search view for tariffmaster</field>
       <field name="model">tariffmaster</field>
       <field name="type">search</field>

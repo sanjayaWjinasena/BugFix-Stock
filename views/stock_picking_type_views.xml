@@ -5,22 +5,22 @@
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="action_2784_stock_picking_type" model="ir.actions.act_window">
+  <record id="action_stock_picking_type_2" model="ir.actions.act_window">
     <field name="name">stock.picking.type</field>
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="action_2837_stock_picking_type" model="ir.actions.act_window">
+  <record id="action_stock_picking_type_3" model="ir.actions.act_window">
     <field name="name">stock.picking.type</field>
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="action_2408_stock_picking_type" model="ir.actions.act_window">
+  <record id="action_stock_picking_type" model="ir.actions.act_window">
     <field name="name">stock.picking.type</field>
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="act_window_2019_operations" model="ir.actions.act_window">
+  <record id="action_operations" model="ir.actions.act_window">
     <field name="name">Operations</field>
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,form</field>
@@ -30,7 +30,7 @@
             'force_detailed_view': True,
         }</field>
   </record>
-    <record id="ported_view_5328_studio_stock_picking_type_form" model="ir.ui.view">
+    <record id="view_operation_types_inherit" model="ir.ui.view">
         <field name="name">Odoo Studio: Operation Types customization</field>
         <field name="model">stock.picking.type</field>
         <field name="type">form</field>
@@ -53,7 +53,7 @@
             </data>
         </field>
     </record>
-    <record id="ported_view_5334_studio_stock_picking_type_tree" model="ir.ui.view">
+    <record id="view_operation_types_inherit_2" model="ir.ui.view">
         <field name="name">Odoo Studio: Operation types customization</field>
         <field name="model">stock.picking.type</field>
         <field name="type">tree</field>
@@ -74,22 +74,22 @@
             </data>
         </field>
     </record>
-  <record id="act_window_2784_stock_picking_type" model="ir.actions.act_window">
+  <record id="action_stock_picking_type_5" model="ir.actions.act_window">
     <field name="name">stock.picking.type</field>
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="act_window_2837_stock_picking_type" model="ir.actions.act_window">
+  <record id="action_stock_picking_type_6" model="ir.actions.act_window">
     <field name="name">stock.picking.type</field>
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-  <record id="act_window_2408_stock_picking_type" model="ir.actions.act_window">
+  <record id="action_stock_picking_type_4" model="ir.actions.act_window">
     <field name="name">stock.picking.type</field>
     <field name="res_model">stock.picking.type</field>
     <field name="view_mode">kanban,tree,form</field>
   </record>
-    <record id="view_5288_odoo_studio_stock_picking_type_kanban_customization_e" model="ir.ui.view">
+    <record id="view_stock_picking_type_kanban_inherit" model="ir.ui.view">
       <field name="name">Odoo Studio: stock.picking.type.kanban customization</field>
       <field name="model">stock.picking.type</field>
       <field name="type">kanban</field>

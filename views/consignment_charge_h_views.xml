@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="action_1314_consignment_charge_header" model="ir.actions.act_window">
+  <record id="action_consignment_charge_header" model="ir.actions.act_window">
     <field name="name">Consignment Charge Header</field>
     <field name="res_model">consignment_charge_h</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2848_consignment_charge_header" model="ir.actions.act_window">
+  <record id="action_consignment_charge_header_2" model="ir.actions.act_window">
     <field name="name">Consignment Charge Header</field>
     <field name="res_model">consignment_charge_h</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_2858_consignment_charge_header" model="ir.actions.act_window">
+  <record id="action_consignment_charge_header_3" model="ir.actions.act_window">
     <field name="name">Consignment Charge Header</field>
     <field name="res_model">consignment_charge_h</field>
     <field name="view_mode">tree,form</field>
   </record>
-  <record id="action_1317_header_charges" model="ir.actions.act_window">
+  <record id="action_header_charges" model="ir.actions.act_window">
     <field name="name">Header Charges</field>
     <field name="res_model">consignment_charge_h</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[('consignment_id', '=', active_id)]</field>
     <field name="context">{'search_default_consignment_id': active_id,'default_consignment_id': active_id,'group_by': 'charge_group'}</field>
   </record>
-  <record id="action_2885_purchase_invoices" model="ir.actions.act_window">
+  <record id="action_purchase_invoices_2" model="ir.actions.act_window">
     <field name="name">Purchase Invoices</field>
     <field name="res_model">consignment_charge_h</field>
     <field name="view_mode">tree,form</field>

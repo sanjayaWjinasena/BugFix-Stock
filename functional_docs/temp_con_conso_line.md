@@ -6,7 +6,7 @@
 
 *Created by this repo.* Python: `models/temp_con_conso_line.py`, `models/x_temp_con_conso_line_gap.py`. Record name field: `name`.
 
-Other repos that use this model: `access right BugFix-Studio-Misc.access_g_x_temp_con_conso_line_x_temp_con_conso_line_purchase_jin_procurement_end_user_imp` (BugFix-Studio-Misc)
+Other repos that use this model: `access right BugFix-Studio-Misc.access_g_temp_con_conso_line_temp_con_conso_line_purchase_jin_procurement_end_user_imp` (BugFix-Studio-Misc)
 
 **Summary:**
 
@@ -48,15 +48,15 @@ A temporary candidate line in the Copy PI Lines to Consolidation wizard, holding
 | `website_message_ids` | Website Messages | one2many → `mail.message` | Standard chatter field: messages shown on the website/portal for this record. | stored | `model mail.message` (mail) |  |
 | `write_date` | Last Updated on | datetime | Date and time the record was last changed (automatic). | stored |  |  |
 | `write_uid` | Last Updated by | many2one → `res.users` | User who last changed the record (automatic). | stored | `model res.users` (base) |  |
-| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_x_temp_con_conso_line_x_active_true` |
+| `active` | Active | boolean | Archive flag; defaults to active. | stored |  | `default BugFix-Stock.default_final_bugfix_stock_field_temp_con_conso_line_active_true` |
 | `name` | Name | char | Name of the temporary consolidation candidate line. | stored |  |  |
 | `consignment_id` | Consignment Id | many2one → `consignment_header` | Consignment offered for selection in the Copy PI Lines to Consolidation wizard. | stored | `model consignment_header` |  |
 | `container_no` | Container No | char | Container number of the candidate consignment. | stored |  |  |
-| `accounting_currency_id` | Currency | many2one → `res.currency` | Currency of the candidate consignment; has a default value. | stored | `model res.currency` (base) | `default BugFix-Stock.default_229_x_temp_con_conso_line_accounting_currency_id`<br>`default BugFix-Stock.default_430_x_temp_con_conso_line_accounting_currency_id` |
+| `accounting_currency_id` | Currency | many2one → `res.currency` | Currency of the candidate consignment; has a default value. | stored | `model res.currency` (base) | `default BugFix-Stock.default_temp_con_conso_line_accounting_currency_id`<br>`default BugFix-Stock.default_temp_con_conso_line_accounting_currency_id_2` |
 | `custom_clearance_no` | Custom Clearance No | char | Customs clearance number of the candidate consignment. | stored |  |  |
 | `accounting_invoice_date` | Invoice Date | date | Supplier invoice date of the candidate consignment. | stored |  |  |
 | `accounting_select` | Select | boolean | Tick box in the consolidation wizard; ticked consignments become consolidation lines via 'Apply Selected PI Lines to Consolidation'. | stored |  |  |
-| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_210_x_temp_con_conso_line_sequence` |
+| `sequence` | Sequence | integer | Ordering number with a default value. | stored |  | `default BugFix-Stock.default_temp_con_conso_line_sequence` |
 | `shipment_start_date` | Shipment Start Date | date | Shipment start date of the candidate consignment. | stored |  |  |
 | `shipping_mode` | Shipping Mode | selection: Air=Air; Sea=Sea; Road=Road; Courier=Courier | Shipping mode of the candidate consignment: Air, Sea, Road or Courier. | stored |  |  |
 | `status` | Status | selection: Draft=Draft; Consignment=Confirmed; In Transit=In Transit; Under Custom Clearance=Under Custom Clearance; Done=Done; TP Invoice=TP Invoice | Status of the candidate consignment (Draft, Confirmed, In Transit, Under Custom Clearance, Done, TP Invoice). | stored |  |  |
@@ -68,5 +68,5 @@ A temporary candidate line in the Copy PI Lines to Consolidation wizard, holding
 
 | Name | Record name | Function | Depends on | Used by |
 |---|---|---|---|---|
-| Temp Con. Conso. Line group_system | `access_1384_temp_con__conso__line_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Con. Conso. Line records. | `group base.group_system` (base)<br>`model temp_con_conso_line` |  |
-| Temp Con. Conso. Line group_user | `access_1385_temp_con__conso__line_group_user` | Gives **User types / Internal User** read access to Temp Con. Conso. Line records. | `group base.group_user` (base)<br>`model temp_con_conso_line` |  |
+| Temp Con. Conso. Line group_system | `access_temp_con_conso_line_group_system` | Gives **Administration / Settings** read/write/create/delete access to Temp Con. Conso. Line records. | `group base.group_system` (base)<br>`model temp_con_conso_line` |  |
+| Temp Con. Conso. Line group_user | `access_temp_con_conso_line_group_user` | Gives **User types / Internal User** read access to Temp Con. Conso. Line records. | `group base.group_user` (base)<br>`model temp_con_conso_line` |  |

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="sa_f5_x_con_consolidated_hea_con_consolidated_seq_no" model="ir.actions.server">
+  <record id="action_con_consolidated_hea_con_consolidated_seq_no" model="ir.actions.server">
     <field name="name">Con. Consolidated Seq.No</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -16,7 +16,7 @@ if record.name == 'New':
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_x_con_consolidated_hea_imp_restrict_delete_in_consolidation" model="ir.actions.server">
+  <record id="action_con_consolidated_hea_imp_restrict_delete_in_consolidation" model="ir.actions.server">
     <field name="name">IMP - Restrict Delete in Consolidation</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -31,7 +31,7 @@ if record.name == 'New':
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
   </record>
-  <record id="sa_f5_x_con_consolidated_hea_jin_company_id_in_consolidated_header" model="ir.actions.server">
+  <record id="action_con_consolidated_hea_jin_company_id_in_consolidated_header" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consolidated Header</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -43,7 +43,7 @@ record['accounting_company_id'] = company.id]]></field>
     <field name="binding_view_types">list,form</field>
   </record>
   <!-- 48 server_actions ports for BugFix-Stock (auto-generated from Clear-DB snapshot) -->
-  <record id="server_action_1412_con_consolidated_seq_no" model="ir.actions.server">
+  <record id="action_con_consolidated_seq_no" model="ir.actions.server">
     <field name="name">Con. Consolidated Seq.No</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -58,7 +58,7 @@ if record.name == 'New':
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1414_imp_clear_consignment_lines_from_consolidation" model="ir.actions.server">
+  <record id="action_imp_clear_consignment_lines_from_consolidation" model="ir.actions.server">
     <field name="name">IMP - Clear Consignment Lines from Consolidation</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -75,7 +75,7 @@ if record.name == 'New':
     record['lines_copied'] = False]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1421_imp_confirm_consolidation" model="ir.actions.server">
+  <record id="action_imp_confirm_consolidation" model="ir.actions.server">
     <field name="name">IMP - Confirm Consolidation</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -99,7 +99,7 @@ if record.name == 'New':
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_1413_imp_copy_consignment_lines_to_consolidation" model="ir.actions.server">
+  <record id="action_imp_copy_consignment_lines_to_consolidation" model="ir.actions.server">
     <field name="name">IMP - Copy Consignment Lines to Consolidation</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -135,7 +135,7 @@ if record.name == 'New':
             }]]></field>
     <field name="usage">ir_actions_server</field>
   </record>
-  <record id="server_action_1423_imp_restrict_delete_in_consolidation" model="ir.actions.server">
+  <record id="action_imp_restrict_delete_in_consolidation" model="ir.actions.server">
     <field name="name">IMP - Restrict Delete in Consolidation</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -149,7 +149,7 @@ if record.name == 'New':
 ]]></field>
     <field name="usage">base_automation</field>
   </record>
-  <record id="server_action_2609_jin_company_id_in_consolidated_header" model="ir.actions.server">
+  <record id="action_jin_company_id_in_consolidated_header" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consolidated Header</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="state">code</field>
@@ -164,23 +164,23 @@ record['accounting_company_id'] = company.id]]></field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_1412_con_consolidated_seq_no')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_con_consolidated_seq_no')])]"/>
   </record>
   <record id="automation_75_imp_restrict_delete_in_consolidation" model="base.automation">
     <field name="name">IMP - Restrict Delete in Consolidation</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="trigger">on_unlink</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_1423_imp_restrict_delete_in_consolidation')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_imp_restrict_delete_in_consolidation')])]"/>
   </record>
-  <record id="automation_282_jin_company_id_in_consolidated_header" model="base.automation">
+  <record id="automation_jin_company_id_in_consolidated_header" model="base.automation">
     <field name="name">JIN - Company Id in Consolidated Header</field>
     <field name="model_id" search="[('model', '=', 'con_consolidated_hea')]"/>
     <field name="trigger">on_create_or_write</field>
     <field name="active" eval="True"/>
-    <field name="action_server_ids" eval="[(6, 0, [ref('server_action_2609_jin_company_id_in_consolidated_header')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('action_jin_company_id_in_consolidated_header')])]"/>
   </record>
-  <record id="server_action_1412_con_consolidated_seq_no" model="ir.actions.server">
+  <record id="action_con_consolidated_seq_no" model="ir.actions.server">
     <field name="name">Con. Consolidated Seq.No</field>
     <field name="model_id" ref="BugFix-Stock.model_con_consolidated_hea"/>
     <field name="state">code</field>
@@ -197,7 +197,7 @@ if record.name == 'New':
 
     ]]></field>
   </record>
-  <record id="server_action_1423_imp_restrict_delete_in_consolidation" model="ir.actions.server">
+  <record id="action_imp_restrict_delete_in_consolidation" model="ir.actions.server">
     <field name="name">IMP - Restrict Delete in Consolidation</field>
     <field name="model_id" ref="BugFix-Stock.model_con_consolidated_hea"/>
     <field name="state">code</field>
@@ -213,7 +213,7 @@ if record.status != 'Draft':
 
     ]]></field>
   </record>
-  <record id="server_action_2609_jin_company_id_in_consolidated_header" model="ir.actions.server">
+  <record id="action_jin_company_id_in_consolidated_header" model="ir.actions.server">
     <field name="name">JIN - Company Id in Consolidated Header</field>
     <field name="model_id" ref="BugFix-Stock.model_con_consolidated_hea"/>
     <field name="state">code</field>
@@ -226,23 +226,23 @@ record['accounting_company_id'] = company.id
     ]]></field>
   </record>
     <data noupdate="1">
-    <record id="default_200_x_con_consolidated_hea_active" model="ir.default">
+    <record id="default_con_consolidated_hea_active" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_con_consolidated_hea__active"/>
       <field name="json_value">true</field>
     </record>
-    <record id="default_201_x_con_consolidated_hea_sequence" model="ir.default">
+    <record id="default_con_consolidated_hea_sequence" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_con_consolidated_hea__sequence"/>
       <field name="json_value">10</field>
     </record>
-    <record id="default_204_x_con_consolidated_hea_name" model="ir.default">
+    <record id="default_con_consolidated_hea_name" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_con_consolidated_hea__name"/>
       <field name="json_value">"New"</field>
     </record>
-    <record id="default_205_x_con_consolidated_hea_pipeline_status_bar" model="ir.default">
+    <record id="default_con_consolidated_hea_pipeline_status_bar" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_con_consolidated_hea__pipeline_status_bar"/>
       <field name="json_value">"Draft"</field>
     </record>
-    <record id="default_206_x_con_consolidated_hea_status" model="ir.default">
+    <record id="default_con_consolidated_hea_status" model="ir.default">
       <field name="field_id" ref="BugFix-Stock.field_con_consolidated_hea__status"/>
       <field name="json_value">"Draft"</field>
     </record>
