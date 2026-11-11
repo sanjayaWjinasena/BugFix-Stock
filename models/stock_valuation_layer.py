@@ -39,10 +39,6 @@ class StockValuationLayer(models.Model):
         store=True,
     )
 
-
-class StockValuationLayerGap(models.Model):
-    _inherit = "stock.valuation.layer"
-
     related_field_MfcOm = fields.Char(
         string="New Related Field",
         related="stock_move_id.location_dest_id.warehouse_id.code",
