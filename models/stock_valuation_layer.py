@@ -13,7 +13,7 @@ correct Clear-DB spec (v0.0.12 had them without the `related=`
 attribute, which would have left them as empty columns).
 
 Only 2 of the 4 fields from the deleted file are re-added here -
-x_studio_related_field_MfcOm (Char) and x_studio_related_field_dGINH
+related_field_MfcOm (Char) and related_field_dGINH
 (M2O stock.warehouse, store=False) are not referenced by any view
 currently being ported.
 """
@@ -24,14 +24,14 @@ from odoo import fields, models
 class StockValuationLayer(models.Model):
     _inherit = "stock.valuation.layer"
 
-    x_studio_related_field_bPlxa = fields.Many2one(
+    related_field_bPlxa = fields.Many2one(
         "stock.location",
         related="stock_move_id.location_id",
         string="From",
         readonly=True,
         store=True,
     )
-    x_studio_related_field_ygmmJ = fields.Many2one(
+    related_field_ygmmJ = fields.Many2one(
         "stock.location",
         related="stock_move_id.location_dest_id",
         string="To",
@@ -43,12 +43,12 @@ class StockValuationLayer(models.Model):
 class StockValuationLayerGap(models.Model):
     _inherit = "stock.valuation.layer"
 
-    x_studio_related_field_MfcOm = fields.Char(
+    related_field_MfcOm = fields.Char(
         string="New Related Field",
         related="stock_move_id.location_dest_id.warehouse_id.code",
         readonly=True,
     )
-    x_studio_related_field_dGINH = fields.Many2one(
+    related_field_dGINH = fields.Many2one(
         string="New Related Field",
         related="stock_move_id.location_dest_id.warehouse_id",
         readonly=True,

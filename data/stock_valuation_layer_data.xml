@@ -25,25 +25,25 @@
         prod_order = env['mrp.production'].search([('id', '=', stock_move.production_id.id)],limit=1)
         if prod_order:
           ##########################JC
-          work_center_costing = env['x_work_center_costing'].search([('id', '=', 1)], limit=1)
+          work_center_costing = env['work_center_costing'].search([('id', '=', 1)], limit=1)
           if work_center_costing:
-            if prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot > 0.0000:
+            if prod_order.prod_bom_total_actual_labour_cost_without_ot > 0.0000:
               cost_lines=[]
-              #ids =[work_center_costing.x_studio_labour_analytic_tag.id]
-              if work_center_costing.x_studio_labour_analytic_tag != []:
-                for idds in work_center_costing.x_studio_labour_analytic_tag:
+              #ids =[work_center_costing.labour_analytic_tag.id]
+              if work_center_costing.labour_analytic_tag != []:
+                for idds in work_center_costing.labour_analytic_tag:
                   ids.append(idds.id)
               cost_lines.append([0,0,{
-                'account_id':work_center_costing.x_studio_labour_cost_debit_account.id,
+                'account_id':work_center_costing.labour_cost_debit_account.id,
                 'name':(prod_order.name + ' - ' + 'Labour Cost'),
                 'analytic_tag_ids':[(6, 0, ids)],
-                'debit':prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot}])
+                'debit':prod_order.prod_bom_total_actual_labour_cost_without_ot}])
           
               cost_lines.append([0,0,{
-                'account_id':work_center_costing.x_studio_labour_cost_credit_account.id,
+                'account_id':work_center_costing.labour_cost_credit_account.id,
                 'name':(prod_order.name + ' - ' + 'Labour Cost'),
                 'analytic_tag_ids':[(6, 0, ids)],   
-                'credit':prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot}])	
+                'credit':prod_order.prod_bom_total_actual_labour_cost_without_ot}])	
           
               labour_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Labour Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines})
               #######
@@ -52,23 +52,23 @@
                 update_labour_cost_entry.write({'state':'posted'})
               #######
             ######## - OT - Begin
-            if prod_order.x_studio_prod_bom_total_actual_labour_cost_ot > 0.0000:
+            if prod_order.prod_bom_total_actual_labour_cost_ot > 0.0000:
               cost_lines4=[]
-              #ids4 =[work_center_costing.x_studio_labour_analytic_tag.id]
-              if work_center_costing.x_studio_labour_analytic_tag != []:
-                for idds in work_center_costing.x_studio_labour_analytic_tag:
+              #ids4 =[work_center_costing.labour_analytic_tag.id]
+              if work_center_costing.labour_analytic_tag != []:
+                for idds in work_center_costing.labour_analytic_tag:
                   ids4.append(idds.id)
               cost_lines4.append([0,0,{
-                'account_id':work_center_costing.x_studio_labour_ot_cost_debit_account.id,
+                'account_id':work_center_costing.labour_ot_cost_debit_account.id,
                 'name':(prod_order.name + ' - ' + 'Labour Cost - OT'),
                 'analytic_tag_ids':[(6, 0, ids4)],
-                'debit':prod_order.x_studio_prod_bom_total_actual_labour_cost_ot}])
+                'debit':prod_order.prod_bom_total_actual_labour_cost_ot}])
           
               cost_lines4.append([0,0,{
-                'account_id':work_center_costing.x_studio_labour_ot_cost_credit_account.id,
+                'account_id':work_center_costing.labour_ot_cost_credit_account.id,
                 'name':(prod_order.name + ' - ' + 'Labour Cost - OT'),
                 'analytic_tag_ids':[(6, 0, ids4)],   
-                'credit':prod_order.x_studio_prod_bom_total_actual_labour_cost_ot}])	
+                'credit':prod_order.prod_bom_total_actual_labour_cost_ot}])	
           
               labour_cost_entry_ot = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Labour Cost - OT'),'journal_id':6,'move_type':'entry','line_ids':cost_lines4})
               #######
@@ -78,23 +78,23 @@
               #######  
             ######## - OT - End
             ########        
-            if prod_order.x_studio_prod_bom_total_actual_overhead_cost > 0.0000:
+            if prod_order.prod_bom_total_actual_overhead_cost > 0.0000:
               cost_lines2=[]
-              #ids2 =[work_center_costing.x_studio_overhead_analytic_tag.id]
-              if work_center_costing.x_studio_overhead_analytic_tag != []:
-                for idds2 in work_center_costing.x_studio_overhead_analytic_tag:
+              #ids2 =[work_center_costing.overhead_analytic_tag.id]
+              if work_center_costing.overhead_analytic_tag != []:
+                for idds2 in work_center_costing.overhead_analytic_tag:
                   ids2.append(idds2.id)
               cost_lines2.append([0,0,{
-                'account_id':work_center_costing.x_studio_overhead_cost_debit_account.id,
+                'account_id':work_center_costing.overhead_cost_debit_account.id,
                 'name':(prod_order.name + ' - ' + 'Overhead Cost'),
                 'analytic_tag_ids':[(6, 0, ids2)],
-                'debit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])
+                'debit':prod_order.prod_bom_total_actual_overhead_cost}])
               
               cost_lines2.append([0,0,{
-                'account_id':work_center_costing.x_studio_overhead_cost_credit_account.id,
+                'account_id':work_center_costing.overhead_cost_credit_account.id,
                 'name':(prod_order.name + ' - ' + 'Overhead Cost'),
                 'analytic_tag_ids':[(6, 0, ids2)],
-                'credit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])	
+                'credit':prod_order.prod_bom_total_actual_overhead_cost}])	
               
               overhead_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Overhead Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines2})
               #######
@@ -103,23 +103,23 @@
                 update_overhead_cost_entry.write({'state':'posted'})
               #######
             ########
-            if prod_order.x_studio_total_actual_general_cost > 0.0000:
+            if prod_order.total_actual_general_cost > 0.0000:
               cost_lines3=[]
-              #ids3 =[work_center_costing.x_studio_general_analytic_tag.id]
-              if work_center_costing.x_studio_general_analytic_tag != []:
-                for idds3 in work_center_costing.x_studio_general_analytic_tag:
+              #ids3 =[work_center_costing.general_analytic_tag.id]
+              if work_center_costing.general_analytic_tag != []:
+                for idds3 in work_center_costing.general_analytic_tag:
                   ids3.append(idds3.id)
               cost_lines3.append([0,0,{
-                'account_id':work_center_costing.x_studio_general_cost_debit_account.id,
+                'account_id':work_center_costing.general_cost_debit_account.id,
                 'name':(prod_order.name + ' - ' + 'General Cost'),
                 'analytic_tag_ids':[(6, 0, ids3)],
-                'debit':prod_order.x_studio_total_actual_general_cost}])
+                'debit':prod_order.total_actual_general_cost}])
               
               cost_lines3.append([0,0,{
-                'account_id':work_center_costing.x_studio_general_cost_credit_account.id,
+                'account_id':work_center_costing.general_cost_credit_account.id,
                 'name':(prod_order.name + ' - ' + 'General Cost'),
                 'analytic_tag_ids':[(6, 0, ids3)],
-                'credit':prod_order.x_studio_total_actual_general_cost}])	
+                'credit':prod_order.total_actual_general_cost}])	
               
               general_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'General Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines3})
               #######
@@ -153,25 +153,25 @@
         prod_order = env['mrp.production'].search([('id', '=', stock_move.production_id.id)],limit=1)
         if prod_order:
           ##########################JC
-          work_center_costing = env['x_work_center_costing'].search([('id', '=', 1)], limit=1)
+          work_center_costing = env['work_center_costing'].search([('id', '=', 1)], limit=1)
           if work_center_costing:
-            if prod_order.x_studio_prod_bom_total_actual_labour_cost > 0.0000:
+            if prod_order.prod_bom_total_actual_labour_cost > 0.0000:
               cost_lines=[]
-              #ids =[work_center_costing.x_studio_labour_analytic_tag.id]
-              if work_center_costing.x_studio_labour_analytic_tag != []:
-                for idds in work_center_costing.x_studio_labour_analytic_tag:
+              #ids =[work_center_costing.labour_analytic_tag.id]
+              if work_center_costing.labour_analytic_tag != []:
+                for idds in work_center_costing.labour_analytic_tag:
                   ids.append(idds.id)
               cost_lines.append([0,0,{
-                'account_id':work_center_costing.x_studio_labour_cost_debit_account.id,
+                'account_id':work_center_costing.labour_cost_debit_account.id,
                 'name':(prod_order.name + ' - ' + 'Labour Cost'),
                 'analytic_tag_ids':[(6, 0, ids)],
-                'debit':prod_order.x_studio_prod_bom_total_actual_labour_cost}])
+                'debit':prod_order.prod_bom_total_actual_labour_cost}])
           
               cost_lines.append([0,0,{
-                'account_id':work_center_costing.x_studio_labour_cost_credit_account.id,
+                'account_id':work_center_costing.labour_cost_credit_account.id,
                 'name':(prod_order.name + ' - ' + 'Labour Cost'),
                 'analytic_tag_ids':[(6, 0, ids)],   
-                'credit':prod_order.x_studio_prod_bom_total_actual_labour_cost}])	
+                'credit':prod_order.prod_bom_total_actual_labour_cost}])	
           
               labour_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Labour Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines})
               #######
@@ -180,23 +180,23 @@
                 update_labour_cost_entry.write({'state':'posted'})
               #######
           ########        
-          if prod_order.x_studio_prod_bom_total_actual_overhead_cost > 0.0000:
+          if prod_order.prod_bom_total_actual_overhead_cost > 0.0000:
             cost_lines2=[]
-            #ids2 =[work_center_costing.x_studio_overhead_analytic_tag.id]
-            if work_center_costing.x_studio_overhead_analytic_tag != []:
-              for idds2 in work_center_costing.x_studio_overhead_analytic_tag:
+            #ids2 =[work_center_costing.overhead_analytic_tag.id]
+            if work_center_costing.overhead_analytic_tag != []:
+              for idds2 in work_center_costing.overhead_analytic_tag:
                 ids2.append(idds2.id)
             cost_lines2.append([0,0,{
-              'account_id':work_center_costing.x_studio_overhead_cost_debit_account.id,
+              'account_id':work_center_costing.overhead_cost_debit_account.id,
               'name':(prod_order.name + ' - ' + 'Overhead Cost'),
               'analytic_tag_ids':[(6, 0, ids2)],
-              'debit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])
+              'debit':prod_order.prod_bom_total_actual_overhead_cost}])
             
             cost_lines2.append([0,0,{
-              'account_id':work_center_costing.x_studio_overhead_cost_credit_account.id,
+              'account_id':work_center_costing.overhead_cost_credit_account.id,
               'name':(prod_order.name + ' - ' + 'Overhead Cost'),
               'analytic_tag_ids':[(6, 0, ids2)],
-              'credit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])	
+              'credit':prod_order.prod_bom_total_actual_overhead_cost}])	
             
             overhead_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Overhead Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines2})
             #######
@@ -205,23 +205,23 @@
               update_overhead_cost_entry.write({'state':'posted'})
             #######
           ########
-          if prod_order.x_studio_total_actual_general_cost > 0.0000:
+          if prod_order.total_actual_general_cost > 0.0000:
             cost_lines3=[]
-            #ids3 =[work_center_costing.x_studio_general_analytic_tag.id]
-            if work_center_costing.x_studio_general_analytic_tag != []:
-              for idds3 in work_center_costing.x_studio_general_analytic_tag:
+            #ids3 =[work_center_costing.general_analytic_tag.id]
+            if work_center_costing.general_analytic_tag != []:
+              for idds3 in work_center_costing.general_analytic_tag:
                 ids3.append(idds3.id)
             cost_lines3.append([0,0,{
-              'account_id':work_center_costing.x_studio_general_cost_debit_account.id,
+              'account_id':work_center_costing.general_cost_debit_account.id,
               'name':(prod_order.name + ' - ' + 'General Cost'),
               'analytic_tag_ids':[(6, 0, ids3)],
-              'debit':prod_order.x_studio_total_actual_general_cost}])
+              'debit':prod_order.total_actual_general_cost}])
             
             cost_lines3.append([0,0,{
-              'account_id':work_center_costing.x_studio_general_cost_credit_account.id,
+              'account_id':work_center_costing.general_cost_credit_account.id,
               'name':(prod_order.name + ' - ' + 'General Cost'),
               'analytic_tag_ids':[(6, 0, ids3)],
-              'credit':prod_order.x_studio_total_actual_general_cost}])	
+              'credit':prod_order.total_actual_general_cost}])	
             
             general_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'General Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines3})
             #######

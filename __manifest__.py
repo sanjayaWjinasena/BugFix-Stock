@@ -2,7 +2,7 @@
     # upgrade-testing branch: data files below are commented out - this branch installs
     # functions only, no data is seeded.
     "name": "Jinasena : Module : Inventory",
-    "version": "17.0.0.0.134",
+    "version": "17.0.0.0.135",
     "summary": "Studio-to-Python port for BugFix-Stock",
     "author": "Jinasena Agricultural Machinery (Pvt) Ltd.",
     "category": "Inventory",
@@ -59,9 +59,9 @@
     #   * relax-ng validation before push
     # This batch: 1 view (5462 stock.putaway.rule.tree) SKIPPED as
     # entirely empty after xpath filter. Heavy orphan stripping on
-    # x_material_request form (27 refs to x_mr_config - not on
-    # target) and x_tariffmaster form (20 refs to unported x_*
-    # fields including x_studio_duties_line_id, _misc_charge_line_id,
+    # material_request form (27 refs to mr_config - not on
+    # target) and tariffmaster form (20 refs to unported x_*
+    # fields including duties_line_id, _misc_charge_line_id,
     # _rates, _taxes_line_id).
     # New file: views/studio_ported_13_views.xml.
     # Coverage: 23/37 -> 35/37 = 95% shipped (36/37 = 97% if the
@@ -74,8 +74,8 @@
     #     'Picking' unfiltered vs standard-filtered; stock.picking.type
     #     'Operations' with incoming/outgoing/internal/mrp_operation)
     #   * 17 truly-new SHIPPED
-    # Heavy concentration on x_tariffmaster (9 different windows with
-    # variations) and x_material_request (4 windows).
+    # Heavy concentration on tariffmaster (9 different windows with
+    # variations) and material_request (4 windows).
     # New file: data/window_actions.xml.
     # Coverage: 73/160 -> 92/160 = 58% shipped, 100% effective.
     # v0.0.30: 9 base.automation triggers wiring the backing server
@@ -111,15 +111,15 @@
     #     have the thread/activity fields, so this matches source
     #     of truth.
     #   * 2 O2Ms declared:
-    #     - x_con_consolidated_hea.x_studio_con_line_ids -> x_con_
-    #       consolidated_lin (inverse x_studio_consolidated_header_id)
-    #     - x_temp_consignment_hea.x_studio_temp_consignment_line_ids
-    #       -> x_temp_consignment_lin (inverse x_studio_temp_
+    #     - con_consolidated_hea.con_line_ids -> x_con_
+    #       consolidated_lin (inverse consolidated_header_id)
+    #     - temp_consignment_hea.temp_consignment_line_ids
+    #       -> temp_consignment_lin (inverse x_studio_temp_
     #       consignment_header_id)
-    #   * SKIP 1 O2M: x_tariffmaster.x_studio_tariff_master_ids ->
-    #     x_tariff_date. Comodel x_tariff_date does not exist on target
+    #   * SKIP 1 O2M: tariffmaster.tariff_master_ids ->
+    #     tariff_date. Comodel tariff_date does not exist on target
     #     (never ported). Would fail install with KeyError. Left as
-    #     TODO in x_tariffmaster.py.
+    #     TODO in tariffmaster.py.
     #   * SKIP 2 related fields on product.product (rating_avg_text,
     #     rating_last_text). Both exist unpinned on target (auto-
     #     generated via _inherits from product.template). No action
@@ -129,35 +129,35 @@
     # Effective coverage after landing: 100% of Sales-safe fields.
     # v0.0.27: cross-repo companion fix for BugFix-Purchase v0.1.0.71.
     # Purchase added _inherit = ['mail.thread', 'mail.activity.mixin']
-    # to its x_material_request declaration. Both this module and
+    # to its material_request declaration. Both this module and
     # BugFix-Purchase declare that model via _name; Odoo merges field
     # declarations at load time. The later-loaded module's class
     # definition wins for _inherit. Without matching the inherit
     # here, chatter/activity fields would get shadowed and view
     # ports referencing them would fail. Mirroring the inherit.
     # v0.0.26: cross-repo fix for BugFix-Purchase v0.1.0.32.
-    # This module also declares x_material_request as a sentinel with
+    # This module also declares material_request as a sentinel with
     # active = fields.Boolean(string='Active') (no default). Since both
     # BugFix-Purchase and BugFix-Stock declare the model via _name, Odoo
     # merges field declarations at load time; whichever module loads LAST
     # wins for defaults. BugFix-Stock was overriding BugFix-Purchase's
     # v0.1.0.32 default=True fix, so records still got active=False.
-    # Fix: add default=True to the sentinel too. Only x_material_request
+    # Fix: add default=True to the sentinel too. Only material_request
     # is affected (verified via grep: no other Stock model overlaps with
     # a Purchase model name).
-    # v0.0.13: added Jinasena_Masterdata_Reporting - owns x_sales_report_type
+    # v0.0.13: added Jinasena_Masterdata_Reporting - owns sales_report_type
     # which our stock.move + stock.move.line Many2ones target. Previously
     # each of BugFix-Stock/MRP/Sales/Accounting had a sentinel Python
-    # class declaring _name = 'x_sales_report_type' just to make those
+    # class declaring _name = 'sales_report_type' just to make those
     # M2O refs resolve. The consolidated masterdata module removes the
     # need for that scaffold.
-    # v0.0.16: first view-port wave — 6 records for x_consignment_header +
-    # x_consignment_line (3 primary Default views + 3 Studio priority-99
+    # v0.0.16: first view-port wave — 6 records for consignment_header +
+    # consignment_line (3 primary Default views + 3 Studio priority-99
     # inherit overlays). Byte-verbatim from Clear-DB views 2810/2813/
     # 2814/2817/2818/2819 except:
-    #   * 2814 oe_chatter block stripped (x_consignment_line does not
+    #   * 2814 oe_chatter block stripped (consignment_line does not
     #     inherit mail.thread/mail.activity.mixin).
-    # NOT ported this wave: 2811+2816 (x_consignment_header form + its
+    # NOT ported this wave: 2811+2816 (consignment_header form + its
     # 14.8KB Studio inherit) - hardcoded action refs + cross-repo conflict
     # with BugFix-Purchase draft view 9609 need coordination first.
     # See docs/VIEWS_TODO.md for the remaining 21 substantive views.
@@ -186,22 +186,22 @@
     # dev). Now safe because stock_account is installed on repair-
     # test-101 and transitively pulled by stock_landed_costs. Only 2
     # of the 4 previously-declared fields are re-added
-    # (x_studio_related_field_bPlxa, _ygmmJ) with the proper Clear-DB
+    # (related_field_bPlxa, _ygmmJ) with the proper Clear-DB
     # `related=` attribute; the other 2 (MfcOm, dGINH) are not
     # referenced by any view currently being ported. Also adds view
     # 2585 (Studio inherit on stock.valuation.layer tree) to
     # views/stock_studio_ported_v2.xml.
-    # v0.0.25: 2 views for x_consignment_header + 1 field port.
+    # v0.0.25: 2 views for consignment_header + 1 field port.
     # See views/stock_studio_ported_v5.xml.
     #
-    # models/x_consignment_header.py: x_studio_consignment_line_ids
+    # models/consignment_header.py: consignment_line_ids
     # One2many field ported from Clear-DB (was TODO on-disk). Inverse:
-    # x_consignment_line.x_studio_consignment_header_id (already
+    # consignment_line.consignment_header_id (already
     # declared). Used by view 2816's "Consignment Lines" tab.
     #
     #   * 2811 primary form (2938b -> 3208b after strip + sentinels).
     #     oe_chatter stripped, 5 sentinel <field invisible="1"/>
-    #     elements injected for x_studio_status, _lines_copied,
+    #     elements injected for status, _lines_copied,
     #     _allocate_header_charges, _create_header_charges,
     #     _header_charges_allocated (Odoo 17 strict-modifier
     #     validation). 11 numeric name= refs interpolated.
@@ -212,17 +212,17 @@
     #
     # First v0.0.25 attempt (c68189d) crashed on missing sentinels
     # (fixed at retry #1). Second attempt (22c6de3) got past 2811 but
-    # crashed on 2816 referencing x_studio_consignment_line_ids which
+    # crashed on 2816 referencing consignment_line_ids which
     # was a TODO on-disk. Retry #2 ports the missing field.
     #
     # v0.0.24: 2 more act_windows in data/act_windows.xml on
     # account.move (prep for views 2811+2816 in v0.0.25):
-    #   1306 Vendor Despatch    domain x_studio_created_from_consignment=active_id
-    #   1322 Custom Clearance   domain x_studio_created_from_consignment_1=active_id
+    #   1306 Vendor Despatch    domain created_from_consignment=active_id
+    #   1322 Custom Clearance   domain created_from_consignment_1=active_id
     #
     # v0.0.24 first attempt shipped 3 act_windows including 1383
-    # (TP Invoices on x_tp_invoice_header). Crashed at install:
-    # "Invalid model name 'x_tp_invoice_header' in action definition".
+    # (TP Invoices on tp_invoice_header). Crashed at install:
+    # "Invalid model name 'tp_invoice_header' in action definition".
     # BugFix-Accounting owns that model but isn't a dep here, so at
     # BugFix-Stock's data-load time the model wasn't yet in the
     # registry. Reverted. Shipping only 1306+1322 which target
@@ -266,9 +266,9 @@
     #     2448 Movement Journals Update Offset Account (2445b, stock.picking)
     #   * 2 act_windows in data/act_windows.xml on account.move:
     #     1362 Vend. Dispatch Reversal (domain
-    #     x_studio_created_from_transfer=active_id)
+    #     created_from_transfer=active_id)
     #     1363 Custom Clearance Reversal (domain
-    #     x_studio_create_from_transfer_1=active_id)
+    #     create_from_transfer_1=active_id)
     #     Live in BugFix-Stock because they are only referenced by
     #     BugFix-Stock's future view arch; avoids adding a
     #     BugFix-Stock -> BugFix-Accounting dep.
@@ -304,29 +304,29 @@
         "security/removed_handmade_access_rights.xml",
         "security/bugfix_stock_security.xml",
         "security/ir.model.access.csv",
-        "data/x_material_request_mt_data.xml",
-        "data/x_material_request_tes_data.xml",
-        "data/x_temp_con_conso_line_data.xml",
-        "data/x_temp_con_consolidate_data.xml",
-        "data/x_temp_structure_detai_data.xml",
-        "data/x_temp_structure_maste_data.xml",
+        "data/material_request_mt_data.xml",
+        "data/material_request_tes_data.xml",
+        "data/temp_con_conso_line_data.xml",
+        "data/temp_con_consolidate_data.xml",
+        "data/temp_structure_detai_data.xml",
+        "data/temp_structure_maste_data.xml",
         "data/stock_picking_data.xml",
         "data/stock_return_picking_data.xml",
-        "data/x_con_consolidated_hea_data.xml",
-        "data/x_con_consolidated_lin_data.xml",
-        "data/x_consignment_charge_l_data.xml",
-        "data/x_consignment_header_data.xml",
-        "data/x_consignment_line_data.xml",
-        "data/x_tariffmaster_data.xml",
+        "data/con_consolidated_hea_data.xml",
+        "data/con_consolidated_lin_data.xml",
+        "data/consignment_charge_l_data.xml",
+        "data/consignment_header_data.xml",
+        "data/consignment_line_data.xml",
+        "data/tariffmaster_data.xml",
         "data/defaults_f2.xml",
-        "data/x_consignment_charge_h_data.xml",
-        "data/x_temp_consignment_hea_data.xml",
+        "data/consignment_charge_h_data.xml",
+        "data/temp_consignment_hea_data.xml",
         "data/stock_move_data.xml",
         "data/stock_move_line_data.xml",
-        "data/x_material_request_data.xml",
+        "data/material_request_data.xml",
         "data/stock_valuation_layer_data.xml",
         "data/stock_lot_data.xml",
-        "data/x_temp_consignment_lin_data.xml",
+        "data/temp_consignment_lin_data.xml",
         "views/stock_location_views.xml",
         "views/stock_lot_views.xml",
         "views/stock_move_line_views.xml",
@@ -337,29 +337,29 @@
         "views/stock_picking_views.xml",
         "views/stock_quant_views.xml",
         "views/stock_warehouse_views.xml",
-        "views/x_con_consolidated_hea_views.xml",
-        "views/x_con_consolidated_lin_views.xml",
-        "views/x_consignment_charge_h_views.xml",
-        "views/x_consignment_charge_l_views.xml",
-        "views/x_consignment_header_views.xml",
-        "views/x_consignment_line_views.xml",
-        "views/x_temp_consignment_hea_views.xml",
-        "views/x_temp_consignment_lin_views.xml",
+        "views/con_consolidated_hea_views.xml",
+        "views/con_consolidated_lin_views.xml",
+        "views/consignment_charge_h_views.xml",
+        "views/consignment_charge_l_views.xml",
+        "views/consignment_header_views.xml",
+        "views/consignment_line_views.xml",
+        "views/temp_consignment_hea_views.xml",
+        "views/temp_consignment_lin_views.xml",
         "views/stock_route_views.xml",
         "views/stock_rule_views.xml",
-        "views/x_material_request_views.xml",
-        "views/x_tariffmaster_views.xml",
+        "views/material_request_views.xml",
+        "views/tariffmaster_views.xml",
         "views/stock_landed_cost_lines_views.xml",
-        "views/x_material_request_mt_stage_views.xml",
-        "views/x_material_request_mt_tag_views.xml",
-        "views/x_material_request_mt_views.xml",
-        "views/x_material_request_tes_stage_views.xml",
-        "views/x_material_request_tes_tag_views.xml",
-        "views/x_material_request_tes_views.xml",
-        "views/x_temp_structure_maste_views.xml",
+        "views/material_request_mt_stage_views.xml",
+        "views/material_request_mt_tag_views.xml",
+        "views/material_request_mt_views.xml",
+        "views/material_request_tes_stage_views.xml",
+        "views/material_request_tes_tag_views.xml",
+        "views/material_request_tes_views.xml",
+        "views/temp_structure_maste_views.xml",
         "views/stock_landed_cost_views.xml",
         "views/stock_return_picking_views.xml",
-        "views/x_temp_con_consolidate_views.xml",
+        "views/temp_con_consolidate_views.xml",
         "views/bugfix_stock_menus.xml",
         # Not loaded on this branch:
         # 'data/ir_filters_data.xml',  # upgrade-testing: data, not shipped

@@ -37,8 +37,8 @@
               </xpath>
               <xpath expr="//field[@name='product_uom_qty']" position="after">
                 <field name="unit_factor"/>
-                <field name="x_studio_original_qty" string="Original Qty"/>
-                <field name="x_studio_variance" string="Variance"/>
+                <field name="original_qty" string="Original Qty"/>
+                <field name="variance" string="Variance"/>
                 <field name="product_qty"/>
                 <field name="should_consume_qty"/>
                 <field name="availability"/>

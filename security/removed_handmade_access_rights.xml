@@ -1297,11 +1297,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6666_x_con_consolidated_hea (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6666_con_consolidated_hea (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6666_x_con_consolidated_hea" model="ir.model.access">
-    <field name="name">x_con_consolidated_hea</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+  <record id="access_6666_con_consolidated_hea" model="ir.model.access">
+    <field name="name">con_consolidated_hea</field>
+    <field name="model_id" ref="BugFix-Stock.model_con_consolidated_hea"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1313,7 +1313,7 @@
   <!--
   <record id="access_6667_x_con_consolidated_line" model="ir.model.access">
     <field name="name">x_con_consolidated_line</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+    <field name="model_id" ref="BugFix-Stock.model_con_consolidated_lin"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1321,11 +1321,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6673_x_consignment_charge_l (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6673_consignment_charge_l (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6673_x_consignment_charge_l" model="ir.model.access">
-    <field name="name">x_consignment_charge_l</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_charge_l"/>
+  <record id="access_6673_consignment_charge_l" model="ir.model.access">
+    <field name="name">consignment_charge_l</field>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_charge_l"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1333,11 +1333,11 @@
     <field name="perm_unlink" eval="True"/>
   </record>
   -->
-<!-- REMOVED access_6880_x_consignment_header (1100): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Invoicing & Payment - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6880_consignment_header (1100): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Invoicing & Payment - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6880_x_consignment_header" model="ir.model.access">
-    <field name="name">x_consignment_header</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+  <record id="access_6880_consignment_header" model="ir.model.access">
+    <field name="name">consignment_header</field>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_invoicing_payment_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1345,11 +1345,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6661_x_consignment_header (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6661_consignment_header (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6661_x_consignment_header" model="ir.model.access">
-    <field name="name">x_consignment_header</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+  <record id="access_6661_consignment_header" model="ir.model.access">
+    <field name="name">consignment_header</field>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1357,11 +1357,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6674_x_consignment_line (1100): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Goods Receivers". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6674_consignment_line (1100): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PO Goods Receivers". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6674_x_consignment_line" model="ir.model.access">
-    <field name="name">x_consignment_line</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+  <record id="access_6674_consignment_line" model="ir.model.access">
+    <field name="name">consignment_line</field>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_line"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_po_goods_receivers"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1369,11 +1369,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6662_x_consignment_line (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6662_consignment_line (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6662_x_consignment_line" model="ir.model.access">
-    <field name="name">x_consignment_line</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+  <record id="access_6662_consignment_line" model="ir.model.access">
+    <field name="name">consignment_line</field>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_line"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1381,11 +1381,11 @@
     <field name="perm_unlink" eval="True"/>
   </record>
   -->
-<!-- REMOVED access_5875_x_tariffmaster (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PR View Only". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_5875_tariffmaster (1000): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - PR View Only". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_5875_x_tariffmaster" model="ir.model.access">
-    <field name="name">x_tariffmaster</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+  <record id="access_5875_tariffmaster" model="ir.model.access">
+    <field name="name">tariffmaster</field>
+    <field name="model_id" ref="BugFix-Stock.model_tariffmaster"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_pr_view_only"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="False"/>
@@ -1393,11 +1393,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6669_x_temp_con_conso_line (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6669_temp_con_conso_line (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6669_x_temp_con_conso_line" model="ir.model.access">
-    <field name="name">x_temp_con_conso_line</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_temp_con_conso_line"/>
+  <record id="access_6669_temp_con_conso_line" model="ir.model.access">
+    <field name="name">temp_con_conso_line</field>
+    <field name="model_id" ref="BugFix-Stock.model_temp_con_conso_line"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1405,11 +1405,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6668_x_temp_con_consolidate (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6668_temp_con_consolidate (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6668_x_temp_con_consolidate" model="ir.model.access">
-    <field name="name">x_temp_con_consolidate</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_temp_con_consolidate"/>
+  <record id="access_6668_temp_con_consolidate" model="ir.model.access">
+    <field name="name">temp_con_consolidate</field>
+    <field name="model_id" ref="BugFix-Stock.model_temp_con_consolidate"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1417,11 +1417,11 @@
     <field name="perm_unlink" eval="True"/>
   </record>
   -->
-<!-- REMOVED access_6663_x_temp_consignment_hea (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6663_temp_consignment_hea (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6663_x_temp_consignment_hea" model="ir.model.access">
-    <field name="name">x_temp_consignment_hea</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_temp_consignment_hea"/>
+  <record id="access_6663_temp_consignment_hea" model="ir.model.access">
+    <field name="name">temp_consignment_hea</field>
+    <field name="model_id" ref="BugFix-Stock.model_temp_consignment_hea"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1429,11 +1429,11 @@
     <field name="perm_unlink" eval="False"/>
   </record>
   -->
-<!-- REMOVED access_6665_x_temp_consignment_hea (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6665_temp_consignment_hea (1111): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6665_x_temp_consignment_hea" model="ir.model.access">
-    <field name="name">x_temp_consignment_hea</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_temp_consignment_hea"/>
+  <record id="access_6665_temp_consignment_hea" model="ir.model.access">
+    <field name="name">temp_consignment_hea</field>
+    <field name="model_id" ref="BugFix-Stock.model_temp_consignment_hea"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1441,11 +1441,11 @@
     <field name="perm_unlink" eval="True"/>
   </record>
   -->
-<!-- REMOVED access_6664_x_temp_consignment_lin (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
+<!-- REMOVED access_6664_temp_consignment_lin (1110): hand-made on production (hand-made (no id)); the port had dropped its group so it applied to every user. Production restricts it to group "Purchase / Jin - Procurement - End User - Imports". Uncomment (and set the group) to bring it back. -->
   <!--
-  <record id="access_6664_x_temp_consignment_lin" model="ir.model.access">
-    <field name="name">x_temp_consignment_lin</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_temp_consignment_lin"/>
+  <record id="access_6664_temp_consignment_lin" model="ir.model.access">
+    <field name="name">temp_consignment_lin</field>
+    <field name="model_id" ref="BugFix-Stock.model_temp_consignment_lin"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -1457,7 +1457,7 @@
   <!--
   <record id="access_2427_tariff_master" model="ir.model.access">
     <field name="name">Tariff Master</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+    <field name="model_id" ref="BugFix-Stock.model_tariffmaster"/>
     <field name="group_id" ref="BugFix-Studio-Misc.group_g_purchase_jin_procurement_end_user_imports"/>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="False"/>

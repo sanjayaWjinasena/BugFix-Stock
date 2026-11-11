@@ -5,33 +5,33 @@ from . import stock_move_line
 from . import stock_picking
 from . import stock_picking_type
 from . import stock_valuation_layer
-from . import x_con_consolidated_hea
-from . import x_con_consolidated_lin
-from . import x_consignment_charge_h
-from . import x_consignment_charge_l
-from . import x_consignment_header
-from . import x_consignment_line
-from . import x_journal_types
-from . import x_mr_config
-from . import x_material_request
-from . import x_misc_charge_codes
+from . import con_consolidated_hea
+from . import con_consolidated_lin
+from . import consignment_charge_h
+from . import consignment_charge_l
+from . import consignment_header
+from . import consignment_line
+from . import journal_types
+from . import mr_config
+from . import material_request
+from . import misc_charge_codes
 
-# x_sales_report_type sentinel removed: Jinasena_Masterdata_Reporting
+# sales_report_type sentinel removed: Jinasena_Masterdata_Reporting
 # now owns the model. Many2one refs on stock.move + stock.move.line
 # resolve at load time via the new dep.
-from . import x_tariffmaster
-from . import x_temp_consignment_hea
-from . import x_temp_consignment_lin
-from . import x_material_request_mt
-from . import x_material_request_tes
-from . import x_temp_con_conso_line
-from . import x_temp_con_consolidate
-from . import x_temp_structure_detai
-from . import x_temp_structure_maste
-from . import x_material_request_mt_tag
-from . import x_material_request_mt_stage
-from . import x_material_request_tes_stage
-from . import x_material_request_tes_tag
+from . import tariffmaster
+from . import temp_consignment_hea
+from . import temp_consignment_lin
+from . import material_request_mt
+from . import material_request_tes
+from . import temp_con_conso_line
+from . import temp_con_consolidate
+from . import temp_structure_detai
+from . import temp_structure_maste
+from . import material_request_mt_tag
+from . import material_request_mt_stage
+from . import material_request_tes_stage
+from . import material_request_tes_tag
 
 from . import product_product
 from . import hide_dev_extras

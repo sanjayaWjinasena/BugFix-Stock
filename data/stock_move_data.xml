@@ -7,7 +7,7 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
     <field name="code"><![CDATA[if record.id:
-  bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_bom_material_cost_ids':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_uom_id':record.product_uom.id})]]></field>
+  bom_material_cost = env['mrp_bom_material_cos'].create({'bom_material_cost_ids':record.bom_line_id.id,'prod_bom_line_id':record.id,'operation_id':record.operation_id.id,'product_id':record.product_id.id,'planned_qty':record.product_qty,'uom_id':record.product_uom.id})]]></field>
   </record>
   <record id="server_action_1066_create_production_bom_material_cost" model="ir.actions.server">
     <field name="name">Create Production BOM Material Cost</field>
@@ -16,7 +16,7 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
     <field name="code"><![CDATA[if record.bom_line_id and record.raw_material_production_id:
-  prod_bom_material_cost = env['x_mrp_bom_material_cos'].create({'x_studio_prod_bom_material_cost_ids':record.raw_material_production_id.id,'x_studio_bom_line_id':record.bom_line_id.id,'x_studio_prod_bom_line_id':record.id,'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id})]]></field>
+  prod_bom_material_cost = env['mrp_bom_material_cos'].create({'prod_bom_material_cost_ids':record.raw_material_production_id.id,'bom_line_id':record.bom_line_id.id,'prod_bom_line_id':record.id,'operation_id':record.operation_id.id,'product_id':record.product_id.id,'planned_qty':record.product_qty,'actual_qty':record.quantity,'uom_id':record.product_uom.id})]]></field>
   </record>
   <record id="server_action_1755_srm_auto_populate_report_type_in_product_variance_moves" model="ir.actions.server">
     <field name="name">SRM - Auto Populate Report Type in Product Variance Moves</field>
@@ -25,9 +25,9 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
     <field name="code"><![CDATA[if record.id:
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Production Job Variance')],limit=1)
+  rpt_id= env['sales_report_type'].search([('report_code', '=', 'Production Job Variance')],limit=1)
   if rpt_id:
-   record['x_studio_report_type_production_job_variance'] = rpt_id.id
+   record['report_type_production_job_variance'] = rpt_id.id
    
   
   ]]></field>
@@ -38,7 +38,7 @@
     <field name="state">code</field>
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
-    <field name="code"><![CDATA[record['x_studio_original_qty'] = record.product_uom_qty]]></field>
+    <field name="code"><![CDATA[record['original_qty'] = record.product_uom_qty]]></field>
   </record>
   <record id="server_action_1073_update_production_bom_material_cost" model="ir.actions.server">
     <field name="name">Update Production BOM Material Cost</field>
@@ -47,9 +47,9 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
     <field name="code"><![CDATA[if record.bom_line_id and record.raw_material_production_id:
-  update = env['x_mrp_bom_material_cos'].search([('x_studio_prod_bom_line_id', '=', record.id), ('x_studio_prod_bom_material_cost_ids', '=', record.raw_material_production_id.id), ('x_studio_bom_line_id', '=', record.bom_line_id.id)], limit=1)
+  update = env['mrp_bom_material_cos'].search([('prod_bom_line_id', '=', record.id), ('prod_bom_material_cost_ids', '=', record.raw_material_production_id.id), ('bom_line_id', '=', record.bom_line_id.id)], limit=1)
   if update:
-    update.write({'x_studio_operation_id':record.operation_id.id,'x_studio_product_id':record.product_id.id,'x_studio_planned_qty':record.product_qty,'x_studio_actual_qty':record.quantity,'x_studio_uom_id':record.product_uom.id}) 
+    update.write({'operation_id':record.operation_id.id,'product_id':record.product_id.id,'planned_qty':record.product_qty,'actual_qty':record.quantity,'uom_id':record.product_uom.id}) 
     
   
 

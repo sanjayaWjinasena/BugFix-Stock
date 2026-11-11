@@ -52,9 +52,9 @@
 
   <record id="filter_43_consignment_header" model="ir.filters">
     <field name="name">Consignment Header</field>
-    <field name="model_id">x_consignment_header</field>
+    <field name="model_id">consignment_header</field>
     <field name="domain">[]</field>
-    <field name="context">{'graph': {'graph_measure': '__count__', 'graph_mode': 'bar', 'graph_groupbys': ['x_studio_status', 'active']}, 'group_by': []}</field>
+    <field name="context">{'graph': {'graph_measure': '__count__', 'graph_mode': 'bar', 'graph_groupbys': ['status', 'active']}, 'group_by': []}</field>
     <field name="sort">[]</field>
   </record>
 

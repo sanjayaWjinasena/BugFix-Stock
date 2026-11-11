@@ -6,18 +6,18 @@ human review before commit.
 
 | # | Clear-DB view ID | Type | Target model | Name | Inherits |
 |---|---|---|---|---|---|
-| 1 | 2948 | dashboard | `x_consignment_header` | Default dashboard view for ir.model(905,) | — |
-| 2 | 2811 | form | `x_consignment_header` | Default form view for x_consignment_header | — |
-| 3 | 2814 | form | `x_consignment_line` | Default form view for x_consignment_line | — |
-| 4 | 2949 | kanban | `x_consignment_header` | Default kanban view for ir.model(905,) | — |
-| 5 | 2810 | tree | `x_consignment_header` | Default list view for x_consignment_header | — |
-| 6 | 2813 | tree | `x_consignment_line` | Default list view for x_consignment_line | — |
-| 7 | 2812 | search | `x_consignment_header` | Default search view for x_consignment_header | — |
-| 8 | 2815 | search | `x_consignment_line` | Default search view for x_consignment_line | — |
-| 9 | 2816 | form | `x_consignment_header` | Odoo Studio: Default form view for x_consignment_header customization | Default form view for x_consignment_header |
-| 10 | 2817 | form | `x_consignment_line` | Odoo Studio: Default form view for x_consignment_line customization | Default form view for x_consignment_line |
-| 11 | 2819 | tree | `x_consignment_header` | Odoo Studio: Default list view for x_consignment_header customization | Default list view for x_consignment_header |
-| 12 | 2818 | tree | `x_consignment_line` | Odoo Studio: Default list view for x_consignment_line customization | Default list view for x_consignment_line |
+| 1 | 2948 | dashboard | `consignment_header` | Default dashboard view for ir.model(905,) | — |
+| 2 | 2811 | form | `consignment_header` | Default form view for consignment_header | — |
+| 3 | 2814 | form | `consignment_line` | Default form view for consignment_line | — |
+| 4 | 2949 | kanban | `consignment_header` | Default kanban view for ir.model(905,) | — |
+| 5 | 2810 | tree | `consignment_header` | Default list view for consignment_header | — |
+| 6 | 2813 | tree | `consignment_line` | Default list view for consignment_line | — |
+| 7 | 2812 | search | `consignment_header` | Default search view for consignment_header | — |
+| 8 | 2815 | search | `consignment_line` | Default search view for consignment_line | — |
+| 9 | 2816 | form | `consignment_header` | Odoo Studio: Default form view for consignment_header customization | Default form view for consignment_header |
+| 10 | 2817 | form | `consignment_line` | Odoo Studio: Default form view for consignment_line customization | Default form view for consignment_line |
+| 11 | 2819 | tree | `consignment_header` | Odoo Studio: Default list view for consignment_header customization | Default list view for consignment_header |
+| 12 | 2818 | tree | `consignment_line` | Odoo Studio: Default list view for consignment_line customization | Default list view for consignment_line |
 | 13 | 5328 | form | `stock.picking.type` | Odoo Studio: Operation Types customization | Operation Types |
 | 14 | 5334 | tree | `stock.picking.type` | Odoo Studio: Operation types customization | Operation types |
 | 15 | 4617 | form | `stock.return.picking` | Odoo Studio: Return customization | Return |
@@ -39,4 +39,4 @@ human review before commit.
 | 31 | 2585 | tree | `stock.valuation.layer` | Odoo Studio: stock.valuation.layer.tree customization | stock.valuation.layer.tree |
 | 32 | 5484 | form | `stock.warehouse` | Odoo Studio: stock.warehouse customization | stock.warehouse |
 | 33 | 3943 | tree | `stock.warehouse` | Odoo Studio: stock.warehouse.tree customization | stock.warehouse.tree |
-| 34 | 9609 | form | `x_consignment_header` | bugfix_purchase.x_consignment_header.form.rewire.vendor.dispatch | Default form view for x_consignment_header |
+| 34 | 9609 | form | `consignment_header` | bugfix_purchase.consignment_header.form.rewire.vendor.dispatch | Default form view for consignment_header |

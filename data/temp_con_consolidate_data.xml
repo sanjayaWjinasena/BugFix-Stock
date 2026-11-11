@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+  <record id="default_final_bugfix_stock_field_x_temp_con_consolidate_x_active_true" model="ir.default">
+    <field name="field_id" ref="BugFix-Stock.field_temp_con_consolidate__active"/>
+    <field name="json_value">true</field>
+  </record>
+    </data>
+  <record id="server_action_1420_imp_apply_selected_pi_lines_to_consolidation" model="ir.actions.server">
+    <field name="name">IMP - Apply Selected PI Lines to Consolidation</field>
+    <field name="model_id" search="[('model', '=', 'temp_con_consolidate')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[select = 0
+
+for valid_line in record.con_lines:
+
+  if (valid_line.accounting_select == True):
+
+    select += 1
+
+    
+
+    create_con_lines = env['con_consolidated_lin'].create({'consolidated_header_id':record.consolidated_header_id.id,
+
+      'consignment_id':valid_line.consignment_id.id,
+
+      'container_no':valid_line.container_no,
+
+      'accounting_currency_id':valid_line.accounting_currency_id.id,
+
+      'custom_clearance_no':valid_line.custom_clearance_no,
+
+      'delivery_term':valid_line.delivery_term.id,
+
+      'accounting_invoice_date':valid_line.accounting_invoice_date,
+
+      'shipment_start_date':valid_line.shipment_start_date,
+
+      'shipping_mode_1':valid_line.shipping_mode,
+
+      'supplier_invoice_no':valid_line.supplier_invoice_no,
+
+      'supplier_id':valid_line.supplier_id.id,
+
+      'status':valid_line.status})
+
+      
+
+    con_update = env['consignment_header'].search([('id', '=', valid_line.consignment_id.id)],limit=1)
+
+    if con_update:
+
+      con_update.write({'consolidated': True}) 
+
+      
+
+if select == 0:
+
+ raise UserError("Atleast One Line Should be Selected to Proceed.")
+
+ 
+
+header_update = env['con_consolidated_hea'].search([('id', '=', record.consolidated_header_id.id)],limit=1)
+
+if header_update:
+
+  header_update.write({'lines_copied': True}) 
+
+
+
+temp_rec = env['temp_con_consolidate'].search([('id', '=', record.id)],limit=1)
+
+if temp_rec:
+
+  temp_rec.unlink()
+
+
+
+]]></field>
+  </record>
+  <record id="server_action_1419_imp_clear_all_in_copy_po_lines" model="ir.actions.server">
+    <field name="name">IMP - Clear All in Copy PO Lines</field>
+    <field name="model_id" search="[('model', '=', 'temp_con_consolidate')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[if record.id:
+
+  pi_lines=[]
+
+  con_lines = env['temp_con_conso_line'].search([('temp_consolidated_header_id', '=', record.id)])
+
+  if con_lines:
+
+    for update_lines in con_lines:
+
+      pi_lines.append([0,0,{
+
+        'accounting_select':False,
+
+        'consignment_id':update_lines.consignment_id.id,
+
+        'container_no':update_lines.container_no,
+
+        'accounting_currency_id':update_lines.accounting_currency_id.id,
+
+        'custom_clearance_no':update_lines.custom_clearance_no,
+
+        'delivery_term':update_lines.delivery_term.id,
+
+        'accounting_invoice_date':update_lines.accounting_invoice_date,
+
+        'shipment_start_date':update_lines.shipment_start_date,
+
+        'shipping_mode':update_lines.shipping_mode,
+
+        'supplier_invoice_no':update_lines.supplier_invoice_no,
+
+        'supplier_id':update_lines.supplier_id.id,
+
+        'status':update_lines.status}])
+
+        
+
+  ctx = env.context
+
+  ctx.update({'default_consolidated_header_id':record.consolidated_header_id.id,'default_select_all':False,'default_con_lines':pi_lines})
+
+  action = {
+
+            'name': 'Copy PIs',
+
+            'type': 'ir.actions.act_window',
+
+            'res_model': 'temp_con_consolidate',
+
+            'view_mode': 'form',
+
+            'view_type': 'form',
+
+            'target': 'new',
+
+#            'res_id': record.id,
+
+            'context': ctx,
+
+            }  
+
+      
+
+
+
+]]></field>
+  </record>
+  <record id="server_action_1417_imp_select_all_in_copy_pi_lines" model="ir.actions.server">
+    <field name="name">IMP - Select All in Copy PI Lines</field>
+    <field name="model_id" search="[('model', '=', 'temp_con_consolidate')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[if record.id:
+
+  pi_lines=[]
+
+  con_lines = env['temp_con_conso_line'].search([('temp_consolidated_header_id', '=', record.id)])
+
+  if con_lines:
+
+    for update_lines in con_lines:
+
+      pi_lines.append([0,0,{
+
+        'accounting_select':True,
+
+        'consignment_id':update_lines.consignment_id.id,
+
+        'container_no':update_lines.container_no,
+
+        'accounting_currency_id':update_lines.accounting_currency_id.id,
+
+        'custom_clearance_no':update_lines.custom_clearance_no,
+
+        'delivery_term':update_lines.delivery_term.id,
+
+        'accounting_invoice_date':update_lines.accounting_invoice_date,
+
+        'shipment_start_date':update_lines.shipment_start_date,
+
+        'shipping_mode':update_lines.shipping_mode,
+
+        'supplier_invoice_no':update_lines.supplier_invoice_no,
+
+        'supplier_id':update_lines.supplier_id.id,
+
+        'status':update_lines.status}])
+
+        
+
+  ctx = env.context
+
+  ctx.update({'default_consolidated_header_id':record.consolidated_header_id.id,'default_select_all':True,'default_con_lines':pi_lines})
+
+  action = {
+
+            'name': 'Copy PIs',
+
+            'type': 'ir.actions.act_window',
+
+            'res_model': 'temp_con_consolidate',
+
+            'view_mode': 'form',
+
+            'view_type': 'form',
+
+            'target': 'new',
+
+#            'res_id': record.id,
+
+            'context': ctx,
+
+            }  
+
+      
+
+
+
+]]></field>
+  </record>
+    <data noupdate="1">
+    <!-- DROPPED default_205_x_con_consolidated_hea_x_studio_pipeline_status_: selection value 'Draft' not in field allowed set -->
+<!-- DROPPED default_206_x_con_consolidated_hea_status: selection value 'Draft' not in field allowed set -->
+<record id="default_208_x_temp_con_consolidate_sequence" model="ir.default">
+      <field name="field_id" ref="BugFix-Stock.field_temp_con_consolidate__sequence"/>
+      <field name="json_value">10</field>
+    </record>
+    </data>
+</odoo>

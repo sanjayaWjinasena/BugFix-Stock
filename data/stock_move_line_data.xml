@@ -7,17 +7,17 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
     <field name="code"><![CDATA[if record.state == 'progress':
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Slow Moving Items')],limit=1)
+  rpt_id= env['sales_report_type'].search([('report_code', '=', 'Slow Moving Items')],limit=1)
   if rpt_id:
-   record['x_studio_report_type_slow_moving_items'] = rpt_id.id
+   record['report_type_slow_moving_items'] = rpt_id.id
    
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
+  rpt_id= env['sales_report_type'].search([('report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
   if rpt_id:
-   record['x_studio_report_type_sales_prod_purch'] = rpt_id.id
+   record['report_type_sales_prod_purch'] = rpt_id.id
    
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Production Summary - Split')],limit=1)
+  rpt_id= env['sales_report_type'].search([('report_code', '=', 'Production Summary - Split')],limit=1)
   if rpt_id:
-   record['x_studio_report_type_production_summary_split'] = rpt_id.id
+   record['report_type_production_summary_split'] = rpt_id.id
    
   ]]></field>
   </record>
@@ -28,7 +28,7 @@
     <field name="usage">base_automation</field>
     <field name="binding_view_types">list,form</field>
     <field name="code"><![CDATA[if record.state == 'progress':
-  rpt_id= env['x_sales_report_type'].search([('x_studio_report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
+  rpt_id= env['sales_report_type'].search([('report_code', '=', 'Sales - Production - Purchase Report')],limit=1)
   if rpt_id:
    record['Sales - Production - Purchase Report'] = rpt_id.id]]></field>
   </record>
@@ -37,7 +37,7 @@
     <field name="active" eval="True"/>
     <field name="model_id" search="[('model', '=', 'stock.move.line')]"/>
     <field name="trigger">on_create_or_write</field>
-    <!-- on_change_field_ids ref to BugFix-Accounting.field_x_sales_report_model__x_studio_as_on_date
+    <!-- on_change_field_ids ref to BugFix-Accounting.field_sales_report_model__as_on_date
          removed to break Stock↔Accounting install-time cycle. Restore post-install. -->
     <field name="on_change_field_ids" eval="[(5, 0, 0)]"/>
     <field name="filter_domain">[]</field>

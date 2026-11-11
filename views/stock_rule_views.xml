@@ -17,8 +17,8 @@
                 </p>
             </field>
   </record>
-  <!-- v118: x_studio_delivery_term (x2) / x_studio_structure_details_line_ids / x_studio_structure_master_id /
-       x_studio_payment_method / x_studio_structure_name nodes moved to BugFix-Purchase
+  <!-- v118: delivery_term (x2) / structure_details_line_ids / structure_master_id /
+       payment_method / structure_name nodes moved to BugFix-Purchase
        views/upstream_link_fields_views.xml. -->
   <record id="ported_view_6071_odoo_studio_stock_rule_tree_customizatio" model="ir.ui.view">
     <field name="name">Odoo Studio: stock.rule.tree customization</field>

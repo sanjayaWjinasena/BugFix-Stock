@@ -4,61 +4,61 @@ from odoo import fields, models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    x_studio_analytic_account = fields.Many2one(
+    analytic_account = fields.Many2one(
         "account.analytic.account", string="Analytic Account", readonly=True
     )
-    x_studio_budget_created = fields.Boolean(string="Budget Created", readonly=True)
+    budget_created = fields.Boolean(string="Budget Created", readonly=True)
     cancelled = fields.Boolean(string="Cancelled", readonly=True)
     cash_full_payment_made = fields.Boolean(
         string="Cash Full Payment Made", readonly=True, store=False
     )
-    x_studio_consignment_no = fields.Many2one(
-        "x_consignment_header", string="Consignment No"
+    consignment_no = fields.Many2one(
+        "consignment_header", string="Consignment No"
     )
     created_from_help_ticket = fields.Many2one(
         "helpdesk.ticket", string="Created from Help Ticket"
     )
-    x_studio_created_from_material_request_no = fields.Many2one(
-        "x_material_request", string="Created from Material Request No"
+    created_from_material_request_no = fields.Many2one(
+        "material_request", string="Created from Material Request No"
     )
-    x_studio_custom_clearance_no = fields.Char(
+    custom_clearance_no = fields.Char(
         string="Custom Clearance No", readonly=True
     )
-    x_studio_factory_repair = fields.Boolean(string="Factory Repair")
+    factory_repair = fields.Boolean(string="Factory Repair")
     fsm_task_done = fields.Boolean(string="FSM Task Done", readonly=True, store=False)
     fully_paid_so = fields.Boolean(string="Fully Paid SO", readonly=True, store=False)
-    x_studio_gl_account_status = fields.Selection(
+    gl_account_status = fields.Selection(
         [("Pending", "Pending"), ("Updated", "Updated")], string="G/L Account Status"
     )
     helpdesk_ticket_id = fields.Many2one("helpdesk.ticket", string="Helpdesk Ticket Id")
-    x_studio_journal_type = fields.Many2one("x_journal_types", string="Journal Type")
-    x_studio_maintenance_request_ = fields.Many2one(
+    journal_type = fields.Many2one("journal_types", string="Journal Type")
+    maintenance_request_ = fields.Many2one(
         "maintenance.request", string="Maintenance Request #"
     )
     # Clear-DB: related to the operation type (stored, readonly). The port had dropped related=, so the
     # Movement Journal flags stayed False and the Journal Type field never showed on Movement Journal transfers.
-    x_studio_mj_in = fields.Boolean(
+    mj_in = fields.Boolean(
         string="MJ IN",
-        related="picking_type_id.x_studio_mj_in",
+        related="picking_type_id.mj_in",
         store=True,
         readonly=True,
     )
-    x_studio_mj_out = fields.Boolean(
+    mj_out = fields.Boolean(
         string="MJ OUT",
-        related="picking_type_id.x_studio_mj_out",
+        related="picking_type_id.mj_out",
         store=True,
         readonly=True,
     )
-    x_studio_movement_journal = fields.Boolean(
+    movement_journal = fields.Boolean(
         string="Movement Journal",
-        related="picking_type_id.x_studio_movement_journal",
+        related="picking_type_id.movement_journal",
         store=True,
         readonly=True,
     )
     need_approval = fields.Boolean(string="Need Approval", readonly=True, store=False)
-    x_studio_offset_account_updated = fields.Boolean(string="Offset Account Updated")
-    x_studio_picking_count = fields.Boolean(string="Picking Count")
-    x_studio_pr_type = fields.Selection(
+    offset_account_updated = fields.Boolean(string="Offset Account Updated")
+    picking_count = fields.Boolean(string="Picking Count")
+    pr_type = fields.Selection(
         [("Local", "Local"), ("Import", "Import")], string="PR Type", readonly=True
     )
     quotation_type = fields.Selection(
@@ -71,8 +71,8 @@ class StockPicking(models.Model):
         string="Quotation Type-2",
         readonly=True,
     )
-    x_studio_received_at_centre = fields.Boolean(string="Received at Centre")
-    x_studio_related_field_zZDiA = fields.Selection(
+    received_at_centre = fields.Boolean(string="Received at Centre")
+    related_field_zZDiA = fields.Selection(
         [("Sales", "Sales"), ("Project", "Project"), ("Repair", "Repair")],
         string="New Related Field",
         readonly=True,
@@ -90,36 +90,36 @@ class StockPicking(models.Model):
         "ir.sequence", string="Return Sequence", readonly=True
     )
     sales_order = fields.Many2one("sale.order", string="Sales Order")
-    x_studio_sequence_code = fields.Char(
+    sequence_code = fields.Char(
         string="Sequence Code",
         related="picking_type_id.sequence_code",
         store=True,
         readonly=True,
     )
-    x_studio_supplier_invoice_number = fields.Char(string="Supplier Invoice Number")
-    x_studio_supplier_invoice_number_1 = fields.Char(
+    supplier_invoice_number = fields.Char(string="Supplier Invoice Number")
+    supplier_invoice_number_1 = fields.Char(
         string="Supplier Invoice Number", readonly=True
     )
     task_status = fields.Boolean(string="Task Status", readonly=True, store=False)
     ticket_sales_order = fields.Many2one(
         "sale.order", string="Ticket Sales Order", readonly=True, store=False
     )
-    x_studio_transfer_approval = fields.Boolean(string="Transfer Approval")
-    x_studio_transfer_approved = fields.Boolean(string="Transfer Approved")
-    x_studio_transfer_rejected = fields.Boolean(string="Transfer Rejected")
-    x_studio_transfer_request_sent = fields.Boolean(string="Transfer Request Sent")
-    x_studio_ttt = fields.Boolean(string="TTT")
+    transfer_approval = fields.Boolean(string="Transfer Approval")
+    transfer_approved = fields.Boolean(string="Transfer Approved")
+    transfer_rejected = fields.Boolean(string="Transfer Rejected")
+    transfer_request_sent = fields.Boolean(string="Transfer Request Sent")
+    ttt = fields.Boolean(string="TTT")
     type_of_operation = fields.Selection(
         string="Type of Operation",
         readonly=True,
         related="picking_type_id.code",
         store=True,
     )
-    x_studio_update_consignment = fields.Boolean(string="Update Consignment")
+    update_consignment = fields.Boolean(string="Update Consignment")
     user_location_validation = fields.Boolean(
         string="User Location Validation", readonly=True, store=False
     )
-    x_studio_user_location_validation_2 = fields.Boolean(
+    user_location_validation_2 = fields.Boolean(
         string="User Location Validation 2"
     )
     valid_factory_repair = fields.Boolean(
@@ -129,18 +129,18 @@ class StockPicking(models.Model):
         string="Valid Transfer Lines", readonly=True, store=False
     )
     validation = fields.Char(string="Validation")
-    x_studio_xxx = fields.Boolean(string="XXX")
-    x_x_studio_create_from_transfer_1__account_move_count = fields.Integer(
+    xxx = fields.Boolean(string="XXX")
+    create_from_transfer_1__account_move_count = fields.Integer(
         string="Create From Transfer count", store=False
     )
-    x_x_studio_created_from_transfer__account_move_count = fields.Integer(
+    created_from_transfer__account_move_count = fields.Integer(
         string="Created From Transfer count", store=False
     )
 
     def _action_done(self):
         res = super()._action_done()
         for picking in self.filtered(
-            lambda p: p.state == "done" and p.x_studio_movement_journal
+            lambda p: p.state == "done" and p.movement_journal
         ):
             picking._apply_movement_journal_offset_account()
         return res
@@ -149,14 +149,14 @@ class StockPicking(models.Model):
         """Post the valuation of a Movement IN/OUT to the offset account of the Journal Type
         (replaces the interim Received / Delivered account line)."""
         self.ensure_one()
-        offset = self.x_studio_journal_type.x_studio_offset_account
-        if not offset or not (self.x_studio_mj_in or self.x_studio_mj_out):
+        offset = self.journal_type.offset_account
+        if not offset or not (self.mj_in or self.mj_out):
             return
         for move in self.move_ids:
             categ = move.product_id.categ_id
             interim = (
                 categ.property_stock_account_output_categ_id
-                if self.x_studio_mj_out
+                if self.mj_out
                 else categ.property_stock_account_input_categ_id
             )
             if not interim or interim == offset:
@@ -167,7 +167,7 @@ class StockPicking(models.Model):
                 lines.write({"account_id": offset.id})
         self.write(
             {
-                "x_studio_offset_account_updated": True,
-                "x_studio_gl_account_status": "Updated",
+                "offset_account_updated": True,
+                "gl_account_status": "Updated",
             }
         )

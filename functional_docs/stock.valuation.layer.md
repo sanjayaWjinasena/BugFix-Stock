@@ -18,10 +18,10 @@ This repo adds related From and To locations and destination warehouse fields to
 
 | Field | Label | Type | Function | How it gets its value | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| `x_studio_related_field_MfcOm` | New Related Field | char | Short code of the destination warehouse of the layer's stock move (related); not used by any view or logic. | related `stock_move_id.location_dest_id.warehouse_id.code`; not stored | `stock.location.warehouse_id` (stock)<br>`stock.move.location_dest_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account)<br>`stock.warehouse.code` (stock) |  |
-| `x_studio_related_field_bPlxa` | From | many2one → `stock.location` | Source location of the valuation layer's stock move (related `stock_move_id.location_id`); shown as 'From' in the valuation list. | related `stock_move_id.location_id`; stored | `model stock.location` (stock)<br>`stock.move.location_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account) | `view BugFix-Stock.ported_view_2585_studio_stock_valuation_layer_tree` |
-| `x_studio_related_field_dGINH` | New Related Field | many2one → `stock.warehouse` | Destination warehouse of the layer's stock move (related `stock_move_id.location_dest_id.warehouse_id`); not used by any view or logic. | related `stock_move_id.location_dest_id.warehouse_id`; not stored | `model stock.warehouse` (stock)<br>`stock.location.warehouse_id` (stock)<br>`stock.move.location_dest_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account) |  |
-| `x_studio_related_field_ygmmJ` | To | many2one → `stock.location` | Destination location of the valuation layer's stock move (related `stock_move_id.location_dest_id`); shown as 'To' in the valuation list. | related `stock_move_id.location_dest_id`; stored | `model stock.location` (stock)<br>`stock.move.location_dest_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account) | `view BugFix-Stock.ported_view_2585_studio_stock_valuation_layer_tree` |
+| `related_field_MfcOm` | New Related Field | char | Short code of the destination warehouse of the layer's stock move (related); not used by any view or logic. | related `stock_move_id.location_dest_id.warehouse_id.code`; not stored | `stock.location.warehouse_id` (stock)<br>`stock.move.location_dest_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account)<br>`stock.warehouse.code` (stock) |  |
+| `related_field_bPlxa` | From | many2one → `stock.location` | Source location of the valuation layer's stock move (related `stock_move_id.location_id`); shown as 'From' in the valuation list. | related `stock_move_id.location_id`; stored | `model stock.location` (stock)<br>`stock.move.location_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account) | `view BugFix-Stock.ported_view_2585_studio_stock_valuation_layer_tree` |
+| `related_field_dGINH` | New Related Field | many2one → `stock.warehouse` | Destination warehouse of the layer's stock move (related `stock_move_id.location_dest_id.warehouse_id`); not used by any view or logic. | related `stock_move_id.location_dest_id.warehouse_id`; not stored | `model stock.warehouse` (stock)<br>`stock.location.warehouse_id` (stock)<br>`stock.move.location_dest_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account) |  |
+| `related_field_ygmmJ` | To | many2one → `stock.location` | Destination location of the valuation layer's stock move (related `stock_move_id.location_dest_id`); shown as 'To' in the valuation list. | related `stock_move_id.location_dest_id`; stored | `model stock.location` (stock)<br>`stock.move.location_dest_id` (stock)<br>`stock.valuation.layer.stock_move_id` (stock_account) | `view BugFix-Stock.ported_view_2585_studio_stock_valuation_layer_tree` |
 
 **Server actions (3):**
 
@@ -31,7 +31,7 @@ This repo adds related From and To locations and destination warehouse fields to
   - Used by: — (not linked to a button, menu or automation)
 - **Work Center Costing Model - Create Journal Entries** (`server_action_1138_work_center_costing_model_create_journal_entries`, type `code`)
   - Function: For a finished-product valuation layer from a manufacturing order, creates and posts journal entries (journal id 6) for labour, labour OT and overhead costs using accounts and analytic tags from Work Center Costing record 1. Not referenced by any automation here.
-  - Depends on: `model account.move` (account), `model mrp.bom` (mrp), `model mrp.production` (mrp), `model stock.move` (stock), `model stock.valuation.layer` (stock_account)<details><summary>+3 more</summary>`model x_work_center_costing` (BugFix-Studio-Misc), `stock.valuation.layer.product_tmpl_id` (stock_account), `stock.valuation.layer.stock_move_id` (stock_account)</details>
+  - Depends on: `model account.move` (account), `model mrp.bom` (mrp), `model mrp.production` (mrp), `model stock.move` (stock), `model stock.valuation.layer` (stock_account)<details><summary>+3 more</summary>`model work_center_costing` (BugFix-Studio-Misc), `stock.valuation.layer.product_tmpl_id` (stock_account), `stock.valuation.layer.stock_move_id` (stock_account)</details>
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (116 lines)</summary>
 
@@ -59,32 +59,32 @@ if record.product_tmpl_id:
                 )
                 if prod_order:
                     ##########################JC
-                    work_center_costing = env["x_work_center_costing"].search(
+                    work_center_costing = env["work_center_costing"].search(
                         [("id", "=", 1)], limit=1
                     )
                     if work_center_costing:
                         if (
-                            prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot
+                            prod_order.prod_bom_total_actual_labour_cost_without_ot
                             > 0.0000
                         ):
                             cost_lines = []
-                            # ids =[work_center_costing.x_studio_labour_analytic_tag.id]
-                            if work_center_costing.x_studio_labour_analytic_tag != []:
+                            # ids =[work_center_costing.labour_analytic_tag.id]
+                            if work_center_costing.labour_analytic_tag != []:
                                 for (
                                     idds
-                                ) in work_center_costing.x_studio_labour_analytic_tag:
+                                ) in work_center_costing.labour_analytic_tag:
                                     ids.append(idds.id)
                             cost_lines.append(
                                 [
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_labour_cost_debit_account.id,
+                                        "account_id": work_center_costing.labour_cost_debit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Labour Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids)],
-                                        "debit": prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot,
+                                        "debit": prod_order.prod_bom_total_actual_labour_cost_without_ot,
                                     },
                                 ]
                             )
@@ -94,12 +94,12 @@ if record.product_tmpl_id:
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_labour_cost_credit_account.id,
+                                        "account_id": work_center_costing.labour_cost_credit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Labour Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids)],
-                                        "credit": prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot,
+                                        "credit": prod_order.prod_bom_total_actual_labour_cost_without_ot,
                                     },
                                 ]
                             )
@@ -122,27 +122,27 @@ if record.product_tmpl_id:
                             #######
                         ######## - OT - Begin
                         if (
-                            prod_order.x_studio_prod_bom_total_actual_labour_cost_ot
+                            prod_order.prod_bom_total_actual_labour_cost_ot
                             > 0.0000
                         ):
                             cost_lines4 = []
-                            # ids4 =[work_center_costing.x_studio_labour_analytic_tag.id]
-                            if work_center_costing.x_studio_labour_analytic_tag != []:
+                            # ids4 =[work_center_costing.labour_analytic_tag.id]
+                            if work_center_costing.labour_analytic_tag != []:
                                 for (
                                     idds
-                                ) in work_center_costing.x_studio_labour_analytic_tag:
+                                ) in work_center_costing.labour_analytic_tag:
                                     ids4.append(idds.id)
                             cost_lines4.append(
                                 [
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_labour_ot_cost_debit_account.id,
+                                        "account_id": work_center_costing.labour_ot_cost_debit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Labour Cost - OT"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids4)],
-                                        "debit": prod_order.x_studio_prod_bom_total_actual_labour_cost_ot,
+                                        "debit": prod_order.prod_bom_total_actual_labour_cost_ot,
                                     },
                                 ]
                             )
@@ -152,12 +152,12 @@ if record.product_tmpl_id:
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_labour_ot_cost_credit_account.id,
+                                        "account_id": work_center_costing.labour_ot_cost_credit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Labour Cost - OT"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids4)],
-                                        "credit": prod_order.x_studio_prod_bom_total_actual_labour_cost_ot,
+                                        "credit": prod_order.prod_bom_total_actual_labour_cost_ot,
                                     },
                                 ]
                             )
@@ -183,27 +183,27 @@ if record.product_tmpl_id:
                         ######## - OT - End
                         ########
                         if (
-                            prod_order.x_studio_prod_bom_total_actual_overhead_cost
+                            prod_order.prod_bom_total_actual_overhead_cost
                             > 0.0000
                         ):
                             cost_lines2 = []
-                            # ids2 =[work_center_costing.x_studio_overhead_analytic_tag.id]
-                            if work_center_costing.x_studio_overhead_analytic_tag != []:
+                            # ids2 =[work_center_costing.overhead_analytic_tag.id]
+                            if work_center_costing.overhead_analytic_tag != []:
                                 for (
                                     idds2
-                                ) in work_center_costing.x_studio_overhead_analytic_tag:
+                                ) in work_center_costing.overhead_analytic_tag:
                                     ids2.append(idds2.id)
                             cost_lines2.append(
                                 [
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_overhead_cost_debit_account.id,
+                                        "account_id": work_center_costing.overhead_cost_debit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Overhead Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids2)],
-                                        "debit": prod_order.x_studio_prod_bom_total_actual_overhead_cost,
+                                        "debit": prod_order.prod_bom_total_actual_overhead_cost,
                                     },
                                 ]
                             )
@@ -213,12 +213,12 @@ if record.product_tmpl_id:
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_overhead_cost_credit_account.id,
+                                        "account_id": work_center_costing.overhead_cost_credit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Overhead Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids2)],
-                                        "credit": prod_order.x_studio_prod_bom_total_actual_overhead_cost,
+                                        "credit": prod_order.prod_bom_total_actual_overhead_cost,
                                     },
                                 ]
                             )
@@ -240,25 +240,25 @@ if record.product_tmpl_id:
                                 update_overhead_cost_entry.write({"state": "posted"})
                             #######
                         ########
-                        if prod_order.x_studio_total_actual_general_cost > 0.0000:
+                        if prod_order.total_actual_general_cost > 0.0000:
                             cost_lines3 = []
-                            # ids3 =[work_center_costing.x_studio_general_analytic_tag.id]
-                            if work_center_costing.x_studio_general_analytic_tag != []:
+                            # ids3 =[work_center_costing.general_analytic_tag.id]
+                            if work_center_costing.general_analytic_tag != []:
                                 for (
                                     idds3
-                                ) in work_center_costing.x_studio_general_analytic_tag:
+                                ) in work_center_costing.general_analytic_tag:
                                     ids3.append(idds3.id)
                             cost_lines3.append(
                                 [
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_general_cost_debit_account.id,
+                                        "account_id": work_center_costing.general_cost_debit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "General Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids3)],
-                                        "debit": prod_order.x_studio_total_actual_general_cost,
+                                        "debit": prod_order.total_actual_general_cost,
                                     },
                                 ]
                             )
@@ -268,12 +268,12 @@ if record.product_tmpl_id:
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_general_cost_credit_account.id,
+                                        "account_id": work_center_costing.general_cost_credit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "General Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids3)],
-                                        "credit": prod_order.x_studio_total_actual_general_cost,
+                                        "credit": prod_order.total_actual_general_cost,
                                     },
                                 ]
                             )
@@ -299,7 +299,7 @@ if record.product_tmpl_id:
   </details>
 - **Work Center Costing Model - Create Journal Entries - Original** (`server_action_2566_work_center_costing_model_create_journal_entries_original`, type `code`)
   - Function: Older 'Original' version of the work-center costing action: posts labour and overhead journal entries (no separate OT entry) for a manufacturing order's valuation layer. Not referenced by any automation here.
-  - Depends on: `model account.move` (account), `model mrp.bom` (mrp), `model mrp.production` (mrp), `model stock.move` (stock), `model stock.valuation.layer` (stock_account)<details><summary>+3 more</summary>`model x_work_center_costing` (BugFix-Studio-Misc), `stock.valuation.layer.product_tmpl_id` (stock_account), `stock.valuation.layer.stock_move_id` (stock_account)</details>
+  - Depends on: `model account.move` (account), `model mrp.bom` (mrp), `model mrp.production` (mrp), `model stock.move` (stock), `model stock.valuation.layer` (stock_account)<details><summary>+3 more</summary>`model work_center_costing` (BugFix-Studio-Misc), `stock.valuation.layer.product_tmpl_id` (stock_account), `stock.valuation.layer.stock_move_id` (stock_account)</details>
   - Used by: — (not linked to a button, menu or automation)
   <details><summary>code (89 lines)</summary>
 
@@ -326,32 +326,32 @@ if record.product_tmpl_id:
                 )
                 if prod_order:
                     ##########################JC
-                    work_center_costing = env["x_work_center_costing"].search(
+                    work_center_costing = env["work_center_costing"].search(
                         [("id", "=", 1)], limit=1
                     )
                     if work_center_costing:
                         if (
-                            prod_order.x_studio_prod_bom_total_actual_labour_cost
+                            prod_order.prod_bom_total_actual_labour_cost
                             > 0.0000
                         ):
                             cost_lines = []
-                            # ids =[work_center_costing.x_studio_labour_analytic_tag.id]
-                            if work_center_costing.x_studio_labour_analytic_tag != []:
+                            # ids =[work_center_costing.labour_analytic_tag.id]
+                            if work_center_costing.labour_analytic_tag != []:
                                 for (
                                     idds
-                                ) in work_center_costing.x_studio_labour_analytic_tag:
+                                ) in work_center_costing.labour_analytic_tag:
                                     ids.append(idds.id)
                             cost_lines.append(
                                 [
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_labour_cost_debit_account.id,
+                                        "account_id": work_center_costing.labour_cost_debit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Labour Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids)],
-                                        "debit": prod_order.x_studio_prod_bom_total_actual_labour_cost,
+                                        "debit": prod_order.prod_bom_total_actual_labour_cost,
                                     },
                                 ]
                             )
@@ -361,12 +361,12 @@ if record.product_tmpl_id:
                                     0,
                                     0,
                                     {
-                                        "account_id": work_center_costing.x_studio_labour_cost_credit_account.id,
+                                        "account_id": work_center_costing.labour_cost_credit_account.id,
                                         "name": (
                                             prod_order.name + " - " + "Labour Cost"
                                         ),
                                         "analytic_tag_ids": [(6, 0, ids)],
-                                        "credit": prod_order.x_studio_prod_bom_total_actual_labour_cost,
+                                        "credit": prod_order.prod_bom_total_actual_labour_cost,
                                     },
                                 ]
                             )
@@ -388,23 +388,23 @@ if record.product_tmpl_id:
                                 update_labour_cost_entry.write({"state": "posted"})
                             #######
                     ########
-                    if prod_order.x_studio_prod_bom_total_actual_overhead_cost > 0.0000:
+                    if prod_order.prod_bom_total_actual_overhead_cost > 0.0000:
                         cost_lines2 = []
-                        # ids2 =[work_center_costing.x_studio_overhead_analytic_tag.id]
-                        if work_center_costing.x_studio_overhead_analytic_tag != []:
+                        # ids2 =[work_center_costing.overhead_analytic_tag.id]
+                        if work_center_costing.overhead_analytic_tag != []:
                             for (
                                 idds2
-                            ) in work_center_costing.x_studio_overhead_analytic_tag:
+                            ) in work_center_costing.overhead_analytic_tag:
                                 ids2.append(idds2.id)
                         cost_lines2.append(
                             [
                                 0,
                                 0,
                                 {
-                                    "account_id": work_center_costing.x_studio_overhead_cost_debit_account.id,
+                                    "account_id": work_center_costing.overhead_cost_debit_account.id,
                                     "name": (prod_order.name + " - " + "Overhead Cost"),
                                     "analytic_tag_ids": [(6, 0, ids2)],
-                                    "debit": prod_order.x_studio_prod_bom_total_actual_overhead_cost,
+                                    "debit": prod_order.prod_bom_total_actual_overhead_cost,
                                 },
                             ]
                         )
@@ -414,10 +414,10 @@ if record.product_tmpl_id:
                                 0,
                                 0,
                                 {
-                                    "account_id": work_center_costing.x_studio_overhead_cost_credit_account.id,
+                                    "account_id": work_center_costing.overhead_cost_credit_account.id,
                                     "name": (prod_order.name + " - " + "Overhead Cost"),
                                     "analytic_tag_ids": [(6, 0, ids2)],
-                                    "credit": prod_order.x_studio_prod_bom_total_actual_overhead_cost,
+                                    "credit": prod_order.prod_bom_total_actual_overhead_cost,
                                 },
                             ]
                         )
@@ -439,23 +439,23 @@ if record.product_tmpl_id:
                             update_overhead_cost_entry.write({"state": "posted"})
                         #######
                     ########
-                    if prod_order.x_studio_total_actual_general_cost > 0.0000:
+                    if prod_order.total_actual_general_cost > 0.0000:
                         cost_lines3 = []
-                        # ids3 =[work_center_costing.x_studio_general_analytic_tag.id]
-                        if work_center_costing.x_studio_general_analytic_tag != []:
+                        # ids3 =[work_center_costing.general_analytic_tag.id]
+                        if work_center_costing.general_analytic_tag != []:
                             for (
                                 idds3
-                            ) in work_center_costing.x_studio_general_analytic_tag:
+                            ) in work_center_costing.general_analytic_tag:
                                 ids3.append(idds3.id)
                         cost_lines3.append(
                             [
                                 0,
                                 0,
                                 {
-                                    "account_id": work_center_costing.x_studio_general_cost_debit_account.id,
+                                    "account_id": work_center_costing.general_cost_debit_account.id,
                                     "name": (prod_order.name + " - " + "General Cost"),
                                     "analytic_tag_ids": [(6, 0, ids3)],
-                                    "debit": prod_order.x_studio_total_actual_general_cost,
+                                    "debit": prod_order.total_actual_general_cost,
                                 },
                             ]
                         )
@@ -465,10 +465,10 @@ if record.product_tmpl_id:
                                 0,
                                 0,
                                 {
-                                    "account_id": work_center_costing.x_studio_general_cost_credit_account.id,
+                                    "account_id": work_center_costing.general_cost_credit_account.id,
                                     "name": (prod_order.name + " - " + "General Cost"),
                                     "analytic_tag_ids": [(6, 0, ids3)],
-                                    "credit": prod_order.x_studio_total_actual_general_cost,
+                                    "credit": prod_order.total_actual_general_cost,
                                 },
                             ]
                         )
@@ -510,7 +510,7 @@ if record.product_tmpl_id:
 
 | Name | Record name | Type | What it changes | Function | Depends on | Used by |
 |---|---|---|---|---|---|---|
-| Odoo Studio: stock.valuation.layer.tree customization | `ported_view_2585_studio_stock_valuation_layer_tree` | tree | after `//field[@name='create_date']`: add field x_studio_related_field_bPlxa, field x_studio_related_field_ygmmJ; after `//tree[1]/field[@name='product_id']`: add field description; set string=Total Quantity, sum=Sum of Quantity, widget=monetary on `//field[@name='quantity']`; after `//field[@name='uom_id']`: add field unit_cost; after `//field[@name='value']`: add field remaining_value, field account_move_id, field id | Adds From/To location, description, unit cost, remaining value, journal entry and ID columns to the Stock Valuation list and totals Quantity (labelled Total Quantity). | `stock.valuation.layer.account_move_id` (stock_account)<br>`stock.valuation.layer.description` (stock_account)<br>`stock.valuation.layer.remaining_value` (stock_account)<br>`stock.valuation.layer.unit_cost` (stock_account)<br>`stock.valuation.layer.x_studio_related_field_bPlxa`<details><summary>+2 more</summary>`stock.valuation.layer.x_studio_related_field_ygmmJ`<br>`view stock_account.stock_valuation_layer_tree` (stock_account)</details> |  |
+| Odoo Studio: stock.valuation.layer.tree customization | `ported_view_2585_studio_stock_valuation_layer_tree` | tree | after `//field[@name='create_date']`: add field related_field_bPlxa, field related_field_ygmmJ; after `//tree[1]/field[@name='product_id']`: add field description; set string=Total Quantity, sum=Sum of Quantity, widget=monetary on `//field[@name='quantity']`; after `//field[@name='uom_id']`: add field unit_cost; after `//field[@name='value']`: add field remaining_value, field account_move_id, field id | Adds From/To location, description, unit cost, remaining value, journal entry and ID columns to the Stock Valuation list and totals Quantity (labelled Total Quantity). | `stock.valuation.layer.account_move_id` (stock_account)<br>`stock.valuation.layer.description` (stock_account)<br>`stock.valuation.layer.remaining_value` (stock_account)<br>`stock.valuation.layer.unit_cost` (stock_account)<br>`stock.valuation.layer.related_field_bPlxa`<details><summary>+2 more</summary>`stock.valuation.layer.related_field_ygmmJ`<br>`view stock_account.stock_valuation_layer_tree` (stock_account)</details> |  |
 
 **Record rules (1):**
 

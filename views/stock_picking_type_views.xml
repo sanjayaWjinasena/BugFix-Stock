@@ -46,9 +46,9 @@
                 <attribute name="groups"/>
               </xpath>
               <xpath expr="//field[@name='create_backorder']" position="after">
-                <field name="x_studio_movement_journal" string="Movement Journal"/>
-                <field name="x_studio_mj_out" string="MJ OUT"/>
-                <field name="x_studio_mj_in" string="MJ IN"/>
+                <field name="movement_journal" string="Movement Journal"/>
+                <field name="mj_out" string="MJ OUT"/>
+                <field name="mj_in" string="MJ IN"/>
               </xpath>
             </data>
         </field>

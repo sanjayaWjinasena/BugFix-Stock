@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- 75 act_windows ports for BugFix-Stock (auto-generated from Clear-DB snapshot) -->
+  <record id="action_1661_consignment_lines" model="ir.actions.act_window">
+    <field name="name">CONSIGNMENT LINES</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2863_consignment_line_consignment_line" model="ir.actions.act_window">
+    <field name="name">Consignment Line (consignment_line)</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2853_consignment_line_consignment_line" model="ir.actions.act_window">
+    <field name="name">Consignment Line (consignment_line)</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1664_consignment_lines" model="ir.actions.act_window">
+    <field name="name">Consignment Lines</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2857_consignment_lines" model="ir.actions.act_window">
+    <field name="name">Consignment Lines</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1257_purchase_invoice_line" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Line</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1663_purchase_invoice_line" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Line</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_1662_purchase_invoice_lines" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Lines</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2886_purchase_invoice_lines" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Lines</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2053_purchase_invoice_lines" model="ir.actions.act_window">
+    <field name="name">Purchase Invoice Lines</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <record id="action_2801_consignment_line" model="ir.actions.act_window">
+    <field name="name">consignment_line</field>
+    <field name="res_model">consignment_line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+    <record id="ported_view_2813_default_list_view_for_consignment_line" model="ir.ui.view">
+        <field name="name">Default list view for consignment_line</field>
+        <field name="model">consignment_line</field>
+        <field name="type">tree</field>
+        <field name="priority">16</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree>
+              <field name="sequence" widget="handle"/>
+              <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ported_view_2814_default_form_view_for_consignment_line" model="ir.ui.view">
+        <field name="name">Default form view for consignment_line</field>
+        <field name="model">consignment_line</field>
+        <field name="type">form</field>
+        <field name="priority">16</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+              <header/>
+              <sheet string="Consignment Line">
+                <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+                <field name="active" invisible="1"/>
+                <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1" placeholder="Name..."/>
+                            </h1>
+                        </div>
+                <group name="studio_group_0644e6">
+                  <group name="studio_group_0644e6_left"/>
+                  <group name="studio_group_0644e6_right"/>
+                </group>
+              </sheet>
+              <!-- v0.0.16: oe_chatter block stripped: consignment_line does not inherit mail.thread/activity.mixin -->
+            </form>
+        </field>
+    </record>
+    <record id="ported_view_2817_studio_form_consignment_line" model="ir.ui.view">
+        <field name="name">Odoo Studio: Default form view for consignment_line customization</field>
+        <field name="model">consignment_line</field>
+        <field name="type">form</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="BugFix-Stock.ported_view_2814_default_form_view_for_consignment_line"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute></xpath>
+              <xpath expr="//group[@name='studio_group_0644e6_left']" position="inside">
+                <field name="accounting_purchase_id"/>
+                <field name="product_id"/>
+                <field name="description" string="Description"/>
+                <field name="warehouse" string="Warehouse"/>
+                <field name="tariff_code" string="Tariff Code"/>
+                <field name="consignment_header_id" string="Consignment Header Id" invisible="1"/>
+              </xpath>
+              <xpath expr="//group[@name='studio_group_0644e6_right']" position="inside">
+                <field name="currency_id"/>
+                <field name="invoice_qty" string="Invoice Qty."/>
+                <field name="unit_price" string="Unit Price"/>
+                <field name="amount" string="Amount"/>
+                <field name="received_qty" string="Received Qty."/>
+                <field name="status" string="Status"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+    <record id="ported_view_2818_studio_tree_consignment_line" model="ir.ui.view">
+        <field name="name">Odoo Studio: Default list view for consignment_line customization</field>
+        <field name="model">consignment_line</field>
+        <field name="type">tree</field>
+        <field name="priority">99</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="BugFix-Stock.ported_view_2813_default_list_view_for_consignment_line"/>
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//tree[1]" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="default_order">consignment_header_id desc</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="edit">true</attribute>
+                <attribute name="editable">bottom</attribute>
+              </xpath>
+              <xpath expr="//field[@name='sequence']" position="before">
+                <field name="consignment_header_id" string="Consignment No" readonly="1"/>
+                <field name="accounting_purchase_id" readonly="1"/>
+                <field name="indent_no" string="Indent No"/>
+                <field name="product_id" readonly="1"/>
+                <field name="description" readonly="1"/>
+                <field name="tariff_code" readonly="1"/>
+                <field name="warehouse" readonly="1"/>
+                <field name="invoice_qty" readonly="1"/>
+                <field name="received_qty" optional="hide" readonly="1"/>
+                <field name="unit_price" readonly="1"/>
+                <field name="amount" readonly="1"/>
+                <field optional="show" name="accounting_company_id" string="Company" column_invisible="1"/>
+                <field name="id"/>
+                <field optional="show" name="many2many_field_ZvmKu" string="tot_tax_ex_cd_ids"/>
+                <field optional="show" name="tot_charge_ids" string="tot_charge_ids" widget="many2many_tags"/>
+                <field optional="show" name="tot_duty_ids" string="tot_duty_ids"/>
+                <field optional="show" name="tot_tax_ids" string="tot_tax_ids"/>
+                <field optional="show" name="tot_charge_cd_ids" string="tot_charge_cd_ids"/>
+                <field optional="show" name="tot_duty_cd_ids" string="tot_duty_cd_ids"/>
+                <field optional="show" name="tot_tax_cd_ids" string="tot_tax_cd_ids"/>
+                <field optional="show" name="tot_charge_ex_ids" string="tot_charge_ex_ids"/>
+                <field optional="show" name="tot_duty_ex_ids" string="tot_duty_ex_ids"/>
+                <field optional="show" name="tot_tax_ex_ids"/>
+                <field optional="show" name="tot_charge_ex_cd_ids" string="tot_charge_ex_cd_ids"/>
+                <field optional="show" name="tot_duty_ex_cd_ids" string="tot_duty_ex_cd_ids"/>
+                <field optional="show" name="tot_tax_ex_cd_ids" string="tot_tax_ex_cd_ids"/>
+                <field name="currency_id" optional="hide" readonly="1"/>
+                <field name="status" optional="hide" readonly="1"/>
+              </xpath>
+              <xpath expr="//field[@name='sequence']" position="attributes">
+                <attribute name="column_invisible">1</attribute></xpath>
+              <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="column_invisible">1</attribute></xpath>
+            </data>
+        </field>
+    </record>
+    <record id="view_2815_default_search_view_for_x_consignment_line_e" model="ir.ui.view">
+      <field name="name">Default search view for consignment_line</field>
+      <field name="model">consignment_line</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="name"/>
+  <separator/>
+  <filter string="Archived" name="archived_consignment_line" domain="[['active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+</odoo>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="act_window_1562_material_request" model="ir.actions.act_window">
+    <field name="name">Material Request</field>
+    <field name="res_model">material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="act_window_1647_material_requests" model="ir.actions.act_window">
+    <field name="name">Material Requests</field>
+    <field name="res_model">material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('many2one_field_THFu6', '=', active_id)]</field>
+    <field name="context">{'search_default_many2one_field_THFu6': active_id,'default_many2one_field_THFu6': active_id}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create new document</p></field>
+  </record>
+  <record id="act_window_1648_material_requests" model="ir.actions.act_window">
+    <field name="name">Material Requests</field>
+    <field name="res_model">material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('many2one_field_THFu6', '=', active_id)]</field>
+    <field name="context">{'search_default_many2one_field_THFu6': active_id,'default_many2one_field_THFu6': active_id}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">Create new document</p></field>
+  </record>
+  <record id="act_window_2810_material_request" model="ir.actions.act_window">
+    <field name="name">material_request</field>
+    <field name="res_model">material_request</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{}</field>
+    <field name="help" type="html"><p class="o_view_nocontent_smiling_face">
+                    This is your new action.
+                </p>
+                <p>By default, it contains a list and a form view and possibly
+                    other view types depending on the options you chose for your model.
+                </p>
+                <p>
+                    You can start customizing these screens by clicking on the Studio icon on the
+                    top right corner (you can also customize this help message there).
+                </p>
+            </field>
+  </record>
+  <record id="ported_primary_3243_form_material_request" model="ir.ui.view">
+    <field name="name">Default form view for material_request</field>
+    <field name="model">material_request</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>  
+          <button type="action" name="%(BugFix-Stock.server_action_2391_reset_mr)d" string="Reset" invisible="(created_from_material_request_no_stock_picking_count != 0) or (selection_field_BupKG not in ['Confirmed', 'To Be Approved', 'Approved', 'Rejected'])"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2388_confirm_mr)d" string="Confirm" class="btn-primary" invisible="selection_field_BupKG not in ['Draft']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2394_request_approval_mr)d" string="Request approval" class="btn-primary" invisible="selection_field_BupKG not in ['Confirmed']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2397_approve_mr)d" string="Approve" class="btn-primary" invisible="selection_field_BupKG not in ['To Be Approved']"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2400_reject_mr)d" string="Reject" class="btn-primary" invisible="(created_from_material_request_no_stock_picking_count != 0) or (selection_field_BupKG not in ['To Be Approved', 'Approved'])"/>
+          <button type="action" name="%(BugFix-Stock.server_action_2406_create_material_transfer)d" string="Create Transfer" class="btn-primary" invisible="selection_field_BupKG not in ['Approved']"/>
+        </header>
+        <header/>
+        <sheet string="Material Request">
+          <field name="created_from_material_request_no_stock_picking_count" invisible="1"/><field name="selection_field_BupKG" invisible="1"/><widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+          <field name="active" invisible="1"/>
+          <div class="oe_title">
+                      <span class="o_form_label">Request Reference </span>
+                      <h1>
+                          <field name="name" required="1" placeholder="Name..."/>
+                      </h1>
+                  </div>
+          <group name="studio_group_8ed6cf">
+            <group name="studio_group_8ed6cf_left"/>
+            <group name="studio_group_8ed6cf_right"/>
+          </group>
+        </sheet>
+        <div class="oe_chatter" name="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+          <field name="activity_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+  <record id="ported_view_3245_odoo_studio_default_form_view_for_x_mate" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default form view for material_request customization</field>
+    <field name="model">material_request</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3243_form_material_request"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+          <xpath expr="//sheet" position="inside">
+            <field name="selection_field_BupKG" invisible="1"/>
+            <field name="created_from_material_request_no_stock_picking_count" invisible="1"/>
+          </xpath>
+
+        <xpath expr="//button[@name='%(BugFix-Stock.server_action_2400_reject_mr)d']" position="after">
+          <field widget="statusbar" name="selection_field_BupKG" string="State" force_save="True" readonly="1"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/widget[@name='web_ribbon']" position="before">
+          <div name="button_box" class="oe_button_box">
+            <button class="oe_stat_button" icon="fa-shopping-basket" type="action" name="%(BugFix-Stock.action_2409_transfers)d" invisible="created_from_material_request_no_stock_picking_count == 0">
+              <field widget="statinfo" name="created_from_material_request_no_stock_picking_count" string="Transfers"/>
+            </button>
+          </div>
+        </xpath>
+        <xpath expr="//field[@name='name']" position="attributes">
+          <attribute name="force_save">True</attribute>
+          <attribute name="readonly">1</attribute><attribute name="required"/></xpath>
+        <xpath expr="//group[@name='studio_group_8ed6cf_left']" position="inside">
+          <field name="warehouse" string="Warehouse" required="1" readonly="selection_field_BupKG != 'Draft'"/>
+          <field name="many2one_field_6f0Gc" readonly="selection_field_BupKG != 'Draft'"/>
+          <field name="notes" string="Notes" readonly="selection_field_BupKG != 'Draft'"/>
+          <field name="requested_date" string="Requested Date" required="1" readonly="selection_field_BupKG != 'Draft'"/>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_8ed6cf_right']" position="inside">
+          <field name="many2one_field_THFu6" invisible="0" string="Maintenance Request No" force_save="True" readonly="1"/>
+          <field name="journal_type" string="Journal Type" force_save="True" readonly="1"/>
+          <field name="create_uid" string="Created by" widget="many2one_avatar_user"/>
+          <field name="create_date" string="Created on"/>
+          <field name="requested_by" string="Requested By" widget="many2one_avatar_user" required="1" readonly="selection_field_BupKG != 'Draft'"/>
+          <field name="done_stage_updated" string="Done Stage Updated" force_save="True" readonly="1" invisible="1"/>
+          <field name="done" string="Done" force_save="True" readonly="1" invisible="1"/>
+        </xpath>
+        <xpath expr="//group[@name='studio_group_8ed6cf']" position="after">
+          <notebook name="studio_notebook_PIcxd">
+            <page string="Products" name="studio_page_PIcxd">
+              <field name="request_lines" force_save="True" readonly="(selection_field_BupKG == 'Rejected') or (selection_field_BupKG == 'Done')">
+                <tree editable="bottom">
+                  <field name="sequence" widget="handle"/>
+                  <field name="product" optional="show" required="1" readonly="status != 'Draft'" can_create="True" can_write="True"/>
+                  <field name="description_1" optional="show"/>
+                  <field name="warehouse" optional="show"/>
+                  <field name="uom_2" optional="show"/>
+                  <field optional="show" name="requested_by" string="Requested by" widget="many2one_avatar_user" required="1" readonly="status != 'Draft'" can_create="True" can_write="True"/>
+                  <field name="quantity" optional="show" required="1" readonly="status != 'Draft'"/>
+                  <field optional="show" name="qty_to_transfer" string="Qty. to Transfer"/>
+                  <field name="text_1" optional="hide" readonly="status != 'Draft'"/>
+                  <field optional="hide" name="available_qty_to_transfer" string="Available Qty. to Transfer" force_save="True" readonly="1"/>
+                  <field optional="hide" name="qty_transfered" string="Qty. Transferred" force_save="True" readonly="1"/>
+                  <field optional="hide" name="transfer_remainder" string="Transfer Remainder" force_save="True" readonly="1"/>
+                  <field optional="show" name="status" string="Status" column_invisible="1"/>
+                  <field optional="hide" name="on_hand_qty_2" string="On Hand Qty"/>
+                </tree>
+                <form>
+                  <header/>
+                  <sheet string="MR config" name="studio_sheet_e06e4d">
+                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger" invisible="active == True"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title" name="studio_div_e096c6">
+                      <h1>
+                        <field name="name" required="1" placeholder="Name..." invisible="1"/>
+                      </h1>
+                    </div>
+                    <group name="studio_group_e19aa9">
+                      <group name="studio_group_e19aa9_left" string="General Information">
+                        <field name="product" required="1" readonly="status != 'Draft'" can_create="True" can_write="True"/>
+                        <field name="description_1"/>
+                        <field name="warehouse"/>
+                        <field name="uom_2"/>
+                        <field name="quantity" required="1" readonly="status != 'Draft'"/>
+                        <field name="many2one_field_6yqbk" invisible="1" can_create="True" can_write="True"/>
+                      </group>
+                      <group name="studio_group_e19aa9_right" string="Other Information">
+                        <field name="requested_by" required="1" widget="many2one_avatar_user" readonly="status != 'Draft'" can_create="True" can_write="True"/>
+                        <field name="text_1" string="Notes" readonly="status != 'Draft'"/>
+                        <field name="status"/>
+                        <field name="on_hand_qty_2"/>
+                      </group>
+                    </group>
+                  </sheet>
+                </form>
+              </field>
+            </page>
+          </notebook>
+        </xpath>
+      </data>
+    </field>
+  </record>
+  <record id="ported_primary_3242_tree_material_request" model="ir.ui.view">
+    <field name="name">Default list view for material_request</field>
+    <field name="model">material_request</field>
+    <field name="priority">16</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="sequence" widget="handle"/>
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
+  <record id="ported_view_5300_odoo_studio_default_list_view_for_x_mate" model="ir.ui.view">
+    <field name="name">Odoo Studio: Default list view for material_request customization</field>
+    <field name="model">material_request</field>
+    <field name="inherit_id" ref="BugFix-Stock.ported_primary_3242_tree_material_request"/>
+    <field name="priority">99</field>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//tree[1]" position="attributes">
+          <attribute name="create">true</attribute>
+          <attribute name="delete">true</attribute>
+          <attribute name="edit">true</attribute>
+        </xpath>
+        <xpath expr="//field[@name='name']" position="attributes">
+          <attribute name="string">Request Reference</attribute>
+        </xpath>
+        <xpath expr="//field[@name='name']" position="after">
+          <field name="warehouse" optional="show"/>
+          <field name="requested_by" optional="show" string="Requested by" widget="many2one_avatar_user"/>
+          <field name="create_uid" optional="show" widget="many2one_avatar_user"/>
+          <field name="create_date" optional="show"/>
+          <field name="selection_field_BupKG" optional="show" string="Status" widget="badge"/>
+        </xpath>
+      </data>
+    </field>
+  </record>
+</odoo>

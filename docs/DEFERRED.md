@@ -35,14 +35,14 @@ version restores the missing fields, revert the strips.
 
 ## 2. Act_window 1383 "TP Invoices" + associated button in view 2816
 
-**Blocker:** action's `res_model = x_tp_invoice_header`. That model is
+**Blocker:** action's `res_model = tp_invoice_header`. That model is
 owned by BugFix-Accounting, not a manifest dep of BugFix-Stock. At
 BugFix-Stock's data-load time the model isn't in the registry yet
 (Odoo topological order places BugFix-Stock before BugFix-Accounting;
 they don't depend on each other).
 
-**What it would add:** "TP Invoices" stat button on `x_consignment_header`
-form (pointing at TP Invoice records linked via `x_studio_con_no=active_id`).
+**What it would add:** "TP Invoices" stat button on `consignment_header`
+form (pointing at TP Invoice records linked via `con_no=active_id`).
 
 **Restore paths (two options):**
 
@@ -53,7 +53,7 @@ A. Add `BugFix-Accounting` to `BugFix-Stock`'s manifest depends. Pulls
    Then re-add act_window 1383 + un-strip the TP Invoices button from
    view 2816.
 
-B. Move act_window 1383 to BugFix-Accounting (where `x_tp_invoice_header`
+B. Move act_window 1383 to BugFix-Accounting (where `tp_invoice_header`
    lives). Update view 2816's button ref to
    `%(BugFix-Accounting.act_1383_tp_invoices)d`. Still creates a
    `BugFix-Stock → BugFix-Accounting` dep edge (same as option A).
@@ -77,11 +77,11 @@ this arc — kept here as a reminder in case someone reads DEFERRED.md
 first:
 
 - **View 2585** (stock.valuation.layer tree) — landed v0.0.19 after
-  porting 2 related-field O2Ms (`x_studio_related_field_bPlxa`, `_ygmmJ`).
+  porting 2 related-field O2Ms (`related_field_bPlxa`, `_ygmmJ`).
 - **View 4619** (stock.return.picking form) — landed v0.0.20 alongside
   server action 1997 port.
 - **Views 2811 + 2816** — landed v0.0.25 after porting
-  `x_studio_consignment_line_ids` field (was TODO on-disk) and
+  `consignment_line_ids` field (was TODO on-disk) and
   injecting 5 sentinel fields for Odoo 17 strict modifier validation.
 - **Views 2810 / 2813 / 2814 / 2817 / 2818 / 2819** — landed v0.0.16
   (x_consignment_* primary + Studio inherits).

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="server_action_2440_mr_request_approval_notify_user" model="ir.actions.server">
+    <field name="name">MR Request Approval - Notify User</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">next_activity</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+    <field name="activity_user_type">specific</field>
+    <!-- Clear-DB: activity goes to kapila.h@jinasena.com.lk (user is environment data: matched by login). -->
+    <field name="activity_user_id" search="[('login', '=', 'kapila.h@jinasena.com.lk')]"/>
+    <field name="activity_summary">Approve RUG Repair</field>
+    <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
+  </record>
+  <record id="server_action_2443_mr_request_approve_confirm_notify_user" model="ir.actions.server">
+    <field name="name">MR Request Approve Confirm - Notify User</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">next_activity</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+    <field name="activity_user_type">generic</field>
+    <!-- Clear-DB: user taken from the record's user_id. Without it Odoo 17 fails with "False in ..." -->
+    <field name="activity_user_field_name">user_id</field>
+    <field name="activity_summary">Approve RUG Repair</field>
+    <field name="activity_note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</field>
+  </record>
+  <record id="server_action_2444_approve_mr_status_update" model="ir.actions.server">
+    <field name="name">Approve MR - Status Update</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: selection_field_BupKG). -->
+    <field name="update_path">selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
+    <field name="value">Approved</field>
+  </record>
+  <record id="server_action_2400_reject_mr" model="ir.actions.server">
+    <field name="name">Reject MR</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: selection_field_BupKG). -->
+    <field name="update_path">selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
+    <field name="value">Rejected</field>
+  </record>
+  <record id="server_action_2441_request_approval_mr_update_status" model="ir.actions.server">
+    <field name="name">Request Approval MR - Update Status</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: selection_field_BupKG). -->
+    <field name="update_path">selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
+    <field name="value">To Be Approved</field>
+  </record>
+  <record id="server_action_2391_reset_mr" model="ir.actions.server">
+    <field name="name">Reset MR</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">object_write</field>
+    <!-- Odoo 17 reads the target from update_path; without it the action fails with KeyError '' (Clear-DB: selection_field_BupKG). -->
+    <field name="update_path">selection_field_BupKG</field>
+    <field name="evaluation_type">value</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="update_field_id" ref="BugFix-Stock.field_material_request__selection_field_BupKG"/>
+    <field name="value">Draft</field>
+  </record>
+  <record id="server_action_2388_confirm_mr" model="ir.actions.server">
+    <field name="name">Confirm MR</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.name:
+  null_Mr_lines = env['mr_config'].search([('many2one_field_6yqbk', '=', record.name)])
+  if not null_Mr_lines:
+   raise UserError("Valid MR Lines Should Exists to Confirm!")
+   
+  invalid_mr_lines = env['mr_config'].search([('many2one_field_6yqbk', '=', record.name), ('quantity', '<=', 0)])
+  if invalid_mr_lines:
+    raise UserError("Quantity of Individual MR Lines Should be Greater than Zero!")
+    
+record.write({'selection_field_BupKG': 'Confirmed'}) 
+]]></field>
+  </record>
+  <record id="server_action_2406_create_material_transfer" model="ir.actions.server">
+    <field name="name">Create Material Transfer</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[valid_req_lines = env['mr_config'].search([('many2one_field_6yqbk', '=', record.id),('transfer_remainder', '>', 0)],limit=1)
+
+if not valid_req_lines:
+
+  raise UserError('There are no valid item lines to transfer.')
+
+  
+
+dest_loc = env['stock.location'].search([('usage', '=', 'inventory'),('complete_name', '=', 'Virtual Locations/MJ')],limit=1)
+
+if dest_loc:
+
+  opt_type = env['stock.picking.type'].search([('default_location_src_id', '=', record.warehouse.id),('default_location_dest_id', '=', dest_loc.id),('code', '=', 'outgoing')],limit=1)
+
+  if opt_type:
+
+    prod_move = env['stock.picking'].create({'created_from_material_request_no':record.id,'picking_type_id':opt_type.id,'location_id':record.warehouse.id,'location_dest_id':dest_loc.id,'journal_type':record.journal_type.id})
+
+     
+
+    update_prod_move = env['stock.picking'].search([('id', '=', prod_move.id)],limit=1)
+
+    if update_prod_move:
+
+      valid_req_lines_2 = env['mr_config'].search([('many2one_field_6yqbk', '=', record.id),('transfer_remainder', '>', 0)])
+
+      if valid_req_lines_2:
+
+        for valid_lines in valid_req_lines_2: 
+
+          stock_move = env['stock.move'].create({'picking_id':update_prod_move.id,'name':('New Move:'+valid_lines.product.name),'reference':update_prod_move.name,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.product.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'product_uom_qty':valid_lines.qty_to_transfer,'product_uom':valid_lines.product.uom_id.id,'state':'draft'}) 
+
+          stock_move_line = env['stock.move.line'].create({'move_id':stock_move.id,'picking_id':update_prod_move.id,'picking_type_id':update_prod_move.picking_type_id.id,'product_id':valid_lines.product.id,'product_uom_id':valid_lines.product.uom_id.id,'location_id':update_prod_move.location_id.id,'location_dest_id':update_prod_move.location_dest_id.id,'qty_done':valid_lines.qty_to_transfer}) 
+
+
+
+          #cal = 0
+
+          #if valid_lines.available_qty_to_transfer
+
+          #cal = 
+
+          valid_lines.write({'qty_transfered': (valid_lines.qty_transfered + valid_lines.qty_to_transfer), 'qty_to_transfer': 0}) #valid_lines.available_qty_to_transfer 
+
+    action = {
+
+              'name': 'RFQ',
+
+              'domain': [('id', '=', prod_move.id)],
+
+              'type': 'ir.actions.act_window',
+
+              'res_model': 'stock.picking',
+
+              'view_mode': 'tree,form',
+
+              'view_type': 'form',
+
+              'view_id': False,
+
+              'context': False,
+
+              } 
+
+  else:
+
+    raise UserError('There is no valid operation type has been setup.')  
+
+else:
+
+  raise UserError('There is no valid Location has been setup.')  
+
+
+
+]]></field>
+  </record>
+  <record id="server_action_2410_mr_validate_delete" model="ir.actions.server">
+    <field name="name">MR Validate Delete</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[if record.selection_field_BupKG != 'Draft':
+  raise UserError('Processed material request can not be deleted.')
+  
+    
+   
+
+
+
+
+]]></field>
+  </record>
+  <record id="server_action_1563_material_req_gen" model="ir.actions.server">
+    <field name="name">Material Req GEN</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[record['name'] =env['ir.sequence'].next_by_code('mtrl.req.seq')]]></field>
+  </record>
+  <record id="server_action_1650_pr_create_for_mr" model="ir.actions.server">
+    <field name="name">PR create For MR</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[pr_lines=[]
+
+for pr_line in record.one2many_field_9DTZS:
+
+  pr_lines.append([0,0,{'many2one_field_WAqP4':pr_line.many2one_field_2LV9q.id,'quantity':pr_line.qty}])
+
+env['purchase_request'].create({'mr_number':record.name,'material_request_ref':record.id,'type':record.type, 'order_lines_1':pr_lines})
+
+
+]]></field>
+  </record>
+  <record id="server_action_1652_pr_non_create_for_mr" model="ir.actions.server">
+    <field name="name">PR-non create For MR</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="code"><![CDATA[prn_lines=[]
+env['pr_non_inventory'].create({'material_request_ref':record.id, 'one2many_field_rSJtb':prn_lines})
+
+
+]]></field>
+  </record>
+  <record id="server_action_2397_approve_mr" model="ir.actions.server">
+    <field name="name">Approve MR</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">multi</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2444_approve_mr_status_update'), ref('BugFix-Stock.server_action_2443_mr_request_approve_confirm_notify_user')])]"/>
+  </record>
+  <record id="server_action_2394_request_approval_mr" model="ir.actions.server">
+    <field name="name">Request Approval MR</field>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="state">multi</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2440_mr_request_approval_notify_user'), ref('BugFix-Stock.server_action_2441_request_approval_mr_update_status')])]"/>
+  </record>
+  <record id="base_automation_95_material_req_gen" model="base.automation">
+    <field name="name">Material Req GEN</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="trigger_field_ids" eval="[(6, 0, [ref('BugFix-Stock.field_material_request__create_date')])]"/>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_1563_material_req_gen')])]"/>
+  </record>
+  <record id="base_automation_230_mr_validate_delete" model="base.automation">
+    <field name="name">MR Validate Delete</field>
+    <field name="active" eval="True"/>
+    <field name="model_id" search="[('model', '=', 'material_request')]"/>
+    <field name="trigger">on_unlink</field>
+    <field name="action_server_ids" eval="[(6, 0, [ref('BugFix-Stock.server_action_2410_mr_validate_delete')])]"/>
+  </record>
+</odoo>

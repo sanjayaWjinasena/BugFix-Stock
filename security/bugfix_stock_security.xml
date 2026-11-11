@@ -220,7 +220,7 @@
   </record>
   <record id="rule_514_jin_multi_company_consolidated_header" model="ir.rule">
     <field name="name">JIN - Multi-Company - Consolidated Header</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+    <field name="model_id" ref="BugFix-Stock.model_con_consolidated_hea"/>
     <field name="domain_force">['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -230,7 +230,7 @@
   </record>
   <record id="rule_515_jin_multi_company_consolidated_line" model="ir.rule">
     <field name="name">JIN - Multi-Company - Consolidated Line</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+    <field name="model_id" ref="BugFix-Stock.model_con_consolidated_lin"/>
     <field name="domain_force">['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -240,7 +240,7 @@
   </record>
   <record id="rule_522_jin_multi_company_consignment_charge_line" model="ir.rule">
     <field name="name">JIN - Multi-Company - Consignment Charge Line</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_charge_l"/>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_charge_l"/>
     <field name="domain_force"> ['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -250,7 +250,7 @@
   </record>
   <record id="rule_512_jin_multi_company_consignment_header" model="ir.rule">
     <field name="name">JIN - Multi-Company - Consignment Header</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_header"/>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_header"/>
     <field name="domain_force"> ['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -260,7 +260,7 @@
   </record>
   <record id="rule_513_jin_multi_company_consignment_line" model="ir.rule">
     <field name="name">JIN - Multi-Company - Consignment Line</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_consignment_line"/>
+    <field name="model_id" ref="BugFix-Stock.model_consignment_line"/>
     <field name="domain_force"> ['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -270,7 +270,7 @@
   </record>
   <record id="rule_884_material_request_mt_multi_company" model="ir.rule">
     <field name="name">Material Request MT - Multi-Company</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_material_request_mt"/>
+    <field name="model_id" ref="BugFix-Stock.model_material_request_mt"/>
     <field name="domain_force">['|', ('accounting_company_id', '=', False), ('accounting_company_id', 'in', company_ids)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -280,7 +280,7 @@
   </record>
   <record id="rule_881_material_request_test_multi_company" model="ir.rule">
     <field name="name">Material Request Test - Multi-Company</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_material_request_tes"/>
+    <field name="model_id" ref="BugFix-Stock.model_material_request_tes"/>
     <field name="domain_force">['|', ('accounting_company_id', '=', False), ('accounting_company_id', 'in', company_ids)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -290,7 +290,7 @@
   </record>
   <record id="rule_572_jin_multi_company_tariffmaster" model="ir.rule">
     <field name="name">JIN - Multi-Company - TariffMaster</field>
-    <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+    <field name="model_id" ref="BugFix-Stock.model_tariffmaster"/>
     <field name="domain_force"> ['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
@@ -301,7 +301,7 @@
   <record id="rule_452_kap_operation_control" model="ir.rule">
     <field name="name">Kap-Operation Control</field>
     <field name="model_id" ref="stock.model_stock_picking"/>
-    <field name="domain_force">['&amp;', (1, '=', 1), '|', '|', '|', '&amp;', ('x_studio_sequence_code', '=', 'INT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/OUT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/IN'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '!=', 'INT'), ('origin', '!=', False)]</field>
+    <field name="domain_force">['&amp;', (1, '=', 1), '|', '|', '|', '&amp;', ('sequence_code', '=', 'INT'), ('origin', '=', False), '&amp;', ('sequence_code', '=', 'MJ/OUT'), ('origin', '=', False), '&amp;', ('sequence_code', '=', 'MJ/IN'), ('origin', '=', False), '&amp;', ('sequence_code', '!=', 'INT'), ('origin', '!=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
@@ -334,7 +334,7 @@
   <record id="rule_912_kap_operation_control_2" model="ir.rule">
     <field name="name">Kap-Operation Control 2</field>
     <field name="model_id" ref="stock.model_stock_picking"/>
-    <field name="domain_force">['&amp;', (1, '=', 1), '|', '|', '|', '&amp;', ('x_studio_sequence_code', '=', 'INT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/OUT'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '=', 'MJ/IN'), ('origin', '=', False), '&amp;', ('x_studio_sequence_code', '!=', 'INT'), ('origin', '!=', False)]</field>
+    <field name="domain_force">['&amp;', (1, '=', 1), '|', '|', '|', '&amp;', ('sequence_code', '=', 'INT'), ('origin', '=', False), '&amp;', ('sequence_code', '=', 'MJ/OUT'), ('origin', '=', False), '&amp;', ('sequence_code', '=', 'MJ/IN'), ('origin', '=', False), '&amp;', ('sequence_code', '!=', 'INT'), ('origin', '!=', False)]</field>
     <field name="perm_read" eval="True"/>
     <field name="perm_write" eval="True"/>
     <field name="perm_create" eval="True"/>
@@ -344,7 +344,7 @@
   </record>
     <record id="rule_572_jin_multi_company_tariffmaster" model="ir.rule">
       <field name="name">JIN - Multi-Company - TariffMaster</field>
-      <field name="model_id" ref="BugFix-Stock.model_x_tariffmaster"/>
+      <field name="model_id" ref="BugFix-Stock.model_tariffmaster"/>
       <field name="domain_force"> ['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
       <field name="perm_read" eval="True"/>
       <field name="perm_write" eval="True"/>
@@ -354,7 +354,7 @@
     </record>
     <record id="rule_522_jin_multi_company_consignment_charge_line" model="ir.rule">
       <field name="name">JIN - Multi-Company - Consignment Charge Line</field>
-      <field name="model_id" ref="BugFix-Stock.model_x_consignment_charge_l"/>
+      <field name="model_id" ref="BugFix-Stock.model_consignment_charge_l"/>
       <field name="domain_force"> ['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
       <field name="perm_read" eval="True"/>
       <field name="perm_write" eval="True"/>
@@ -364,7 +364,7 @@
     </record>
     <record id="rule_515_jin_multi_company_consolidated_line" model="ir.rule">
       <field name="name">JIN - Multi-Company - Consolidated Line</field>
-      <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_lin"/>
+      <field name="model_id" ref="BugFix-Stock.model_con_consolidated_lin"/>
       <field name="domain_force">['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
       <field name="perm_read" eval="True"/>
       <field name="perm_write" eval="True"/>
@@ -374,7 +374,7 @@
     </record>
     <record id="rule_514_jin_multi_company_consolidated_header" model="ir.rule">
       <field name="name">JIN - Multi-Company - Consolidated Header</field>
-      <field name="model_id" ref="BugFix-Stock.model_x_con_consolidated_hea"/>
+      <field name="model_id" ref="BugFix-Stock.model_con_consolidated_hea"/>
       <field name="domain_force">['|', ('accounting_company_id', 'in', company_ids), ('accounting_company_id', '=', False)]</field>
       <field name="perm_read" eval="True"/>
       <field name="perm_write" eval="True"/>
