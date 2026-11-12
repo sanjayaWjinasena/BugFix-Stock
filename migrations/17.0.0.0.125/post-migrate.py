@@ -1,4 +1,4 @@
-"""v17.0.0.0.125: x_studio_movement_journal / x_studio_mj_in / x_studio_mj_out on stock.picking are now
+"""v17.0.0.0.125: movement_journal / mj_in / mj_out on stock.picking are now
 stored related fields of the operation type (as on Clear-DB). The columns already existed (plain booleans,
 always False), and Odoo does not backfill an existing column for a field that becomes computed, so
 recompute them for existing transfers. ORM only.
@@ -6,7 +6,7 @@ recompute them for existing transfers. ORM only.
 
 from odoo import SUPERUSER_ID, api
 
-FIELDS = ("x_studio_movement_journal", "x_studio_mj_in", "x_studio_mj_out")
+FIELDS = ("movement_journal", "mj_in", "mj_out")
 
 
 def migrate(cr, version):
