@@ -2,7 +2,7 @@
     # upgrade-testing branch: data files below are commented out - this branch installs
     # functions only, no data is seeded.
     "name": "Jinasena : Module : Inventory",
-    "version": "17.0.0.0.135",
+    "version": "17.0.0.0.136",
     "summary": "Studio-to-Python port for BugFix-Stock",
     "author": "Jinasena Agricultural Machinery (Pvt) Ltd.",
     "category": "Inventory",

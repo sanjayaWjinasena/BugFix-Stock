@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- BugFix-Stock v0.0.39: 3 sequences. -->
+<!-- BugFix-Stock v0.0.39: 3 sequences. No number_next: this file is not noupdate, so a
+     value here reset the counters on every module update (SP/00001 issued again). -->
 <odoo>
 
   <record id="seq_234_stock_scrap" model="ir.sequence">
@@ -7,7 +8,6 @@
     <field name="code">stock.scrap</field>
     <field name="prefix">SP/</field>
     <field name="padding">5</field>
-    <field name="number_next">1</field>
     <field name="number_increment">1</field>
   </record>
 
@@ -16,7 +16,6 @@
     <field name="code">stock.scrap</field>
     <field name="prefix">SP/</field>
     <field name="padding">5</field>
-    <field name="number_next">1</field>
     <field name="number_increment">1</field>
   </record>
 
@@ -25,7 +24,6 @@
     <field name="code">stock.scrap</field>
     <field name="prefix">SP/</field>
     <field name="padding">5</field>
-    <field name="number_next">1</field>
     <field name="number_increment">1</field>
   </record>
 
