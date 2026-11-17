@@ -256,5 +256,32 @@ def _seed_field_selections(env, entries):
             )
 
 
+def remove_batch_transfers(env):
+    """Uninstall stock_picking_batch (Batch / Wave Transfers), as on Clear-DB.
+
+    Clear-DB never had it; a fresh install gets it with the standard apps, and
+    bi_warehouse_restrictions replaces stock.picking.type._compute_picking_count
+    without super(), so with the module installed its count_picking_batch /
+    count_picking_wave are never set and the Inventory overview fails with
+    "Compute method failed to assign ... count_picking_batch". Marks the module
+    (its add-ons follow) 'to remove'; Odoo removes it at the end of the same
+    install / upgrade run. Used by post_init_hook (fresh installs) and the
+    17.0.0.0.137 migration (databases installed before); the 17.0.0.0.114
+    migration did the same for upgrades only.
+    """
+    module = env["ir.module.module"].sudo().search(
+        [("name", "=", "stock_picking_batch"), ("state", "=", "installed")], limit=1
+    )
+    if not module:
+        return
+    dependents = module.downstream_dependencies().mapped("name")
+    module.button_uninstall()
+    _logger.info(
+        "[BugFix-Stock] stock_picking_batch marked for removal (with %s), as on Clear-DB",
+        ", ".join(dependents) or "no add-ons",
+    )
+
+
 def post_init_hook(env):
     _seed_field_selections(env, _FIELD_SELECTIONS)
+    remove_batch_transfers(env)
