@@ -12,7 +12,9 @@ class StockPicking(models.Model):
     x_studio_consignment_no = fields.Many2one('x_consignment_header', string='Consignment No')
     x_studio_created_from_help_ticket = fields.Many2one('helpdesk.ticket', string='Created from Help Ticket')
     x_studio_created_from_material_request_no = fields.Many2one('x_material_request', string='Created from Material Request No')
-    x_studio_custom_clearance_no = fields.Char(string='Custom Clearance No', readonly=True)
+    # Bug sheet Imports row 28: related to the consignment (stored, readonly) as on Clear-DB/KG; the port had
+    # dropped related=, so receipts never showed the consignment's Custom Clearance No.
+    x_studio_custom_clearance_no = fields.Char(string='Custom Clearance No', related='x_studio_consignment_no.x_studio_custom_clearance_no', store=True, readonly=True)
     x_studio_factory_repair = fields.Boolean(string='Factory Repair')
     x_studio_fsm_task_done = fields.Boolean(string='FSM Task Done', readonly=True, store=False)
     x_studio_fully_paid_so = fields.Boolean(string='Fully Paid SO', readonly=True, store=False)
