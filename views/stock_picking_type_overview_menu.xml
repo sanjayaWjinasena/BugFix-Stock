@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Inventory > Overview: the dropdown menu on an operation type card follows the operation
+       type's "Show menu on Overview card" setting (stock.picking.type.jin_show_overview_menu). -->
+  <record id="stock_picking_type_kanban_overview_menu" model="ir.ui.view">
+    <field name="name">stock.picking.type.kanban.overview.menu (BugFix-Stock)</field>
+    <field name="model">stock.picking.type</field>
+    <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='show_picking_type']" position="after">
+        <field name="jin_show_overview_menu" invisible="1"/>
+      </xpath>
+      <xpath expr="//t[@t-name='kanban-box']" position="inside">
+        <span t-if="!record.jin_show_overview_menu.raw_value" class="o_jin_no_overview_menu d-none"/>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="stock_picking_type_form_overview_menu" model="ir.ui.view">
+    <field name="name">stock.picking.type.form.overview.menu (BugFix-Stock)</field>
+    <field name="model">stock.picking.type</field>
+    <field name="inherit_id" ref="stock.view_picking_type_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='code']" position="after">
+        <field name="jin_show_overview_menu"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
