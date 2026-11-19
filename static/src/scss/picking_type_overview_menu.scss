@@ -1,0 +1,5 @@
+// Inventory > Overview: hide the card dropdown on operation types whose
+// "Show menu on Overview card" is off (marker added in views/stock_picking_type_overview_menu.xml).
+.o_kanban_record:has(.o_jin_no_overview_menu) .o_dropdown_kanban {
+    display: none !important;
+}

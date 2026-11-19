@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock v0.0.38: Phase 3.1 sub-batch C server actions.
+     Ships 9 unported server actions from routing audit backlog. -->
+<odoo>
+
+  <record id="server_action_1991_rr_auto_select_product_for_rug_repairs_3" model="ir.actions.server">
+    <field name="name">RR - Auto Select Product for RUG Repairs-3</field>
+    <field name="model_id" search="[('model', '=', 'stock.return.picking')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[if record.ticket_id:
+  company_id = env.context.get('allowed_company_ids', [env.user.company_id.id])[0]
+  company = env['res.company'].browse(company_id)
+  
+  if (record.x_studio_repair_rug == True or record.x_studio_repair_normal_with_serial_no == True):
+    if company.id == 1:
+      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
+      if ticket:
+        if record.location_id.id != record.x_studio_suggested_location_id.id:
+          raise UserError("Return Location should be equal to Suggested Return Location.")
+    else:
+      ticket = env['helpdesk.ticket'].search([('id', '=', record.ticket_id.id),('company_id', '=', company.id)],limit=1)
+      if ticket:
+        if record.location_id.id != record.x_studio_suggested_location_id_1.id:
+          raise UserError('Return Location should be equal to Suggested Return Location.')
+      
+  
+      
+
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_1141_update_product_cost_work_center_cost" model="ir.actions.server">
+    <field name="name">Update Product Cost - Work Center Cost</field>
+    <field name="model_id" search="[('model', '=', 'stock.valuation.layer')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[]]></field>
+  </record>
+
+  <record id="server_action_1138_work_center_costing_model_create_journal_entries" model="ir.actions.server">
+    <field name="name">Work Center Costing Model - Create Journal Entries</field>
+    <field name="model_id" search="[('model', '=', 'stock.valuation.layer')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[if record.product_tmpl_id:
+  find_bom = env['mrp.bom'].search([('product_tmpl_id', '=', record.product_tmpl_id.id)],limit=1)
+  if find_bom:
+    ids = []
+    ids2 = []
+    ids3 = []
+    ids4 = []
+    if record.stock_move_id:
+      stock_move = env['stock.move'].search([('id', '=', record.stock_move_id.id), ('product_tmpl_id', '=', record.product_tmpl_id.id)],limit=1)
+      if stock_move:
+        prod_order = env['mrp.production'].search([('id', '=', stock_move.production_id.id)],limit=1)
+        if prod_order:
+          ##########################JC
+          work_center_costing = env['x_work_center_costing'].search([('id', '=', 1)], limit=1)
+          if work_center_costing:
+            if prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot > 0.0000:
+              cost_lines=[]
+              #ids =[work_center_costing.x_studio_labour_analytic_tag.id]
+              if work_center_costing.x_studio_labour_analytic_tag != []:
+                for idds in work_center_costing.x_studio_labour_analytic_tag:
+                  ids.append(idds.id)
+              cost_lines.append([0,0,{
+                'account_id':work_center_costing.x_studio_labour_cost_debit_account.id,
+                'name':(prod_order.name + ' - ' + 'Labour Cost'),
+                'analytic_tag_ids':[(6, 0, ids)],
+                'debit':prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot}])
+          
+              cost_lines.append([0,0,{
+                'account_id':work_center_costing.x_studio_labour_cost_credit_account.id,
+                'name':(prod_order.name + ' - ' + 'Labour Cost'),
+                'analytic_tag_ids':[(6, 0, ids)],   
+                'credit':prod_order.x_studio_prod_bom_total_actual_labour_cost_without_ot}])	
+          
+              labour_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Labour Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines})
+              #######
+              update_labour_cost_entry = env['account.move'].search([('id', '=', labour_cost_entry.id)],limit=1)
+              if update_labour_cost_entry:
+                update_labour_cost_entry.write({'state':'posted'})
+              #######
+            ######## - OT - Begin
+            if prod_order.x_studio_prod_bom_total_actual_labour_cost_ot > 0.0000:
+              cost_lines4=[]
+              #ids4 =[work_center_costing.x_studio_labour_analytic_tag.id]
+              if work_center_costing.x_studio_labour_analytic_tag != []:
+                for idds in work_center_costing.x_studio_labour_analytic_tag:
+                  ids4.append(idds.id)
+              cost_lines4.append([0,0,{
+                'account_id':work_center_costing.x_studio_labour_ot_cost_debit_account.id,
+                'name':(prod_order.name + ' - ' + 'Labour Cost - OT'),
+                'analytic_tag_ids':[(6, 0, ids4)],
+                'debit':prod_order.x_studio_prod_bom_total_actual_labour_cost_ot}])
+          
+              cost_lines4.append([0,0,{
+                'account_id':work_center_costing.x_studio_labour_ot_cost_credit_account.id,
+                'name':(prod_order.name + ' - ' + 'Labour Cost - OT'),
+                'analytic_tag_ids':[(6, 0, ids4)],   
+                'credit':prod_order.x_studio_prod_bom_total_actual_labour_cost_ot}])	
+          
+              labour_cost_entry_ot = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Labour Cost - OT'),'journal_id':6,'move_type':'entry','line_ids':cost_lines4})
+              #######
+              update_labour_cost_entry_ot = env['account.move'].search([('id', '=', labour_cost_entry_ot.id)],limit=1)
+              if update_labour_cost_entry_ot:
+                update_labour_cost_entry_ot.write({'state':'posted'})
+              #######  
+            ######## - OT - End
+            ########        
+            if prod_order.x_studio_prod_bom_total_actual_overhead_cost > 0.0000:
+              cost_lines2=[]
+              #ids2 =[work_center_costing.x_studio_overhead_analytic_tag.id]
+              if work_center_costing.x_studio_overhead_analytic_tag != []:
+                for idds2 in work_center_costing.x_studio_overhead_analytic_tag:
+                  ids2.append(idds2.id)
+              cost_lines2.append([0,0,{
+                'account_id':work_center_costing.x_studio_overhead_cost_debit_account.id,
+                'name':(prod_order.name + ' - ' + 'Overhead Cost'),
+                'analytic_tag_ids':[(6, 0, ids2)],
+                'debit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])
+              
+              cost_lines2.append([0,0,{
+                'account_id':work_center_costing.x_studio_overhead_cost_credit_account.id,
+                'name':(prod_order.name + ' - ' + 'Overhead Cost'),
+                'analytic_tag_ids':[(6, 0, ids2)],
+                'credit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])	
+              
+              overhead_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Overhead Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines2})
+              #######
+              update_overhead_cost_entry = env['account.move'].search([('id', '=', overhead_cost_entry.id)],limit=1)
+              if update_overhead_cost_entry:
+                update_overhead_cost_entry.write({'state':'posted'})
+              #######
+            ########
+            if prod_order.x_studio_total_actual_general_cost > 0.0000:
+              cost_lines3=[]
+              #ids3 =[work_center_costing.x_studio_general_analytic_tag.id]
+              if work_center_costing.x_studio_general_analytic_tag != []:
+                for idds3 in work_center_costing.x_studio_general_analytic_tag:
+                  ids3.append(idds3.id)
+              cost_lines3.append([0,0,{
+                'account_id':work_center_costing.x_studio_general_cost_debit_account.id,
+                'name':(prod_order.name + ' - ' + 'General Cost'),
+                'analytic_tag_ids':[(6, 0, ids3)],
+                'debit':prod_order.x_studio_total_actual_general_cost}])
+              
+              cost_lines3.append([0,0,{
+                'account_id':work_center_costing.x_studio_general_cost_credit_account.id,
+                'name':(prod_order.name + ' - ' + 'General Cost'),
+                'analytic_tag_ids':[(6, 0, ids3)],
+                'credit':prod_order.x_studio_total_actual_general_cost}])	
+              
+              general_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'General Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines3})
+              #######
+              update_general_cost_entry = env['account.move'].search([('id', '=', general_cost_entry.id)],limit=1)
+              if update_general_cost_entry:
+                update_general_cost_entry.write({'state':'posted'})
+              #######
+          ##########################JC
+          
+        
+    
+
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_2566_work_center_costing_model_create_journal_entries_original" model="ir.actions.server">
+    <field name="name">Work Center Costing Model - Create Journal Entries - Original</field>
+    <field name="model_id" search="[('model', '=', 'stock.valuation.layer')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[if record.product_tmpl_id:
+  find_bom = env['mrp.bom'].search([('product_tmpl_id', '=', record.product_tmpl_id.id)],limit=1)
+  if find_bom:
+    ids = []
+    ids2 = []
+    ids3 = []
+    if record.stock_move_id:
+      stock_move = env['stock.move'].search([('id', '=', record.stock_move_id.id), ('product_tmpl_id', '=', record.product_tmpl_id.id)],limit=1)
+      if stock_move:
+        prod_order = env['mrp.production'].search([('id', '=', stock_move.production_id.id)],limit=1)
+        if prod_order:
+          ##########################JC
+          work_center_costing = env['x_work_center_costing'].search([('id', '=', 1)], limit=1)
+          if work_center_costing:
+            if prod_order.x_studio_prod_bom_total_actual_labour_cost > 0.0000:
+              cost_lines=[]
+              #ids =[work_center_costing.x_studio_labour_analytic_tag.id]
+              if work_center_costing.x_studio_labour_analytic_tag != []:
+                for idds in work_center_costing.x_studio_labour_analytic_tag:
+                  ids.append(idds.id)
+              cost_lines.append([0,0,{
+                'account_id':work_center_costing.x_studio_labour_cost_debit_account.id,
+                'name':(prod_order.name + ' - ' + 'Labour Cost'),
+                'analytic_tag_ids':[(6, 0, ids)],
+                'debit':prod_order.x_studio_prod_bom_total_actual_labour_cost}])
+          
+              cost_lines.append([0,0,{
+                'account_id':work_center_costing.x_studio_labour_cost_credit_account.id,
+                'name':(prod_order.name + ' - ' + 'Labour Cost'),
+                'analytic_tag_ids':[(6, 0, ids)],   
+                'credit':prod_order.x_studio_prod_bom_total_actual_labour_cost}])	
+          
+              labour_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Labour Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines})
+              #######
+              update_labour_cost_entry = env['account.move'].search([('id', '=', labour_cost_entry.id)],limit=1)
+              if update_labour_cost_entry:
+                update_labour_cost_entry.write({'state':'posted'})
+              #######
+          ########        
+          if prod_order.x_studio_prod_bom_total_actual_overhead_cost > 0.0000:
+            cost_lines2=[]
+            #ids2 =[work_center_costing.x_studio_overhead_analytic_tag.id]
+            if work_center_costing.x_studio_overhead_analytic_tag != []:
+              for idds2 in work_center_costing.x_studio_overhead_analytic_tag:
+                ids2.append(idds2.id)
+            cost_lines2.append([0,0,{
+              'account_id':work_center_costing.x_studio_overhead_cost_debit_account.id,
+              'name':(prod_order.name + ' - ' + 'Overhead Cost'),
+              'analytic_tag_ids':[(6, 0, ids2)],
+              'debit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])
+            
+            cost_lines2.append([0,0,{
+              'account_id':work_center_costing.x_studio_overhead_cost_credit_account.id,
+              'name':(prod_order.name + ' - ' + 'Overhead Cost'),
+              'analytic_tag_ids':[(6, 0, ids2)],
+              'credit':prod_order.x_studio_prod_bom_total_actual_overhead_cost}])	
+            
+            overhead_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'Overhead Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines2})
+            #######
+            update_overhead_cost_entry = env['account.move'].search([('id', '=', overhead_cost_entry.id)],limit=1)
+            if update_overhead_cost_entry:
+              update_overhead_cost_entry.write({'state':'posted'})
+            #######
+          ########
+          if prod_order.x_studio_total_actual_general_cost > 0.0000:
+            cost_lines3=[]
+            #ids3 =[work_center_costing.x_studio_general_analytic_tag.id]
+            if work_center_costing.x_studio_general_analytic_tag != []:
+              for idds3 in work_center_costing.x_studio_general_analytic_tag:
+                ids3.append(idds3.id)
+            cost_lines3.append([0,0,{
+              'account_id':work_center_costing.x_studio_general_cost_debit_account.id,
+              'name':(prod_order.name + ' - ' + 'General Cost'),
+              'analytic_tag_ids':[(6, 0, ids3)],
+              'debit':prod_order.x_studio_total_actual_general_cost}])
+            
+            cost_lines3.append([0,0,{
+              'account_id':work_center_costing.x_studio_general_cost_credit_account.id,
+              'name':(prod_order.name + ' - ' + 'General Cost'),
+              'analytic_tag_ids':[(6, 0, ids3)],
+              'credit':prod_order.x_studio_total_actual_general_cost}])	
+            
+            general_cost_entry = env['account.move'].create({'date':datetime.datetime.today(),'ref':(prod_order.name + ' - ' + 'General Cost'),'journal_id':6,'move_type':'entry','line_ids':cost_lines3})
+            #######
+            update_general_cost_entry = env['account.move'].search([('id', '=', general_cost_entry.id)],limit=1)
+            if update_general_cost_entry:
+              update_general_cost_entry.write({'state':'posted'})
+            #######
+          ##########################JC
+          
+        
+    
+
+
+
+]]></field>
+  </record>
+
+  <record id="server_action_3399_execute_code" model="ir.actions.server">
+    <field name="name">Execute Code</field>
+    <field name="model_id" search="[('model', '=', 'x_material_request_mt')]"/>
+    <field name="state">code</field>
+    <field name="usage">base_automation</field>
+    <field name="code"><![CDATA[record['x_name'] = env['ir.sequence'].next_by_code('material.request.sequence')]]></field>
+  </record>
+
+  <record id="server_action_1420_imp_apply_selected_pi_lines_to_consolidation" model="ir.actions.server">
+    <field name="name">IMP - Apply Selected PI Lines to Consolidation</field>
+    <field name="model_id" search="[('model', '=', 'x_temp_con_consolidate')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[select = 0
+for valid_line in record.x_studio_con_lines:
+  if (valid_line.x_studio_select == True):
+    select += 1
+    
+    create_con_lines = env['x_con_consolidated_lin'].create({'x_studio_consolidated_header_id':record.x_studio_consolidated_header_id.id,
+      'x_studio_consignment_id':valid_line.x_studio_consignment_id.id,
+      'x_studio_container_no':valid_line.x_studio_container_no,
+      'x_studio_currency_id':valid_line.x_studio_currency_id.id,
+      'x_studio_custom_clearance_no':valid_line.x_studio_custom_clearance_no,
+      'x_studio_delivery_term':valid_line.x_studio_delivery_term.id,
+      'x_studio_invoice_date':valid_line.x_studio_invoice_date,
+      'x_studio_shipment_start_date':valid_line.x_studio_shipment_start_date,
+      'x_studio_shipping_mode_1':valid_line.x_studio_shipping_mode,
+      'x_studio_supplier_invoice_no':valid_line.x_studio_supplier_invoice_no,
+      'x_studio_supplier_id':valid_line.x_studio_supplier_id.id,
+      'x_studio_status':valid_line.x_studio_status})
+      
+    con_update = env['x_consignment_header'].search([('id', '=', valid_line.x_studio_consignment_id.id)],limit=1)
+    if con_update:
+      con_update.write({'x_studio_consolidated': True}) 
+      
+if select == 0:
+ raise UserError("Atleast One Line Should be Selected to Proceed.")
+ 
+header_update = env['x_con_consolidated_hea'].search([('id', '=', record.x_studio_consolidated_header_id.id)],limit=1)
+if header_update:
+  header_update.write({'x_studio_lines_copied': True}) 
+
+temp_rec = env['x_temp_con_consolidate'].search([('id', '=', record.id)],limit=1)
+if temp_rec:
+  temp_rec.unlink()
+
+]]></field>
+  </record>
+
+  <record id="server_action_1419_imp_clear_all_in_copy_po_lines" model="ir.actions.server">
+    <field name="name">IMP - Clear All in Copy PO Lines</field>
+    <field name="model_id" search="[('model', '=', 'x_temp_con_consolidate')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[if record.id:
+  pi_lines=[]
+  con_lines = env['x_temp_con_conso_line'].search([('x_studio_temp_consolidated_header_id', '=', record.id)])
+  if con_lines:
+    for update_lines in con_lines:
+      pi_lines.append([0,0,{
+        'x_studio_select':False,
+        'x_studio_consignment_id':update_lines.x_studio_consignment_id.id,
+        'x_studio_container_no':update_lines.x_studio_container_no,
+        'x_studio_currency_id':update_lines.x_studio_currency_id.id,
+        'x_studio_custom_clearance_no':update_lines.x_studio_custom_clearance_no,
+        'x_studio_delivery_term':update_lines.x_studio_delivery_term.id,
+        'x_studio_invoice_date':update_lines.x_studio_invoice_date,
+        'x_studio_shipment_start_date':update_lines.x_studio_shipment_start_date,
+        'x_studio_shipping_mode':update_lines.x_studio_shipping_mode,
+        'x_studio_supplier_invoice_no':update_lines.x_studio_supplier_invoice_no,
+        'x_studio_supplier_id':update_lines.x_studio_supplier_id.id,
+        'x_studio_status':update_lines.x_studio_status}])
+        
+  ctx = env.context
+  ctx.update({'default_x_studio_consolidated_header_id':record.x_studio_consolidated_header_id.id,'default_x_studio_select_all':False,'default_x_studio_con_lines':pi_lines})
+  action = {
+            'name': 'Copy PIs',
+            'type': 'ir.actions.act_window',
+            'res_model': 'x_temp_con_consolidate',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+#            'res_id': record.id,
+            'context': ctx,
+            }  
+      
+
+]]></field>
+  </record>
+
+  <record id="server_action_1417_imp_select_all_in_copy_pi_lines" model="ir.actions.server">
+    <field name="name">IMP - Select All in Copy PI Lines</field>
+    <field name="model_id" search="[('model', '=', 'x_temp_con_consolidate')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[if record.id:
+  pi_lines=[]
+  con_lines = env['x_temp_con_conso_line'].search([('x_studio_temp_consolidated_header_id', '=', record.id)])
+  if con_lines:
+    for update_lines in con_lines:
+      pi_lines.append([0,0,{
+        'x_studio_select':True,
+        'x_studio_consignment_id':update_lines.x_studio_consignment_id.id,
+        'x_studio_container_no':update_lines.x_studio_container_no,
+        'x_studio_currency_id':update_lines.x_studio_currency_id.id,
+        'x_studio_custom_clearance_no':update_lines.x_studio_custom_clearance_no,
+        'x_studio_delivery_term':update_lines.x_studio_delivery_term.id,
+        'x_studio_invoice_date':update_lines.x_studio_invoice_date,
+        'x_studio_shipment_start_date':update_lines.x_studio_shipment_start_date,
+        'x_studio_shipping_mode':update_lines.x_studio_shipping_mode,
+        'x_studio_supplier_invoice_no':update_lines.x_studio_supplier_invoice_no,
+        'x_studio_supplier_id':update_lines.x_studio_supplier_id.id,
+        'x_studio_status':update_lines.x_studio_status}])
+        
+  ctx = env.context
+  ctx.update({'default_x_studio_consolidated_header_id':record.x_studio_consolidated_header_id.id,'default_x_studio_select_all':True,'default_x_studio_con_lines':pi_lines})
+  action = {
+            'name': 'Copy PIs',
+            'type': 'ir.actions.act_window',
+            'res_model': 'x_temp_con_consolidate',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+#            'res_id': record.id,
+            'context': ctx,
+            }  
+      
+
+]]></field>
+  </record>
+
+  <record id="server_action_1204_imp_apply_formula" model="ir.actions.server">
+    <field name="name">IMP - Apply Formula</field>
+    <field name="model_id" search="[('model', '=', 'x_temp_structure_maste')]"/>
+    <field name="state">code</field>
+    <field name="usage">ir_actions_server</field>
+    <field name="code"><![CDATA[select = 0
+formula = ''
+formula2 = ''
+for indicator_line in record.x_studio_temp_structure_details:
+  if (indicator_line.x_studio_select == True):
+    select += 1
+    formula += "[" + indicator_line.x_studio_charge_name + "]"
+
+if select == 0:
+ raise UserError("Atleast One Line Should be Selected.")
+ 
+update_formula = env['x_structure_details'].search([('id', '=', record.x_studio_temp_structure_details_id.id)],limit=1)
+if update_formula:
+  if update_formula.x_studio_formula:
+    formula2 = update_formula.x_studio_formula + formula
+  else:
+    formula2 = formula
+    
+  update_formula.write({'x_studio_formula':formula2})
+
+if record.id:
+  temp_rec = env['x_temp_structure_maste'].search([('id', '=', record.id)],limit=1)
+  temp_rec.unlink()
+
+]]></field>
+  </record>
+
+</odoo>

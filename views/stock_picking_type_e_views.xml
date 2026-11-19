@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase E - 1 views for stock.picking.type -->
+<odoo>
+  <data>
+    <record id="view_5288_odoo_studio_stock_picking_type_kanban_customization_e" model="ir.ui.view">
+      <field name="name">Odoo Studio: stock.picking.type.kanban customization</field>
+      <field name="model">stock.picking.type</field>
+      <field name="type">kanban</field>
+      <field name="priority">160</field>
+      <field name="inherit_id" ref="mrp.stock_production_type_kanban"/>
+      <field name="mode">extension</field>
+      <field name="arch" type="xml">
+        <data>
+  <xpath expr="//kanban[1]" position="attributes">
+    <attribute name="create">true</attribute>
+    <attribute name="quick_create">true</attribute>
+  </xpath>
+</data>
+      </field>
+    </record>
+
+  </data>
+</odoo>

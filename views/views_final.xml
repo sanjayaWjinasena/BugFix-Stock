@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Views final - 3 remaining views -->
+<odoo>
+  <data>
+    <record id="view_final_x_material_request_mt_odoo_studio_default_form_view_for_x_material_request_mt_c" model="ir.ui.view">
+      <field name="name">Odoo Studio: Default form view for x_material_request_mt customization</field>
+      <field name="model">x_material_request_mt</field>
+      <field name="type">form</field>
+      <field name="priority">99</field>
+      <field name="inherit_id" ref="BugFix-Stock.view_8763_default_form_view_for_x_material_request_mt_e"/>
+      <field name="mode">extension</field>
+      <field name="arch" type="xml">
+        <data>
+  <xpath expr="//form[1]/sheet[1]/notebook[1]" position="replace"/>
+  <xpath expr="//form[1]/sheet[1]/group[not(@name)][1]" position="replace"/>
+  <xpath expr="//group[@name='studio_group_a56f01_right']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_date_start']" position="replace">
+    <field name="x_studio_many2one_field_32i_1j8i1f37m" options="{'create_name_field': 'complete_name'}" string="Department"/>
+  </xpath>
+  <xpath expr="//field[@name='x_studio_date']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_partner_email']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_partner_phone']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_partner_id']" position="replace"/>
+  <xpath expr="//field[@name='x_name']" position="attributes">
+    <attribute name="force_save">1</attribute>
+    <attribute name="readonly">True</attribute>
+    <attribute name="required">False</attribute>
+    <attribute name="string">Description</attribute>
+  </xpath>
+</data>
+      </field>
+    </record>
+
+    <record id="view_final_x_material_request_mt_odoo_studio_default_kanban_view_for_x_material_request_mt" model="ir.ui.view">
+      <field name="name">Odoo Studio: Default kanban view for x_material_request_mt customization</field>
+      <field name="model">x_material_request_mt</field>
+      <field name="type">kanban</field>
+      <field name="priority">99</field>
+      <field name="inherit_id" ref="BugFix-Stock.view_8767_default_kanban_view_for_x_material_request_mt_e"/>
+      <field name="mode">extension</field>
+      <field name="arch" type="xml">
+        <data>
+  <xpath expr="//field[@name='x_name']" position="attributes">
+    <attribute name="string">Description</attribute>
+  </xpath>
+</data>
+      </field>
+    </record>
+
+    <record id="view_final_x_material_request_mt_odoo_studio_default_list_view_for_x_material_request_mt_c" model="ir.ui.view">
+      <field name="name">Odoo Studio: Default list view for x_material_request_mt customization</field>
+      <field name="model">x_material_request_mt</field>
+      <field name="type">tree</field>
+      <field name="priority">99</field>
+      <field name="inherit_id" ref="BugFix-Stock.view_8762_default_list_view_for_x_material_request_mt_e"/>
+      <field name="mode">extension</field>
+      <field name="arch" type="xml">
+        <data>
+  <xpath expr="//field[@name='x_color']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_tag_ids']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_value']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_currency_id']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_company_id']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_user_id']" position="replace"/>
+  <xpath expr="//field[@name='x_studio_partner_id']" position="replace"/>
+  <xpath expr="//field[@name='x_name']" position="before">
+    <field name="x_studio_many2one_field_32i_1j8i1f37m" optional="show"/>
+  </xpath>
+</data>
+      </field>
+    </record>
+
+  </data>
+</odoo>

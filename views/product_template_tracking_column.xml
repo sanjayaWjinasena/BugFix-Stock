@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Product master list: show how each product is tracked (By Unique Serial Number / By Lots / No Tracking).
+       Inherits the standard product.template list used by every Products menu (Inventory, Purchase, Sales, MRP, ...). -->
+  <record id="product_template_tree_view_tracking_column" model="ir.ui.view">
+    <field name="name">product.template.tree.tracking.column</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_tree_view"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='uom_id']" position="after">
+        <field name="tracking" string="Tracking" optional="show" readonly="1"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>

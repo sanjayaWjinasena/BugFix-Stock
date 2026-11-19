@@ -5,8 +5,9 @@ from odoo import fields, models
 
 class XConConsolidatedHea(models.Model):
     _name = 'x_con_consolidated_hea'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'X Con Consolidated Hea'
+    _description = 'Con. Consolidated Header'
 
     x_active = fields.Boolean(string='Active')
     x_name = fields.Char(string='Con. Reference')
@@ -18,6 +19,6 @@ class XConConsolidatedHea(models.Model):
     )
     x_studio_description = fields.Char(string='Description')
     x_studio_lines_copied = fields.Boolean(string='Lines Copied')
-    x_studio_pipeline_status_bar = fields.Selection([], string='Pipeline Status Bar')
+    x_studio_pipeline_status_bar = fields.Selection([('Draft', 'Draft'), ('Confirmed', 'Confirmed')], string='Pipeline Status Bar')
     x_studio_sequence = fields.Integer(string='Sequence')
-    x_studio_status = fields.Selection([], string='Status')
+    x_studio_status = fields.Selection([('Draft', 'Draft'), ('Confirmed', 'Confirmed')], string='Status')

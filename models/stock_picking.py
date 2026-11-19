@@ -12,31 +12,35 @@ class StockPicking(models.Model):
     x_studio_consignment_no = fields.Many2one('x_consignment_header', string='Consignment No')
     x_studio_created_from_help_ticket = fields.Many2one('helpdesk.ticket', string='Created from Help Ticket')
     x_studio_created_from_material_request_no = fields.Many2one('x_material_request', string='Created from Material Request No')
-    x_studio_custom_clearance_no = fields.Char(string='Custom Clearance No', readonly=True)
+    # Bug sheet Imports row 28: related to the consignment (stored, readonly) as on Clear-DB/KG; the port had
+    # dropped related=, so receipts never showed the consignment's Custom Clearance No.
+    x_studio_custom_clearance_no = fields.Char(string='Custom Clearance No', related='x_studio_consignment_no.x_studio_custom_clearance_no', store=True, readonly=True)
     x_studio_factory_repair = fields.Boolean(string='Factory Repair')
     x_studio_fsm_task_done = fields.Boolean(string='FSM Task Done', readonly=True, store=False)
     x_studio_fully_paid_so = fields.Boolean(string='Fully Paid SO', readonly=True, store=False)
-    x_studio_gl_account_status = fields.Selection([], string='G/L Account Status')
+    x_studio_gl_account_status = fields.Selection([('Pending', 'Pending'), ('Updated', 'Updated')], string='G/L Account Status')
     x_studio_helpdesk_ticket_id = fields.Many2one('helpdesk.ticket', string='Helpdesk Ticket Id')
     x_studio_journal_type = fields.Many2one('x_journal_types', string='Journal Type')
     x_studio_maintenance_request_ = fields.Many2one('maintenance.request', string='Maintenance Request #')
-    x_studio_mj_in = fields.Boolean(string='MJ IN', readonly=True)
-    x_studio_mj_out = fields.Boolean(string='MJ OUT', readonly=True)
-    x_studio_movement_journal = fields.Boolean(string='Movement Journal', readonly=True)
+    # Clear-DB: related to the operation type (stored, readonly). The port had dropped related=, so the
+    # Movement Journal flags stayed False and the Journal Type field never showed on Movement Journal transfers.
+    x_studio_mj_in = fields.Boolean(string='MJ IN', related='picking_type_id.x_studio_mj_in', store=True, readonly=True)
+    x_studio_mj_out = fields.Boolean(string='MJ OUT', related='picking_type_id.x_studio_mj_out', store=True, readonly=True)
+    x_studio_movement_journal = fields.Boolean(string='Movement Journal', related='picking_type_id.x_studio_movement_journal', store=True, readonly=True)
     x_studio_need_approval = fields.Boolean(string='Need Approval', readonly=True, store=False)
     x_studio_offset_account_updated = fields.Boolean(string='Offset Account Updated')
     x_studio_picking_count = fields.Boolean(string='Picking Count')
-    x_studio_pr_type = fields.Selection([], string='PR Type', readonly=True)
-    x_studio_quotation_type = fields.Selection([], string='Quotation Type', readonly=True)
-    x_studio_quotation_type_2 = fields.Selection([], string='Quotation Type-2', readonly=True)
+    x_studio_pr_type = fields.Selection([('Local', 'Local'), ('Import', 'Import')], string='PR Type', readonly=True)
+    x_studio_quotation_type = fields.Selection([('Sales', 'Sales'), ('Project', 'Project'), ('Repair', 'Repair')], string='Quotation Type', readonly=True)
+    x_studio_quotation_type_2 = fields.Selection([('Sales', 'Sales'), ('Project', 'Project'), ('Repair', 'Repair')], string='Quotation Type-2', readonly=True)
     x_studio_received_at_centre = fields.Boolean(string='Received at Centre')
-    x_studio_related_field_zZDiA = fields.Selection([], string='New Related Field', readonly=True)
+    x_studio_related_field_zZDiA = fields.Selection([('Sales', 'Sales'), ('Project', 'Project'), ('Repair', 'Repair')], string='New Related Field', readonly=True)
     x_studio_repair_payment_made = fields.Boolean(string='Repair Payment Made', readonly=True, store=False)
     x_studio_repair_return_location = fields.Boolean(string='Repair Return Location', readonly=True)
     x_studio_return_receipt_location = fields.Many2one('stock.location', string='Return Receipt Location', readonly=True)
     x_studio_return_sequence = fields.Many2one('ir.sequence', string='Return Sequence', readonly=True)
     x_studio_sales_order = fields.Many2one('sale.order', string='Sales Order')
-    x_studio_sequence_code = fields.Char(string='Sequence Code', readonly=True)
+    x_studio_sequence_code = fields.Char(string='Sequence Code', related='picking_type_id.sequence_code', store=True, readonly=True)
     x_studio_supplier_invoice_number = fields.Char(string='Supplier Invoice Number')
     x_studio_supplier_invoice_number_1 = fields.Char(string='Supplier Invoice Number', readonly=True)
     x_studio_task_status = fields.Boolean(string='Task Status', readonly=True, store=False)
@@ -46,7 +50,7 @@ class StockPicking(models.Model):
     x_studio_transfer_rejected = fields.Boolean(string='Transfer Rejected')
     x_studio_transfer_request_sent = fields.Boolean(string='Transfer Request Sent')
     x_studio_ttt = fields.Boolean(string='TTT')
-    x_studio_type_of_operation = fields.Selection([], string='Type of Operation', readonly=True)
+    x_studio_type_of_operation = fields.Selection(string='Type of Operation', readonly=True, related='picking_type_id.code', store=True)
     x_studio_update_consignment = fields.Boolean(string='Update Consignment')
     x_studio_user_location_validation = fields.Boolean(string='User Location Validation', readonly=True, store=False)
     x_studio_user_location_validation_2 = fields.Boolean(string='User Location Validation 2')
@@ -56,3 +60,39 @@ class StockPicking(models.Model):
     x_studio_xxx = fields.Boolean(string='XXX')
     x_x_studio_create_from_transfer_1__account_move_count = fields.Integer(string='Create From Transfer count', store=False)
     x_x_studio_created_from_transfer__account_move_count = fields.Integer(string='Created From Transfer count', store=False)
+
+    def _get_view(self, view_id=None, view_type='form', **options):
+        # Bug sheet Inventory row 9 (26/Oct): "Type of Operation" comes from the operation type
+        # and must not be changed on a transfer. Both fields that show it (picking_type_code and
+        # x_studio_type_of_operation, related to picking_type_id.code) were editable on the form,
+        # and saving a change would rewrite the operation type itself.
+        arch, view = super()._get_view(view_id, view_type, **options)
+        if view_type == 'form':
+            for fld in arch.xpath("//field[@name='picking_type_code' or @name='x_studio_type_of_operation']"):
+                fld.set('readonly', '1')
+        return arch, view
+
+    def _action_done(self):
+        res = super()._action_done()
+        for picking in self.filtered(lambda p: p.state == 'done' and p.x_studio_movement_journal):
+            picking._apply_movement_journal_offset_account()
+        return res
+
+    def _apply_movement_journal_offset_account(self):
+        """Post the valuation of a Movement IN/OUT to the offset account of the Journal Type
+        (replaces the interim Received / Delivered account line)."""
+        self.ensure_one()
+        offset = self.x_studio_journal_type.x_studio_offset_account
+        if not offset or not (self.x_studio_mj_in or self.x_studio_mj_out):
+            return
+        for move in self.move_ids:
+            categ = move.product_id.categ_id
+            interim = (categ.property_stock_account_output_categ_id if self.x_studio_mj_out
+                       else categ.property_stock_account_input_categ_id)
+            if not interim or interim == offset:
+                continue
+            account_moves = move.stock_valuation_layer_ids.account_move_id
+            lines = account_moves.line_ids.filtered(lambda l: l.account_id == interim)
+            if lines:
+                lines.write({'account_id': offset.id})
+        self.write({'x_studio_offset_account_updated': True, 'x_studio_gl_account_status': 'Updated'})

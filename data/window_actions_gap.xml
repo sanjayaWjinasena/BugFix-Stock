@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: 17 gap window actions -->
+<odoo>
+
+
+  <record id="act_window_2488_internal_locations" model="ir.actions.act_window">
+    <field name="name">Internal Locations</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_users_internal_transfer', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_users_internal_transfer': active_id,'default_x_studio_users_internal_transfer': [active_id]}</field>
+  </record>
+
+  <record id="act_window_2225_inventory_holding_days" model="ir.actions.act_window">
+    <field name="name">Inventory Holding Days</field>
+    <field name="res_model">stock.lot</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record id="act_window_2470_location" model="ir.actions.act_window">
+    <field name="name">Location</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record id="act_window_1714_new_button" model="ir.actions.act_window">
+    <field name="name">New Button</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_maintenance_request_', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_maintenance_request_': active_id,'default_x_studio_maintenance_request_': active_id}</field>
+  </record>
+
+  <record id="act_window_2008_repair_trans" model="ir.actions.act_window">
+    <field name="name">Repair Trans.</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_created_from_help_ticket', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_created_from_help_ticket': active_id,'default_x_studio_created_from_help_ticket': active_id}</field>
+  </record>
+
+  <record id="act_window_2407_stock_location" model="ir.actions.act_window">
+    <field name="name">stock.location</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record id="act_window_2487_stock_locations" model="ir.actions.act_window">
+    <field name="name">Stock Locations</field>
+    <field name="res_model">stock.location</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_users_stock_location', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_users_stock_location': active_id,'default_x_studio_users_stock_location': [active_id]}</field>
+  </record>
+
+  <record id="act_window_1757_stock_move" model="ir.actions.act_window">
+    <field name="name">Stock.Move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+
+  <record id="act_window_1065_stock_move" model="ir.actions.act_window">
+    <field name="name">stock.move</field>
+    <field name="res_model">stock.move</field>
+    <field name="view_mode">kanban,tree,form,pivot,graph</field>
+  </record>
+
+  <record id="act_window_1364_stock_move_line" model="ir.actions.act_window">
+    <field name="name">stock.move.line</field>
+    <field name="res_model">stock.move.line</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+
+  <record id="act_window_2536_stock_picking" model="ir.actions.act_window">
+    <field name="name">stock.picking</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">kanban,tree,form,calendar,map</field>
+  </record>
+
+  <record id="act_window_1978_stock_picking" model="ir.actions.act_window">
+    <field name="name">stock.picking</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">kanban,tree,form,calendar,map</field>
+  </record>
+
+  <record id="act_window_2784_stock_picking_type" model="ir.actions.act_window">
+    <field name="name">stock.picking.type</field>
+    <field name="res_model">stock.picking.type</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+
+  <record id="act_window_2837_stock_picking_type" model="ir.actions.act_window">
+    <field name="name">stock.picking.type</field>
+    <field name="res_model">stock.picking.type</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+
+  <record id="act_window_2408_stock_picking_type" model="ir.actions.act_window">
+    <field name="name">stock.picking.type</field>
+    <field name="res_model">stock.picking.type</field>
+    <field name="view_mode">kanban,tree,form</field>
+  </record>
+
+  <record id="act_window_2809_stock_valuation_layer" model="ir.actions.act_window">
+    <field name="name">stock.valuation.layer</field>
+    <field name="res_model">stock.valuation.layer</field>
+    <field name="view_mode">tree,form,pivot</field>
+  </record>
+
+  <record id="act_window_2409_transfers" model="ir.actions.act_window">
+    <field name="name">Transfers</field>
+    <field name="res_model">stock.picking</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('x_studio_created_from_material_request_no', '=', active_id)]</field>
+    <field name="context">{'search_default_x_studio_created_from_material_request_no': active_id,'default_x_studio_created_from_material_request_no': active_id}</field>
+  </record>
+
+</odoo>

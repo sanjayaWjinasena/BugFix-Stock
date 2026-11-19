@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BugFix-Stock: Phase E - 1 views for x_con_consolidated_hea -->
+<odoo>
+  <data>
+    <record id="view_3069_default_search_view_for_x_con_consolidated_hea_e" model="ir.ui.view">
+      <field name="name">Default search view for x_con_consolidated_hea</field>
+      <field name="model">x_con_consolidated_hea</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search>
+  <field name="x_name"/>
+  <separator/>
+  <filter string="Archived" name="archived_x_con_consolidated_hea" domain="[['x_active', '=', False]]"/>
+  <separator/>
+</search>
+      </field>
+    </record>
+
+  </data>
+</odoo>

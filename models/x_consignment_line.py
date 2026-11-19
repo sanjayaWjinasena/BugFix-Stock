@@ -2,9 +2,15 @@
 from odoo import fields, models
 
 
+# NOTE (v0.0.118): the Many2one(s) x_studio_payment_method / x_studio_structure_name were MOVED to BugFix-Purchase v0.1.0.178.
+# Their comodel is owned by a DOWNSTREAM module; declared here they were
+# `_unknown` for the whole upgrade-mode registry build (see BugFix-Purchase
+# models/upstream_link_fields.py). Do NOT re-add them here.
+
 class XConsignmentLine(models.Model):
     """Studio-ported custom model x_consignment_line."""
     _name = 'x_consignment_line'
+    _rec_name = 'x_name'  # Clear-DB Studio model: records are named by x_name
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Consignment Line'
 
@@ -16,8 +22,8 @@ class XConsignmentLine(models.Model):
     x_studio_boolean_field_Gbd5Y = fields.Boolean(string='Valid Duty')
     x_studio_company_id = fields.Many2one('res.company', string='Company')
     x_studio_concessional_rate = fields.Boolean(string='Concessional Rate')
-    x_studio_consignment_header_id = fields.Many2one('x_consignment_header', string='Consignment No')
-    x_studio_cost_allocation_method = fields.Selection([], string='Cost Allocation Method', readonly=True)
+    x_studio_consignment_header_id = fields.Many2one('x_consignment_header', string='Consignment No', ondelete='restrict')
+    x_studio_cost_allocation_method = fields.Selection([('equal', 'Equal'), ('by_quantity', 'By Quantity'), ('by_current_cost_price', 'By Current Cost'), ('by_weight', 'By Weight'), ('by_volume', 'By Volume')], string='Cost Allocation Method', readonly=True)
     x_studio_delivery_remainder = fields.Float(string='Delivery Remainder', readonly=True)
     x_studio_description = fields.Char(string='Description', readonly=True, store=False)
     x_studio_exchange_rate = fields.Float(string='Exchange Rate')
@@ -27,15 +33,13 @@ class XConsignmentLine(models.Model):
     x_studio_many2many_field_ZvmKu = fields.Many2many('x_misc_charge_codes', 'x_consignment_line_x_studio_many2many_field_ZvmKu_rel', 'x_id', 'x_misc_charge_codes_id', string='tot_tax_ex_cd_ids')
     x_studio_order_remainder = fields.Float(string='Consignment Remainder', readonly=True)
     x_studio_original_delivery_remainder = fields.Float(string='Original Delivery Remainder')
-    x_studio_payment_method = fields.Many2one('x_payment_methods', string='Payment Method')
     x_studio_product_id = fields.Many2one('product.product', string='Product')
     x_studio_purchase_id = fields.Many2one('purchase.order', string='Purchase Order')
     x_studio_purchase_line_id = fields.Many2one('purchase.order.line', string='Purchase Line Id')
     x_studio_received_qty = fields.Float(string='Received Qty.', readonly=True)
     x_studio_sequence = fields.Integer(string='Sequence')
-    x_studio_status = fields.Selection([], string='Status', readonly=True)
+    x_studio_status = fields.Selection([('Draft', 'Draft'), ('In Transit', 'In Transit'), ('Under Custom Clearance', 'Under Custom Clearance'), ('Done', 'Done')], string='Status', readonly=True)
     x_studio_stock_move_id = fields.Many2one('stock.move', string='Stock Move Id')
-    x_studio_structure_name = fields.Many2one('x_structure_master', string='Structure Name', readonly=True)
     x_studio_tariff_code = fields.Many2one('x_tariffmaster', string='Tariff Code', readonly=True, store=False)
     x_studio_test1 = fields.Char(string='Test1', readonly=True)
     x_studio_test2 = fields.Many2one('x_consignment_header', string='Test2', readonly=True)
